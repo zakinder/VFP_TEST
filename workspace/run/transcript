@@ -1,0 +1,770 @@
+# do d5m_camera_image_file_cgain_test.tcl
+# QuestaSim-64 vmap 10.6c Lib Mapping Utility 2017.07 Jul 26 2017
+# vmap xbip_utils_v3_0_7 msim/xbip_utils_v3_0_7 
+# Modifying modelsim.ini
+# QuestaSim-64 vmap 10.6c Lib Mapping Utility 2017.07 Jul 26 2017
+# vmap axi_utils_v2_0_3 msim/axi_utils_v2_0_3 
+# Modifying modelsim.ini
+# QuestaSim-64 vmap 10.6c Lib Mapping Utility 2017.07 Jul 26 2017
+# vmap xbip_pipe_v3_0_3 msim/xbip_pipe_v3_0_3 
+# Modifying modelsim.ini
+# QuestaSim-64 vmap 10.6c Lib Mapping Utility 2017.07 Jul 26 2017
+# vmap xbip_dsp48_wrapper_v3_0_4 msim/xbip_dsp48_wrapper_v3_0_4 
+# Modifying modelsim.ini
+# QuestaSim-64 vmap 10.6c Lib Mapping Utility 2017.07 Jul 26 2017
+# vmap xbip_dsp48_addsub_v3_0_3 msim/xbip_dsp48_addsub_v3_0_3 
+# Modifying modelsim.ini
+# QuestaSim-64 vmap 10.6c Lib Mapping Utility 2017.07 Jul 26 2017
+# vmap xbip_dsp48_multadd_v3_0_3 msim/xbip_dsp48_multadd_v3_0_3 
+# Modifying modelsim.ini
+# QuestaSim-64 vmap 10.6c Lib Mapping Utility 2017.07 Jul 26 2017
+# vmap xbip_bram18k_v3_0_3 msim/xbip_bram18k_v3_0_3 
+# Modifying modelsim.ini
+# QuestaSim-64 vmap 10.6c Lib Mapping Utility 2017.07 Jul 26 2017
+# vmap mult_gen_v12_0_12 msim/mult_gen_v12_0_12 
+# Modifying modelsim.ini
+# QuestaSim-64 vmap 10.6c Lib Mapping Utility 2017.07 Jul 26 2017
+# vmap floating_point_v7_1_4 msim/floating_point_v7_1_4 
+# Modifying modelsim.ini
+# QuestaSim-64 vmap 10.6c Lib Mapping Utility 2017.07 Jul 26 2017
+# vmap xil_defaultlib msim/xil_defaultlib 
+# Modifying modelsim.ini
+# ** Warning: (vcom-159) Mode option -64 is not supported in this context and will be ignored.
+# QuestaSim-64 vcom 10.6c Compiler 2017.07 Jul 26 2017
+# Start time: 06:37:59 on Oct 19,2019
+# vcom -64 -93 -work xbip_utils_v3_0_7 -f Z:/ZEDBOARD/ipManager/managed_ip_project/compile_simlib/xbip_utils_v3_0_7/.cxl.vhdl.xbip_utils_v3_0_7.xbip_utils_v3_0_7.nt64.cmf 
+# -- Loading package STANDARD
+# End time: 06:37:59 on Oct 19,2019, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 1
+# ** Warning: (vcom-159) Mode option -64 is not supported in this context and will be ignored.
+# QuestaSim-64 vcom 10.6c Compiler 2017.07 Jul 26 2017
+# Start time: 06:37:59 on Oct 19,2019
+# vcom -64 -93 -work axi_utils_v2_0_3 -f Z:/ZEDBOARD/ipManager/managed_ip_project/compile_simlib/axi_utils_v2_0_3/.cxl.vhdl.axi_utils_v2_0_3.axi_utils_v2_0_3.nt64.cmf 
+# -- Loading package STANDARD
+# End time: 06:38:00 on Oct 19,2019, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 1
+# ** Warning: (vcom-159) Mode option -64 is not supported in this context and will be ignored.
+# QuestaSim-64 vcom 10.6c Compiler 2017.07 Jul 26 2017
+# Start time: 06:38:00 on Oct 19,2019
+# vcom -64 -93 -work xbip_pipe_v3_0_3 -f Z:/ZEDBOARD/ipManager/managed_ip_project/compile_simlib/xbip_pipe_v3_0_3/.cxl.vhdl.xbip_pipe_v3_0_3.xbip_pipe_v3_0_3.nt64.cmf 
+# -- Loading package STANDARD
+# End time: 06:38:00 on Oct 19,2019, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 1
+# ** Warning: (vcom-159) Mode option -64 is not supported in this context and will be ignored.
+# QuestaSim-64 vcom 10.6c Compiler 2017.07 Jul 26 2017
+# Start time: 06:38:00 on Oct 19,2019
+# vcom -64 -93 -work xbip_dsp48_wrapper_v3_0_4 -f Z:/ZEDBOARD/ipManager/managed_ip_project/compile_simlib/xbip_dsp48_wrapper_v3_0_4/.cxl.vhdl.xbip_dsp48_wrapper_v3_0_4.xbip_dsp48_wrapper_v3_0_4.nt64.cmf 
+# -- Loading package STANDARD
+# End time: 06:38:00 on Oct 19,2019, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 1
+# ** Warning: (vcom-159) Mode option -64 is not supported in this context and will be ignored.
+# QuestaSim-64 vcom 10.6c Compiler 2017.07 Jul 26 2017
+# Start time: 06:38:00 on Oct 19,2019
+# vcom -64 -93 -work xbip_dsp48_addsub_v3_0_3 -f Z:/ZEDBOARD/ipManager/managed_ip_project/compile_simlib/xbip_dsp48_addsub_v3_0_3/.cxl.vhdl.xbip_dsp48_addsub_v3_0_3.xbip_dsp48_addsub_v3_0_3.nt64.cmf 
+# -- Loading package STANDARD
+# End time: 06:38:01 on Oct 19,2019, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 1
+# ** Warning: (vcom-159) Mode option -64 is not supported in this context and will be ignored.
+# QuestaSim-64 vcom 10.6c Compiler 2017.07 Jul 26 2017
+# Start time: 06:38:01 on Oct 19,2019
+# vcom -64 -93 -work xbip_dsp48_multadd_v3_0_3 -f Z:/ZEDBOARD/ipManager/managed_ip_project/compile_simlib/xbip_dsp48_multadd_v3_0_3/.cxl.vhdl.xbip_dsp48_multadd_v3_0_3.xbip_dsp48_multadd_v3_0_3.nt64.cmf 
+# -- Loading package STANDARD
+# End time: 06:38:01 on Oct 19,2019, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 1
+# ** Warning: (vcom-159) Mode option -64 is not supported in this context and will be ignored.
+# QuestaSim-64 vcom 10.6c Compiler 2017.07 Jul 26 2017
+# Start time: 06:38:01 on Oct 19,2019
+# vcom -64 -93 -work xbip_bram18k_v3_0_3 -f Z:/ZEDBOARD/ipManager/managed_ip_project/compile_simlib/xbip_bram18k_v3_0_3/.cxl.vhdl.xbip_bram18k_v3_0_3.xbip_bram18k_v3_0_3.nt64.cmf 
+# -- Loading package STANDARD
+# End time: 06:38:02 on Oct 19,2019, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 1
+# ** Warning: (vcom-159) Mode option -64 is not supported in this context and will be ignored.
+# QuestaSim-64 vcom 10.6c Compiler 2017.07 Jul 26 2017
+# Start time: 06:38:02 on Oct 19,2019
+# vcom -64 -93 -work mult_gen_v12_0_12 -f Z:/ZEDBOARD/ipManager/managed_ip_project/compile_simlib/mult_gen_v12_0_12/.cxl.vhdl.mult_gen_v12_0_12.mult_gen_v12_0_12.nt64.cmf 
+# -- Loading package STANDARD
+# End time: 06:38:03 on Oct 19,2019, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 1
+# ** Warning: (vcom-159) Mode option -64 is not supported in this context and will be ignored.
+# QuestaSim-64 vcom 10.6c Compiler 2017.07 Jul 26 2017
+# Start time: 06:38:03 on Oct 19,2019
+# vcom -64 -93 -work floating_point_v7_1_4 -f Z:/ZEDBOARD/ipManager/managed_ip_project/compile_simlib/floating_point_v7_1_4/.cxl.vhdl.floating_point_v7_1_4.floating_point_v7_1_4.nt64.cmf 
+# -- Loading package STANDARD
+# End time: 06:38:07 on Oct 19,2019, Elapsed time: 0:00:04
+# Errors: 0, Warnings: 1
+# QuestaSim-64 vcom 10.6c Compiler 2017.07 Jul 26 2017
+# Start time: 06:38:07 on Oct 19,2019
+# vcom -f dut_vhd.f 
+# -- Loading package STANDARD
+# -- Compiling package fixed_float_types
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Loading package fixed_float_types
+# -- Compiling package fixed_pkg
+# -- Loading package MATH_REAL
+# -- Compiling package body fixed_pkg
+# -- Loading package fixed_pkg
+# ** Warning: ../../dut/src/float_and_fixed_pkg/fixed_pkg_c.vhd(1469): (vcom-1246) Range 0 downto 1 is null.
+# ** Warning: ../../dut/src/float_and_fixed_pkg/fixed_pkg_c.vhd(1470): (vcom-1246) Range 0 downto 1 is null.
+# ** Warning: ../../dut/src/float_and_fixed_pkg/fixed_pkg_c.vhd(1471): (vcom-1246) Range 0 downto 1 is null.
+# ** Warning: ../../dut/src/float_and_fixed_pkg/fixed_pkg_c.vhd(6872): (vcom-1246) Range 2 to 1 is null.
+# -- Loading package fixed_pkg
+# -- Compiling package float_pkg
+# -- Compiling package body float_pkg
+# -- Loading package float_pkg
+# ** Warning: ../../dut/src/float_and_fixed_pkg/float_pkg_c.vhd(1020): (vcom-1246) Range 0 downto 1 is null.
+# ** Warning: ../../dut/src/float_and_fixed_pkg/float_pkg_c.vhd(1021): (vcom-1246) Range 0 downto 1 is null.
+# ** Warning: ../../dut/src/float_and_fixed_pkg/float_pkg_c.vhd(6186): (vcom-1246) Range 2 to 1 is null.
+# -- Compiling package constantspackage
+# -- Compiling package body constantspackage
+# -- Loading package constantspackage
+# -- Loading package float_pkg
+# -- Loading package constantspackage
+# -- Compiling package vpfRecords
+# -- Loading package vpfRecords
+# -- Compiling package portspackage
+# -- Loading package portspackage
+# -- Compiling entity Filters
+# -- Compiling architecture Behavioral of Filters
+# -- Compiling entity KernelCore
+# -- Compiling architecture Behavioral of KernelCore
+# -- Compiling entity Kernel
+# -- Compiling architecture Behavioral of Kernel
+# -- Compiling entity hsv_c
+# -- Compiling architecture behavioral of hsv_c
+# -- Compiling entity hsl_c
+# -- Compiling architecture behavioral of hsl_c
+# -- Compiling entity CoefMult
+# -- Compiling architecture behavioral of CoefMult
+# -- Compiling entity rgb_ycbcr
+# -- Compiling architecture imp of rgb_ycbcr
+# -- Compiling entity buffer_controller
+# -- Compiling architecture arch of buffer_controller
+# -- Compiling entity TapsController
+# -- Compiling architecture arch of TapsController
+# -- Compiling entity tapLine
+# -- Compiling architecture arch of tapLine
+# -- Compiling entity AxisExternal
+# -- Compiling architecture arch_imp of AxisExternal
+# -- Compiling entity CameraRawToRgb
+# -- Compiling architecture arch_imp of CameraRawToRgb
+# -- Compiling entity CameraRawData
+# -- Compiling architecture arch_imp of CameraRawData
+# ** Warning: ../../dut/src/Control/CameraRawData.vhd(57): (vcom-1013) Type "plineRam" depends on value of signal "maxImgWidth".
+# -- Compiling entity dataTaps
+# -- Compiling architecture arch of dataTaps
+# -- Compiling entity tap_buffer
+# -- Compiling architecture arch of tap_buffer
+# -- Compiling entity videoSelect
+# -- Compiling architecture Behavioral of videoSelect
+# -- Compiling entity mWrRd
+# -- Compiling architecture Behavioral of mWrRd
+# -- Compiling entity frameProcess
+# -- Compiling architecture arch of frameProcess
+# -- Compiling entity VideoStream
+# -- Compiling architecture arch_imp of VideoStream
+# -- Compiling entity AvgValues
+# -- Compiling architecture behavioral of AvgValues
+# -- Compiling entity ColorTrim
+# -- Compiling architecture behavioral of ColorTrim
+# -- Compiling entity detect
+# -- Compiling architecture arch of detect
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Compiling entity digiClk
+# -- Compiling architecture Behavioral of digiClk
+# -- Compiling entity dither
+# -- Compiling architecture arch of dither
+# -- Compiling entity edgeObjects
+# -- Compiling architecture arch of edgeObjects
+# -- Compiling entity FontRom
+# -- Compiling architecture Behavioral of FontRom
+# -- Compiling entity FrameMask
+# -- Compiling architecture behavioral of FrameMask
+# -- Compiling entity frameTestPattern
+# -- Compiling architecture arch_imp of frameTestPattern
+# -- Compiling entity gridLockFifo
+# -- Compiling architecture rtl of gridLockFifo
+# -- Compiling entity LumValues
+# -- Compiling architecture behavioral of LumValues
+# ** Warning: ../../dut/src/Process/LumValue.vhd(42): Nonresolved signal 'LumValue' may have multiple sources.
+#   Drivers:
+#     ../../dut/src/Process/LumValue.vhd(144):Process line__144
+#        Driven at:
+#           ../../dut/src/Process/LumValue.vhd(146)
+#     ../../dut/src/Process/LumValue.vhd(129):Process line__129
+#        Driven at:
+#           ../../dut/src/Process/LumValue.vhd(131)
+# -- Compiling entity pixelCord
+# -- Compiling architecture rtl of pixelCord
+# -- Compiling entity pointOfInterest
+# -- Compiling architecture arch of pointOfInterest
+# -- Compiling entity RawToRgb
+# -- Compiling architecture arch of RawToRgb
+# -- Compiling entity SegmentColors
+# -- Compiling architecture behavioral of SegmentColors
+# -- Compiling entity SyncFrames
+# -- Compiling architecture behavioral of SyncFrames
+# -- Compiling entity TestPattern
+# -- Compiling architecture arch_imp of TestPattern
+# -- Compiling entity VFP_v1_0
+# -- Compiling architecture arch_imp of VFP_v1_0
+# -- Compiling entity videoProcess_v1_0_Config
+# -- Compiling architecture arch_imp of videoProcess_v1_0_Config
+# -- Compiling entity videoProcess_v1_0_m_axis_mm2s
+# -- Compiling architecture arch_imp of videoProcess_v1_0_m_axis_mm2s
+# -- Compiling entity videoProcess_v1_0_rgb_m_axis
+# -- Compiling architecture arch_imp of videoProcess_v1_0_rgb_m_axis
+# -- Compiling entity pixel_Cord
+# -- Compiling architecture rtl of pixel_Cord
+# -- Loading package std_logic_textio
+# -- Compiling entity imageReadInterface
+# -- Compiling architecture Behavioral of imageReadInterface
+# -- Compiling entity imageRead
+# -- Compiling architecture Behavioral of imageRead
+# -- Compiling entity imageWrite
+# -- Compiling architecture Behavioral of imageWrite
+# ** Warning: ../../dut/src/Xip/ipstatic/hdl/xbip_bram18k_v3_0_vh_rfs.vhd(55): (vcom-1236) Shared variables must be of a protected type.
+# ** Warning: ../../dut/src/Xip/ipstatic/hdl/mult_gen_v12_0_vh_rfs.vhd(55): (vcom-1236) Shared variables must be of a protected type.
+# -- Compiling entity ByteToFloat
+# -- Compiling architecture ByteToFloat_arch of ByteToFloat
+# -- Compiling entity ByteToFloatTop
+# -- Compiling architecture arch of ByteToFloatTop
+# -- Compiling entity FloatMultiply
+# -- Compiling architecture FloatMultiply_arch of FloatMultiply
+# -- Compiling entity FloatMultiplyTop
+# -- Compiling architecture arch of FloatMultiplyTop
+# -- Compiling entity FloatToFixedv1
+# -- Compiling architecture FloatToFixedv1_arch of FloatToFixedv1
+# -- Compiling entity FloatToFixedv1Top
+# -- Compiling architecture arch of FloatToFixedv1Top
+# -- Compiling entity WordToFloat
+# -- Compiling architecture WordToFloat_arch of WordToFloat
+# -- Compiling entity WordToFloatTop
+# -- Compiling architecture arch of WordToFloatTop
+# -- Compiling entity fixedToFloat
+# -- Compiling architecture fixedToFloat_arch of fixedToFloat
+# -- Compiling entity floatToFixed
+# -- Compiling architecture floatToFixed_arch of floatToFixed
+# -- Compiling entity squareRoot
+# -- Compiling architecture squareRoot_arch of squareRoot
+# -- Compiling entity squareRootTop
+# -- Compiling architecture arch of squareRootTop
+# -- Compiling entity squareRoot
+# -- Compiling architecture squareRoot_arch of squareRoot
+# -- Compiling entity squareRootTop
+# -- Compiling architecture arch of squareRootTop
+# End time: 06:38:09 on Oct 19,2019, Elapsed time: 0:00:02
+# Errors: 0, Warnings: 11
+# QuestaSim-64 vlog 10.6c Compiler 2017.07 Jul 26 2017
+# Start time: 06:38:09 on Oct 19,2019
+# vlog -f dut_vlg.f 
+# -- Compiling module template
+# -- Compiling module rgbAssertion
+# 
+# Top level modules:
+# 	template
+# 	rgbAssertion
+# End time: 06:38:09 on Oct 19,2019, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# QuestaSim-64 vlog 10.6c Compiler 2017.07 Jul 26 2017
+# Start time: 06:38:09 on Oct 19,2019
+# vlog -f tb_d5m_camera_test.f 
+# -- Compiling package d5m_camera_agent_pkg
+# -- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+# ** Note: (vlog-2286) ..\..\tb\env\d5m_camera_env\..\..\agent\d5m_camera_agent_pkg.sv(3): Using implicit +incdir+C:/questasim64_10.6c/uvm-1.1d/../verilog_src/uvm-1.1d/src from import uvm_pkg
+# -- Compiling package d5m_camera_pkg
+# -- Importing package d5m_camera_agent_pkg
+# -- Compiling package generic_pack
+# ** Warning: ** while parsing file included at ../../tb/top/d5m_camera_top/top.sv(2)
+# ** at ..\..\tb\top\d5m_camera_top\..\..\generic_pack.svh(1): (vlog-2275) 'generic_pack' already exists and will be overwritten.
+# -- Compiling package top_sv_unit
+# -- Compiling package generic_pack
+# -- Compiling interface d5m_camera_if
+# -- Compiling module imageReadInterfaceDut
+# -- Importing package generic_pack
+# -- Compiling module vfpConfigd5mCameraDut
+# -- Compiling module rgbAssertionDut
+# -- Compiling module top
+# -- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+# -- Importing package d5m_camera_pkg
+# -- Importing package d5m_camera_agent_pkg
+# 
+# Top level modules:
+# 	top
+# End time: 06:38:11 on Oct 19,2019, Elapsed time: 0:00:02
+# Errors: 0, Warnings: 1
+# QuestaSim-64 vopt 10.6c Compiler 2017.07 Jul 26 2017
+# Start time: 06:38:11 on Oct 19,2019
+# vopt top -o top_optimized "+acc" "+cover=sbfec+top(rtl)." 
+# 
+# Top level modules:
+# 	top
+# 
+# Analyzing design...
+# -- Loading module top
+# -- Importing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)
+# -- Importing package d5m_camera_pkg
+# -- Importing package d5m_camera_agent_pkg
+# -- Loading interface d5m_camera_if
+# -- Loading module vfpConfigd5mCameraDut
+# -- Importing package generic_pack
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Loading package constantspackage
+# -- Loading package fixed_float_types
+# -- Loading package fixed_pkg
+# -- Loading package float_pkg
+# -- Loading package vpfRecords
+# -- Loading package portspackage
+# -- Loading entity VFP_v1_0
+# -- Loading architecture arch_imp of VFP_v1_0
+# -- Loading entity CameraRawToRgb
+# -- Loading entity VideoStream
+# -- Loading entity AxisExternal
+# -- Loading package body constantspackage
+# -- Loading package MATH_REAL
+# -- Loading package body fixed_pkg
+# -- Loading package body float_pkg
+# -- Loading architecture arch_imp of CameraRawToRgb
+# -- Loading entity CameraRawData
+# -- Loading entity dataTaps
+# -- Loading entity RawToRgb
+# -- Loading architecture arch_imp of CameraRawData
+# -- Loading architecture arch of dataTaps
+# -- Loading entity tap_buffer
+# -- Loading architecture arch of tap_buffer
+# -- Loading architecture arch of RawToRgb
+# -- Loading architecture arch_imp of VideoStream
+# -- Loading entity frameProcess
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Loading entity digiClk
+# -- Loading entity mWrRd
+# -- Loading entity videoSelect
+# -- Loading architecture arch of frameProcess
+# -- Loading entity Filters
+# -- Loading entity detect
+# -- Loading entity pointOfInterest
+# -- Loading entity frameTestPattern
+# -- Loading architecture Behavioral of Filters
+# -- Loading entity Kernel
+# -- Loading entity TestPattern
+# -- Loading entity TapsController
+# -- Loading entity FrameMask
+# -- Loading entity SyncFrames
+# -- Loading architecture Behavioral of Kernel
+# -- Loading entity CoefMult
+# -- Loading entity KernelCore
+# -- Loading entity squareRootTop
+# -- Loading entity hsv_c
+# -- Loading entity hsl_c
+# -- Loading entity ColorTrim
+# -- Loading entity SegmentColors
+# -- Loading architecture behavioral of CoefMult
+# -- Loading entity FloatMultiplyTop
+# -- Loading entity WordToFloatTop
+# -- Loading architecture arch of FloatMultiplyTop
+# -- Loading entity FloatMultiply
+# -- Loading architecture FloatMultiply_arch of FloatMultiply
+# -- Loading architecture arch of WordToFloatTop
+# -- Loading entity WordToFloat
+# -- Loading architecture WordToFloat_arch of WordToFloat
+# -- Loading architecture arch of detect
+# -- Loading entity pixelCord
+# -- Loading architecture rtl of pixelCord
+# -- Loading architecture arch of pointOfInterest
+# -- Loading entity gridLockFifo
+# -- Loading architecture rtl of gridLockFifo
+# -- Loading architecture arch_imp of frameTestPattern
+# -- Loading architecture Behavioral of digiClk
+# -- Loading architecture Behavioral of mWrRd
+# -- Loading architecture Behavioral of videoSelect
+# -- Loading entity rgb_ycbcr
+# -- Loading architecture imp of rgb_ycbcr
+# -- Loading architecture arch_imp of AxisExternal
+# -- Loading entity videoProcess_v1_0_rgb_m_axis
+# -- Loading entity videoProcess_v1_0_m_axis_mm2s
+# -- Loading entity videoProcess_v1_0_Config
+# -- Loading architecture arch_imp of videoProcess_v1_0_rgb_m_axis
+# -- Loading architecture arch_imp of videoProcess_v1_0_m_axis_mm2s
+# -- Loading architecture arch_imp of videoProcess_v1_0_Config
+# -- Loading module imageReadInterfaceDut
+# -- Loading package std_logic_textio
+# -- Loading entity imageReadInterface
+# -- Loading architecture Behavioral of imageReadInterface
+# -- Loading entity imageRead
+# -- Loading entity imageWrite
+# -- Loading architecture Behavioral of imageRead
+# -- Loading architecture Behavioral of imageWrite
+# -- Loading module rgbAssertionDut
+# -- Loading module rgbAssertion
+# -- Loading package mtiUvm.questa_uvm_pkg
+# -- Loading architecture arch of TapsController
+# -- Loading entity tapLine
+# -- Loading architecture arch of tapLine
+# -- Loading architecture Behavioral of KernelCore
+# -- Loading entity ByteToFloatTop
+# -- Loading entity FloatToFixedv1Top
+# -- Loading architecture arch of ByteToFloatTop
+# -- Loading entity ByteToFloat
+# -- Loading architecture ByteToFloat_arch of ByteToFloat
+# -- Loading architecture arch of FloatToFixedv1Top
+# -- Loading entity FloatToFixedv1
+# -- Loading architecture FloatToFixedv1_arch of FloatToFixedv1
+# -- Loading architecture arch of squareRootTop
+# -- Loading entity fixedToFloat
+# -- Loading entity squareRoot
+# -- Loading entity floatToFixed
+# -- Loading architecture fixedToFloat_arch of fixedToFloat
+# -- Loading architecture squareRoot_arch of squareRoot
+# -- Loading architecture floatToFixed_arch of floatToFixed
+# -- Loading architecture behavioral of FrameMask
+# -- Loading architecture behavioral of SyncFrames
+# -- Loading architecture DSP48E1_V of DSP48E1
+# -- Loading package body VPKG
+# -- Loading architecture DSP48E2_V of DSP48E2
+# -- Loading architecture MUXCY_V of MUXCY
+# -- Loading architecture FDE_V of FDE
+# -- Loading entity FDRE
+# -- Loading architecture FDRE_V of FDRE
+# -- Loading architecture XORCY_V of XORCY
+# -- Loading architecture MUXF7_V of MUXF7
+# -- Loading architecture MUXF8_V of MUXF8
+# -- Loading architecture MULT_AND_V of MULT_AND
+# -- Loading entity LUT2
+# -- Loading architecture LUT2_V of LUT2
+# -- Loading architecture SRL16E_V of SRL16E
+# -- Loading architecture LUT6_2_V of LUT6_2
+# -- Loading architecture FD_V of FD
+# -- Loading architecture FDSE_V of FDSE
+# -- Loading architecture FDRSE_V of FDRSE
+# -- Loading architecture LUT4_V of LUT4
+# -- Loading architecture LUT1_V of LUT1
+# -- Loading architecture LUT3_V of LUT3
+# -- Loading architecture MULT18X18S_V of MULT18X18S
+# -- Loading architecture MULT18X18_V of MULT18X18
+# -- Loading architecture DSP48_V of DSP48
+# Optimizing 417 design-units (inlining 0/9 module instances, 0/226305 architecture instances):
+# -- Optimizing package fixed_pkg
+# -- Optimizing package body fixed_pkg
+# -- Optimizing package float_pkg
+# -- Optimizing architecture DSP48E2_V of DSP48E2
+# -- Optimizing package body float_pkg
+# -- Optimizing architecture DSP48E2_V of DSP48E2
+# -- Optimizing architecture DSP48E2_V of DSP48E2
+# -- Optimizing architecture arch_imp of videoProcess_v1_0_Config
+# -- Optimizing architecture DSP48E1_V of DSP48E1
+# -- Optimizing architecture DSP48E1_V of DSP48E1
+# -- Optimizing architecture DSP48E1_V of DSP48E1
+# ** Warning: C:\Xilinx\SDx\2017.2\Vivado\data\ip\xilinx\floating_point_v7_1\hdl\floating_point_v7_1_vh_rfs.vhd(55): (vopt-1167) Index value 22 (of type ieee.std_logic_1164.STD_LOGIC_VECTOR) is out of range 11 downto 0.
+# ** Warning: C:\Xilinx\SDx\2017.2\Vivado\data\ip\xilinx\floating_point_v7_1\hdl\floating_point_v7_1_vh_rfs.vhd(55): (vopt-1167) Index value 22 (of type ieee.std_logic_1164.STD_LOGIC_VECTOR) is out of range 11 downto 0.
+# -- Optimizing architecture DSP48E1_V of DSP48E1
+# -- Optimizing architecture DSP48E1_V of DSP48E1
+# -- Optimizing architecture DSP48E1_V of DSP48E1
+# -- Optimizing package VPKG
+# -- Optimizing package body VPKG
+# -- Optimizing architecture Behavioral of KernelCore
+# -- Optimizing architecture Behavioral of Kernel
+# -- Optimizing architecture Behavioral of Filters
+# -- Optimizing architecture behavioral of CoefMult
+# ** Note: (vopt-143) Recognized 1 FSM in architecture body "CoefMult(behavioral)".
+# -- Optimizing package portspackage
+# -- Optimizing architecture arch of frameProcess
+# -- Optimizing package vpfRecords
+# -- Optimizing architecture rtl of pixelCord
+# -- Optimizing architecture imp of rgb_ycbcr
+# -- Optimizing architecture Behavioral of mWrRd
+# -- Optimizing architecture arch of dataTaps
+# -- Optimizing architecture arch of RawToRgb
+# -- Optimizing architecture Behavioral of imageWrite
+# -- Optimizing architecture Behavioral of imageRead
+# -- Optimizing architecture LUT6_2_V of LUT6_2
+# -- Optimizing architecture Behavioral of videoSelect
+# -- Optimizing architecture FloatMultiply_arch of FloatMultiply
+# -- Optimizing architecture FloatToFixedv1_arch of FloatToFixedv1
+# -- Optimizing architecture WordToFloat_arch of WordToFloat
+# -- Optimizing architecture fixedToFloat_arch of fixedToFloat
+# -- Optimizing architecture ByteToFloat_arch of ByteToFloat
+# -- Optimizing architecture floatToFixed_arch of floatToFixed
+# -- Optimizing architecture squareRoot_arch of squareRoot
+# -- Optimizing architecture arch of TapsController
+# -- Optimizing architecture arch of TapsController
+# -- Optimizing architecture rtl of gridLockFifo
+# -- Optimizing architecture LUT3_V of LUT3
+# -- Optimizing architecture arch_imp of CameraRawToRgb
+# -- Optimizing architecture arch_imp of videoProcess_v1_0_m_axis_mm2s
+# ** Note: (vopt-143) Recognized 1 FSM in architecture body "videoProcess_v1_0_m_axis_mm2s(arch_imp)".
+# -- Optimizing architecture behavioral of SyncFrames
+# -- Optimizing architecture behavioral of SyncFrames
+# -- Optimizing architecture behavioral of SyncFrames
+# -- Optimizing architecture behavioral of FrameMask
+# -- Optimizing architecture arch of tapLine
+# -- Optimizing architecture arch of tapLine
+# -- Optimizing architecture LUT2_V of LUT2
+# -- Optimizing architecture arch of detect
+# -- Optimizing architecture arch_imp of frameTestPattern
+# -- Optimizing architecture SRL16E_V of SRL16E
+# -- Optimizing architecture SRL16E_V of SRL16E
+# -- Optimizing architecture FDRSE_V of FDRSE
+# -- Optimizing architecture FDRE_V of FDRE
+# -- Optimizing architecture arch of tap_buffer
+# -- Optimizing architecture FDRE_V of FDRE
+# -- Optimizing architecture FDRE_V of FDRE
+# -- Optimizing architecture FDSE_V of FDSE
+# -- Optimizing architecture arch of squareRootTop
+# -- Optimizing architecture Behavioral of digiClk
+# -- Optimizing module rgbAssertion(fast)
+# -- Optimizing module vfpConfigd5mCameraDut(fast)
+# -- Optimizing module top(fast)
+# -- Optimizing interface d5m_camera_if(fast)
+# -- Optimizing module imageReadInterfaceDut(fast)
+# -- Optimizing module rgbAssertionDut(fast)
+# -- Optimizing package generic_pack(fast)
+# -- Optimizing package top_sv_unit(fast)
+# -- Optimizing package mtiUvm.questa_uvm_pkg(fast)
+# -- Optimizing package d5m_camera_agent_pkg(fast)
+# -- Optimizing package d5m_camera_pkg(fast)
+# -- Optimizing package mtiUvm.uvm_pkg (uvm-1.1d Built-in)(fast)
+# -- Optimizing interface d5m_camera_if(fast)
+# -- Optimizing architecture arch of pointOfInterest
+# ** Note: (vopt-143) Recognized 1 FSM in architecture body "pointOfInterest(arch)".
+# -- Optimizing architecture DSP48_V of DSP48
+# -- Optimizing architecture arch_imp of AxisExternal
+# -- Optimizing architecture arch_imp of VideoStream
+# -- Optimizing architecture arch_imp of videoProcess_v1_0_rgb_m_axis
+# ** Note: (vopt-143) Recognized 1 FSM in architecture body "videoProcess_v1_0_rgb_m_axis(arch_imp)".
+# -- Optimizing package body constantspackage
+# -- Optimizing package constantspackage
+# -- Optimizing architecture arch_imp of CameraRawData
+# ** Note: (vopt-143) Recognized 1 FSM in architecture body "CameraRawData(arch_imp)".
+# -- Optimizing architecture MULT18X18S_V of MULT18X18S
+# -- Optimizing architecture MULT18X18_V of MULT18X18
+# -- Optimizing architecture LUT4_V of LUT4
+# -- Optimizing architecture arch of ByteToFloatTop
+# -- Optimizing architecture arch of WordToFloatTop
+# -- Optimizing architecture LUT1_V of LUT1
+# -- Optimizing architecture arch of FloatToFixedv1Top
+# -- Optimizing architecture arch of FloatMultiplyTop
+# -- Optimizing architecture FDE_V of FDE
+# -- Optimizing architecture FDE_V of FDE
+# -- Optimizing architecture FDE_V of FDE
+# -- Optimizing architecture FD_V of FD
+# -- Optimizing architecture MULT_AND_V of MULT_AND
+# -- Optimizing architecture MUXF7_V of MUXF7
+# -- Optimizing architecture MUXF8_V of MUXF8
+# -- Optimizing architecture MUXCY_V of MUXCY
+# -- Optimizing architecture XORCY_V of XORCY
+# -- Optimizing package fixed_float_types
+# -- Optimizing architecture Behavioral of imageReadInterface
+# -- Optimizing architecture arch_imp of VFP_v1_0
+# Optimized design name is top_optimized
+# End time: 06:38:35 on Oct 19,2019, Elapsed time: 0:00:24
+# Errors: 0, Warnings: 2
+# vsim top_optimized -coverage "+UVM_TESTNAME=d5m_camera_image_file_cgain_test" 
+# Start time: 06:38:36 on Oct 19,2019
+# //  Questa Sim-64
+# //  Version 10.6c win64 Jul 26 2017
+# //
+# //  Copyright 1991-2017 Mentor Graphics Corporation
+# //  All Rights Reserved.
+# //
+# //  QuestaSim and its associated documentation contain trade
+# //  secrets and commercial or financial information that are the property of
+# //  Mentor Graphics Corporation and are privileged, confidential,
+# //  and exempt from disclosure under the Freedom of Information Act,
+# //  5 U.S.C. Section 552. Furthermore, this information
+# //  is prohibited from disclosure under the Trade Secrets Act,
+# //  18 U.S.C. Section 1905.
+# //
+# Loading sv_std.std
+# Loading work.d5m_camera_if(fast)
+# Loading mtiUvm.uvm_pkg
+# Loading work.d5m_camera_agent_pkg(fast)
+# Loading work.d5m_camera_pkg(fast)
+# Loading work.top_sv_unit(fast)
+# Loading work.top(fast)
+# Loading work.d5m_camera_if(fast)
+# Loading work.generic_pack(fast)
+# Loading work.vfpConfigd5mCameraDut(fast)
+# Loading work.imageReadInterfaceDut(fast)
+# Loading work.rgbAssertionDut(fast)
+# Loading work.rgbAssertion(fast)
+# Loading mtiUvm.questa_uvm_pkg(fast)
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading work.constantspackage(body)
+# Loading work.fixed_float_types
+# Loading ieee.math_real(body)
+# Loading work.fixed_pkg(body)
+# Loading work.float_pkg(body)
+# Loading work.vpfrecords
+# Loading work.portspackage
+# Loading work.vfp_v1_0(arch_imp)#1
+# Loading work.camerarawtorgb(arch_imp)#1
+# Loading work.camerarawdata(arch_imp)#1
+# Loading work.datataps(arch)#1
+# Loading work.tap_buffer(arch)#1
+# Loading work.rawtorgb(arch)#1
+# Loading work.videostream(arch_imp)#1
+# Loading work.frameprocess(arch)#1
+# Loading work.filters(behavioral)#1
+# Loading work.kernel(behavioral)#1
+# Loading work.coefmult(behavioral)#1
+# Loading work.floatmultiplytop(arch)#1
+# Loading work.floatmultiply(floatmultiply_arch)#1
+# Loading ieee.std_logic_arith(body)
+# Loading ieee.std_logic_signed(body)
+# Loading ieee.std_logic_unsigned(body)
+# Loading ieee.vital_timing(body)
+# Loading ieee.vital_primitives(body)
+# Loading unisim.vpkg(body)
+# Loading unisim.dsp48e1(dsp48e1_v)#1
+# Loading unisim.muxcy(muxcy_v)#1
+# Loading unisim.xorcy(xorcy_v)#1
+# Loading unisim.fde(fde_v)#3
+# Loading unisim.fdre(fdre_v)#1
+# Loading unisim.fde(fde_v)#1
+# Loading unisim.fdre(fdre_v)#2
+# Loading work.wordtofloattop(arch)#1
+# Loading work.wordtofloat(wordtofloat_arch)#1
+# Loading work.tapscontroller(arch)#1
+# Loading work.tapline(arch)#1
+# Loading work.kernelcore(behavioral)#1
+# Loading work.bytetofloattop(arch)#1
+# Loading work.bytetofloat(bytetofloat_arch)#1
+# Loading work.floattofixedv1top(arch)#1
+# Loading work.floattofixedv1(floattofixedv1_arch)#1
+# Loading unisim.muxf7(muxf7_v)#1
+# Loading unisim.muxf8(muxf8_v)#1
+# Loading work.squareroottop(arch)#1
+# Loading work.fixedtofloat(fixedtofloat_arch)#1
+# Loading work.squareroot(squareroot_arch)#1
+# Loading work.floattofixed(floattofixed_arch)#1
+# Loading work.tapscontroller(arch)#2
+# Loading work.tapline(arch)#2
+# Loading work.syncframes(behavioral)#3
+# Loading work.framemask(behavioral)#1
+# Loading work.syncframes(behavioral)#1
+# Loading work.detect(arch)#1
+# Loading work.pixelcord(rtl)#1
+# Loading work.pointofinterest(arch)#1
+# Loading work.gridlockfifo(rtl)#1
+# Loading work.frametestpattern(arch_imp)#1
+# Loading work.digiclk(behavioral)#1
+# Loading work.mwrrd(behavioral)#1
+# Loading work.videoselect(behavioral)#1
+# Loading work.rgb_ycbcr(imp)#1
+# Loading work.axisexternal(arch_imp)#1
+# Loading work.videoprocess_v1_0_rgb_m_axis(arch_imp)#1
+# Loading work.videoprocess_v1_0_m_axis_mm2s(arch_imp)#1
+# Loading work.videoprocess_v1_0_config(arch_imp)#1
+# Loading ieee.std_logic_textio(body)
+# Loading work.imagereadinterface(behavioral)#1
+# Loading work.imageread(behavioral)#1
+# Loading work.imagewrite(behavioral)#1
+# Loading C:/questasim64_10.6c/uvm-1.1d\win64\uvm_dpi.dll
+# ** Warning: (vsim-8684) No drivers exist on out port /top/vfp_dut/dutVFP_v1Inst/VideoStreamInst/frameProcessInst/FiltersInst/ImageKernelInst/CoefMultInst/WordToFloatTopK1inst/WordToFloatinst/U0/<protected>/<protected>/<protected>/<protected>/<protected>/<protected>(11 downto 8), and its initial value is not used.
+# Therefore, simulation behavior may occur that is not in compliance with
+# the VHDL standard as the initial values come from the base signal /top/vfp_dut/dutVFP_v1Inst/VideoStreamInst/frameProcessInst/FiltersInst/ImageKernelInst/CoefMultInst/WordToFloatTopK1inst/WordToFloatinst/U0/<protected>/<protected>/<protected>/<protected>/<protected>(11 downto 8).
+# ** Warning: (vsim-8684) No drivers exist on out port /top/vfp_dut/dutVFP_v1Inst/VideoStreamInst/frameProcessInst/FiltersInst/ImageKernelInst/CoefMultInst/WordToFloatTopK2inst/WordToFloatinst/U0/<protected>/<protected>/<protected>/<protected>/<protected>/<protected>(11 downto 8), and its initial value is not used.
+# Therefore, simulation behavior may occur that is not in compliance with
+# the VHDL standard as the initial values come from the base signal /top/vfp_dut/dutVFP_v1Inst/VideoStreamInst/frameProcessInst/FiltersInst/ImageKernelInst/CoefMultInst/WordToFloatTopK2inst/WordToFloatinst/U0/<protected>/<protected>/<protected>/<protected>/<protected>(11 downto 8).
+# ** Warning: (vsim-8684) No drivers exist on out port /top/vfp_dut/dutVFP_v1Inst/VideoStreamInst/frameProcessInst/FiltersInst/ImageKernelInst/CoefMultInst/WordToFloatTopK3inst/WordToFloatinst/U0/<protected>/<protected>/<protected>/<protected>/<protected>/<protected>(11 downto 8), and its initial value is not used.
+# Therefore, simulation behavior may occur that is not in compliance with
+# the VHDL standard as the initial values come from the base signal /top/vfp_dut/dutVFP_v1Inst/VideoStreamInst/frameProcessInst/FiltersInst/ImageKernelInst/CoefMultInst/WordToFloatTopK3inst/WordToFloatinst/U0/<protected>/<protected>/<protected>/<protected>/<protected>(11 downto 8).
+# ** Warning: (vsim-8684) No drivers exist on out port /top/vfp_dut/dutVFP_v1Inst/VideoStreamInst/frameProcessInst/FiltersInst/ImageKernelInst/CoefMultInst/WordToFloatTopK4inst/WordToFloatinst/U0/<protected>/<protected>/<protected>/<protected>/<protected>/<protected>(11 downto 8), and its initial value is not used.
+# Therefore, simulation behavior may occur that is not in compliance with
+# the VHDL standard as the initial values come from the base signal /top/vfp_dut/dutVFP_v1Inst/VideoStreamInst/frameProcessInst/FiltersInst/ImageKernelInst/CoefMultInst/WordToFloatTopK4inst/WordToFloatinst/U0/<protected>/<protected>/<protected>/<protected>/<protected>(11 downto 8).
+# ** Warning: (vsim-8684) No drivers exist on out port /top/vfp_dut/dutVFP_v1Inst/VideoStreamInst/frameProcessInst/FiltersInst/ImageKernelInst/CoefMultInst/WordToFloatTopK5inst/WordToFloatinst/U0/<protected>/<protected>/<protected>/<protected>/<protected>/<protected>(11 downto 8), and its initial value is not used.
+# Therefore, simulation behavior may occur that is not in compliance with
+# the VHDL standard as the initial values come from the base signal /top/vfp_dut/dutVFP_v1Inst/VideoStreamInst/frameProcessInst/FiltersInst/ImageKernelInst/CoefMultInst/WordToFloatTopK5inst/WordToFloatinst/U0/<protected>/<protected>/<protected>/<protected>/<protected>(11 downto 8).
+# ** Warning: (vsim-8684) No drivers exist on out port /top/vfp_dut/dutVFP_v1Inst/VideoStreamInst/frameProcessInst/FiltersInst/ImageKernelInst/CoefMultInst/WordToFloatTopK6inst/WordToFloatinst/U0/<protected>/<protected>/<protected>/<protected>/<protected>/<protected>(11 downto 8), and its initial value is not used.
+# Therefore, simulation behavior may occur that is not in compliance with
+# the VHDL standard as the initial values come from the base signal /top/vfp_dut/dutVFP_v1Inst/VideoStreamInst/frameProcessInst/FiltersInst/ImageKernelInst/CoefMultInst/WordToFloatTopK6inst/WordToFloatinst/U0/<protected>/<protected>/<protected>/<protected>/<protected>(11 downto 8).
+# ** Warning: (vsim-8684) No drivers exist on out port /top/vfp_dut/dutVFP_v1Inst/VideoStreamInst/frameProcessInst/FiltersInst/ImageKernelInst/CoefMultInst/WordToFloatTopK7inst/WordToFloatinst/U0/<protected>/<protected>/<protected>/<protected>/<protected>/<protected>(11 downto 8), and its initial value is not used.
+# Therefore, simulation behavior may occur that is not in compliance with
+# the VHDL standard as the initial values come from the base signal /top/vfp_dut/dutVFP_v1Inst/VideoStreamInst/frameProcessInst/FiltersInst/ImageKernelInst/CoefMultInst/WordToFloatTopK7inst/WordToFloatinst/U0/<protected>/<protected>/<protected>/<protected>/<protected>(11 downto 8).
+# ** Warning: (vsim-8684) No drivers exist on out port /top/vfp_dut/dutVFP_v1Inst/VideoStreamInst/frameProcessInst/FiltersInst/ImageKernelInst/CoefMultInst/WordToFloatTopK8inst/WordToFloatinst/U0/<protected>/<protected>/<protected>/<protected>/<protected>/<protected>(11 downto 8), and its initial value is not used.
+# Therefore, simulation behavior may occur that is not in compliance with
+# the VHDL standard as the initial values come from the base signal /top/vfp_dut/dutVFP_v1Inst/VideoStreamInst/frameProcessInst/FiltersInst/ImageKernelInst/CoefMultInst/WordToFloatTopK8inst/WordToFloatinst/U0/<protected>/<protected>/<protected>/<protected>/<protected>(11 downto 8).
+# ** Warning: (vsim-8684) No drivers exist on out port /top/vfp_dut/dutVFP_v1Inst/VideoStreamInst/frameProcessInst/FiltersInst/ImageKernelInst/CoefMultInst/WordToFloatTopK9inst/WordToFloatinst/U0/<protected>/<protected>/<protected>/<protected>/<protected>/<protected>(11 downto 8), and its initial value is not used.
+# Therefore, simulation behavior may occur that is not in compliance with
+# the VHDL standard as the initial values come from the base signal /top/vfp_dut/dutVFP_v1Inst/VideoStreamInst/frameProcessInst/FiltersInst/ImageKernelInst/CoefMultInst/WordToFloatTopK9inst/WordToFloatinst/U0/<protected>/<protected>/<protected>/<protected>/<protected>(11 downto 8).
+# ** Warning: (vsim-8684) No drivers exist on out port /top/vfp_dut/dutVFP_v1Inst/VideoStreamInst/frameProcessInst/FiltersInst/ImageKernelInst/SOBEL_FRAME_ENABLE/KernelSobelXInst/ByteToFloatTopRedinst/ByteToFloatinst/U0/<protected>/<protected>/<protected>/<protected>/<protected>/<protected>(11 downto 8), and its initial value is not used.
+# Therefore, simulation behavior may occur that is not in compliance with
+# the VHDL standard as the initial values come from the base signal /top/vfp_dut/dutVFP_v1Inst/VideoStreamInst/frameProcessInst/FiltersInst/ImageKernelInst/SOBEL_FRAME_ENABLE/KernelSobelXInst/ByteToFloatTopRedinst/ByteToFloatinst/U0/<protected>/<protected>/<protected>/<protected>/<protected>(11 downto 8).
+# ** Warning: (vsim-8684) No drivers exist on out port /top/vfp_dut/dutVFP_v1Inst/VideoStreamInst/frameProcessInst/FiltersInst/ImageKernelInst/SOBEL_FRAME_ENABLE/KernelSobelXInst/ByteToFloatTopGreeninst/ByteToFloatinst/U0/<protected>/<protected>/<protected>/<protected>/<protected>/<protected>(11 downto 8), and its initial value is not used.
+# Therefore, simulation behavior may occur that is not in compliance with
+# the VHDL standard as the initial values come from the base signal /top/vfp_dut/dutVFP_v1Inst/VideoStreamInst/frameProcessInst/FiltersInst/ImageKernelInst/SOBEL_FRAME_ENABLE/KernelSobelXInst/ByteToFloatTopGreeninst/ByteToFloatinst/U0/<protected>/<protected>/<protected>/<protected>/<protected>(11 downto 8).
+# ** Warning: (vsim-8684) No drivers exist on out port /top/vfp_dut/dutVFP_v1Inst/VideoStreamInst/frameProcessInst/FiltersInst/ImageKernelInst/SOBEL_FRAME_ENABLE/KernelSobelXInst/ByteToFloatTopBlueinst/ByteToFloatinst/U0/<protected>/<protected>/<protected>/<protected>/<protected>/<protected>(11 downto 8), and its initial value is not used.
+# Therefore, simulation behavior may occur that is not in compliance with
+# the VHDL standard as the initial values come from the base signal /top/vfp_dut/dutVFP_v1Inst/VideoStreamInst/frameProcessInst/FiltersInst/ImageKernelInst/SOBEL_FRAME_ENABLE/KernelSobelXInst/ByteToFloatTopBlueinst/ByteToFloatinst/U0/<protected>/<protected>/<protected>/<protected>/<protected>(11 downto 8).
+# ** Warning: (vsim-8684) No drivers exist on out port /top/vfp_dut/dutVFP_v1Inst/VideoStreamInst/frameProcessInst/FiltersInst/ImageKernelInst/SOBEL_FRAME_ENABLE/KernelSobelYInst/ByteToFloatTopRedinst/ByteToFloatinst/U0/<protected>/<protected>/<protected>/<protected>/<protected>/<protected>(11 downto 8), and its initial value is not used.
+# Therefore, simulation behavior may occur that is not in compliance with
+# the VHDL standard as the initial values come from the base signal /top/vfp_dut/dutVFP_v1Inst/VideoStreamInst/frameProcessInst/FiltersInst/ImageKernelInst/SOBEL_FRAME_ENABLE/KernelSobelYInst/ByteToFloatTopRedinst/ByteToFloatinst/U0/<protected>/<protected>/<protected>/<protected>/<protected>(11 downto 8).
+# ** Warning: (vsim-8684) No drivers exist on out port /top/vfp_dut/dutVFP_v1Inst/VideoStreamInst/frameProcessInst/FiltersInst/ImageKernelInst/SOBEL_FRAME_ENABLE/KernelSobelYInst/ByteToFloatTopGreeninst/ByteToFloatinst/U0/<protected>/<protected>/<protected>/<protected>/<protected>/<protected>(11 downto 8), and its initial value is not used.
+# Therefore, simulation behavior may occur that is not in compliance with
+# the VHDL standard as the initial values come from the base signal /top/vfp_dut/dutVFP_v1Inst/VideoStreamInst/frameProcessInst/FiltersInst/ImageKernelInst/SOBEL_FRAME_ENABLE/KernelSobelYInst/ByteToFloatTopGreeninst/ByteToFloatinst/U0/<protected>/<protected>/<protected>/<protected>/<protected>(11 downto 8).
+# ** Warning: (vsim-8684) No drivers exist on out port /top/vfp_dut/dutVFP_v1Inst/VideoStreamInst/frameProcessInst/FiltersInst/ImageKernelInst/SOBEL_FRAME_ENABLE/KernelSobelYInst/ByteToFloatTopBlueinst/ByteToFloatinst/U0/<protected>/<protected>/<protected>/<protected>/<protected>/<protected>(11 downto 8), and its initial value is not used.
+# Therefore, simulation behavior may occur that is not in compliance with
+# the VHDL standard as the initial values come from the base signal /top/vfp_dut/dutVFP_v1Inst/VideoStreamInst/frameProcessInst/FiltersInst/ImageKernelInst/SOBEL_FRAME_ENABLE/KernelSobelYInst/ByteToFloatTopBlueinst/ByteToFloatinst/U0/<protected>/<protected>/<protected>/<protected>/<protected>(11 downto 8).
+# ** Warning: (vsim-8684) No drivers exist on out port /top/vfp_dut/dutVFP_v1Inst/VideoStreamInst/frameProcessInst/FiltersInst/ImageKernelInst/SOBEL_FRAME_ENABLE/squareRootTopInst/fixedToFloat_inst/U0/<protected>/<protected>/<protected>/<protected>/<protected>/<protected>(11 downto 8), and its initial value is not used.
+# Therefore, simulation behavior may occur that is not in compliance with
+# the VHDL standard as the initial values come from the base signal /top/vfp_dut/dutVFP_v1Inst/VideoStreamInst/frameProcessInst/FiltersInst/ImageKernelInst/SOBEL_FRAME_ENABLE/squareRootTopInst/fixedToFloat_inst/U0/<protected>/<protected>/<protected>/<protected>/<protected>(11 downto 8).
+# ** Warning: (vsim-8684) No drivers exist on out port /top/vfp_dut/dutVFP_v1Inst/VideoStreamInst/frameProcessInst/FiltersInst/ImageKernelInst/oRgb.tPattern.valid, and its initial value is not used.
+# Therefore, simulation behavior may occur that is not in compliance with
+# the VHDL standard as the initial values come from the base signal /top/vfp_dut/dutVFP_v1Inst/VideoStreamInst/frameProcessInst/FiltersInst/rgbImageKernel.tPattern.valid.
+# ** Warning: (vsim-8684) No drivers exist on out port /top/vfp_dut/dutVFP_v1Inst/VideoStreamInst/frameProcessInst/FiltersInst/ImageKernelInst/oRgb.tPattern.red(7 downto 0), and its initial value is not used.
+# Therefore, simulation behavior may occur that is not in compliance with
+# the VHDL standard as the initial values come from the base signal /top/vfp_dut/dutVFP_v1Inst/VideoStreamInst/frameProcessInst/FiltersInst/rgbImageKernel.tPattern.red(7 downto 0).
+# ** Warning: (vsim-8684) No drivers exist on out port /top/vfp_dut/dutVFP_v1Inst/VideoStreamInst/frameProcessInst/FiltersInst/ImageKernelInst/oRgb.tPattern.green(7 downto 0), and its initial value is not used.
+# Therefore, simulation behavior may occur that is not in compliance with
+# the VHDL standard as the initial values come from the base signal /top/vfp_dut/dutVFP_v1Inst/VideoStreamInst/frameProcessInst/FiltersInst/rgbImageKernel.tPattern.green(7 downto 0).
+# ** Warning: (vsim-8684) No drivers exist on out port /top/vfp_dut/dutVFP_v1Inst/VideoStreamInst/frameProcessInst/FiltersInst/ImageKernelInst/oRgb.tPattern.blue(7 downto 0), and its initial value is not used.
+# Therefore, simulation behavior may occur that is not in compliance with
+# the VHDL standard as the initial values come from the base signal /top/vfp_dut/dutVFP_v1Inst/VideoStreamInst/frameProcessInst/FiltersInst/rgbImageKernel.tPattern.blue(7 downto 0).
+# ** Warning: (vsim-8684) No drivers exist on out port /top/vfp_dut/dutVFP_v1Inst/VideoStreamInst/frameProcessInst/oFrameData.rgbCorrect.valid, and its initial value is not used.
+# Therefore, simulation behavior may occur that is not in compliance with
+# the VHDL standard as the initial values come from the base signal /top/vfp_dut/dutVFP_v1Inst/VideoStreamInst/frameData.rgbCorrect.valid.
+# ** Warning: (vsim-8684) No drivers exist on out port /top/vfp_dut/dutVFP_v1Inst/VideoStreamInst/frameProcessInst/oFrameData.rgbCorrect.red(7 downto 0), and its initial value is not used.
+# Therefore, simulation behavior may occur that is not in compliance with
+# the VHDL standard as the initial values come from the base signal /top/vfp_dut/dutVFP_v1Inst/VideoStreamInst/frameData.rgbCorrect.red(7 downto 0).
+# ** Warning: (vsim-8684) No drivers exist on out port /top/vfp_dut/dutVFP_v1Inst/VideoStreamInst/frameProcessInst/oFrameData.rgbCorrect.green(7 downto 0), and its initial value is not used.
+# Therefore, simulation behavior may occur that is not in compliance with
+# the VHDL standard as the initial values come from the base signal /top/vfp_dut/dutVFP_v1Inst/VideoStreamInst/frameData.rgbCorrect.green(7 downto 0).
+# ** Warning: (vsim-8684) No drivers exist on out port /top/vfp_dut/dutVFP_v1Inst/VideoStreamInst/frameProcessInst/oFrameData.rgbCorrect.blue(7 downto 0), and its initial value is not used.
+# Therefore, simulation behavior may occur that is not in compliance with
+# the VHDL standard as the initial values come from the base signal /top/vfp_dut/dutVFP_v1Inst/VideoStreamInst/frameData.rgbCorrect.blue(7 downto 0).
+# ** Warning: (vsim-8684) No drivers exist on out port /top/vfp_dut/dutVFP_v1Inst/VideoStreamInst/mWrRdInst/rdRegsOut.cfigReg18(31 downto 0), and its initial value is not used.
+# Therefore, simulation behavior may occur that is not in compliance with
+# the VHDL standard as the initial values come from the base signal /top/vfp_dut/dutVFP_v1Inst/rdRegs.cfigReg18(31 downto 0).
+# ** Warning: (vsim-8684) No drivers exist on out port /top/vfp_dut/dutVFP_v1Inst/VideoStreamInst/mWrRdInst/rdRegsOut.cfigReg19(31 downto 0), and its initial value is not used.
+# Therefore, simulation behavior may occur that is not in compliance with
+# the VHDL standard as the initial values come from the base signal /top/vfp_dut/dutVFP_v1Inst/rdRegs.cfigReg19(31 downto 0).
+# ** Warning: (vsim-8684) No drivers exist on out port /top/vfp_dut/dutVFP_v1Inst/VideoStreamInst/mWrRdInst/rdRegsOut.cfigReg20(31 downto 0), and its initial value is not used.
+# Therefore, simulation behavior may occur that is not in compliance with
+# the VHDL standard as the initial values come from the base signal /top/vfp_dut/dutVFP_v1Inst/rdRegs.cfigReg20(31 downto 0).
+# ** Warning: (vsim-8684) No drivers exist on out port /top/vfp_dut/dutVFP_v1Inst/VideoStreamInst/mWrRdInst/rdRegsOut.cfigReg21(31 downto 0), and its initial value is not used.
+# Therefore, simulation behavior may occur that is not in compliance with
+# the VHDL standard as the initial values come from the base signal /top/vfp_dut/dutVFP_v1Inst/rdRegs.cfigReg21(31 downto 0).
+# ** Warning: (vsim-8684) No drivers exist on out port /top/vfp_dut/dutVFP_v1Inst/VideoStreamInst/mWrRdInst/rdRegsOut.cfigReg22(31 downto 0), and its initial value is not used.
+# Therefore, simulation behavior may occur that is not in compliance with
+# the VHDL standard as the initial values come from the base signal /top/vfp_dut/dutVFP_v1Inst/rdRegs.cfigReg22(31 downto 0).
+# ** Warning: (vsim-8684) No drivers exist on out port /top/vfp_dut/dutVFP_v1Inst/VideoStreamInst/mWrRdInst/rdRegsOut.cfigReg23(31 downto 0), and its initial value is not used.
+# Therefore, simulation behavior may occur that is not in compliance with
+# the VHDL standard as the initial values come from the base signal /top/vfp_dut/dutVFP_v1Inst/rdRegs.cfigReg23(31 downto 0).
+# ** Warning: (vsim-8684) No drivers exist on out port /top/vfp_dut/dutVFP_v1Inst/VideoStreamInst/mWrRdInst/rdRegsOut.cfigReg24(31 downto 0), and its initial value is not used.
+# Therefore, simulation behavior may occur that is not in compliance with
+# the VHDL standard as the initial values come from the base signal /top/vfp_dut/dutVFP_v1Inst/rdRegs.cfigReg24(31 downto 0).
+# ** Warning: (vsim-8684) No drivers exist on out port /top/vfp_dut/dutVFP_v1Inst/VideoStreamInst/mWrRdInst/rdRegsOut.cfigReg25(31 downto 0), and its initial value is not used.
+# Therefore, simulation behavior may occur that is not in compliance with
+# the VHDL standard as the initial values come from the base signal /top/vfp_dut/dutVFP_v1Inst/rdRegs.cfigReg25(31 downto 0).
+# ** Warning: (vsim-8684) No drivers exist on out port /top/vfp_dut/dutVFP_v1Inst/VideoStreamInst/mWrRdInst/rdRegsOut.cfigReg26(31 downto 0), and its initial value is not used.
+# Therefore, simulation behavior may occur that is not in compliance with
+# the VHDL standard as the initial values come from the base signal /top/vfp_dut/dutVFP_v1Inst/rdRegs.cfigReg26(31 downto 0).
