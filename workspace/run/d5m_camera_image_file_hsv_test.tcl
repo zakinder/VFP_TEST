@@ -34,20 +34,23 @@ vcom  -64 -93 -work xbip_bram18k_v3_0_3         -f Z:/ZEDBOARD/ipManager/managed
 vcom  -64 -93 -work mult_gen_v12_0_12           -f Z:/ZEDBOARD/ipManager/managed_ip_project/compile_simlib/mult_gen_v12_0_12/.cxl.vhdl.mult_gen_v12_0_12.mult_gen_v12_0_12.nt64.cmf
 vcom  -64 -93 -work floating_point_v7_1_4       -f Z:/ZEDBOARD/ipManager/managed_ip_project/compile_simlib/floating_point_v7_1_4/.cxl.vhdl.floating_point_v7_1_4.floating_point_v7_1_4.nt64.cmf
 
+
+
+
 vcom -f dut_vhd.f
 vlog -f dut_vlg.f
 vlog -f tb_d5m_camera_test.f
 vopt top -o top_optimized  +acc +cover=sbfec+top(rtl).
-vsim top_optimized -coverage +UVM_TESTNAME=d5m_camera_image_file_sobel_test
+vsim top_optimized -coverage +UVM_TESTNAME=d5m_camera_image_file_hsv_test
 set NoQuitOnFinish 1
 onbreak {resume}
 log /* -r
 run -all
-coverage attribute -name TESTNAME -value d5m_camera_image_file_sobel_test
-coverage save d5m_camera_image_file_sobel_test.ucdb
-vcover report d5m_camera_image_file_sobel_test.ucdb -cvg -details
-coverage report -html -htmldir ../coverage_reports/questa_html_coverage_reports/d5m_camera_image_file_sobel_test -source -details -assert -directive -cvg -code bcefst -verbose -threshL 50 -threshH 90
-coverage report -file ../coverage_reports/d5m_camera_image_file_sobel_test.txt -byfile -totals -assert -directive -cvg -codeAll
+coverage attribute -name TESTNAME -value d5m_camera_image_file_hsv_test
+coverage save d5m_camera_image_file_hsv_test.ucdb
+vcover report d5m_camera_image_file_hsv_test.ucdb -cvg -details
+coverage report -html -htmldir ../coverage_reports/questa_html_coverage_reports/d5m_camera_image_file_hsv_test -source -details -assert -directive -cvg -code bcefst -verbose -threshL 50 -threshH 90
+coverage report -file ../coverage_reports/d5m_camera_image_file_hsv_test.txt -byfile -totals -assert -directive -cvg -codeAll
 quit
 
 

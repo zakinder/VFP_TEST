@@ -23,8 +23,8 @@ port (
 end imageWrite;
 architecture Behavioral of imageWrite is
     -------------------------------------------------------------------------
-    constant read_fol  : string := "Z:/ZEDBOARD/uvmtb/dut/tb/uvm_images/read";
-    constant write_fol  : string := "Z:/ZEDBOARD/uvmtb/dut/tb/uvm_images/write";
+    constant read_fol  : string := "K:/ZEDBOARD/uvm_tb/VFP_TEST/dut/tb/uvm_images/read";
+    constant write_fol  : string := "K:/ZEDBOARD/uvm_tb/VFP_TEST/dut/tb/uvm_images/write";
     constant bacslash  : string := "\";
     constant readbmp   : string := read_fol&bacslash&input_file&".bmp";
     constant wrBmp     : string := write_fol&bacslash&output_file&".bmp";

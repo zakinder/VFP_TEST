@@ -15,13 +15,15 @@ port (
     oRgb                  : out tpRgb);
 end frameTestPattern;
 architecture arch_imp of frameTestPattern is
-    signal xCounter           : integer;
-    signal yCounter           : integer;
-    signal rowdist            : integer;
-    signal nrowdist           : integer;
-    signal coldist            : integer;
-    signal ncoldist           : integer;
-    signal irgbSum            : integer;
+    constant IMAGE_ROWS       : natural := 1920;
+    constant IMAGE_COLS       : natural := 1080;
+    signal xCounter           : natural range 0 to IMAGE_ROWS := 0;
+    signal yCounter           : natural range 0 to IMAGE_COLS := 0;
+    signal rowdist            : natural range 0 to IMAGE_ROWS := 0;
+    signal nrowdist           : natural range 0 to IMAGE_ROWS := 0;
+    signal coldist            : natural range 0 to IMAGE_ROWS := 0;
+    signal ncoldist           : natural range 0 to IMAGE_ROWS := 0;
+    signal irgbSum            : natural range 0 to IMAGE_ROWS := 0;
 begin
     xCounter    <= to_integer(unsigned(iCord.x));
     yCounter    <= to_integer(unsigned(iCord.y));

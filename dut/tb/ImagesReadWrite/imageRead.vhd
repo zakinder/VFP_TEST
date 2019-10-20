@@ -23,9 +23,9 @@ port (
     oCord              : out coord;
     endOfFrame         : out std_logic);
 end imageRead;
-architecture Behavioral of imageRead is
+architecture Behavioral of imageRead is 
     -------------------------------------------------------------------------
-    constant proj_fol  : string := "Z:/ZEDBOARD/uvmtb/dut/tb/uvm_images/read";
+    constant proj_fol  : string := "K:/ZEDBOARD/uvm_tb/VFP_TEST/dut/tb/uvm_images/read";
     constant bacslash  : string := "/";
     constant readbmp   : string := proj_fol&bacslash&input_file&".bmp";
     -------------------------------------------------------------------------

@@ -165,8 +165,8 @@ class d5m_camera_sequence extends d5m_camera_base_seq;
         axi_write_channel(rgbCoord_bl,0);
         axi_write_channel(rgbCoord_bh,255);
         axi_write_channel(oLumTh,36);
-        axi_write_channel(oHsvPerCh,1);
-        axi_write_channel(oYccPerCh,2);
+        axi_write_channel(oHsvPerCh,0);
+        axi_write_channel(oYccPerCh,0);
     endtask: axi_write_config_reg
     virtual protected task axi_write_channel_test();
             d5m_camera_transaction item;

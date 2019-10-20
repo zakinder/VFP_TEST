@@ -61,19 +61,19 @@ vsim -c -do d5m_camera_image_file_sharp_test.tcl
 @GOTO WHAT
 
 :blur
-vsim -c -do d5m_camera_image_file_test.tcl
+vsim -c -do d5m_camera_image_file_blur_test.tcl
 @GOTO WHAT
 
 :hsl
-vsim -c -do d5m_camera_image_file_test.tcl
+vsim -c -do d5m_camera_image_file_hsl_test.tcl
 @GOTO WHAT
 
 :hsv
-vsim -c -do d5m_camera_image_file_test.tcl
+vsim -c -do d5m_camera_image_file_hsv_test.tcl
 @GOTO WHAT
 
 :rgb
-vsim -c -do d5m_camera_image_file_test.tcl
+vsim -c -do d5m_camera_image_file_rgb_test.tcl
 @GOTO WHAT
 
 :sobel
@@ -81,7 +81,7 @@ vsim -c -do d5m_camera_image_file_sobel_test.tcl
 @GOTO WHAT
 
 :embos
-vsim -c -do d5m_camera_image_file_test.tcl
+vsim -c -do d5m_camera_image_file_emboss_test.tcl
 @GOTO WHAT
 
 :rgbCorrect

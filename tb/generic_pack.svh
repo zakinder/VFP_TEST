@@ -18,8 +18,8 @@ package generic_pack;
     parameter i_full_range              = `false;
     parameter img_width                 = 2751;//D5M max supported img_width = 2751
     parameter dataWidth                 = 24;//12;
-    parameter read_bmp                  = "400_300";//400_300//128_128
-    parameter img_width_bmp             = 400;//400//128
-    parameter img_height_bmp            = 300;//300//128
+    parameter read_bmp                  = "128_128";//400_300//128_128
+    parameter img_width_bmp             = 128;//400//128
+    parameter img_height_bmp            = 128;//300//128
     parameter img_frames_cnt_bmp        = 2;
 endpackage
