@@ -68,7 +68,8 @@ begin
     blue                         <= rgbRead.blue;
     xCord                        <= txCord.x(11 downto 0);
     yCord                        <= txCord.y(11 downto 0);
-    enableWrite                  <= hi when (mm2rgb.valid = hi and end_of_frame = hi);
+--  enableWrite                  <= hi when (mm2rgb.valid = hi and end_of_frame = hi);
+    enableWrite                  <= hi when (mm2rgb.valid = hi);
     doneTask                     <= hi when (iReadyToRead = hi and doneWrite = lo) else lo;
     endOfFrame                   <= hi when (doneWrite = hi) else lo;
 

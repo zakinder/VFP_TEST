@@ -46,7 +46,8 @@ architecture Behavioral of imageRead is
     signal startFrame   : std_logic := lo;
 begin 
 --  endOfFrame   <= hi when (Xcont = img_width_bmp and Ycont = img_height_bmp - 1 and SetToRead = hi and i_count = (img_frames_cnt_bmp-1));-- else lo;
-    endOfFrame   <= hi when (Xcont = img_width_bmp + 2 and Ycont = img_height_bmp + 2 and SetToRead = hi and i_count = (img_frames_cnt_bmp-1));-- else lo;
+--  endOfFrame   <= hi when (Xcont = img_width_bmp + 2 and Ycont = img_height_bmp + 2 and SetToRead = hi and i_count = (img_frames_cnt_bmp-1));-- else lo;
+    endOfFrame   <= hi when (Xcont = img_width_bmp and Ycont = img_height_bmp + 2 and SetToRead = hi) else lo;
     oRgb.valid  <= lineValid when (Xcont < img_width_bmp and Ycont < img_height_bmp and SetToRead = hi) else lo;
     oCord.x     <= std_logic_vector(to_unsigned(xImagecont, 16));
     oCord.y     <= std_logic_vector(to_unsigned(yImagecont, 16));
@@ -86,6 +87,7 @@ begin
                     xImagecont  <= 0;
                     lineValid   <= lo;
                     lvalid      <= lo;
+                    
                 end if;
                 if(Xcont = img_width_bmp + 1 and Ycont < img_height_bmp + 3)then
                     Ycont  <= Ycont + 1;
@@ -101,6 +103,7 @@ begin
                 end if;
                 if(xImagecont = img_width_bmp - 1 and yImagecont = img_height_bmp - 1)then
                     i_count   <= i_count + 1;
+                    report "i_count incremented"; -- severity note
                 end if;
                 if (i_count = 0) then
                     olm.rl <= 60;

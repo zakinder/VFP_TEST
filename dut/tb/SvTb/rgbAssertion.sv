@@ -1,11 +1,12 @@
-
 module rgbAssertion(clk, reset, valid ,iRed, iGreen, iBlue);
+
 typedef struct packed {
 logic valid;
 logic [7:0] red;
 logic [7:0] green;
 logic [7:0] blue;
 } channels;
+
   input logic clk;
   input logic reset;
   input logic valid;
