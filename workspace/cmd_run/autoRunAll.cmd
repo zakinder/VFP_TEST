@@ -2,6 +2,7 @@ cd ../../tb
 %~d1
 setlocal enableextensions disabledelayedexpansion
 set "textFile=generic_pack.svh"
+
 @echo FRAME SIZE TESTS
 @echo 1- Set Image Size to 128 by 128
 @echo 2- Set Image Size to 400 by 300
@@ -72,6 +73,11 @@ for /f "delims=" %%i in ('type "%textFile%" ^& break ^> "%textFile%" ') do (
     >>"%textFile%" echo(!line:%search2%=%replace%!
     endlocal
 )
+
+
+
+
+
 
 @if "%next_check_rgb_type%"=="cgain" (@GOTO cgain)
 @if "%next_check_rgb_type%"=="sharp" (@GOTO sharp)
@@ -195,16 +201,15 @@ cd ../../tb
 cd ../workspace/run
 @echo current type:  %replace_to%
 vsim -c -do d5m_camera_image_file_emboss_test.tcl
-cd ../../tb
-@echo ------------------------------------
-@echo Done
-@echo ------------------------------------
 @GOTO wait
 @REM --------------------------------------------
 @REM ----------------------- ABORT
 @REM --------------------------------------------
 
 :wait
+@echo ------------------------------------
+@echo Done
+@echo ------------------------------------
 pause
 
 :abort

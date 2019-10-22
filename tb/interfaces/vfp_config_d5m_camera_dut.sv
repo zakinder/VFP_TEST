@@ -1,13 +1,13 @@
 // MODULE : VFPCONFIGDUT
 module imageReadInterfaceDut(d5m_camera_if.ConfigMaster d5m_camera_vif);
 import generic_pack::*;  
-    imageReadInterface        #(
+imageReadInterface            #(
     .i_data_width              (i_data_width                      ),
     .img_frames_cnt_bmp        (img_frames_cnt_bmp                ),
     .img_width_bmp             (img_width_bmp                     ),
     .img_height_bmp            (img_height_bmp                    ),
     .read_bmp                  (read_bmp                          ))
-    imageReadInterfaceInst     (
+imageReadInterfaceInst         (
     .clk                       (d5m_camera_vif.pixclk             ),
     .m_axis_mm2s_aclk          (d5m_camera_vif.ACLK               ),
     .reset                     (d5m_camera_vif.reset              ),
@@ -31,7 +31,7 @@ import generic_pack::*;
 endmodule: imageReadInterfaceDut
 module vfpConfigd5mCameraDut(d5m_camera_if.ConfigMaster d5m_camera_vif);
 import generic_pack::*;  
-    VFP_v1_0                  #(
+VFP_v1_0                      #(
     .revision_number           ( revision_number                  ),
     .C_rgb_m_axis_TDATA_WIDTH  ( C_rgb_m_axis_TDATA_WIDTH         ),
     .C_rgb_m_axis_START_COUNT  ( C_rgb_m_axis_START_COUNT         ),
@@ -49,7 +49,7 @@ import generic_pack::*;
     .i_full_range              ( i_full_range                     ),
     .img_width                 ( img_width                        ),
     .dataWidth                 ( dataWidth                        ))
-    dutVFP_v1Inst              (
+dutVFP_v1Inst                  (
     //d5m input
     .pixclk                    (d5m_camera_vif.pixclk             ),//(d5m_camera_vif.ACLK   ),
     .ifval                     (d5m_camera_vif.fvalid             ),//(d5m_camera_vif.ifval),
