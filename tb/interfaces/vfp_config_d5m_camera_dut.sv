@@ -10,6 +10,7 @@ imageReadInterface            #(
 imageReadInterfaceInst         (
     .clk                       (d5m_camera_vif.pixclk             ),
     .m_axis_mm2s_aclk          (d5m_camera_vif.ACLK               ),
+    .aclk                      (d5m_camera_vif.d5p.clkmm          ),
     .reset                     (d5m_camera_vif.reset              ),
     .iReadyToRead              (d5m_camera_vif.d5p.iReadyToRead   ),
     .iImageTypeTest            (d5m_camera_vif.d5p.iImageTypeTest ),

@@ -17,6 +17,7 @@ port (
     --
     clk                  : in  std_logic;
     reset                : in  std_logic;
+    aclk                 : out std_logic;
     --
     m_axis_mm2s_aclk     : in  std_logic;
     m_axis_mm2s_tvalid   : in  std_logic;
@@ -41,7 +42,7 @@ port (
     endOfFrame           : out std_logic);
 end imageReadInterface;
 architecture Behavioral of imageReadInterface is
-
+    --signal   aclk                : std_logic;
     signal   rgbRead             : channel;
     signal   txCord              : coord;
     signal   enableWrite         : std_logic := lo;
@@ -52,7 +53,7 @@ architecture Behavioral of imageReadInterface is
     signal   l_valid             : std_logic := lo;
     signal   f_valid             : std_logic := lo;
 begin
-
+    clk_gen(aclk,pixclk_freq);
     rgb                          <= (rgbRead.red & rgbRead.green &  rgbRead.blue) when (iImageTypeTest = lo) else iRgb;
     lvalid                       <= l_valid when (iImageTypeTest = lo) else ilvalid;
     fvalid                       <= f_valid when (iImageTypeTest = lo) else ifvalid;

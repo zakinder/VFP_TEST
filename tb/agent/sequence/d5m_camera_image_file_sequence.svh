@@ -101,7 +101,7 @@ class d5m_camera_image_file_sequence extends d5m_camera_base_seq;
         bit [31:0] max_num_video_select  = 32'h32;//180
         axi_write_channel(oRgbOsharp,10);
         axi_write_channel(oEdgeType,11);
-        axi_write_channel(threshold,12);
+        axi_write_channel(threshold,20);
         axi_write_channel(videoChannel,select_hsv);
         axi_write_channel(cChannel,15);
         axi_write_channel(dChannel,select_rgb_not_ycbcr);
@@ -212,7 +212,7 @@ class d5m_camera_image_blur_sequence extends d5m_camera_base_seq;
         bit [31:0] max_num_video_select  = 32'h32;//180
         axi_write_channel(oRgbOsharp,10);
         axi_write_channel(oEdgeType,11);
-        axi_write_channel(threshold,12);
+        axi_write_channel(threshold,20);
         axi_write_channel(videoChannel,select_blur);
         axi_write_channel(cChannel,15);
         axi_write_channel(dChannel,select_rgb_not_ycbcr);
@@ -322,7 +322,7 @@ class d5m_camera_image_emboss_sequence extends d5m_camera_base_seq;
         bit [31:0] max_num_video_select  = 32'h32;//180
         axi_write_channel(oRgbOsharp,10);
         axi_write_channel(oEdgeType,11);
-        axi_write_channel(threshold,12);
+        axi_write_channel(threshold,20);
         axi_write_channel(videoChannel,select_emboss);
         axi_write_channel(cChannel,15);
         axi_write_channel(dChannel,select_rgb_not_ycbcr);
@@ -432,7 +432,7 @@ class d5m_camera_image_rgb_sequence extends d5m_camera_base_seq;
         bit [31:0] max_num_video_select  = 32'h32;//180
         axi_write_channel(oRgbOsharp,10);
         axi_write_channel(oEdgeType,11);
-        axi_write_channel(threshold,12);
+        axi_write_channel(threshold,20);
         axi_write_channel(videoChannel,select_rgb);
         axi_write_channel(cChannel,15);
         axi_write_channel(dChannel,select_rgb_not_ycbcr);
@@ -542,7 +542,7 @@ class d5m_camera_image_sharp_sequence extends d5m_camera_base_seq;
         bit [31:0] max_num_video_select  = 32'h32;//180
         axi_write_channel(oRgbOsharp,10);
         axi_write_channel(oEdgeType,11);
-        axi_write_channel(threshold,12);
+        axi_write_channel(threshold,20);
         axi_write_channel(videoChannel,select_sharp);
         axi_write_channel(cChannel,15);
         axi_write_channel(dChannel,select_rgb_not_ycbcr);
@@ -653,7 +653,7 @@ class d5m_camera_image_cgain_sequence extends d5m_camera_base_seq;
         bit [31:0] max_num_video_select  = 32'h32;//180
         axi_write_channel(oRgbOsharp,10);
         axi_write_channel(oEdgeType,11);
-        axi_write_channel(threshold,12);
+        axi_write_channel(threshold,20);
         axi_write_channel(videoChannel,select_cgain);
         axi_write_channel(cChannel,15);
         axi_write_channel(dChannel,select_rgb_not_ycbcr);
@@ -762,7 +762,7 @@ class d5m_camera_image_sobel_sequence extends d5m_camera_base_seq;
         bit [31:0] select_rgbPoi         = 32'h30;//180
         axi_write_channel(oRgbOsharp,10);
         axi_write_channel(oEdgeType,11);
-        axi_write_channel(threshold,12);
+        axi_write_channel(threshold,20);
         axi_write_channel(videoChannel,select_sobel);
         axi_write_channel(cChannel,15);
         axi_write_channel(dChannel,select_rgb_not_ycbcr);
@@ -872,7 +872,7 @@ class d5m_camera_image_hsv_sequence extends d5m_camera_base_seq;
         bit [31:0] max_num_video_select  = 32'h32;//180
         axi_write_channel(oRgbOsharp,10);
         axi_write_channel(oEdgeType,11);
-        axi_write_channel(threshold,12);
+        axi_write_channel(threshold,20);
         axi_write_channel(videoChannel,select_hsv);
         axi_write_channel(cChannel,15);
         axi_write_channel(dChannel,select_rgb_not_ycbcr);
@@ -982,7 +982,7 @@ class d5m_camera_image_hsl_sequence extends d5m_camera_base_seq;
         bit [31:0] max_num_video_select  = 32'h32;//180
         axi_write_channel(oRgbOsharp,10);
         axi_write_channel(oEdgeType,11);
-        axi_write_channel(threshold,12);
+        axi_write_channel(threshold,20);
         axi_write_channel(videoChannel,select_hsv);
         axi_write_channel(cChannel,15);
         axi_write_channel(dChannel,select_rgb_not_ycbcr);

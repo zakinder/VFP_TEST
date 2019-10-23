@@ -120,12 +120,7 @@ port (
     oEdgeValid         : out std_logic;
     oRgb               : out colors);
 end component Kernel; 
-component FontRom is
-port (  
-    clk     : in std_logic;
-    addr    : in integer;
-    fontRow : out std_logic_vector(FONT_WIDTH-1 downto 0));
-end component FontRom;
+
 component ColorTrim is
 generic (
     i_data_width  : integer := 8);
@@ -899,9 +894,42 @@ generic (
     input_file                  : string  := "input_image";
     output_file                 : string  := "output_image");
 port (                
-    pixclk                      : in  std_logic;
-    enableWrite                 : in  std_logic;
+    pixclk                      : in   std_logic;
+    enableWrite                 : in   std_logic;
     doneWrite                   : out  std_logic;
     iRgb                        : in channel);
 end component imageWrite;
+component FontRom is
+port (  
+    clk     : in std_logic;
+    addr    : in integer;
+    fontRow : out std_logic_vector(FONT_WIDTH-1 downto 0));
+end component FontRom;
+component PixelOnDisplay is
+generic (
+    img_width    : integer := 8;
+    img_height   : integer := 400;
+    b_data_width : integer := 32);
+port (                
+    clk          : in std_logic;
+    rst_l        : in std_logic;
+    location     : in cord;
+    grid         : in cord;
+    videoChannel : in std_logic_vector(b_data_width-1 downto 0);
+    pixel        : out std_logic);
+end component PixelOnDisplay;
+component TextGen is
+generic (
+    img_width    : integer := 8;
+    img_height   : integer := 400;
+    b_data_width : integer := 32);
+port (                
+    clk              : in std_logic;
+    rst_l            : in std_logic;
+    videoChannel     : in std_logic_vector(b_data_width-1 downto 0);
+    txCord           : in coord;
+    location         : in cord;
+    iRgb             : in channel;
+    oRgb             : out channel);
+end component TextGen;
 end package;

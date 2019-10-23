@@ -25,11 +25,14 @@ port (
     oRgb              : out channel);
 end videoSelect;
 architecture Behavioral of videoSelect is
-    signal vChannelSelect     : integer;
+    constant NU_MRGB_TYPES    : natural := 50;
+    signal vChannelSelect     : natural range 0 to NU_MRGB_TYPES := 0;
     signal eChannelSelect     : integer;
     signal ycbcr              : channel;
     signal channels           : channel;
     signal kCoeffYcbcr        : kernelCoeff;
+    signal rgbText            : channel;
+    signal location           : cord := (x => 40, y => 10);
 begin
     kCoeffYcbcr.k1    <= x"0101";-- [ 0.257]
     kCoeffYcbcr.k2    <= x"01F8";-- [ 0.504]
@@ -155,6 +158,7 @@ videoOutP: process (clk) begin
         end if;
     end if;
 end process videoOutP;
+
 ycbcrInst: rgb_ycbcr
 generic map(
     i_data_width         => i_data_width,
@@ -184,14 +188,29 @@ port map(
     -- iRgb           => channels,
     -- kCoeff         => kCoeffYcbcr,
     -- oRgb           => ycbcr);
+    
 channelOutP: process (clk) begin
     if rising_edge(clk) then
         oCord <= iFrameData.cod;
         if (eChannelSelect = 0) then
-            oRgb     <= ycbcr;
+            rgbText  <= ycbcr;
         else
-            oRgb     <= channels;
+            rgbText  <= channels;
         end if;
     end if;
 end process channelOutP;
+
+TextGenYcbcrInst: TextGen
+generic map (
+    img_width     => img_width,
+    img_height    => img_width,
+    b_data_width  => b_data_width)
+port map(            
+    clk          => clk,
+    rst_l        => rst_l,
+    videoChannel => videoChannel,
+    txCord       => iFrameData.cod,
+    location     => location,
+    iRgb         => rgbText,
+    oRgb         => oRgb);
 end Behavioral;

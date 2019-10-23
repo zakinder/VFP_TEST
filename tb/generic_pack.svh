@@ -22,9 +22,9 @@ package generic_pack;
     parameter i_full_range              = `false;
     parameter img_width                 = 2751;       //D5M max supported img_width = 2751
     parameter dataWidth                 = 24;         //12;                
-    parameter read_bmp                  = "sharp_v3"; //128_128 //400_300 //1920_1080
-    parameter img_width_bmp             = 1920;       //128     //400       1920
-    parameter img_height_bmp            = 1080;       //128     //300       1080
+    parameter read_bmp                  = "emboss_v1"; //128_128 //400_300 //1920_1080
+    parameter img_width_bmp             = 400;       //128     //400       1920
+    parameter img_height_bmp            = 300;       //128     //300       1080
     parameter img_frames_cnt_bmp        = 1;
     parameter frame_width               = 100;
     parameter lvalid_offset             = 10;
@@ -32,6 +32,7 @@ package generic_pack;
     parameter num_frames                = 1;
     
 typedef struct packed {
+    bit         clkmm;
     logic       valid;
     logic [7:0] red;
     logic [7:0] green;
@@ -49,6 +50,7 @@ typedef struct packed {
     reg         increment_row;
 } vfp_channels;
 typedef struct packed {
+    bit          clkmm;
     logic        valid;
     logic        lvalid;
     logic        fvalid;
@@ -81,6 +83,7 @@ typedef struct packed {
     bit [31:0]   data;
 } d5m_interconnect;
 typedef struct packed {
+    bit          clkmm;
     logic        iReadyToRead;
     logic        iImageTypeTest;
     logic        valid;

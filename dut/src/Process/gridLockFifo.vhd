@@ -48,7 +48,7 @@ emptyO       <= emptyHi;
 fifoWrAddrs  <= to_integer(unsigned(wrAddress));
 fifoRdAddrs  <= to_integer(unsigned(rdAddress));
 
-eqlLocations <= hi when (wrAddress = rdAddress) else lo;
+eqlLocations <= hi when (wrAddress      = rdAddress) else lo;
 wrDone       <= hi when (fifoWrAddrs    = FIFO_DEPTH - 1) else lo;
 rdDone       <= hi when (fifoRdAddrs    = FIFO_DEPTH - 1) else lo;
 preEmpty     <= not preStatus and eqlLocations;

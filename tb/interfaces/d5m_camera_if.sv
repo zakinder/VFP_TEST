@@ -8,7 +8,7 @@ interface d5m_camera_if(input bit ACLK,pixclk,reset,ARESETN);
     d5m_interconnect    d5m_inf;
     pattern_channel     d5p;
     logic               ifval;
-
+    bit                 clkmm;
     logic [7:0]         AWADDR;
     logic [ 2:0]        AWPROT;
     logic               AWVALID;

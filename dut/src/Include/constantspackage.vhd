@@ -15,6 +15,10 @@ package constantspackage is
     constant ch1                       : integer   := 1;
     constant ch2                       : integer   := 2;
     constant ch3                       : integer   := 3;
+    constant ch4                       : integer   := 4;
+    constant ch5                       : integer   := 5;
+    constant ch6                       : integer   := 6;
+    constant ch7                       : integer   := 7;
     -------------------------------------------------------------------------
     constant kCoefYcbcrIndex           : integer   := 1;
     constant kCoefCgainIndex           : integer   := 2;
@@ -111,9 +115,17 @@ package constantspackage is
     constant ROUND_RESULT_WIDTH        : natural := ADD_RESULT_WIDTH - FRAC_BITS_TO_KEEP;
     constant ROUND                     : signed(ADD_RESULT_WIDTH-1 downto 0) := to_signed(0, ADD_RESULT_WIDTH-FRAC_BITS_TO_KEEP)&'1' & to_signed(0, FRAC_BITS_TO_KEEP-1);  
     -------------------------------------------------------------------------
-    function max(L, R: INTEGER) return INTEGER;
-    function min(L, R: INTEGER) return INTEGER;
-    function SelFrame(L, R: BOOLEAN) return BOOLEAN;
+    constant pixclk_freq               : real    := 150.00e6;
+    constant aclk_freq                 : real    := 150.00e6;
+    constant mm2s_aclk                 : real    := 150.00e6;
+    constant maxis_aclk                : real    := 150.00e6;
+    constant saxis_aclk                : real    := 150.00e6;
+    -------------------------------------------------------------------------
+    procedure clk_gen(signal clk : out std_logic; constant FREQ : real);
+    function max(L, R: INTEGER)         return INTEGER;
+    function min(L, R: INTEGER)         return INTEGER;
+    function iCrdDelta(L, R: INTEGER)   return INTEGER;
+    function SelFrame(L, R: BOOLEAN)    return BOOLEAN;
     function SelFrame(L, R, M: BOOLEAN) return BOOLEAN;
     function conv_std_logic_vector(ARG : integer; SIZE : integer) return std_logic_vector;
     -------------------------------------------------------------------------
@@ -122,6 +134,18 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 package body constantspackage is
+procedure clk_gen(signal clk : out std_logic; constant FREQ : real) is
+    constant PERIOD    : time := 1 sec / FREQ;
+    constant HIGH_TIME : time := PERIOD / 2;
+    constant LOW_TIME  : time := PERIOD - HIGH_TIME;
+    begin
+        loop
+        clk <= '1';
+        wait for HIGH_TIME;
+        clk <= '0';
+        wait for LOW_TIME;
+    end loop;
+end procedure;
 function conv_std_logic_vector(ARG : integer; SIZE : integer) return std_logic_vector is
     variable result         : std_logic_vector (SIZE - 1 downto 0);
     variable temp           : integer;
@@ -174,5 +198,9 @@ end function;
     else
         return R;
     end if;
+    end;
+    function iCrdDelta(L, R: INTEGER) return INTEGER is
+    begin
+        return (L-R);
     end;
 end package body;

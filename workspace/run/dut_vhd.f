@@ -1,5 +1,3 @@
-
-
 ../../dut/src/float_and_fixed_pkg/fixed_float_types_c.vhd
 ../../dut/src/float_and_fixed_pkg/fixed_pkg_c.vhd
 ../../dut/src/float_and_fixed_pkg/float_pkg_c.vhd
@@ -35,6 +33,8 @@
 ../../dut/src/Process/dither.vhd
 ../../dut/src/Process/edgeObjects.vhd
 ../../dut/src/Process/FontRom.vhd
+../../dut/src/Process/TextGen.vhd
+../../dut/src/Process/PixelOnDisplay.vhd
 ../../dut/src/Process/FrameMask.vhd
 ../../dut/src/Process/frameTestPattern.vhd
 ../../dut/src/Process/gridLockFifo.vhd
@@ -67,7 +67,6 @@
 ../../dut/src/Xip/ipstatic/hdl/xbip_bram18k_v3_0_vh_rfs.vhd
 ../../dut/src/Xip/ipstatic/hdl/mult_gen_v12_0_vh_rfs.vhd
 
-
 ../../dut/src/Xip/ByteToFloat/sim/ByteToFloat.vhd
 ../../dut/src/Xip/ByteToFloat/ByteToFloatTop.vhd
 ../../dut/src/Xip/FloatMultiply/sim/FloatMultiply.vhd
@@ -82,5 +81,3 @@
 ../../dut/src/Xip/SquareRoot/squareRootTop.vhd
 ../../dut/src/Xip/SquareRoot/sim/squareRoot.vhd
 ../../dut/src/Xip/SquareRoot/squareRootTop.vhd
-
-

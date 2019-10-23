@@ -56,7 +56,7 @@ set "textFile=generic_pack.svh"
 @echo off
 @set replace="%replace_to%_v%frame_size%"
 @set search1="%this_check_rgb_type%_v1"
-@set search2="%this_check_rgb_type%_v3"
+@set search2="%this_check_rgb_type%_v2"
 for /f "delims=" %%i in ('type "%textFile%" ^& break ^> "%textFile%" ') do (
     set "line=%%i"
     setlocal enabledelayedexpansion

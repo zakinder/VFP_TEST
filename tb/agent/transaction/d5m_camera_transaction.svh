@@ -20,6 +20,7 @@ class d5m_camera_transaction extends uvm_sequence_item;
         super.new(name);
     endfunction
     `uvm_object_utils_begin(d5m_camera_transaction)
+        `uvm_field_int  (vfp.clkmm,                     UVM_DEFAULT);
         `uvm_field_int  (vfp.valid,                     UVM_DEFAULT);
         `uvm_field_int  (vfp.lvalid,                    UVM_DEFAULT);
         `uvm_field_int  (vfp.fvalid,                    UVM_DEFAULT);
@@ -30,6 +31,7 @@ class d5m_camera_transaction extends uvm_sequence_item;
         `uvm_field_int  (vfp.blue,                      UVM_DEFAULT);
         `uvm_field_int  (vfp.x,                         UVM_DEFAULT);
         `uvm_field_int  (vfp.y,                         UVM_DEFAULT);
+        `uvm_field_int  (d5m.clkmm,                     UVM_DEFAULT);
         `uvm_field_int  (d5m.valid,                     UVM_DEFAULT);
         `uvm_field_int  (d5m.lvalid,                    UVM_DEFAULT);
         `uvm_field_int  (d5m.fvalid,                    UVM_DEFAULT);
@@ -44,6 +46,7 @@ class d5m_camera_transaction extends uvm_sequence_item;
         `uvm_field_int  (cof.lval_lines,                UVM_DEFAULT);
         `uvm_field_int  (cof.number_frames,             UVM_DEFAULT);
         `uvm_field_int  (cof.image_width,               UVM_DEFAULT);
+        `uvm_field_int  (d5p.clkmm,                     UVM_DEFAULT);
         `uvm_field_int  (d5p.iReadyToRead,              UVM_DEFAULT);
         `uvm_field_int  (d5p.iImageTypeTest,            UVM_DEFAULT);
         `uvm_field_int  (d5p.valid,                     UVM_DEFAULT);

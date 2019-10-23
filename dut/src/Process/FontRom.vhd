@@ -6,9 +6,9 @@
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
-use work.portspackage.all;
-use work.vpfRecords.all;
 use work.constantspackage.all;
+use work.vpfrecords.all;
+use work.portspackage.all;
 entity FontRom is
 port(
     clk     : in std_logic;
@@ -2200,12 +2200,12 @@ architecture Behavioral of FontRom is
         "00000000"  -- f
     );
 begin
-    pixelOn: process (clk)
-    begin
-        if rising_edge(clk) then
-            if (addr >= 0 and addr < 2048) then
-                fontRow <= ROM(addr);
-            end if;
+pixelOn: process (clk)
+begin
+    if rising_edge(clk) then
+        if (addr >= 0 and addr < 2048) then
+            fontRow <= ROM(addr);
         end if;
-    end process;
+    end if;
+end process pixelOn;
 end Behavioral;

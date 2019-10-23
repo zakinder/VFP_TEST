@@ -51,7 +51,7 @@ module rgbAssertion(pixclk,mmclk,reset,valid,iRed,iGreen,iBlue,m_axis_mm2s_tvali
       d5m.sim_done  <= 0;
     end
     //------------------------------------------------------------------------------------
-    else if (d5m.valid && ~d5m.completed_resolution_line_1920 && ~d5m.sim_done) begin
+    else if (d5m.valid && ~d5m.completed_resolution_line_400 && ~d5m.sim_done) begin
       d5m.x_coord       <= d5m.x_coord + 1'b1;
       d5m.increment_row <= 0;
        //if ((iRed > iGreen) && (iRed > iBlue)) begin
@@ -64,14 +64,14 @@ module rgbAssertion(pixclk,mmclk,reset,valid,iRed,iGreen,iBlue,m_axis_mm2s_tvali
         end
     end
     //------------------------------------------------------------------------------------
-    else if (d5m.completed_resolution_line_1920) begin
+    else if (d5m.completed_resolution_line_400) begin
      d5m.x_coord         <= 0;
      d5m.increment_row   <= 1;
     end
     //------------------------------------------------------------------------------------
     //-- Frame Done
     //------------------------------------------------------------------------------------
-    if (d5m.completed_resolution_1920_1080) begin
+    if (d5m.completed_resolution_400_300) begin
         d5m.sim_done <= 1;
         a2: assert (~d5m.valid)
         $display("[d5m] Y-Coord-> %d X-Coord-> %d Frame Done.",d5m.y_coord,d5m.x_coord);
@@ -115,7 +115,7 @@ module rgbAssertion(pixclk,mmclk,reset,valid,iRed,iGreen,iBlue,m_axis_mm2s_tvali
       vfp.sim_done <= 0;
     end
     //------------------------------------------------------------------------------------
-    else if (vfp.valid && ~vfp.completed_resolution_line_1920 && ~vfp.sim_done) begin
+    else if (vfp.valid && ~vfp.completed_resolution_line_400 && ~vfp.sim_done) begin
       vfp.x_coord       <= vfp.x_coord + 1'b1;
       vfp.increment_row <= 0;
         if (vfp.increment_row) begin
@@ -123,14 +123,14 @@ module rgbAssertion(pixclk,mmclk,reset,valid,iRed,iGreen,iBlue,m_axis_mm2s_tvali
         end
     end
     //------------------------------------------------------------------------------------
-    else if (vfp.completed_resolution_line_1920) begin
+    else if (vfp.completed_resolution_line_400) begin
      vfp.x_coord        <= 0;
      vfp.increment_row  <= 1;
     end
     //------------------------------------------------------------------------------------
     //-- Frame Done
     //------------------------------------------------------------------------------------
-    if (vfp.completed_resolution_1920_1080) begin
+    if (vfp.completed_resolution_400_300) begin
         vfp.sim_done <= 1;
         vfp_a1: assert (~vfp.valid)
         $display("[vfp] Y-Coord-> %d X-Coord-> %d Frame Done.",vfp.y_coord,vfp.x_coord);
