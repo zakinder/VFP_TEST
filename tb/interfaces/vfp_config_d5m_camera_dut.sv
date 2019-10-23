@@ -11,23 +11,23 @@ imageReadInterfaceInst         (
     .clk                       (d5m_camera_vif.pixclk             ),
     .m_axis_mm2s_aclk          (d5m_camera_vif.ACLK               ),
     .reset                     (d5m_camera_vif.reset              ),
-    .iReadyToRead              (d5m_camera_vif.iReadyToRead       ),
-    .iImageTypeTest            (d5m_camera_vif.iImageTypeTest     ),
-    .iRgb                      (d5m_camera_vif.iRgb               ),
-    .ilvalid                   (d5m_camera_vif.ilvalid            ),
-    .ifvalid                   (d5m_camera_vif.ifvalid            ),
+    .iReadyToRead              (d5m_camera_vif.d5p.iReadyToRead   ),
+    .iImageTypeTest            (d5m_camera_vif.d5p.iImageTypeTest ),
+    .iRgb                      (d5m_camera_vif.d5p.rgb            ),
+    .ilvalid                   (d5m_camera_vif.d5p.lvalid         ),
+    .ifvalid                   (d5m_camera_vif.d5p.fvalid         ),
     .m_axis_mm2s_tvalid        (d5m_camera_vif.m_axis_mm2s_tvalid ),
     .m_axis_mm2s_tdata         (d5m_camera_vif.m_axis_mm2s_tdata  ),
-    .valid                     (d5m_camera_vif.valid              ),
-    .red                       (d5m_camera_vif.red                ),
-    .green                     (d5m_camera_vif.green              ),
-    .blue                      (d5m_camera_vif.blue               ),
-    .lvalid                    (d5m_camera_vif.lvalid             ),
-    .fvalid                    (d5m_camera_vif.fvalid             ),
-    .rgb                       (d5m_camera_vif.rgb                ),
-    .xCord                     (d5m_camera_vif.xCord              ),
-    .yCord                     (d5m_camera_vif.yCord              ),
-    .endOfFrame                (d5m_camera_vif.endOfFrame         ));
+    .valid                     (d5m_camera_vif.d5m.valid          ),
+    .red                       (d5m_camera_vif.d5m.red            ),
+    .green                     (d5m_camera_vif.d5m.green          ),
+    .blue                      (d5m_camera_vif.d5m.blue           ),
+    .lvalid                    (d5m_camera_vif.d5m.lvalid         ),
+    .fvalid                    (d5m_camera_vif.d5m.fvalid         ),
+    .rgb                       (d5m_camera_vif.d5m.rgb            ),
+    .xCord                     (d5m_camera_vif.d5m.x              ),
+    .yCord                     (d5m_camera_vif.d5m.y              ),
+    .endOfFrame                (d5m_camera_vif.d5m.eof            ));
 endmodule: imageReadInterfaceDut
 module vfpConfigd5mCameraDut(d5m_camera_if.ConfigMaster d5m_camera_vif);
 import generic_pack::*;  
@@ -52,9 +52,9 @@ VFP_v1_0                      #(
 dutVFP_v1Inst                  (
     //d5m input
     .pixclk                    (d5m_camera_vif.pixclk             ),//(d5m_camera_vif.ACLK   ),
-    .ifval                     (d5m_camera_vif.fvalid             ),//(d5m_camera_vif.ifval),
-    .ilval                     (d5m_camera_vif.lvalid             ),//(d5m_camera_vif.ilval ),
-    .idata                     (d5m_camera_vif.rgb                ),//(d5m_camera_vif.idata ),
+    .ifval                     (d5m_camera_vif.d5m.fvalid         ),//(d5m_camera_vif.ifval),
+    .ilval                     (d5m_camera_vif.d5m.lvalid         ),//(d5m_camera_vif.ilval ),
+    .idata                     (d5m_camera_vif.d5m.rgb            ),//(d5m_camera_vif.idata ),
     //tx channel
     .rgb_m_axis_aclk           (d5m_camera_vif.ACLK               ),
     .rgb_m_axis_aresetn        (d5m_camera_vif.ARESETN            ),

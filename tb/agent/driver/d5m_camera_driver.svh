@@ -28,21 +28,21 @@ class d5m_camera_driver extends uvm_driver #(d5m_camera_transaction);
         //`uvm_info("AXI4LITE WRITE: RESET SIGNALS", "RESET SIGNALS",UVM_LOW)
         forever begin
             @(posedge d5m_camera_vif.ARESETN);
-            d5m_camera_vif.AWADDR          <=  8'h0;
-            d5m_camera_vif.AWPROT          <=  3'h0;
-            d5m_camera_vif.AWVALID         <=  1'b0;
-            d5m_camera_vif.WDATA           <= 32'h0;
-            d5m_camera_vif.WSTRB           <=  4'h0;
-            d5m_camera_vif.WVALID          <=  1'b0;
-            d5m_camera_vif.BREADY          <=  1'b0;
-            d5m_camera_vif.ARADDR          <=  8'h0;
-            d5m_camera_vif.ARPROT          <=  3'h0;
-            d5m_camera_vif.ARVALID         <=  1'b0;
-            d5m_camera_vif.RREADY          <=  1'b0;
-            d5m_camera_vif.iImageTypeTest  <=  1'b0;
-            d5m_camera_vif.iReadyToRead    <=  1'b0;
-            d5m_camera_vif.ifvalid         <=  1'b0;
-            d5m_camera_vif.ilvalid         <=  1'b0;
+            d5m_camera_vif.AWADDR             <=  8'h0;
+            d5m_camera_vif.AWPROT             <=  3'h0;
+            d5m_camera_vif.AWVALID            <=  1'b0;
+            d5m_camera_vif.WDATA              <= 32'h0;
+            d5m_camera_vif.WSTRB              <=  4'h0;
+            d5m_camera_vif.WVALID             <=  1'b0;
+            d5m_camera_vif.BREADY             <=  1'b0;
+            d5m_camera_vif.ARADDR             <=  8'h0;
+            d5m_camera_vif.ARPROT             <=  3'h0;
+            d5m_camera_vif.ARVALID            <=  1'b0;
+            d5m_camera_vif.RREADY             <=  1'b0;
+            d5m_camera_vif.d5p.iImageTypeTest <=  1'b0;
+            d5m_camera_vif.d5p.iReadyToRead   <=  1'b0;
+            d5m_camera_vif.d5p.fvalid         <=  1'b0;
+            d5m_camera_vif.d5p.lvalid         <=  1'b0;
         end
     endtask: reset_signals
     //====================================================================================
@@ -93,7 +93,7 @@ class d5m_camera_driver extends uvm_driver #(d5m_camera_transaction);
     virtual protected task drive_data_phase (d5m_camera_transaction d5m_tx);
         bit[31:0] rw_data;
         bit err;
-        rw_data = d5m_tx.data;
+        rw_data = d5m_tx.axi4_lite.data;
         case (d5m_tx.d5m_txn)
             AXI4_WRITE : drive_write_data_channel(d5m_tx);
             AXI4_READ  : drive_read_data_channel(rw_data, err);
@@ -103,21 +103,21 @@ class d5m_camera_driver extends uvm_driver #(d5m_camera_transaction);
     endtask: drive_data_phase
     virtual protected task read_d5m_phase(d5m_camera_transaction d5m_tx);
             @(posedge d5m_camera_vif.pixclk);
-            d5m_camera_vif.iImageTypeTest  <= 1'b0;
-            d5m_camera_vif.iReadyToRead    <= 1'b1;
-            d5m_tx.valid                   <= d5m_camera_vif.valid;
-            d5m_tx.red                     <= d5m_camera_vif.red;
-            d5m_tx.green                   <= d5m_camera_vif.green;
-            d5m_tx.blue                    <= d5m_camera_vif.blue;
-            d5m_tx.rgb                     <= d5m_camera_vif.rgb;
-            d5m_tx.lvalid                  <= d5m_camera_vif.lvalid;
-            d5m_tx.fvalid                  <= d5m_camera_vif.fvalid;
-            d5m_tx.xCord                   <= d5m_camera_vif.xCord;
-            d5m_tx.yCord                   <= d5m_camera_vif.yCord;
-            d5m_tx.endOfFrame              <= d5m_camera_vif.endOfFrame;
+            d5m_camera_vif.d5p.iImageTypeTest  <= 1'b0;
+            d5m_camera_vif.d5p.iReadyToRead    <= 1'b1;
+            d5m_tx.d5m.valid                   <= d5m_camera_vif.d5m.valid;
+            d5m_tx.d5m.red                     <= d5m_camera_vif.d5m.red;
+            d5m_tx.d5m.green                   <= d5m_camera_vif.d5m.green;
+            d5m_tx.d5m.blue                    <= d5m_camera_vif.d5m.blue;
+            d5m_tx.d5m.rgb                     <= d5m_camera_vif.d5m.rgb;
+            d5m_tx.d5m.lvalid                  <= d5m_camera_vif.d5m.lvalid;
+            d5m_tx.d5m.fvalid                  <= d5m_camera_vif.d5m.fvalid;
+            d5m_tx.d5m.x                       <= d5m_camera_vif.d5m.x;
+            d5m_tx.d5m.y                       <= d5m_camera_vif.d5m.y;
+            d5m_tx.d5m.eof                     <= d5m_camera_vif.d5m.eof;
         forever begin
             @(posedge d5m_camera_vif.pixclk);
-            if (d5m_camera_vif.endOfFrame) break;
+            if (d5m_camera_vif.d5m.eof) break;
         end
     endtask: read_d5m_phase
     virtual protected task d5m_data_phase (d5m_camera_transaction d5m_tx);
@@ -126,18 +126,18 @@ class d5m_camera_driver extends uvm_driver #(d5m_camera_transaction);
         bit ifvalid;
         bit ilvalid;
         bit iImageTypeTest;
-        ifvalid          = d5m_tx.ifvalid;
-        ilvalid          = d5m_tx.ilvalid;
-        iImageTypeTest   = d5m_tx.iImageTypeTest;
-        rw_data          = d5m_tx.iRgb;
+        ifvalid          = d5m_tx.d5p.fvalid;
+        ilvalid          = d5m_tx.d5p.lvalid;
+        iImageTypeTest   = d5m_tx.d5p.iImageTypeTest;
+        rw_data          = d5m_tx.d5p.rgb;
         d5m_write_idata(rw_data,ilvalid,ifvalid,iImageTypeTest, err);
     endtask: d5m_data_phase
     virtual protected task d5m_write_idata (bit[23:0] iRgb,bit ilvalid,bit ifvalid,bit iImageTypeTest, output bit error);
-        d5m_camera_vif.iReadyToRead       <= 1'b0;
-        d5m_camera_vif.iImageTypeTest     <= iImageTypeTest;
-        d5m_camera_vif.iRgb               <= iRgb;
-        d5m_camera_vif.ifvalid            <= ifvalid;
-        d5m_camera_vif.ilvalid            <= ilvalid;
+        d5m_camera_vif.d5p.iReadyToRead   <= 1'b0;
+        d5m_camera_vif.d5p.iImageTypeTest <= iImageTypeTest;
+        d5m_camera_vif.d5p.rgb            <= iRgb;
+        d5m_camera_vif.d5p.fvalid         <= ifvalid;
+        d5m_camera_vif.d5p.lvalid         <= ilvalid;
     endtask: d5m_write_idata
     //====================================================================================
     //------------------------------------------------------------------------------------
@@ -146,7 +146,7 @@ class d5m_camera_driver extends uvm_driver #(d5m_camera_transaction);
     //====================================================================================
     virtual protected task drive_write_address_channel (d5m_camera_transaction d5m_tx);
         int axi_lite_ctr;
-        d5m_camera_vif.AWADDR  <= {8'h0, d5m_tx.addr};
+        d5m_camera_vif.AWADDR  <= {8'h0, d5m_tx.axi4_lite.addr};
         d5m_camera_vif.AWPROT  <= 3'h0;
         d5m_camera_vif.AWVALID <= 1'b1;
         //wait for write response
@@ -165,7 +165,7 @@ class d5m_camera_driver extends uvm_driver #(d5m_camera_transaction);
     //====================================================================================
     virtual protected task drive_write_data_channel (d5m_camera_transaction d5m_tx);
         int axi_lite_ctr;
-        d5m_camera_vif.WDATA  <= d5m_tx.data;
+        d5m_camera_vif.WDATA  <= d5m_tx.axi4_lite.data;
         d5m_camera_vif.WSTRB  <= 4'hf;
         d5m_camera_vif.WVALID <= 1'b1;
         @(posedge d5m_camera_vif.ACLK);
@@ -208,7 +208,7 @@ class d5m_camera_driver extends uvm_driver #(d5m_camera_transaction);
     //====================================================================================
     virtual protected task drive_read_address_channel (d5m_camera_transaction d5m_tx);
         int axi_lite_ctr;
-        d5m_camera_vif.ARADDR  <= {8'h0, d5m_tx.addr};
+        d5m_camera_vif.ARADDR  <= {8'h0, d5m_tx.axi4_lite.addr};
         d5m_camera_vif.ARPROT  <= 3'h0;
         d5m_camera_vif.ARVALID <= 1'b1;
         for(axi_lite_ctr = 0; axi_lite_ctr <= 62; axi_lite_ctr ++) begin

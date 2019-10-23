@@ -20,11 +20,11 @@ class d5m_camera_image_file_sequence extends d5m_camera_base_seq;
         type_idata  data_type;
         //----------------------------------------------------
         `uvm_create(item)
-        item.iRgb           = 0;
-        item.ilvalid        = 1'b0;
-        item.ifvalid        = 1'b0;
-        item.iImageTypeTest = 1'b0;
-        item.d5m_txn        = D5M_WRITE;
+        item.d5p.rgb            = 0;
+        item.d5p.lvalid         = 1'b0;
+        item.d5p.fvalid         = 1'b0;
+        item.d5p.iImageTypeTest = 1'b0;
+        item.d5m_txn            = D5M_WRITE;
         `uvm_send(item);
         //----------------------------------------------------
         axi_write_config_reg();
@@ -101,7 +101,7 @@ class d5m_camera_image_file_sequence extends d5m_camera_base_seq;
         bit [31:0] max_num_video_select  = 32'h32;//180
         axi_write_channel(oRgbOsharp,10);
         axi_write_channel(oEdgeType,11);
-        axi_write_channel(threshold,8);
+        axi_write_channel(threshold,12);
         axi_write_channel(videoChannel,select_hsv);
         axi_write_channel(cChannel,15);
         axi_write_channel(dChannel,select_rgb_not_ycbcr);
@@ -125,15 +125,15 @@ class d5m_camera_image_file_sequence extends d5m_camera_base_seq;
     virtual protected task axi_write_channel (bit[7:0] addr,bit[31:0] data);
             d5m_camera_transaction item;
             `uvm_create(item)
-            item.addr           = {7'h0,addr};
-            item.data           = data;
+            item.axi4_lite.addr           = {7'h0,addr};
+            item.axi4_lite.data           = data;
             item.d5m_txn        = AXI4_WRITE;
             `uvm_send(item);
     endtask: axi_write_channel
     virtual protected task d5m_read ();
             d5m_camera_transaction item;
             `uvm_create(item)
-            item.iImageTypeTest = 1'b0;
+            item.d5p.iImageTypeTest = 1'b0;
             item.d5m_txn        = IMAGE_READ;
             `uvm_send(item);
     endtask: d5m_read
@@ -160,10 +160,10 @@ class d5m_camera_image_blur_sequence extends d5m_camera_base_seq;
         type_idata  data_type;
         //----------------------------------------------------
         `uvm_create(item)
-        item.iRgb           = 0;
-        item.ilvalid        = 1'b0;
-        item.ifvalid        = 1'b0;
-        item.iImageTypeTest = 1'b0;
+        item.d5p.rgb           = 0;
+        item.d5p.lvalid        = 1'b0;
+        item.d5p.fvalid        = 1'b0;
+        item.d5p.iImageTypeTest = 1'b0;
         item.d5m_txn        = D5M_WRITE;
         `uvm_send(item);
         //----------------------------------------------------
@@ -212,7 +212,7 @@ class d5m_camera_image_blur_sequence extends d5m_camera_base_seq;
         bit [31:0] max_num_video_select  = 32'h32;//180
         axi_write_channel(oRgbOsharp,10);
         axi_write_channel(oEdgeType,11);
-        axi_write_channel(threshold,3);
+        axi_write_channel(threshold,12);
         axi_write_channel(videoChannel,select_blur);
         axi_write_channel(cChannel,15);
         axi_write_channel(dChannel,select_rgb_not_ycbcr);
@@ -236,15 +236,15 @@ class d5m_camera_image_blur_sequence extends d5m_camera_base_seq;
     virtual protected task axi_write_channel (bit[7:0] addr,bit[31:0] data);
             d5m_camera_transaction item;
             `uvm_create(item)
-            item.addr           = {7'h0,addr};
-            item.data           = data;
+            item.axi4_lite.addr           = {7'h0,addr};
+            item.axi4_lite.data           = data;
             item.d5m_txn        = AXI4_WRITE;
             `uvm_send(item);
     endtask: axi_write_channel
     virtual protected task d5m_read ();
             d5m_camera_transaction item;
             `uvm_create(item)
-            item.iImageTypeTest = 1'b0;
+            item.d5p.iImageTypeTest = 1'b0;
             item.d5m_txn        = IMAGE_READ;
             `uvm_send(item);
     endtask: d5m_read
@@ -271,11 +271,11 @@ class d5m_camera_image_emboss_sequence extends d5m_camera_base_seq;
         type_idata  data_type;
         //----------------------------------------------------
         `uvm_create(item)
-        item.iRgb           = 0;
-        item.ilvalid        = 1'b0;
-        item.ifvalid        = 1'b0;
-        item.iImageTypeTest = 1'b0;
-        item.d5m_txn        = D5M_WRITE;
+        item.d5p.rgb            = 0;
+        item.d5p.lvalid         = 1'b0;
+        item.d5p.fvalid         = 1'b0;
+        item.d5p.iImageTypeTest = 1'b0;
+        item.d5m_txn            = D5M_WRITE;
         `uvm_send(item);
         //----------------------------------------------------
         axi_write_config_reg();
@@ -322,7 +322,7 @@ class d5m_camera_image_emboss_sequence extends d5m_camera_base_seq;
         bit [31:0] max_num_video_select  = 32'h32;//180
         axi_write_channel(oRgbOsharp,10);
         axi_write_channel(oEdgeType,11);
-        axi_write_channel(threshold,3);
+        axi_write_channel(threshold,12);
         axi_write_channel(videoChannel,select_emboss);
         axi_write_channel(cChannel,15);
         axi_write_channel(dChannel,select_rgb_not_ycbcr);
@@ -346,15 +346,15 @@ class d5m_camera_image_emboss_sequence extends d5m_camera_base_seq;
     virtual protected task axi_write_channel (bit[7:0] addr,bit[31:0] data);
             d5m_camera_transaction item;
             `uvm_create(item)
-            item.addr           = {7'h0,addr};
-            item.data           = data;
+            item.axi4_lite.addr           = {7'h0,addr};
+            item.axi4_lite.data           = data;
             item.d5m_txn        = AXI4_WRITE;
             `uvm_send(item);
     endtask: axi_write_channel
     virtual protected task d5m_read ();
             d5m_camera_transaction item;
             `uvm_create(item)
-            item.iImageTypeTest = 1'b0;
+            item.d5p.iImageTypeTest = 1'b0;
             item.d5m_txn        = IMAGE_READ;
             `uvm_send(item);
     endtask: d5m_read
@@ -381,10 +381,10 @@ class d5m_camera_image_rgb_sequence extends d5m_camera_base_seq;
         type_idata  data_type;
         //----------------------------------------------------
         `uvm_create(item)
-        item.iRgb           = 0;
-        item.ilvalid        = 1'b0;
-        item.ifvalid        = 1'b0;
-        item.iImageTypeTest = 1'b0;
+        item.d5p.rgb           = 0;
+        item.d5p.lvalid        = 1'b0;
+        item.d5p.fvalid        = 1'b0;
+        item.d5p.iImageTypeTest = 1'b0;
         item.d5m_txn        = D5M_WRITE;
         `uvm_send(item);
         //----------------------------------------------------
@@ -432,7 +432,7 @@ class d5m_camera_image_rgb_sequence extends d5m_camera_base_seq;
         bit [31:0] max_num_video_select  = 32'h32;//180
         axi_write_channel(oRgbOsharp,10);
         axi_write_channel(oEdgeType,11);
-        axi_write_channel(threshold,3);
+        axi_write_channel(threshold,12);
         axi_write_channel(videoChannel,select_rgb);
         axi_write_channel(cChannel,15);
         axi_write_channel(dChannel,select_rgb_not_ycbcr);
@@ -456,15 +456,15 @@ class d5m_camera_image_rgb_sequence extends d5m_camera_base_seq;
     virtual protected task axi_write_channel (bit[7:0] addr,bit[31:0] data);
             d5m_camera_transaction item;
             `uvm_create(item)
-            item.addr           = {7'h0,addr};
-            item.data           = data;
+            item.axi4_lite.addr           = {7'h0,addr};
+            item.axi4_lite.data           = data;
             item.d5m_txn        = AXI4_WRITE;
             `uvm_send(item);
     endtask: axi_write_channel
     virtual protected task d5m_read ();
             d5m_camera_transaction item;
             `uvm_create(item)
-            item.iImageTypeTest = 1'b0;
+            item.d5p.iImageTypeTest = 1'b0;
             item.d5m_txn        = IMAGE_READ;
             `uvm_send(item);
     endtask: d5m_read
@@ -491,10 +491,10 @@ class d5m_camera_image_sharp_sequence extends d5m_camera_base_seq;
         type_idata  data_type;
         //----------------------------------------------------
         `uvm_create(item)
-        item.iRgb           = 0;
-        item.ilvalid        = 1'b0;
-        item.ifvalid        = 1'b0;
-        item.iImageTypeTest = 1'b0;
+        item.d5p.rgb           = 0;
+        item.d5p.lvalid        = 1'b0;
+        item.d5p.fvalid        = 1'b0;
+        item.d5p.iImageTypeTest = 1'b0;
         item.d5m_txn        = D5M_WRITE;
         `uvm_send(item);
         //----------------------------------------------------
@@ -542,7 +542,7 @@ class d5m_camera_image_sharp_sequence extends d5m_camera_base_seq;
         bit [31:0] max_num_video_select  = 32'h32;//180
         axi_write_channel(oRgbOsharp,10);
         axi_write_channel(oEdgeType,11);
-        axi_write_channel(threshold,3);
+        axi_write_channel(threshold,12);
         axi_write_channel(videoChannel,select_sharp);
         axi_write_channel(cChannel,15);
         axi_write_channel(dChannel,select_rgb_not_ycbcr);
@@ -566,15 +566,15 @@ class d5m_camera_image_sharp_sequence extends d5m_camera_base_seq;
     virtual protected task axi_write_channel (bit[7:0] addr,bit[31:0] data);
             d5m_camera_transaction item;
             `uvm_create(item)
-            item.addr           = {7'h0,addr};
-            item.data           = data;
+            item.axi4_lite.addr           = {7'h0,addr};
+            item.axi4_lite.data           = data;
             item.d5m_txn        = AXI4_WRITE;
             `uvm_send(item);
     endtask: axi_write_channel
     virtual protected task d5m_read ();
             d5m_camera_transaction item;
             `uvm_create(item)
-            item.iImageTypeTest = 1'b0;
+            item.d5p.iImageTypeTest = 1'b0;
             item.d5m_txn        = IMAGE_READ;
             `uvm_send(item);
     endtask: d5m_read
@@ -601,10 +601,10 @@ class d5m_camera_image_cgain_sequence extends d5m_camera_base_seq;
         type_idata  data_type;
         //----------------------------------------------------
         `uvm_create(item)
-        item.iRgb           = 0;
-        item.ilvalid        = 1'b0;
-        item.ifvalid        = 1'b0;
-        item.iImageTypeTest = 1'b0;
+        item.d5p.rgb           = 0;
+        item.d5p.lvalid        = 1'b0;
+        item.d5p.fvalid        = 1'b0;
+        item.d5p.iImageTypeTest = 1'b0;
         item.d5m_txn        = D5M_WRITE;
         `uvm_send(item);
         //----------------------------------------------------
@@ -653,7 +653,7 @@ class d5m_camera_image_cgain_sequence extends d5m_camera_base_seq;
         bit [31:0] max_num_video_select  = 32'h32;//180
         axi_write_channel(oRgbOsharp,10);
         axi_write_channel(oEdgeType,11);
-        axi_write_channel(threshold,3);
+        axi_write_channel(threshold,12);
         axi_write_channel(videoChannel,select_cgain);
         axi_write_channel(cChannel,15);
         axi_write_channel(dChannel,select_rgb_not_ycbcr);
@@ -677,15 +677,15 @@ class d5m_camera_image_cgain_sequence extends d5m_camera_base_seq;
     virtual protected task axi_write_channel (bit[7:0] addr,bit[31:0] data);
             d5m_camera_transaction item;
             `uvm_create(item)
-            item.addr           = {7'h0,addr};
-            item.data           = data;
+            item.axi4_lite.addr           = {7'h0,addr};
+            item.axi4_lite.data           = data;
             item.d5m_txn        = AXI4_WRITE;
             `uvm_send(item);
     endtask: axi_write_channel
     virtual protected task d5m_read ();
             d5m_camera_transaction item;
             `uvm_create(item)
-            item.iImageTypeTest = 1'b0;
+            item.d5p.iImageTypeTest = 1'b0;
             item.d5m_txn        = IMAGE_READ;
             `uvm_send(item);
     endtask: d5m_read
@@ -712,10 +712,10 @@ class d5m_camera_image_sobel_sequence extends d5m_camera_base_seq;
         type_idata  data_type;
         //----------------------------------------------------
         `uvm_create(item)
-        item.iRgb           = 0;
-        item.ilvalid        = 1'b0;
-        item.ifvalid        = 1'b0;
-        item.iImageTypeTest = 1'b0;
+        item.d5p.rgb           = 0;
+        item.d5p.lvalid        = 1'b0;
+        item.d5p.fvalid        = 1'b0;
+        item.d5p.iImageTypeTest = 1'b0;
         item.d5m_txn        = D5M_WRITE;
         `uvm_send(item);
         //----------------------------------------------------
@@ -762,7 +762,7 @@ class d5m_camera_image_sobel_sequence extends d5m_camera_base_seq;
         bit [31:0] select_rgbPoi         = 32'h30;//180
         axi_write_channel(oRgbOsharp,10);
         axi_write_channel(oEdgeType,11);
-        axi_write_channel(threshold,8);
+        axi_write_channel(threshold,12);
         axi_write_channel(videoChannel,select_sobel);
         axi_write_channel(cChannel,15);
         axi_write_channel(dChannel,select_rgb_not_ycbcr);
@@ -786,15 +786,15 @@ class d5m_camera_image_sobel_sequence extends d5m_camera_base_seq;
     virtual protected task axi_write_channel (bit[7:0] addr,bit[31:0] data);
             d5m_camera_transaction item;
             `uvm_create(item)
-            item.addr           = {7'h0,addr};
-            item.data           = data;
+            item.axi4_lite.addr           = {7'h0,addr};
+            item.axi4_lite.data           = data;
             item.d5m_txn        = AXI4_WRITE;
             `uvm_send(item);
     endtask: axi_write_channel
     virtual protected task d5m_read ();
             d5m_camera_transaction item;
             `uvm_create(item)
-            item.iImageTypeTest = 1'b0;
+            item.d5p.iImageTypeTest = 1'b0;
             item.d5m_txn        = IMAGE_READ;
             `uvm_send(item);
     endtask: d5m_read
@@ -821,10 +821,10 @@ class d5m_camera_image_hsv_sequence extends d5m_camera_base_seq;
         type_idata  data_type;
         //----------------------------------------------------
         `uvm_create(item)
-        item.iRgb           = 0;
-        item.ilvalid        = 1'b0;
-        item.ifvalid        = 1'b0;
-        item.iImageTypeTest = 1'b0;
+        item.d5p.rgb        = 0;
+        item.d5p.lvalid        = 1'b0;
+        item.d5p.fvalid        = 1'b0;
+        item.d5p.iImageTypeTest = 1'b0;
         item.d5m_txn        = D5M_WRITE;
         `uvm_send(item);
         //----------------------------------------------------
@@ -872,7 +872,7 @@ class d5m_camera_image_hsv_sequence extends d5m_camera_base_seq;
         bit [31:0] max_num_video_select  = 32'h32;//180
         axi_write_channel(oRgbOsharp,10);
         axi_write_channel(oEdgeType,11);
-        axi_write_channel(threshold,3);
+        axi_write_channel(threshold,12);
         axi_write_channel(videoChannel,select_hsv);
         axi_write_channel(cChannel,15);
         axi_write_channel(dChannel,select_rgb_not_ycbcr);
@@ -896,15 +896,15 @@ class d5m_camera_image_hsv_sequence extends d5m_camera_base_seq;
     virtual protected task axi_write_channel (bit[7:0] addr,bit[31:0] data);
             d5m_camera_transaction item;
             `uvm_create(item)
-            item.addr           = {7'h0,addr};
-            item.data           = data;
-            item.d5m_txn        = AXI4_WRITE;
+            item.axi4_lite.addr   = {7'h0,addr};
+            item.axi4_lite.data   = data;
+            item.d5m_txn          = AXI4_WRITE;
             `uvm_send(item);
     endtask: axi_write_channel
     virtual protected task d5m_read ();
             d5m_camera_transaction item;
             `uvm_create(item)
-            item.iImageTypeTest = 1'b0;
+            item.d5p.iImageTypeTest = 1'b0;
             item.d5m_txn        = IMAGE_READ;
             `uvm_send(item);
     endtask: d5m_read
@@ -931,10 +931,10 @@ class d5m_camera_image_hsl_sequence extends d5m_camera_base_seq;
         type_idata  data_type;
         //----------------------------------------------------
         `uvm_create(item)
-        item.iRgb           = 0;
-        item.ilvalid        = 1'b0;
-        item.ifvalid        = 1'b0;
-        item.iImageTypeTest = 1'b0;
+        item.d5p.rgb           = 0;
+        item.d5p.lvalid        = 1'b0;
+        item.d5p.fvalid        = 1'b0;
+        item.d5p.iImageTypeTest = 1'b0;
         item.d5m_txn        = D5M_WRITE;
         `uvm_send(item);
         //----------------------------------------------------
@@ -982,7 +982,7 @@ class d5m_camera_image_hsl_sequence extends d5m_camera_base_seq;
         bit [31:0] max_num_video_select  = 32'h32;//180
         axi_write_channel(oRgbOsharp,10);
         axi_write_channel(oEdgeType,11);
-        axi_write_channel(threshold,3);
+        axi_write_channel(threshold,12);
         axi_write_channel(videoChannel,select_hsv);
         axi_write_channel(cChannel,15);
         axi_write_channel(dChannel,select_rgb_not_ycbcr);
@@ -1006,15 +1006,15 @@ class d5m_camera_image_hsl_sequence extends d5m_camera_base_seq;
     virtual protected task axi_write_channel (bit[7:0] addr,bit[31:0] data);
             d5m_camera_transaction item;
             `uvm_create(item)
-            item.addr           = {7'h0,addr};
-            item.data           = data;
+            item.axi4_lite.addr           = {7'h0,addr};
+            item.axi4_lite.data           = data;
             item.d5m_txn        = AXI4_WRITE;
             `uvm_send(item);
     endtask: axi_write_channel
     virtual protected task d5m_read ();
             d5m_camera_transaction item;
             `uvm_create(item)
-            item.iImageTypeTest = 1'b0;
+            item.d5p.iImageTypeTest = 1'b0;
             item.d5m_txn        = IMAGE_READ;
             `uvm_send(item);
     endtask: d5m_read

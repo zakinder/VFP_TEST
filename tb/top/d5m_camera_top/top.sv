@@ -10,18 +10,12 @@ module top;
     bit ACLK;
     bit reset;
     bit ARESETN;
-
-    
     //INTERFACE
-    d5m_camera_if                 d5m_camera_vif(ACLK,pixclk,reset,ARESETN);                // AXI_LITE_INTERFACE  
+    d5m_camera_if                d5m_camera_vif(ACLK,pixclk,reset,ARESETN);
     //MODULE
-    vfpConfigd5mCameraDut        vfp_dut(d5m_camera_vif); // [d5m_camera]
-    imageReadInterfaceDut        imageRead_dut(d5m_camera_vif); // [d5m_camera]
-    rgbAssertionDut              rgbAssertion_dut(d5m_camera_vif);                // [TEMPLATE]
-
-  //clock generation
-  //always #5 pixclk = ~pixclk;
-  //always #5 ACLK   = ~ACLK;
+    vfpConfigd5mCameraDut        vfp_dut(d5m_camera_vif);
+    imageReadInterfaceDut        imageRead_dut(d5m_camera_vif);
+    rgbAssertionDut              rgbAssertion_dut(d5m_camera_vif);
   initial begin
     reset = 0;
     #100ns reset = 1;
@@ -35,19 +29,11 @@ module top;
    #5ns;
    forever #5ns pixclk = ! pixclk;
    end
-   
    initial begin
    ACLK = 0;
-   #5ns ;
+   #5ns;
    forever #5ns ACLK = ! ACLK;
    end
-  //reset Generation
-
-    
-
-
-
-    
     initial begin
         uvm_config_db   #(virtual d5m_camera_if) ::set(null, "*", "d5m_camera_vif", d5m_camera_vif);
         run_test();

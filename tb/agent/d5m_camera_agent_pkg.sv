@@ -1,5 +1,6 @@
 package d5m_camera_agent_pkg;
   import uvm_pkg::*;
+  import generic_pack::*;
   `include "uvm_macros.svh"
   `include "../defin_lib.svh"
   `include "transaction/d5m_camera_transaction.svh"

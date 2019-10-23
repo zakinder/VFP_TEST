@@ -108,9 +108,9 @@ architecture arch of frameProcess is
     constant M_SOB_HSV      : boolean := SelFrame(F_SOB,F_HSV,MASK_TRUE);
     constant M_SOB_HSL      : boolean := SelFrame(F_SOB,F_HSL,MASK_TRUE);
 begin
-    lumThreshold                 <= std_logic_vector(to_unsigned(iLumTh,8));
-    cHsv                         <= std_logic_vector(to_unsigned(iHsvPerCh,3));--[0-cHsv,1-cHsvH,2-cHsvS,3-cHsvV]
-    cYcc                         <= std_logic_vector(to_unsigned(iYccPerCh,3));--[0-cYcc,1-cYccY,2-cYccB,3-cYccR]
+    lumThreshold           <= std_logic_vector(to_unsigned(iLumTh,8));
+    cHsv                   <= std_logic_vector(to_unsigned(iHsvPerCh,3));--[0-cHsv,1-cHsvH,2-cHsvS,3-cHsvV]
+    cYcc                   <= std_logic_vector(to_unsigned(iYccPerCh,3));--[0-cYcc,1-cYccY,2-cYccB,3-cYccR]
     -------------------------------------------------
     oFrameData.sobel             <= rgbImageFilters.sobel;
     oFrameData.embos             <= rgbImageFilters.embos;

@@ -20,10 +20,10 @@ class d5m_camera_sequence extends d5m_camera_base_seq;
         type_idata  data_type;
         //----------------------------------------------------
         `uvm_create(item)
-        item.iRgb           = 0;
-        item.ilvalid        = 1'b0;
-        item.ifvalid        = 1'b0;
-        item.iImageTypeTest = 1'b0;
+        item.d5p.rgb           = 0;
+        item.d5p.lvalid        = 1'b0;
+        item.d5p.fvalid        = 1'b0;
+        item.d5p.iImageTypeTest = 1'b0;
         item.d5m_txn        = D5M_WRITE;
         `uvm_send(item);
         //----------------------------------------------------
@@ -31,9 +31,9 @@ class d5m_camera_sequence extends d5m_camera_base_seq;
         d5m_read();
         //----------------------------------------------------
        //d5m_write_pre_set_ifval();
-       //number_frames  = item.number_frames;
-       //lval_lines     = item.lval_lines;
-       //lval_offset    = item.lval_offset;
+       //number_frames  = item.cof.number_frames;
+       //lval_lines     = item.cof.lval_lines;
+       //lval_offset    = item.cof.lval_offset;
        //image_width    = item.image_width;
        //axi_write_channel(aBusSelect,0);
        //d5m_write_create_frames(number_frames,lval_lines,lval_offset,image_width,enable_pattern);
@@ -175,9 +175,9 @@ class d5m_camera_sequence extends d5m_camera_base_seq;
         for(addr = 0; addr  <255; addr++) begin
             data++;
             `uvm_create(item)
-            item.addr           = {14'h0,addr[7:0]};
+            item.axi4_lite.addr           = {14'h0,addr[7:0]};
             item.d5m_txn        = AXI4_WRITE;
-            item.data           = data;
+            item.axi4_lite.data           = data;
             `uvm_send(item);
         end
     endtask: axi_write_channel_test
@@ -188,9 +188,9 @@ class d5m_camera_sequence extends d5m_camera_base_seq;
         for(addr = 0; addr <255; addr++) begin
             data++;
             `uvm_create(item)
-            item.addr           = {14'h0,addr[7:0]};
+            item.axi4_lite.addr           = {14'h0,addr[7:0]};
             item.d5m_txn        = AXI4_READ;
-            item.data           = 0;
+            item.axi4_lite.data           = 0;
             `uvm_send(item);
         end
     endtask: axi_read_channel_test
@@ -203,8 +203,8 @@ class d5m_camera_sequence extends d5m_camera_base_seq;
     virtual protected task axi_write_channel (bit[7:0] addr,bit[31:0] data);
             d5m_camera_transaction item;
             `uvm_create(item)
-            item.addr           = {7'h0,addr};
-            item.data           = data;
+            item.axi4_lite.addr = {7'h0,addr};
+            item.axi4_lite.data           = data;
             item.d5m_txn        = AXI4_WRITE;
             `uvm_send(item);
     endtask: axi_write_channel
@@ -213,7 +213,7 @@ class d5m_camera_sequence extends d5m_camera_base_seq;
             bit[7:0] addr;
         for(addr = 0; addr < 256; addr+=4) begin
             `uvm_create(item)
-            item.addr           = {14'h0,addr[7:0]};
+            item.axi4_lite.addr           = {14'h0,addr[7:0]};
             item.d5m_txn        = AXI4_READ;
             `uvm_send(item);
         end
@@ -224,13 +224,13 @@ class d5m_camera_sequence extends d5m_camera_base_seq;
         //init d5m clear
         for(preset_cycles = 0; preset_cycles <= 10; preset_cycles++) begin
             `uvm_create(item)
-            item.iImageTypeTest = 1'b1;
-            item.iRgb           = 0;
-            item.ilvalid        = 1'b0;
-            item.ifvalid        = 1'b1;
+            item.d5p.iImageTypeTest = 1'b1;
+            item.d5p.rgb           = 0;
+            item.d5p.lvalid        = 1'b0;
+            item.d5p.fvalid        = 1'b1;
             item.d5m_txn        = D5M_WRITE;
             if (preset_cycles > 9 )begin //>200
-                item.ifvalid      = 1'b1;//init default sof valid line high
+                item.d5p.fvalid      = 1'b1;//init default sof valid line high
             end
             `uvm_send(item);
         end
@@ -245,28 +245,28 @@ class d5m_camera_sequence extends d5m_camera_base_seq;
             for(y_cord = 0; y_cord <= lval_lines; y_cord++) begin
                 for(n_pixel = 1; n_pixel <= ((image_width) + (lval_offset)); n_pixel++) begin
                     `uvm_create(item)
-                        item.iImageTypeTest = 1'b1;
-                        item.iReadyToRead   = 1'b0;
-                        item.d5m_txn        = D5M_WRITE;
+                        item.d5p.iImageTypeTest = 1'b1;
+                        item.d5p.iReadyToRead   = 1'b0;
+                        item.d5m_txn            = D5M_WRITE;
                     if (y_cord > 0 && y_cord < lval_lines) begin
-                        item.ifvalid          = 1'b1;
-                        item.ilvalid          = 1'b1;// sol[start of line]
-                        item.iRgb          = enable_pattern ? $urandom_range(0,4095) : n_pixel;
+                        item.d5p.fvalid         = 1'b1;
+                        item.d5p.lvalid         = 1'b1;// sol[start of line]
+                        item.d5p.rgb          = enable_pattern ? $urandom_range(0,4095) : n_pixel;
                         if (n_pixel >= (image_width)) begin   
-                            item.ilvalid      = 1'b0;// eol[end of line]
-                            item.iRgb      = 0;
+                            item.d5p.lvalid      = 1'b0;// eol[end of line]
+                            item.d5p.rgb         = 0;
                         end
                     end else begin
-                        item.ilvalid          = 1'b0;
-                        item.iRgb          = 0;
+                        item.d5p.lvalid          = 1'b0;
+                        item.d5p.rgb             = 0;
                         if (y_cord == 0) begin
                             if (n_pixel >= ((image_width) + (lval_offset)) - 10)begin   
-                                item.ifvalid      = 1'b1;// sof[start of frame]
+                                item.d5p.fvalid      = 1'b1;// sof[start of frame]
                             end
                         end
                         if (y_cord == lval_lines) begin
                             if (n_pixel >= (image_width) + 2)begin   
-                                item.ifvalid      = 1'b0;// eof[end of frame]
+                                item.d5p.fvalid      = 1'b0;// eof[end of frame]
                             end
                         end
                     end
@@ -278,16 +278,16 @@ class d5m_camera_sequence extends d5m_camera_base_seq;
     virtual protected task axi_write_aBusSelect_channel (bit[7:0] addr,bit[31:0] data);
             d5m_camera_transaction item;
             `uvm_create(item)
-            item.addr           = {7'h0,addr};
-            item.data           = data;
+            item.axi4_lite.addr           = {7'h0,addr};
+            item.axi4_lite.data           = data;
             item.d5m_txn        = AXI4_WRITE;
             `uvm_send(item);
     endtask: axi_write_aBusSelect_channel
     virtual protected task d5m_read ();
             d5m_camera_transaction item;
             `uvm_create(item)
-            item.iImageTypeTest = 1'b0;
-            item.d5m_txn        = IMAGE_READ;
+            item.d5p.iImageTypeTest = 1'b0;
+            item.d5m_txn            = IMAGE_READ;
             `uvm_send(item);
     endtask: d5m_read
 endclass: d5m_camera_sequence

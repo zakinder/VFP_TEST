@@ -2,14 +2,11 @@ cd ../../tb
 %~d1
 setlocal enableextensions disabledelayedexpansion
 set "textFile=generic_pack.svh"
-
 @echo FRAME SIZE TESTS
 @echo 1- Set Image Size to 128 by 128
 @echo 2- Set Image Size to 400 by 300
 @echo 3- Set Image Size to 1920 by 1080
-
 @set /p frame_size=" FRAME_SIZE: "
-
 @GOTO start_run_from_here
 @REM --------------------------------------------
 @REM ----------------------- START_RUN_FROM_HERE
@@ -59,8 +56,7 @@ set "textFile=generic_pack.svh"
 @echo off
 @set replace="%replace_to%_v%frame_size%"
 @set search1="%this_check_rgb_type%_v1"
-@set search2="%this_check_rgb_type%_v2"
-
+@set search2="%this_check_rgb_type%_v3"
 for /f "delims=" %%i in ('type "%textFile%" ^& break ^> "%textFile%" ') do (
     set "line=%%i"
     setlocal enabledelayedexpansion
@@ -73,12 +69,6 @@ for /f "delims=" %%i in ('type "%textFile%" ^& break ^> "%textFile%" ') do (
     >>"%textFile%" echo(!line:%search2%=%replace%!
     endlocal
 )
-
-
-
-
-
-
 @if "%next_check_rgb_type%"=="cgain" (@GOTO cgain)
 @if "%next_check_rgb_type%"=="sharp" (@GOTO sharp)
 @if "%next_check_rgb_type%"=="blur" (@GOTO blur)
@@ -205,13 +195,11 @@ vsim -c -do d5m_camera_image_file_emboss_test.tcl
 @REM --------------------------------------------
 @REM ----------------------- ABORT
 @REM --------------------------------------------
-
 :wait
 @echo ------------------------------------
 @echo Done
 @echo ------------------------------------
 pause
-
 :abort
 :eof
 @REM @PAUSE

@@ -5,10 +5,10 @@ rgbAssertion rgb_dut   (
    .pixclk             (d5m_camera_vif.pixclk),
    .mmclk              (d5m_camera_vif.ACLK),
    .reset              (d5m_camera_vif.reset),
-   .valid              (d5m_camera_vif.valid),
-   .iRed               (d5m_camera_vif.red),
-   .iGreen             (d5m_camera_vif.green),
-   .iBlue              (d5m_camera_vif.blue),
+   .valid              (d5m_camera_vif.d5m.valid),
+   .iRed               (d5m_camera_vif.d5m.red),
+   .iGreen             (d5m_camera_vif.d5m.green),
+   .iBlue              (d5m_camera_vif.d5m.blue),
    .m_axis_mm2s_tvalid (d5m_camera_vif.m_axis_mm2s_tvalid),
    .m_axis_mm2s_tdata  (d5m_camera_vif.m_axis_mm2s_tdata));
 endmodule: rgbAssertionDut

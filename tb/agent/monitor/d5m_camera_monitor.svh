@@ -27,16 +27,16 @@ class d5m_camera_monitor extends uvm_monitor;
             forever begin
             @(posedge d5m_camera_vif.pixclk)
                 d5m_tx            = d5m_camera_transaction::type_id::create("d5m_tx"); 
-                d5m_tx.valid      = d5m_camera_vif.valid;
-                d5m_tx.red        = d5m_camera_vif.red;
-                d5m_tx.green      = d5m_camera_vif.green;
-                d5m_tx.blue       = d5m_camera_vif.blue;
-                d5m_tx.rgb        = d5m_camera_vif.rgb;
-                d5m_tx.lvalid     = d5m_camera_vif.lvalid;
-                d5m_tx.fvalid     = d5m_camera_vif.fvalid;
-                d5m_tx.xCord      = d5m_camera_vif.xCord;
-                d5m_tx.yCord      = d5m_camera_vif.yCord;
-                d5m_tx.endOfFrame = d5m_camera_vif.endOfFrame;
+                d5m_tx.d5m.valid  = d5m_camera_vif.d5m.valid;
+                d5m_tx.d5m.red    = d5m_camera_vif.d5m.red;
+                d5m_tx.d5m.green  = d5m_camera_vif.d5m.green;
+                d5m_tx.d5m.blue   = d5m_camera_vif.d5m.blue;
+                d5m_tx.d5m.rgb    = d5m_camera_vif.d5m.rgb;
+                d5m_tx.d5m.lvalid = d5m_camera_vif.d5m.lvalid;
+                d5m_tx.d5m.fvalid = d5m_camera_vif.d5m.fvalid;
+                d5m_tx.d5m.x      = d5m_camera_vif.d5m.x;
+                d5m_tx.d5m.y      = d5m_camera_vif.d5m.y;
+                d5m_tx.d5m.eof    = d5m_camera_vif.d5m.eof;
                 item_collected_port.write(d5m_tx);
             end
     endtask: collect_transactions
