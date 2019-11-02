@@ -17,18 +17,19 @@ port (
     videoChannel : in std_logic_vector(b_data_width-1 downto 0);
     pixel        : out std_logic);
 end PixelOnDisplay;
+
 architecture Behavioral of PixelOnDisplay is
-    constant NU_MRGB_TYPES  : natural := 8;
-    signal displayText      : string(1 to 5):= "INRGB";
-    signal vChannelSelect   : natural range 0 to NU_MRGB_TYPES := 0;
-    signal fontAddress      : integer := 0;
-    signal charBitInRow     : std_logic_vector(FONT_WIDTH-1 downto 0) := (others => '0');
-    signal charCode         : natural := 0;
-    signal charCodeLen      : natural := 16;
-    signal charPosition     : integer := 1;
-    signal bitPosition      : natural := 0;
-    signal enable           : std_logic := lo;
-    signal bit_position     : natural range 0 to (FONT_WIDTH-1) := 0;
+    constant NU_MRGB_TYPES       : natural := 40;
+    signal displayText           : string(1 to 5):= "INRGB";
+    signal vChannelSelect        : natural range 0 to NU_MRGB_TYPES := 0;
+    signal fontAddress           : integer := 0;
+    signal charBitInRow          : std_logic_vector(FONT_WIDTH-1 downto 0) := (others => '0');
+    signal charCode              : natural := 0;
+    signal charCodeLen           : natural := 16;
+    signal charPosition          : integer := 1;
+    signal bit_position_enable   : std_logic := lo;
+    signal bit_position_sync     : std_logic := lo;
+    signal bit_position          : natural range 0 to (FONT_WIDTH-1) := 0;
     
 begin
 
@@ -52,6 +53,12 @@ videoOutP: process (clk) begin
             displayText      <= "SOBEL";
         elsif(vChannelSelect = ch7)then
             displayText      <= "EMBOS";
+        elsif(vChannelSelect = 22)then
+            displayText      <= "CGHSL";
+        elsif(vChannelSelect = 25)then
+            displayText      <= "CGSHP";
+        elsif(vChannelSelect = 27)then
+            displayText      <= "SHPCG";
         else
             displayText      <= "YCBCR";
         end if;
@@ -60,14 +67,15 @@ end process videoOutP;
 
 
 charPosition <= (iCrdDelta(grid.x,location.x)/FONT_WIDTH + 1) when (grid.x >= location.x);
-bitPosition  <= (iCrdDelta(grid.x,location.x) mod FONT_WIDTH) when (grid.x >= location.x);
+
 charCode     <= (character'pos(displayText(charPosition))) when (charPosition > zero and charPosition < displayText'LENGTH);
 fontAddress  <= (charCode*charCodeLen) + iCrdDelta(grid.y,location.y);
-enable       <= hi when (grid.x >= location.x - 1);
+bit_position_enable  <= hi when (grid.x >= location.x - 1) else lo;
 
 dSyncP: process(clk) begin
     if rising_edge(clk) then
-        if (enable = hi and bit_position < FONT_WIDTH-1) then
+        bit_position_sync <= bit_position_enable;
+        if (bit_position_sync = hi and bit_position < FONT_WIDTH-1) then
             bit_position  <= bit_position + one;
         else
             bit_position <= zero;

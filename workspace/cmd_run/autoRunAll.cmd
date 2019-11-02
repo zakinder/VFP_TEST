@@ -3,6 +3,7 @@ cd ../../tb
 setlocal enableextensions disabledelayedexpansion
 set "textFile=generic_pack.svh"
 @echo FRAME SIZE TESTS
+@echo 0- Set Image Size to 64 by 64
 @echo 1- Set Image Size to 128 by 128
 @echo 2- Set Image Size to 400 by 300
 @echo 3- Set Image Size to 1920 by 1080
@@ -47,6 +48,18 @@ set "textFile=generic_pack.svh"
 @GOTO SEARCH_REPLACE
 :emboss
 @set "this_check_rgb_type=emboss"
+@set "next_check_rgb_type=sharptocgain"
+@GOTO SEARCH_REPLACE
+:sharptocgain
+@set "this_check_rgb_type=sharptocgain"
+@set "next_check_rgb_type=cgaintosharp"
+@GOTO SEARCH_REPLACE
+:cgaintosharp
+@set "this_check_rgb_type=cgaintosharp"
+@set "next_check_rgb_type=cgaintohsl"
+@GOTO SEARCH_REPLACE
+:cgaintohsl
+@set "this_check_rgb_type=cgaintohsl"
 @set "next_check_rgb_type=vsim_run"
 @GOTO SEARCH_REPLACE
 @REM --------------------------------------------
@@ -55,6 +68,7 @@ set "textFile=generic_pack.svh"
 :SEARCH_REPLACE
 @echo off
 @set replace="%replace_to%_v%frame_size%"
+@set search0="%this_check_rgb_type%_v0"
 @set search1="%this_check_rgb_type%_v1"
 @set search2="%this_check_rgb_type%_v2"
 for /f "delims=" %%i in ('type "%textFile%" ^& break ^> "%textFile%" ') do (
@@ -77,6 +91,9 @@ for /f "delims=" %%i in ('type "%textFile%" ^& break ^> "%textFile%" ') do (
 @if "%next_check_rgb_type%"=="rgb" (@GOTO rgb)
 @if "%next_check_rgb_type%"=="sobel" (@GOTO sobel)
 @if "%next_check_rgb_type%"=="emboss" (@GOTO emboss)
+@if "%next_check_rgb_type%"=="sharptocgain" (@GOTO sharptocgain)
+@if "%next_check_rgb_type%"=="cgaintosharp" (@GOTO cgaintosharp)
+@if "%next_check_rgb_type%"=="cgaintohsl" (@GOTO cgaintohsl)
 @if "%next_check_rgb_type%"=="vsim_run" (@GOTO vsim_run)
 @REM --------------------------------------------
 @REM ----------------------- RUN TEST CASE
@@ -90,6 +107,9 @@ for /f "delims=" %%i in ('type "%textFile%" ^& break ^> "%textFile%" ') do (
 @if "%replace_to%"=="rgb" (@GOTO vsim_run_rgb)
 @if "%replace_to%"=="sobel" (@GOTO vsim_run_sobel)
 @if "%replace_to%"=="emboss" (@GOTO vsim_run_emboss)
+@if "%replace_to%"=="sharptocgain" (@GOTO vsim_run_sharptocgain)
+@if "%replace_to%"=="cgaintosharp" (@GOTO vsim_run_cgaintosharp)
+@if "%replace_to%"=="cgaintohsl" (@GOTO vsim_run_cgaintohsl)
 @REM --------------------------------------------
 @REM ----------------------- VSIM_RUN_CGAIN
 @REM --------------------------------------------
@@ -168,6 +188,8 @@ vsim -c -do d5m_camera_image_file_rgb_test.tcl
 cd ../../tb
 @set "replace_to=sobel"
 @GOTO cgain
+
+
 @REM --------------------------------------------
 @REM ----------------------- VSIM_RUN_SOBEL
 @REM --------------------------------------------
@@ -181,6 +203,9 @@ vsim -c -do d5m_camera_image_file_sobel_test.tcl
 cd ../../tb
 @set "replace_to=emboss"
 @GOTO cgain
+
+
+
 @REM --------------------------------------------
 @REM ----------------------- VSIM_RUN_EMBOSS
 @REM --------------------------------------------
@@ -191,6 +216,51 @@ cd ../../tb
 cd ../workspace/run
 @echo current type:  %replace_to%
 vsim -c -do d5m_camera_image_file_emboss_test.tcl
+cd ../../tb
+@set "replace_to=sharptocgain"
+@GOTO cgain
+
+
+
+@REM --------------------------------------------
+@REM ----------------------- VSIM_RUN_SHARPTOCGAIN
+@REM --------------------------------------------
+:vsim_run_sharptocgain
+@echo ------------------
+@echo running sharptocgain
+@echo ------------------
+cd ../workspace/run
+@echo current type:  %replace_to%
+vsim -c -do d5m_camera_image_file_sharp_cgain_test.tcl
+cd ../../tb
+@set "replace_to=cgaintosharp"
+@GOTO cgain
+
+
+@REM --------------------------------------------
+@REM ----------------------- VSIM_RUN_CGAINTOSHARP
+@REM --------------------------------------------
+:vsim_run_cgaintosharp
+@echo ------------------
+@echo running cgaintosharp
+@echo ------------------
+cd ../workspace/run
+@echo current type:  %replace_to%
+vsim -c -do d5m_camera_image_file_cgain_sharp_test.tcl
+cd ../../tb
+@set "replace_to=cgaintohsl"
+@GOTO cgain
+@REM --------------------------------------------
+@REM ----------------------- VSIM_RUN_CGAINTOHSL
+@REM --------------------------------------------
+
+:vsim_run_cgaintohsl
+@echo ------------------
+@echo running cgaintohsl
+@echo ------------------
+cd ../workspace/run
+@echo current type:  %replace_to%
+vsim -c -do d5m_camera_image_file_cgain_hsl_test.tcl
 @GOTO wait
 @REM --------------------------------------------
 @REM ----------------------- ABORT

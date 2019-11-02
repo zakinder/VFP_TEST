@@ -32,7 +32,7 @@ architecture Behavioral of videoSelect is
     signal channels           : channel;
     signal kCoeffYcbcr        : kernelCoeff;
     signal rgbText            : channel;
-    signal location           : cord := (x => 40, y => 10);
+    signal location           : cord := (x => 8, y => 8);
 begin
     kCoeffYcbcr.k1    <= x"0101";-- [ 0.257]
     kCoeffYcbcr.k2    <= x"01F8";-- [ 0.504]
@@ -172,23 +172,6 @@ port map(
     cb                   => ycbcr.green,
     cr                   => ycbcr.blue,
     oValid               => ycbcr.valid);
--- Kernel_Ycbcr_Inst: KernelCore
--- generic map(
-    -- SHARP_FRAME   => false,
-    -- BLURE_FRAME   => false,
-    -- EMBOS_FRAME   => false,
-    -- YCBCR_FRAME   => true,
-    -- SOBEL_FRAME   => false,
-    -- CGAIN_FRAME   => false,
-    -- img_width     => img_width,
-    -- i_data_width  => i_data_width)
--- port map(
-    -- clk            => clk,
-    -- rst_l          => rst_l,
-    -- iRgb           => channels,
-    -- kCoeff         => kCoeffYcbcr,
-    -- oRgb           => ycbcr);
-    
 channelOutP: process (clk) begin
     if rising_edge(clk) then
         oCord <= iFrameData.cod;

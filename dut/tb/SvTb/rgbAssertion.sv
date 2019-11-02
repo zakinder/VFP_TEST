@@ -16,8 +16,10 @@ module rgbAssertion(pixclk,mmclk,reset,valid,iRed,iGreen,iBlue,m_axis_mm2s_tvali
   //--------------------------------------------------------------------------------------
   //--------------------------------------------------------------------------------------
   assign vfp.completed_resolution_line_128  = (vfp.x_coord == 127);
+  assign vfp.completed_resolution_line_64   = (vfp.x_coord == 63);
   assign vfp.completed_resolution_line_400  = (vfp.x_coord == 399);
   assign vfp.completed_resolution_line_1920 = (vfp.x_coord == 1919);
+  assign vfp.completed_resolution64_64      = (vfp.x_coord == 63)   && (vfp.y_coord == 63);
   assign vfp.completed_resolution128_128    = (vfp.x_coord == 127)  && (vfp.y_coord == 127);
   assign vfp.completed_resolution_400_300   = (vfp.x_coord == 399)  && (vfp.y_coord == 299);
   assign vfp.completed_resolution_1920_1080 = (vfp.x_coord == 1919) && (vfp.y_coord == 1079);
@@ -25,8 +27,10 @@ module rgbAssertion(pixclk,mmclk,reset,valid,iRed,iGreen,iBlue,m_axis_mm2s_tvali
   //--------------------------------------------------------------------------------------
   //--------------------------------------------------------------------------------------
   assign d5m.completed_resolution_line_128  = (d5m.x_coord == 127);
+  assign d5m.completed_resolution_line_64   = (vfp.x_coord == 63);
   assign d5m.completed_resolution_line_400  = (d5m.x_coord == 399);
   assign d5m.completed_resolution_line_1920 = (d5m.x_coord == 1919);
+  assign d5m.completed_resolution64_64      = (vfp.x_coord == 63)   && (vfp.y_coord == 63);
   assign d5m.completed_resolution128_128    = (d5m.x_coord == 127)  && (d5m.y_coord == 127);
   assign d5m.completed_resolution_400_300   = (d5m.x_coord == 399)  && (d5m.y_coord == 299);
   assign d5m.completed_resolution_1920_1080 = (d5m.x_coord == 1919) && (d5m.y_coord == 1079);
@@ -75,6 +79,10 @@ module rgbAssertion(pixclk,mmclk,reset,valid,iRed,iGreen,iBlue,m_axis_mm2s_tvali
         d5m.sim_done <= 1;
         a2: assert (~d5m.valid)
         $display("[d5m] Y-Coord-> %d X-Coord-> %d Frame Done.",d5m.y_coord,d5m.x_coord);
+    end
+    //------------------------------------------------------------------------------------
+    if (d5m.completed_resolution_line_64) begin
+        $display("[vfp] Y-> %d X-> %d",d5m.y_coord,d5m.x_coord);
     end
     //------------------------------------------------------------------------------------
     if (d5m.completed_resolution_line_128) begin
@@ -134,6 +142,10 @@ module rgbAssertion(pixclk,mmclk,reset,valid,iRed,iGreen,iBlue,m_axis_mm2s_tvali
         vfp.sim_done <= 1;
         vfp_a1: assert (~vfp.valid)
         $display("[vfp] Y-Coord-> %d X-Coord-> %d Frame Done.",vfp.y_coord,vfp.x_coord);
+    end
+    //------------------------------------------------------------------------------------
+    if (vfp.completed_resolution_line_64) begin
+        $display("[vfp] Y-> %d X-> %d",vfp.y_coord,vfp.x_coord);
     end
     //------------------------------------------------------------------------------------
     if (vfp.completed_resolution_line_128) begin

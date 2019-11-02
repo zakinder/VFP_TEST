@@ -24,15 +24,15 @@ vmap floating_point_v7_1_4 msim/floating_point_v7_1_4
 vmap xil_defaultlib msim/xil_defaultlib 
 
 
-vcom  -64 -93 -work xbip_utils_v3_0_7           -f Z:/ZEDBOARD/ipManager/managed_ip_project/compile_simlib/xbip_utils_v3_0_7/.cxl.vhdl.xbip_utils_v3_0_7.xbip_utils_v3_0_7.nt64.cmf
-vcom  -64 -93 -work axi_utils_v2_0_3            -f Z:/ZEDBOARD/ipManager/managed_ip_project/compile_simlib/axi_utils_v2_0_3/.cxl.vhdl.axi_utils_v2_0_3.axi_utils_v2_0_3.nt64.cmf
-vcom  -64 -93 -work xbip_pipe_v3_0_3            -f Z:/ZEDBOARD/ipManager/managed_ip_project/compile_simlib/xbip_pipe_v3_0_3/.cxl.vhdl.xbip_pipe_v3_0_3.xbip_pipe_v3_0_3.nt64.cmf
-vcom  -64 -93 -work xbip_dsp48_wrapper_v3_0_4   -f Z:/ZEDBOARD/ipManager/managed_ip_project/compile_simlib/xbip_dsp48_wrapper_v3_0_4/.cxl.vhdl.xbip_dsp48_wrapper_v3_0_4.xbip_dsp48_wrapper_v3_0_4.nt64.cmf
-vcom  -64 -93 -work xbip_dsp48_addsub_v3_0_3    -f Z:/ZEDBOARD/ipManager/managed_ip_project/compile_simlib/xbip_dsp48_addsub_v3_0_3/.cxl.vhdl.xbip_dsp48_addsub_v3_0_3.xbip_dsp48_addsub_v3_0_3.nt64.cmf
-vcom  -64 -93 -work xbip_dsp48_multadd_v3_0_3   -f Z:/ZEDBOARD/ipManager/managed_ip_project/compile_simlib/xbip_dsp48_multadd_v3_0_3/.cxl.vhdl.xbip_dsp48_multadd_v3_0_3.xbip_dsp48_multadd_v3_0_3.nt64.cmf
-vcom  -64 -93 -work xbip_bram18k_v3_0_3         -f Z:/ZEDBOARD/ipManager/managed_ip_project/compile_simlib/xbip_bram18k_v3_0_3/.cxl.vhdl.xbip_bram18k_v3_0_3.xbip_bram18k_v3_0_3.nt64.cmf
-vcom  -64 -93 -work mult_gen_v12_0_12           -f Z:/ZEDBOARD/ipManager/managed_ip_project/compile_simlib/mult_gen_v12_0_12/.cxl.vhdl.mult_gen_v12_0_12.mult_gen_v12_0_12.nt64.cmf
-vcom  -64 -93 -work floating_point_v7_1_4       -f Z:/ZEDBOARD/ipManager/managed_ip_project/compile_simlib/floating_point_v7_1_4/.cxl.vhdl.floating_point_v7_1_4.floating_point_v7_1_4.nt64.cmf
+vcom  -64 -93 -work xbip_utils_v3_0_7           -f ../../../../compile_simlib/xbip_utils_v3_0_7/.cxl.vhdl.xbip_utils_v3_0_7.xbip_utils_v3_0_7.nt64.cmf
+vcom  -64 -93 -work axi_utils_v2_0_3            -f ../../../../compile_simlib/axi_utils_v2_0_3/.cxl.vhdl.axi_utils_v2_0_3.axi_utils_v2_0_3.nt64.cmf
+vcom  -64 -93 -work xbip_pipe_v3_0_3            -f ../../../../compile_simlib/xbip_pipe_v3_0_3/.cxl.vhdl.xbip_pipe_v3_0_3.xbip_pipe_v3_0_3.nt64.cmf
+vcom  -64 -93 -work xbip_dsp48_wrapper_v3_0_4   -f ../../../../compile_simlib/xbip_dsp48_wrapper_v3_0_4/.cxl.vhdl.xbip_dsp48_wrapper_v3_0_4.xbip_dsp48_wrapper_v3_0_4.nt64.cmf
+vcom  -64 -93 -work xbip_dsp48_addsub_v3_0_3    -f ../../../../compile_simlib/xbip_dsp48_addsub_v3_0_3/.cxl.vhdl.xbip_dsp48_addsub_v3_0_3.xbip_dsp48_addsub_v3_0_3.nt64.cmf
+vcom  -64 -93 -work xbip_dsp48_multadd_v3_0_3   -f ../../../../compile_simlib/xbip_dsp48_multadd_v3_0_3/.cxl.vhdl.xbip_dsp48_multadd_v3_0_3.xbip_dsp48_multadd_v3_0_3.nt64.cmf
+vcom  -64 -93 -work xbip_bram18k_v3_0_3         -f ../../../../compile_simlib/xbip_bram18k_v3_0_3/.cxl.vhdl.xbip_bram18k_v3_0_3.xbip_bram18k_v3_0_3.nt64.cmf
+vcom  -64 -93 -work mult_gen_v12_0_12           -f ../../../../compile_simlib/mult_gen_v12_0_12/.cxl.vhdl.mult_gen_v12_0_12.mult_gen_v12_0_12.nt64.cmf
+vcom  -64 -93 -work floating_point_v7_1_4       -f ../../../../compile_simlib/floating_point_v7_1_4/.cxl.vhdl.floating_point_v7_1_4.floating_point_v7_1_4.nt64.cmf
 
 vcom -f dut_vhd.f
 vlog -f dut_vlg.f
