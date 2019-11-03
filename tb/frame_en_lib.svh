@@ -1,3 +1,3 @@
 package frame_en_lib;
-    `define cgain_v2                      1
+    `define sharp_v0                      1
 endpackage
