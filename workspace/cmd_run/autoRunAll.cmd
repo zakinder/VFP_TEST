@@ -1,7 +1,7 @@
 cd ../../tb
 %~d1
 setlocal enableextensions disabledelayedexpansion
-set "textFile=generic_pack.svh"
+set "textFile=frame_en_lib.svh"
 @echo FRAME SIZE TESTS
 @echo 0- Set Image Size to 64 by 64
 @echo 1- Set Image Size to 128 by 128
@@ -12,12 +12,17 @@ set "textFile=generic_pack.svh"
 @REM --------------------------------------------
 @REM ----------------------- START_RUN_FROM_HERE
 @REM --------------------------------------------
+@REM :start_run_from_here
+@REM @set "replace_to=shtocg"
+@REM @set "this_check_rgb_type="
+@REM @set "next_check_rgb_type=shtocg"
+@REM @GOTO shtocg
+
+
 :start_run_from_here
 @set "replace_to=cgain"
 @GOTO cgain
-@REM --------------------------------------------
-@REM ----------------------- REPLACE_TO
-@REM --------------------------------------------
+
 :cgain
 @set "this_check_rgb_type=cgain"
 @set "next_check_rgb_type=sharp"
@@ -48,41 +53,62 @@ set "textFile=generic_pack.svh"
 @GOTO SEARCH_REPLACE
 :emboss
 @set "this_check_rgb_type=emboss"
-@set "next_check_rgb_type=sharptocgain"
+@set "next_check_rgb_type=shtocg"
 @GOTO SEARCH_REPLACE
-:sharptocgain
-@set "this_check_rgb_type=sharptocgain"
-@set "next_check_rgb_type=cgaintosharp"
+
+:shtocg
+@set "this_check_rgb_type=shtocg"
+@set "next_check_rgb_type=cgtosh"
 @GOTO SEARCH_REPLACE
-:cgaintosharp
-@set "this_check_rgb_type=cgaintosharp"
-@set "next_check_rgb_type=cgaintohsl"
+
+:cgtosh
+@set "this_check_rgb_type=cgtosh"
+@set "next_check_rgb_type=cgtohl"
 @GOTO SEARCH_REPLACE
-:cgaintohsl
-@set "this_check_rgb_type=cgaintohsl"
+
+:cgtohl
+@set "this_check_rgb_type=cgtohl"
 @set "next_check_rgb_type=vsim_run"
 @GOTO SEARCH_REPLACE
-@REM --------------------------------------------
-@REM ----------------------- SEARCH_REPLACE
-@REM --------------------------------------------
+
 :SEARCH_REPLACE
 @echo off
-@set replace="%replace_to%_v%frame_size%"
-@set search0="%this_check_rgb_type%_v0"
-@set search1="%this_check_rgb_type%_v1"
-@set search2="%this_check_rgb_type%_v2"
+@set "replace=%replace_to%_v%frame_size%"
+
+@REM @set "replace = %replace_with%"
+@set "search0=%this_check_rgb_type%_v0"
+@set "search1=%this_check_rgb_type%_v1"
+@set "search2=%this_check_rgb_type%_v2"
+@set "search3=%this_check_rgb_type%_v3"
+
+for /f "delims=" %%i in ('type "%textFile%" ^& break ^> "%textFile%" ') do (
+    set "line=%%i"
+    setlocal enabledelayedexpansion
+    >>"%textFile%" echo(!line:%search0%=%replace%!
+    endlocal
+)
+
 for /f "delims=" %%i in ('type "%textFile%" ^& break ^> "%textFile%" ') do (
     set "line=%%i"
     setlocal enabledelayedexpansion
     >>"%textFile%" echo(!line:%search1%=%replace%!
     endlocal
 )
+
 for /f "delims=" %%i in ('type "%textFile%" ^& break ^> "%textFile%" ') do (
     set "line=%%i"
     setlocal enabledelayedexpansion
     >>"%textFile%" echo(!line:%search2%=%replace%!
     endlocal
 )
+
+for /f "delims=" %%i in ('type "%textFile%" ^& break ^> "%textFile%" ') do (
+    set "line=%%i"
+    setlocal enabledelayedexpansion
+    >>"%textFile%" echo(!line:%search3%=%replace%!
+    endlocal
+)
+
 @if "%next_check_rgb_type%"=="cgain" (@GOTO cgain)
 @if "%next_check_rgb_type%"=="sharp" (@GOTO sharp)
 @if "%next_check_rgb_type%"=="blur" (@GOTO blur)
@@ -91,9 +117,9 @@ for /f "delims=" %%i in ('type "%textFile%" ^& break ^> "%textFile%" ') do (
 @if "%next_check_rgb_type%"=="rgb" (@GOTO rgb)
 @if "%next_check_rgb_type%"=="sobel" (@GOTO sobel)
 @if "%next_check_rgb_type%"=="emboss" (@GOTO emboss)
-@if "%next_check_rgb_type%"=="sharptocgain" (@GOTO sharptocgain)
-@if "%next_check_rgb_type%"=="cgaintosharp" (@GOTO cgaintosharp)
-@if "%next_check_rgb_type%"=="cgaintohsl" (@GOTO cgaintohsl)
+@if "%next_check_rgb_type%"=="shtocg" (@GOTO shtocg)
+@if "%next_check_rgb_type%"=="cgtosh" (@GOTO cgtosh)
+@if "%next_check_rgb_type%"=="cgtohl" (@GOTO cgtohl)
 @if "%next_check_rgb_type%"=="vsim_run" (@GOTO vsim_run)
 @REM --------------------------------------------
 @REM ----------------------- RUN TEST CASE
@@ -107,81 +133,60 @@ for /f "delims=" %%i in ('type "%textFile%" ^& break ^> "%textFile%" ') do (
 @if "%replace_to%"=="rgb" (@GOTO vsim_run_rgb)
 @if "%replace_to%"=="sobel" (@GOTO vsim_run_sobel)
 @if "%replace_to%"=="emboss" (@GOTO vsim_run_emboss)
-@if "%replace_to%"=="sharptocgain" (@GOTO vsim_run_sharptocgain)
-@if "%replace_to%"=="cgaintosharp" (@GOTO vsim_run_cgaintosharp)
-@if "%replace_to%"=="cgaintohsl" (@GOTO vsim_run_cgaintohsl)
-@REM --------------------------------------------
-@REM ----------------------- VSIM_RUN_CGAIN
-@REM --------------------------------------------
+@if "%replace_to%"=="shtocg" (@GOTO vsim_run_sharptocgain)
+@if "%replace_to%"=="cgtosh" (@GOTO vsim_run_cgaintosharp)
+@if "%replace_to%"=="cgtohl" (@GOTO vsim_run_cgaintohsl)
+
 :vsim_run_cgain
-@echo ------------------
-@echo running cgain
-@echo ------------------
 cd ../workspace/run
 @echo current type:  %replace_to%
 vsim -c -do d5m_camera_image_file_cgain_test.tcl
 cd ../../tb
 @set "replace_to=sharp"
 @GOTO cgain
-@REM --------------------------------------------
-@REM ----------------------- VSIM_RUN_SHARP
-@REM --------------------------------------------
+
+
+
 :vsim_run_sharp
-@echo ------------------
-@echo running sharp
-@echo ------------------
+
 cd ../workspace/run
 @echo current type:  %replace_to%
 vsim -c -do d5m_camera_image_file_sharp_test.tcl
 cd ../../tb
 @set "replace_to=blur"
 @GOTO cgain
-@REM --------------------------------------------
-@REM ----------------------- VSIM_RUN_BLUR
-@REM --------------------------------------------
+
 :vsim_run_blur
-@echo ------------------
-@echo running blur
-@echo ------------------
+
 cd ../workspace/run
 @echo current type:  %replace_to%
 vsim -c -do d5m_camera_image_file_blur_test.tcl
 cd ../../tb
 @set "replace_to=hsl"
 @GOTO cgain
-@REM --------------------------------------------
-@REM ----------------------- VSIM_RUN_HSL
-@REM --------------------------------------------
+
+
+
 :vsim_run_hsl
-@echo ------------------
-@echo running hsl
-@echo ------------------
+
 cd ../workspace/run
 @echo current type:  %replace_to%
 vsim -c -do d5m_camera_image_file_hsl_test.tcl
 cd ../../tb
 @set "replace_to=hsv"
 @GOTO cgain
-@REM --------------------------------------------
-@REM ----------------------- VSIM_RUN_HSV
-@REM --------------------------------------------
+
 :vsim_run_hsv
-@echo ------------------
-@echo running hsv
-@echo ------------------
+
 cd ../workspace/run
 @echo current type:  %replace_to%
 vsim -c -do d5m_camera_image_file_hsv_test.tcl
 cd ../../tb
 @set "replace_to=rgb"
 @GOTO cgain
-@REM --------------------------------------------
-@REM ----------------------- VSIM_RUN_RGB
-@REM --------------------------------------------
+
 :vsim_run_rgb
-@echo ------------------
-@echo running rgb
-@echo ------------------
+
 cd ../workspace/run
 @echo current type:  %replace_to%
 vsim -c -do d5m_camera_image_file_rgb_test.tcl
@@ -190,13 +195,9 @@ cd ../../tb
 @GOTO cgain
 
 
-@REM --------------------------------------------
-@REM ----------------------- VSIM_RUN_SOBEL
-@REM --------------------------------------------
+
 :vsim_run_sobel
-@echo ------------------
-@echo running sobel
-@echo ------------------
+
 cd ../workspace/run
 @echo current type:  %replace_to%
 vsim -c -do d5m_camera_image_file_sobel_test.tcl
@@ -206,69 +207,50 @@ cd ../../tb
 
 
 
-@REM --------------------------------------------
-@REM ----------------------- VSIM_RUN_EMBOSS
-@REM --------------------------------------------
 :vsim_run_emboss
-@echo ------------------
-@echo running emboss
-@echo ------------------
+
 cd ../workspace/run
 @echo current type:  %replace_to%
 vsim -c -do d5m_camera_image_file_emboss_test.tcl
 cd ../../tb
-@set "replace_to=sharptocgain"
+@set "replace_to=shtocg"
 @GOTO cgain
 
 
 
-@REM --------------------------------------------
-@REM ----------------------- VSIM_RUN_SHARPTOCGAIN
-@REM --------------------------------------------
+
 :vsim_run_sharptocgain
-@echo ------------------
-@echo running sharptocgain
-@echo ------------------
+
 cd ../workspace/run
 @echo current type:  %replace_to%
 vsim -c -do d5m_camera_image_file_sharp_cgain_test.tcl
 cd ../../tb
-@set "replace_to=cgaintosharp"
+@set "replace_to=cgtosh"
 @GOTO cgain
 
 
-@REM --------------------------------------------
-@REM ----------------------- VSIM_RUN_CGAINTOSHARP
-@REM --------------------------------------------
+
 :vsim_run_cgaintosharp
-@echo ------------------
-@echo running cgaintosharp
-@echo ------------------
+
 cd ../workspace/run
 @echo current type:  %replace_to%
 vsim -c -do d5m_camera_image_file_cgain_sharp_test.tcl
 cd ../../tb
-@set "replace_to=cgaintohsl"
+@set "replace_to=cgtohl"
 @GOTO cgain
-@REM --------------------------------------------
-@REM ----------------------- VSIM_RUN_CGAINTOHSL
-@REM --------------------------------------------
+
 
 :vsim_run_cgaintohsl
-@echo ------------------
-@echo running cgaintohsl
-@echo ------------------
+
 cd ../workspace/run
 @echo current type:  %replace_to%
 vsim -c -do d5m_camera_image_file_cgain_hsl_test.tcl
 @GOTO wait
-@REM --------------------------------------------
-@REM ----------------------- ABORT
-@REM --------------------------------------------
+
 :wait
-@echo ------------------------------------
+
 @echo Done
-@echo ------------------------------------
+
 pause
 :abort
 :eof

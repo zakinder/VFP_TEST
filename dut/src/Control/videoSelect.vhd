@@ -7,7 +7,8 @@ use work.vpfRecords.all;
 use work.portspackage.all;
 entity videoSelect is
 generic (
-    img_width         : integer := 2751;
+    img_width_bmp     : integer := 1920;
+    img_height_bmp    : integer := 1080;
     i_data_width      : integer := 8;
     b_data_width      : integer := 32;
     s_data_width      : integer := 16);
@@ -185,15 +186,15 @@ end process channelOutP;
 
 TextGenYcbcrInst: TextGen
 generic map (
-    img_width     => img_width,
-    img_height    => img_width,
-    b_data_width  => b_data_width)
+    img_width_bmp   => img_width_bmp,
+    img_height_bmp  => img_height_bmp,
+    b_data_width    => b_data_width)
 port map(            
-    clk          => clk,
-    rst_l        => rst_l,
-    videoChannel => videoChannel,
-    txCord       => iFrameData.cod,
-    location     => location,
-    iRgb         => rgbText,
-    oRgb         => oRgb);
+    clk             => clk,
+    rst_l           => rst_l,
+    videoChannel    => videoChannel,
+    txCord          => iFrameData.cod,
+    location        => location,
+    iRgb            => rgbText,
+    oRgb            => oRgb);
 end Behavioral;

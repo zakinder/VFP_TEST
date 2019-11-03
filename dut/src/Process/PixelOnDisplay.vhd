@@ -6,8 +6,8 @@ use work.vpfrecords.all;
 use work.portspackage.all;
 entity PixelOnDisplay is
 generic(
-    img_width        : integer := 4096;
-    img_height       : integer := 4096;
+    img_width_bmp    : integer := 1920;
+    img_height_bmp   : integer := 1080;
     b_data_width     : integer := 32);
 port (
     clk          : in std_logic;

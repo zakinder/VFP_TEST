@@ -8,140 +8,141 @@ use work.vpfRecords.all;
 package portspackage is
 component Filters is
 generic (
-    F_TES                 : boolean := false;
-    F_LUM                 : boolean := false;
-    F_TRM                 : boolean := false;
-    F_RGB                 : boolean := false;
-    F_SHP                 : boolean := false;
-    F_BLU                 : boolean := false;
-    F_EMB                 : boolean := false;
-    F_YCC                 : boolean := false;
-    F_SOB                 : boolean := false;
-    F_CGA                 : boolean := false;
-    F_HSV                 : boolean := false;
-    F_HSL                 : boolean := false;
-    M_SOB_LUM             : boolean := false;
-    M_SOB_TRM             : boolean := false;
-    M_SOB_RGB             : boolean := false;
-    M_SOB_SHP             : boolean := false;
-    M_SOB_BLU             : boolean := false;
-    M_SOB_YCC             : boolean := false;
-    M_SOB_CGA             : boolean := false;
-    M_SOB_HSV             : boolean := false;
-    M_SOB_HSL             : boolean := false;
-    F_CGA_TO_CGA          : boolean := false;
-    F_CGA_TO_HSL          : boolean := false;
-    F_CGA_TO_HSV          : boolean := false;
-    F_CGA_TO_YCC          : boolean := false;
-    F_CGA_TO_SHP          : boolean := false;
-    F_CGA_TO_BLU          : boolean := false;
-    F_SHP_TO_SHP          : boolean := false;
-    F_SHP_TO_HSL          : boolean := false;
-    F_SHP_TO_HSV          : boolean := false;
-    F_SHP_TO_YCC          : boolean := false;
-    F_SHP_TO_CGA          : boolean := false;
-    F_SHP_TO_BLU          : boolean := false;
-    F_BLU_TO_BLU          : boolean := false;
-    F_BLU_TO_HSL          : boolean := false;
-    F_BLU_TO_HSV          : boolean := false;
-    F_BLU_TO_YCC          : boolean := false;
-    F_BLU_TO_CGA          : boolean := false;
-    F_BLU_TO_SHP          : boolean := false;
-    img_width             : integer := 2751;
-    img_height            : integer := 4096;
-    s_data_width          : integer := 16;
-    i_data_width          : integer := 8);
+    F_TES                       : boolean := false;
+    F_LUM                       : boolean := false;
+    F_TRM                       : boolean := false;
+    F_RGB                       : boolean := false;
+    F_SHP                       : boolean := false;
+    F_BLU                       : boolean := false;
+    F_EMB                       : boolean := false;
+    F_YCC                       : boolean := false;
+    F_SOB                       : boolean := false;
+    F_CGA                       : boolean := false;
+    F_HSV                       : boolean := false;
+    F_HSL                       : boolean := false;
+    M_SOB_LUM                   : boolean := false;
+    M_SOB_TRM                   : boolean := false;
+    M_SOB_RGB                   : boolean := false;
+    M_SOB_SHP                   : boolean := false;
+    M_SOB_BLU                   : boolean := false;
+    M_SOB_YCC                   : boolean := false;
+    M_SOB_CGA                   : boolean := false;
+    M_SOB_HSV                   : boolean := false;
+    M_SOB_HSL                   : boolean := false;
+    F_CGA_TO_CGA                : boolean := false;
+    F_CGA_TO_HSL                : boolean := false;
+    F_CGA_TO_HSV                : boolean := false;
+    F_CGA_TO_YCC                : boolean := false;
+    F_CGA_TO_SHP                : boolean := false;
+    F_CGA_TO_BLU                : boolean := false;
+    F_SHP_TO_SHP                : boolean := false;
+    F_SHP_TO_HSL                : boolean := false;
+    F_SHP_TO_HSV                : boolean := false;
+    F_SHP_TO_YCC                : boolean := false;
+    F_SHP_TO_CGA                : boolean := false;
+    F_SHP_TO_BLU                : boolean := false;
+    F_BLU_TO_BLU                : boolean := false;
+    F_BLU_TO_HSL                : boolean := false;
+    F_BLU_TO_HSV                : boolean := false;
+    F_BLU_TO_YCC                : boolean := false;
+    F_BLU_TO_CGA                : boolean := false;
+    F_BLU_TO_SHP                : boolean := false;
+    img_width                   : integer := 2751;
+    img_height                  : integer := 4096;
+    s_data_width                : integer := 16;
+    i_data_width                : integer := 8);
 port (                          
-    clk                   : in std_logic;
-    rst_l                 : in std_logic;
-    txCord                : in coord;
-    lumThreshold          : in  std_logic_vector(7 downto 0);
-    iThreshold            : in std_logic_vector(15 downto 0); 
-    iRgb                  : in channel;
-    cHsv                  : in std_logic_vector(2 downto 0);
-    cYcc                  : in std_logic_vector(2 downto 0);
-    iKcoeff               : in kernelCoeff;
-    edgeValid             : out std_logic;
-    oRgb                  : out frameColors);
+    clk                         : in std_logic;
+    rst_l                       : in std_logic;
+    txCord                      : in coord;
+    lumThreshold                : in  std_logic_vector(7 downto 0);
+    iThreshold                  : in std_logic_vector(15 downto 0); 
+    iRgb                        : in channel;
+    cHsv                        : in std_logic_vector(2 downto 0);
+    cYcc                        : in std_logic_vector(2 downto 0);
+    iKcoeff                     : in kernelCoeff;
+    edgeValid                   : out std_logic;
+    oRgb                        : out frameColors);
 end component Filters; 
 component ColorSpaceLimits is
 generic (
-    i_data_width   : integer := 8);
+    i_data_width                : integer := 8);
 port (  
-    clk            : in  std_logic;
-    reset          : in  std_logic;
-    iRgb           : in channel;
-    rgbColors      : out type_RgbArray(0 to i_data_width-1));
+    clk                         : in  std_logic;
+    reset                       : in  std_logic;
+    iRgb                        : in channel;
+    rgbColors                   : out type_RgbArray(0 to i_data_width-1));
 end component ColorSpaceLimits;
 component SyncFrames is
 generic (
-    pixelDelay     : integer := 8);
+    pixelDelay                  : integer := 8);
 port (  
-    clk            : in  std_logic;
-    reset          : in  std_logic;
-    iRgb           : in channel;
-    oRgb           : out channel);
+    clk                         : in  std_logic;
+    reset                       : in  std_logic;
+    iRgb                        : in channel;
+    oRgb                        : out channel);
 end component SyncFrames;
 component rgbAssertion is
 port (  
-    clk            : in  std_logic;
-    reset          : in  std_logic;
-    valid          : in  std_logic;
-    iRed           : in  std_logic_vector(7 downto 0);
-    iGreen         : in  std_logic_vector(7 downto 0);
-    iBlue          : in  std_logic_vector(7 downto 0));
+    clk                         : in  std_logic;
+    reset                       : in  std_logic;
+    valid                       : in  std_logic;
+    iRed                        : in  std_logic_vector(7 downto 0);
+    iGreen                      : in  std_logic_vector(7 downto 0);
+    iBlue                       : in  std_logic_vector(7 downto 0));
 end component rgbAssertion;
 component Kernel is
 generic (
-    INRGB_FRAME        : boolean := false;
-    RGBLP_FRAME        : boolean := false;
-    RGBTR_FRAME        : boolean := false;
-    SHARP_FRAME        : boolean := false;
-    BLURE_FRAME        : boolean := false;
-    EMBOS_FRAME        : boolean := false;
-    YCBCR_FRAME        : boolean := false;
-    SOBEL_FRAME        : boolean := false;
-    CGAIN_FRAME        : boolean := false;
-    CCGAIN_FRAME       : boolean := false;
-    HSV_FRAME          : boolean := false;
-    HSL_FRAME          : boolean := false;
-    img_width          : integer := 2751;
-    img_height         : integer := 4096;
-    s_data_width       : integer := 16;
-    i_data_width       : integer := 8);
+    INRGB_FRAME                 : boolean := false;
+    RGBLP_FRAME                 : boolean := false;
+    RGBTR_FRAME                 : boolean := false;
+    SHARP_FRAME                 : boolean := false;
+    BLURE_FRAME                 : boolean := false;
+    EMBOS_FRAME                 : boolean := false;
+    YCBCR_FRAME                 : boolean := false;
+    SOBEL_FRAME                 : boolean := false;
+    CGAIN_FRAME                 : boolean := false;
+    CCGAIN_FRAME                : boolean := false;
+    HSV_FRAME                   : boolean := false;
+    HSL_FRAME                   : boolean := false;
+    img_width                   : integer := 2751;
+    img_height                  : integer := 4096;
+    s_data_width                : integer := 16;
+    i_data_width                : integer := 8);
 port (                          
-    clk                : in std_logic;
-    rst_l              : in std_logic;
-    lumThreshold       : in  std_logic_vector(7 downto 0);
-    iThreshold         : in std_logic_vector(15 downto 0); 
-    txCord             : in coord;
-    iRgb               : in channel;
-    iKcoeff            : in kernelCoeff;
-    oEdgeValid         : out std_logic;
-    oRgb               : out colors);
+    clk                         : in std_logic;
+    rst_l                       : in std_logic;
+    lumThreshold                : in  std_logic_vector(7 downto 0);
+    iThreshold                  : in std_logic_vector(15 downto 0); 
+    txCord                      : in coord;
+    iRgb                        : in channel;
+    iKcoeff                     : in kernelCoeff;
+    oEdgeValid                  : out std_logic;
+    oRgb                        : out colors);
 end component Kernel; 
 
 component ColorTrim is
 generic (
-    i_data_width  : integer := 8);
+    i_data_width                : integer := 8);
 port (  
-    clk            : in  std_logic;
-    reset          : in  std_logic;
-    iRgb           : in channel;
-    oRgb           : out channel);
+    clk                         : in  std_logic;
+    reset                       : in  std_logic;
+    iRgb                        : in channel;
+    oRgb                        : out channel);
 end component ColorTrim;
 component ColorAvg is
 generic (
-    i_data_width  : integer := 8);
+    i_data_width                : integer := 8);
 port (  
-    clk            : in  std_logic;
-    reset          : in  std_logic;
-    iRgb           : in channel;
-    oRgb           : out channel);
+    clk                         : in  std_logic;
+    reset                       : in  std_logic;
+    iRgb                        : in channel;
+    oRgb                        : out channel);
 end component ColorAvg;
 component videoSelect is
 generic (
-    img_width                   : integer := 2751;
+    img_width_bmp               : integer := 1920;
+    img_height_bmp              : integer := 1080;
     i_data_width                : integer := 8;
     b_data_width                : integer := 32;
     s_data_width                : integer := 16);
@@ -240,7 +241,39 @@ generic (
     b_data_width                : integer := 32;
     img_width                   : integer := 2751;
     adwrWidth                   : integer := 16;
-    addrWidth                   : integer := 12);
+    addrWidth                   : integer := 12;
+    img_width_bmp               : integer := 1920;
+    img_height_bmp              : integer := 1080;
+    F_TES                       : boolean := false;
+    F_LUM                       : boolean := false;
+    F_TRM                       : boolean := false;
+    F_RGB                       : boolean := false;
+    F_SHP                       : boolean := false;
+    F_BLU                       : boolean := false;
+    F_EMB                       : boolean := false;
+    F_YCC                       : boolean := false;
+    F_SOB                       : boolean := false;
+    F_CGA                       : boolean := false;
+    F_HSV                       : boolean := false;
+    F_HSL                       : boolean := false;
+    F_CGA_TO_CGA                : boolean := false;
+    F_CGA_TO_HSL                : boolean := false;
+    F_CGA_TO_HSV                : boolean := false;
+    F_CGA_TO_YCC                : boolean := false;
+    F_CGA_TO_SHP                : boolean := false;
+    F_CGA_TO_BLU                : boolean := false;
+    F_SHP_TO_SHP                : boolean := false;
+    F_SHP_TO_HSL                : boolean := false;
+    F_SHP_TO_HSV                : boolean := false;
+    F_SHP_TO_YCC                : boolean := false;
+    F_SHP_TO_CGA                : boolean := false;
+    F_SHP_TO_BLU                : boolean := false;
+    F_BLU_TO_BLU                : boolean := false;
+    F_BLU_TO_HSL                : boolean := false;
+    F_BLU_TO_HSV                : boolean := false;
+    F_BLU_TO_YCC                : boolean := false;
+    F_BLU_TO_CGA                : boolean := false;
+    F_BLU_TO_SHP                : boolean := false);
 port (
     m_axis_mm2s_aclk            : in std_logic;
     m_axis_mm2s_aresetn         : in std_logic;
@@ -299,27 +332,27 @@ port (
 end component buffer_controller;
 component TapsController is
 generic (
-    img_width     : integer := 2751;
-    tpDataWidth   : integer := 8);
+    img_width                   : integer := 2751;
+    tpDataWidth                 : integer := 8);
 port (                          
-    clk         : in std_logic;
-    iRgb        : in channel;
-    rst_l       : in std_logic;
-    tpValid     : out std_logic;
-    tp0         : out std_logic_vector(tpDataWidth - 1 downto 0);
-    tp1         : out std_logic_vector(tpDataWidth - 1 downto 0);
-    tp2         : out std_logic_vector(tpDataWidth - 1 downto 0));
+    clk                         : in std_logic;
+    iRgb                        : in channel;
+    rst_l                       : in std_logic;
+    tpValid                     : out std_logic;
+    tp0                         : out std_logic_vector(tpDataWidth - 1 downto 0);
+    tp1                         : out std_logic_vector(tpDataWidth - 1 downto 0);
+    tp2                         : out std_logic_vector(tpDataWidth - 1 downto 0));
 end component TapsController;
 component tapLine is
 generic (
-    img_width    : integer := 2751;
-    tpDataWidth  : integer := 12);
+    img_width                   : integer := 2751;
+    tpDataWidth                 : integer := 12);
 port (                          
-    clk          : in std_logic;
-    rst_l       : in std_logic;
-    valid        : in std_logic;
-    idata        : in std_logic_vector(tpDataWidth - 1 downto 0);
-    odata        : out std_logic_vector(tpDataWidth - 1 downto 0));
+    clk                         : in std_logic;
+    rst_l                       : in std_logic;
+    valid                       : in std_logic;
+    idata                       : in std_logic_vector(tpDataWidth - 1 downto 0);
+    odata                       : out std_logic_vector(tpDataWidth - 1 downto 0));
 end component tapLine;
 component sharpMac is
 port (                
@@ -363,7 +396,39 @@ generic (
     b_data_width                : integer := 32;
     img_width                   : integer := 2751;
     adwrWidth                   : integer := 16;
-    addrWidth                   : integer := 12);
+    addrWidth                   : integer := 12;
+    img_width_bmp               : integer := 1920;
+    img_height_bmp              : integer := 1080;
+    F_TES                       : boolean := false;
+    F_LUM                       : boolean := false;
+    F_TRM                       : boolean := false;
+    F_RGB                       : boolean := false;
+    F_SHP                       : boolean := false;
+    F_BLU                       : boolean := false;
+    F_EMB                       : boolean := false;
+    F_YCC                       : boolean := false;
+    F_SOB                       : boolean := false;
+    F_CGA                       : boolean := false;
+    F_HSV                       : boolean := false;
+    F_HSL                       : boolean := false;
+    F_CGA_TO_CGA                : boolean := false;
+    F_CGA_TO_HSL                : boolean := false;
+    F_CGA_TO_HSV                : boolean := false;
+    F_CGA_TO_YCC                : boolean := false;
+    F_CGA_TO_SHP                : boolean := false;
+    F_CGA_TO_BLU                : boolean := false;
+    F_SHP_TO_SHP                : boolean := false;
+    F_SHP_TO_HSL                : boolean := false;
+    F_SHP_TO_HSV                : boolean := false;
+    F_SHP_TO_YCC                : boolean := false;
+    F_SHP_TO_CGA                : boolean := false;
+    F_SHP_TO_BLU                : boolean := false;
+    F_BLU_TO_BLU                : boolean := false;
+    F_BLU_TO_HSL                : boolean := false;
+    F_BLU_TO_HSV                : boolean := false;
+    F_BLU_TO_YCC                : boolean := false;
+    F_BLU_TO_CGA                : boolean := false;
+    F_BLU_TO_SHP                : boolean := false);
 port (              
     clk                         : in std_logic;
     rst_l                       : in std_logic;
@@ -406,31 +471,31 @@ port (
 end component sharpFilter;
 component FrameMask is
 generic (
-    eBlack         : boolean := false);
+    eBlack                      : boolean := false);
 port (                
-    clk            : in  std_logic;
-    reset          : in  std_logic;
-    iEdgeValid     : in  std_logic;
-    i1Rgb          : in channel;
-    i2Rgb          : in channel;
-    oRgb           : out channel);
+    clk                         : in  std_logic;
+    reset                       : in  std_logic;
+    iEdgeValid                  : in  std_logic;
+    i1Rgb                       : in channel;
+    i2Rgb                       : in channel;
+    oRgb                        : out channel);
 end component FrameMask;
 component dither is
 generic (
-    img_width         : integer := 2751;
-    img_height        : integer := 512;
-    color_width       : integer := 8;
-    reduced_width     : integer := 4);
+    img_width                   : integer := 2751;
+    img_height                  : integer := 512;
+    color_width                 : integer := 8;
+    reduced_width               : integer := 4);
 port (                
-    clk               : in  std_logic;
-    enable            : in  std_logic;
-    x                 : in  integer range 0 to img_width-1;
-    din_r             : in  std_logic_vector(color_width-1 downto 0);
-    din_g             : in  std_logic_vector(color_width-1 downto 0);
-    din_b             : in  std_logic_vector(color_width-1 downto 0);
-    dout_r            : out std_logic_vector(color_width-1 downto 0) := (others => '0');
-    dout_g            : out std_logic_vector(color_width-1 downto 0) := (others => '0');
-    dout_b            : out std_logic_vector(color_width-1 downto 0) := (others => '0'));
+    clk                         : in  std_logic;
+    enable                      : in  std_logic;
+    x                           : in  integer range 0 to img_width-1;
+    din_r                       : in  std_logic_vector(color_width-1 downto 0);
+    din_g                       : in  std_logic_vector(color_width-1 downto 0);
+    din_b                       : in  std_logic_vector(color_width-1 downto 0);
+    dout_r                      : out std_logic_vector(color_width-1 downto 0) := (others => '0');
+    dout_g                      : out std_logic_vector(color_width-1 downto 0) := (others => '0');
+    dout_b                      : out std_logic_vector(color_width-1 downto 0) := (others => '0'));
 end component dither;
 component blurFilter is
 generic (
@@ -457,10 +522,10 @@ port (
 end component blurMac;
 component TestPattern is
 port (                
-    clk                   : in std_logic;
-    ChannelS              : in integer;
-    rgbSum                : in tpRgb;
-    oRgb                  : out channel);
+    clk                         : in std_logic;
+    ChannelS                    : in integer;
+    rgbSum                      : in tpRgb;
+    oRgb                        : out channel);
 end component TestPattern;
 component edgeObjects is
 generic (
@@ -569,14 +634,14 @@ port (
 end component SegmentColors;
 component AvgValues is
 generic (
-    i_data_width   : integer := 8);
+    i_data_width                : integer := 8);
 port (  
-    clk            : in  std_logic;
-    reset          : in  std_logic;
-    aRgb           : in channel;
-    bRgb           : in channel;
-    cRgb           : in channel;
-    oRgb           : out channel);
+    clk                         : in  std_logic;
+    reset                       : in  std_logic;
+    aRgb                        : in channel;
+    bRgb                        : in channel;
+    cRgb                        : in channel;
+    oRgb                        : out channel);
 end component AvgValues;
 component hsl_c is
 generic (
@@ -614,38 +679,38 @@ port (
 end component colorCorrection; 
 component ImageKernel is
 generic (
-    SHARP_FRAME           : boolean := false;
-    BLURE_FRAME           : boolean := false;
-    EMBOS_FRAME           : boolean := false;
-    YCBCR_FRAME           : boolean := false;
-    SOBEL_FRAME           : boolean := false;
-    CGAIN_FRAME           : boolean := false;
-    img_width             : integer := 2751;
-    i_data_width          : integer := 8);
+    SHARP_FRAME                 : boolean := false;
+    BLURE_FRAME                 : boolean := false;
+    EMBOS_FRAME                 : boolean := false;
+    YCBCR_FRAME                 : boolean := false;
+    SOBEL_FRAME                 : boolean := false;
+    CGAIN_FRAME                 : boolean := false;
+    img_width                   : integer := 2751;
+    i_data_width                : integer := 8);
 port (                          
-    clk                   : in std_logic;
-    rst_l                 : in std_logic;
-    iRgb                  : in channel;
-    als                   : in coefficient;
-    oEdgeValid            : out std_logic;
-    oRgb                  : out colors);
+    clk                         : in std_logic;
+    rst_l                       : in std_logic;
+    iRgb                        : in channel;
+    als                         : in coefficient;
+    oEdgeValid                  : out std_logic;
+    oRgb                        : out colors);
 end component ImageKernel; 
 component KernelCore is
 generic (
-    SHARP_FRAME           : boolean := false;
-    BLURE_FRAME           : boolean := false;
-    EMBOS_FRAME           : boolean := false;
-    YCBCR_FRAME           : boolean := false;
-    SOBEL_FRAME           : boolean := false;
-    CGAIN_FRAME           : boolean := false;
-    img_width             : integer := 2751;
-    i_data_width          : integer := 8);
+    SHARP_FRAME                 : boolean := false;
+    BLURE_FRAME                 : boolean := false;
+    EMBOS_FRAME                 : boolean := false;
+    YCBCR_FRAME                 : boolean := false;
+    SOBEL_FRAME                 : boolean := false;
+    CGAIN_FRAME                 : boolean := false;
+    img_width                   : integer := 2751;
+    i_data_width                : integer := 8);
 port (                          
-    clk              : in std_logic;
-    rst_l            : in std_logic;
-    iRgb             : in channel;
-    kCoeff           : in kernelCoeDWord;
-    oRgb             : out channel);
+    clk                         : in std_logic;
+    rst_l                       : in std_logic;
+    iRgb                        : in channel;
+    kCoeff                      : in kernelCoeDWord;
+    oRgb                        : out channel);
 end component KernelCore; 
 component tap_buffer
 generic (
@@ -765,19 +830,19 @@ port (
 end component;
 component fixedToFloat is
 port (                
-    aclk                    : in STD_LOGIC;
-    s_axis_a_tvalid         : in STD_LOGIC;
-    s_axis_a_tdata          : in STD_LOGIC_VECTOR (31 downto 0 );
-    m_axis_result_tvalid    : out STD_LOGIC;
-    m_axis_result_tdata     : out STD_LOGIC_VECTOR (31 downto 0));
+    aclk                        : in STD_LOGIC;
+    s_axis_a_tvalid             : in STD_LOGIC;
+    s_axis_a_tdata              : in STD_LOGIC_VECTOR (31 downto 0 );
+    m_axis_result_tvalid        : out STD_LOGIC;
+    m_axis_result_tdata         : out STD_LOGIC_VECTOR (31 downto 0));
 end component fixedToFloat;
 component floatToFixed is
 port (                
-    aclk                    : in STD_LOGIC;
-    s_axis_a_tvalid         : in STD_LOGIC;
-    s_axis_a_tdata          : in STD_LOGIC_VECTOR (31 downto 0 );
-    m_axis_result_tvalid    : out STD_LOGIC;
-    m_axis_result_tdata     : out STD_LOGIC_VECTOR (31 downto 0));
+    aclk                        : in STD_LOGIC;
+    s_axis_a_tvalid             : in STD_LOGIC;
+    s_axis_a_tdata              : in STD_LOGIC_VECTOR (31 downto 0 );
+    m_axis_result_tvalid        : out STD_LOGIC;
+    m_axis_result_tdata         : out STD_LOGIC_VECTOR (31 downto 0));
 end component floatToFixed;
 component squareRootTop is
 port ( 
@@ -789,100 +854,100 @@ port (
 end component squareRootTop;
 component squareRoot is
 port (                
-    aclk                    : in STD_LOGIC;
-    s_axis_a_tvalid         : in STD_LOGIC;
-    s_axis_a_tdata          : in STD_LOGIC_VECTOR (31 downto 0);
-    m_axis_result_tvalid    : out STD_LOGIC;
-    m_axis_result_tdata     : out STD_LOGIC_VECTOR (31 downto 0));
+    aclk                        : in STD_LOGIC;
+    s_axis_a_tvalid             : in STD_LOGIC;
+    s_axis_a_tdata              : in STD_LOGIC_VECTOR (31 downto 0);
+    m_axis_result_tvalid        : out STD_LOGIC;
+    m_axis_result_tdata         : out STD_LOGIC_VECTOR (31 downto 0));
 end component squareRoot;
 component ByteToFloat is
 port (                
-    aclk                 : IN STD_LOGIC;
-    s_axis_a_tvalid      : IN STD_LOGIC;
-    s_axis_a_tdata       : IN STD_LOGIC_VECTOR(15 DOWNTO 0);
-    m_axis_result_tvalid : OUT STD_LOGIC;
-    m_axis_result_tdata  : OUT STD_LOGIC_VECTOR(31 DOWNTO 0));
+    aclk                        : IN STD_LOGIC;
+    s_axis_a_tvalid             : IN STD_LOGIC;
+    s_axis_a_tdata              : IN STD_LOGIC_VECTOR(15 DOWNTO 0);
+    m_axis_result_tvalid        : OUT STD_LOGIC;
+    m_axis_result_tdata         : OUT STD_LOGIC_VECTOR(31 DOWNTO 0));
 end component ByteToFloat;
 component ByteToFloatTop is
 port (  
-    aclk           : in std_logic;
-    rst_l          : in std_logic;
-    iValid         : in std_logic;
-    iData          : in std_logic_vector(7 downto 0);
-    oValid         : out std_logic;
-    oDataFloat     : out std_logic_vector(31 downto 0));
+    aclk                        : in std_logic;
+    rst_l                       : in std_logic;
+    iValid                      : in std_logic;
+    iData                       : in std_logic_vector(7 downto 0);
+    oValid                      : out std_logic;
+    oDataFloat                  : out std_logic_vector(31 downto 0));
 end component ByteToFloatTop;
 component WordToFloat is
 port (                
-    aclk                 : IN STD_LOGIC;
-    s_axis_a_tvalid      : IN STD_LOGIC;
-    s_axis_a_tdata       : IN STD_LOGIC_VECTOR(15 DOWNTO 0);
-    m_axis_result_tvalid : OUT STD_LOGIC;
-    m_axis_result_tdata  : OUT STD_LOGIC_VECTOR(31 DOWNTO 0));
+    aclk                        : IN STD_LOGIC;
+    s_axis_a_tvalid             : IN STD_LOGIC;
+    s_axis_a_tdata              : IN STD_LOGIC_VECTOR(15 DOWNTO 0);
+    m_axis_result_tvalid        : OUT STD_LOGIC;
+    m_axis_result_tdata         : OUT STD_LOGIC_VECTOR(31 DOWNTO 0));
 end component WordToFloat;
 component WordToFloatTop is
 port (                
-    aclk           : in std_logic;
-    rst_l          : in std_logic;
-    iValid         : in std_logic;
-    iData          : in std_logic_vector(15 downto 0);
-    oValid         : out std_logic;
-    oDataFloat     : out std_logic_vector(31 downto 0));
+    aclk                        : in std_logic;
+    rst_l                       : in std_logic;
+    iValid                      : in std_logic;
+    iData                       : in std_logic_vector(15 downto 0);
+    oValid                      : out std_logic;
+    oDataFloat                  : out std_logic_vector(31 downto 0));
 end component WordToFloatTop;
 component FloatMultiply is
 port (                
-    aclk                    : IN STD_LOGIC;
-    s_axis_a_tvalid         : IN STD_LOGIC;
-    s_axis_a_tdata          : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
-    s_axis_b_tvalid         : IN STD_LOGIC;
-    s_axis_b_tdata          : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
-    m_axis_result_tvalid    : OUT STD_LOGIC;
-    m_axis_result_tdata     : OUT STD_LOGIC_VECTOR(31 DOWNTO 0));
+    aclk                        : IN STD_LOGIC;
+    s_axis_a_tvalid             : IN STD_LOGIC;
+    s_axis_a_tdata              : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
+    s_axis_b_tvalid             : IN STD_LOGIC;
+    s_axis_b_tdata              : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
+    m_axis_result_tvalid        : OUT STD_LOGIC;
+    m_axis_result_tdata         : OUT STD_LOGIC_VECTOR(31 DOWNTO 0));
 end component FloatMultiply;
 component FloatMultiplyTop is
 port (                
-    clk            : in std_logic;
-    iAdata         : in std_logic_vector(31 downto 0);
-    iBdata         : in std_logic_vector(31 downto 0);
-    oRdata         : out std_logic_vector(31 downto 0));
+    clk                         : in std_logic;
+    iAdata                      : in std_logic_vector(31 downto 0);
+    iBdata                      : in std_logic_vector(31 downto 0);
+    oRdata                      : out std_logic_vector(31 downto 0));
 end component FloatMultiplyTop;
 component FloatToFixedv1 is
 port (                
-    aclk                    : IN STD_LOGIC;
-    s_axis_a_tvalid         : IN STD_LOGIC;
-    s_axis_a_tdata          : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
-    m_axis_result_tvalid    : OUT STD_LOGIC;
-    m_axis_result_tdata     : OUT STD_LOGIC_VECTOR(31 DOWNTO 0));
+    aclk                        : IN STD_LOGIC;
+    s_axis_a_tvalid             : IN STD_LOGIC;
+    s_axis_a_tdata              : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
+    m_axis_result_tvalid        : OUT STD_LOGIC;
+    m_axis_result_tdata         : OUT STD_LOGIC_VECTOR(31 DOWNTO 0));
 end component FloatToFixedv1;
 component FloatToFixedv1Top is
 port (                
-    aclk           : in std_logic;
-    iData          : in std_logic_vector(31 downto 0);
-    oData          : out std_logic_vector(27 downto 0));
+    aclk                        : in std_logic;
+    iData                       : in std_logic_vector(31 downto 0);
+    oData                       : out std_logic_vector(27 downto 0));
 end component FloatToFixedv1Top;
 component CoefMult is
 port (                
-    clk            : in std_logic;
-    rst_l          : in std_logic;
-    iKcoeff        : in kernelCoeff;
-    oCoeffProd     : out kCoefFiltFloat);
+    clk                         : in std_logic;
+    rst_l                       : in std_logic;
+    iKcoeff                     : in kernelCoeff;
+    oCoeffProd                  : out kCoefFiltFloat);
 end component CoefMult;
 component imageRead is
 generic (
-    i_data_width        : integer := 8;
-    img_frames_cnt_bmp  : integer := 2;
-    img_width_bmp       : integer := 400;
-    img_height_bmp      : integer := 300;
-    input_file          : string  := "input_image");
+    i_data_width                : integer := 8;
+    img_frames_cnt_bmp          : integer := 2;
+    img_width_bmp               : integer := 400;
+    img_height_bmp              : integer := 300;
+    input_file                  : string  := "input_image");
 port (                
-    clk           : in  std_logic;
-    reset         : in  std_logic;
-    readyToRead   : in  std_logic;
-    lvalid        : out std_logic;
-    fvalid        : out std_logic;
-    oRgb          : out channel;
-    oCord         : out coord;
-    endOfFrame    : out std_logic);
+    clk                         : in  std_logic;
+    reset                       : in  std_logic;
+    readyToRead                 : in  std_logic;
+    lvalid                      : out std_logic;
+    fvalid                      : out std_logic;
+    oRgb                        : out channel;
+    oCord                       : out coord;
+    endOfFrame                  : out std_logic);
 end component imageRead;
 component imageWrite is
 generic (
@@ -901,35 +966,35 @@ port (
 end component imageWrite;
 component FontRom is
 port (  
-    clk     : in std_logic;
-    addr    : in integer;
-    fontRow : out std_logic_vector(FONT_WIDTH-1 downto 0));
+    clk                         : in std_logic;
+    addr                        : in integer;
+    fontRow                     : out std_logic_vector(FONT_WIDTH-1 downto 0));
 end component FontRom;
 component PixelOnDisplay is
 generic (
-    img_width    : integer := 8;
-    img_height   : integer := 400;
-    b_data_width : integer := 32);
+    img_width_bmp               : integer := 1920;
+    img_height_bmp              : integer := 1080;
+    b_data_width                : integer := 32);
 port (                
-    clk          : in std_logic;
-    rst_l        : in std_logic;
-    location     : in cord;
-    grid         : in cord;
-    videoChannel : in std_logic_vector(b_data_width-1 downto 0);
-    pixel        : out std_logic);
+    clk                         : in std_logic;
+    rst_l                       : in std_logic;
+    location                    : in cord;
+    grid                        : in cord;
+    videoChannel                : in std_logic_vector(b_data_width-1 downto 0);
+    pixel                       : out std_logic);
 end component PixelOnDisplay;
 component TextGen is
 generic (
-    img_width    : integer := 8;
-    img_height   : integer := 400;
-    b_data_width : integer := 32);
+    img_width_bmp               : integer := 1920;
+    img_height_bmp              : integer := 1080;
+    b_data_width                : integer := 32);
 port (                
-    clk              : in std_logic;
-    rst_l            : in std_logic;
-    videoChannel     : in std_logic_vector(b_data_width-1 downto 0);
-    txCord           : in coord;
-    location         : in cord;
-    iRgb             : in channel;
-    oRgb             : out channel);
+    clk                         : in std_logic;
+    rst_l                       : in std_logic;
+    videoChannel                : in std_logic_vector(b_data_width-1 downto 0);
+    txCord                      : in coord;
+    location                    : in cord;
+    iRgb                        : in channel;
+    oRgb                        : out channel);
 end component TextGen;
 end package;

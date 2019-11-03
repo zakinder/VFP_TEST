@@ -6,13 +6,45 @@ use work.vpfRecords.all;
 use work.portspackage.all;
 entity VideoStream is
 generic (
-    revision_number      : std_logic_vector(31 downto 0) := x"00000000";
-    i_data_width         : integer := 8;
-    s_data_width         : integer := 16;
-    b_data_width         : integer := 32;
-    img_width            : integer := 2751;
-    adwrWidth            : integer := 16;
-    addrWidth            : integer := 12);
+    revision_number           : std_logic_vector(31 downto 0) := x"00000000";
+    i_data_width              : integer := 8;
+    s_data_width              : integer := 16;
+    b_data_width              : integer := 32;
+    img_width                 : integer := 2751;
+    adwrWidth                 : integer := 16;
+    addrWidth                 : integer := 12;
+    img_width_bmp             : integer := 1920;
+    img_height_bmp            : integer := 1080;
+    F_TES                     : boolean := false;
+    F_LUM                     : boolean := false;
+    F_TRM                     : boolean := false;
+    F_RGB                     : boolean := false;
+    F_SHP                     : boolean := false;
+    F_BLU                     : boolean := false;
+    F_EMB                     : boolean := false;
+    F_YCC                     : boolean := false;
+    F_SOB                     : boolean := false;
+    F_CGA                     : boolean := false;
+    F_HSV                     : boolean := false;
+    F_HSL                     : boolean := false;
+    F_CGA_TO_CGA              : boolean := false;
+    F_CGA_TO_HSL              : boolean := false;
+    F_CGA_TO_HSV              : boolean := false;
+    F_CGA_TO_YCC              : boolean := false;
+    F_CGA_TO_SHP              : boolean := false;
+    F_CGA_TO_BLU              : boolean := false;
+    F_SHP_TO_SHP              : boolean := false;
+    F_SHP_TO_HSL              : boolean := false;
+    F_SHP_TO_HSV              : boolean := false;
+    F_SHP_TO_YCC              : boolean := false;
+    F_SHP_TO_CGA              : boolean := false;
+    F_SHP_TO_BLU              : boolean := false;
+    F_BLU_TO_BLU              : boolean := false;
+    F_BLU_TO_HSL              : boolean := false;
+    F_BLU_TO_HSV              : boolean := false;
+    F_BLU_TO_YCC              : boolean := false;
+    F_BLU_TO_CGA              : boolean := false;
+    F_BLU_TO_SHP              : boolean := false);
 port (
     m_axis_mm2s_aclk     : in std_logic;
     m_axis_mm2s_aresetn  : in std_logic;
@@ -50,7 +82,39 @@ generic map(
     b_data_width         => b_data_width,
     img_width            => img_width,
     adwrWidth            => adwrWidth,
-    addrWidth            => addrWidth)
+    addrWidth            => addrWidth,
+    img_width_bmp        => img_width_bmp,
+    img_height_bmp       => img_height_bmp,
+    F_TES                => F_TES,
+    F_LUM                => F_LUM,
+    F_TRM                => F_TRM,
+    F_RGB                => F_RGB,
+    F_SHP                => F_SHP,
+    F_BLU                => F_BLU,
+    F_EMB                => F_EMB,
+    F_YCC                => F_YCC,
+    F_SOB                => F_SOB,
+    F_CGA                => F_CGA,
+    F_HSV                => F_HSV,
+    F_HSL                => F_HSL,
+    F_CGA_TO_CGA         => F_CGA_TO_CGA,
+    F_CGA_TO_HSL         => F_CGA_TO_HSL,
+    F_CGA_TO_HSV         => F_CGA_TO_HSV,
+    F_CGA_TO_YCC         => F_CGA_TO_YCC,
+    F_CGA_TO_SHP         => F_CGA_TO_SHP,
+    F_CGA_TO_BLU         => F_CGA_TO_BLU,
+    F_SHP_TO_SHP         => F_SHP_TO_SHP,
+    F_SHP_TO_HSL         => F_SHP_TO_HSL,
+    F_SHP_TO_HSV         => F_SHP_TO_HSV,
+    F_SHP_TO_YCC         => F_SHP_TO_YCC,
+    F_SHP_TO_CGA         => F_SHP_TO_CGA,
+    F_SHP_TO_BLU         => F_SHP_TO_BLU,
+    F_BLU_TO_BLU         => F_BLU_TO_BLU,
+    F_BLU_TO_HSL         => F_BLU_TO_HSL,
+    F_BLU_TO_HSV         => F_BLU_TO_HSV,
+    F_BLU_TO_YCC         => F_BLU_TO_YCC,
+    F_BLU_TO_CGA         => F_BLU_TO_CGA,
+    F_BLU_TO_SHP         => F_BLU_TO_SHP)
 port map(
     clk                  => m_axis_mm2s_aclk,
     rst_l                => m_axis_mm2s_aresetn,
@@ -102,7 +166,8 @@ port map(
     rdRegsOut            => oRdRegs);
 videoSelectInst: videoSelect
 generic map (
-    img_width            => img_width,
+    img_width_bmp        => img_width_bmp,
+    img_height_bmp       => img_height_bmp,
     i_data_width         => i_data_width,
     b_data_width         => b_data_width,
     s_data_width         => s_data_width)

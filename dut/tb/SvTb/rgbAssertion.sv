@@ -23,17 +23,24 @@ module rgbAssertion(pixclk,mmclk,reset,valid,iRed,iGreen,iBlue,m_axis_mm2s_tvali
   assign vfp.completed_resolution128_128    = (vfp.x_coord == 127)  && (vfp.y_coord == 127);
   assign vfp.completed_resolution_400_300   = (vfp.x_coord == 399)  && (vfp.y_coord == 299);
   assign vfp.completed_resolution_1920_1080 = (vfp.x_coord == 1919) && (vfp.y_coord == 1079);
+  
+  assign vfp.completed_resolution_line      = (vfp.x_coord == img_width_bmp-1);
+  assign vfp.completed_resolution           = (vfp.x_coord == img_width_bmp-1) && (vfp.y_coord == img_height_bmp-1);
+  
+  
   //--------------------------------------------------------------------------------------
   //--------------------------------------------------------------------------------------
   //--------------------------------------------------------------------------------------
   assign d5m.completed_resolution_line_128  = (d5m.x_coord == 127);
-  assign d5m.completed_resolution_line_64   = (vfp.x_coord == 63);
+  assign d5m.completed_resolution_line_64   = (d5m.x_coord == 63);
   assign d5m.completed_resolution_line_400  = (d5m.x_coord == 399);
   assign d5m.completed_resolution_line_1920 = (d5m.x_coord == 1919);
-  assign d5m.completed_resolution64_64      = (vfp.x_coord == 63)   && (vfp.y_coord == 63);
+  assign d5m.completed_resolution64_64      = (d5m.x_coord == 63)   && (d5m.y_coord == 63);
   assign d5m.completed_resolution128_128    = (d5m.x_coord == 127)  && (d5m.y_coord == 127);
   assign d5m.completed_resolution_400_300   = (d5m.x_coord == 399)  && (d5m.y_coord == 299);
   assign d5m.completed_resolution_1920_1080 = (d5m.x_coord == 1919) && (d5m.y_coord == 1079);
+  assign d5m.completed_resolution_line      = (d5m.x_coord == img_width_bmp-1);
+  assign d5m.completed_resolution           = (d5m.x_coord == img_width_bmp-1) && (d5m.y_coord == img_height_bmp-1);
   //--------------------------------------------------------------------------------------
   //--------------------------------------------------------------------------------------
   //--------------------------------------------------------------------------------------
@@ -55,7 +62,7 @@ module rgbAssertion(pixclk,mmclk,reset,valid,iRed,iGreen,iBlue,m_axis_mm2s_tvali
       d5m.sim_done  <= 0;
     end
     //------------------------------------------------------------------------------------
-    else if (d5m.valid && ~d5m.completed_resolution_line_400 && ~d5m.sim_done) begin
+    else if (d5m.valid && ~d5m.completed_resolution_line && ~d5m.sim_done) begin
       d5m.x_coord       <= d5m.x_coord + 1'b1;
       d5m.increment_row <= 0;
        //if ((iRed > iGreen) && (iRed > iBlue)) begin
@@ -68,32 +75,20 @@ module rgbAssertion(pixclk,mmclk,reset,valid,iRed,iGreen,iBlue,m_axis_mm2s_tvali
         end
     end
     //------------------------------------------------------------------------------------
-    else if (d5m.completed_resolution_line_400) begin
+    else if (d5m.completed_resolution_line) begin
      d5m.x_coord         <= 0;
      d5m.increment_row   <= 1;
     end
     //------------------------------------------------------------------------------------
     //-- Frame Done
     //------------------------------------------------------------------------------------
-    if (d5m.completed_resolution_400_300) begin
+    if (d5m.completed_resolution) begin
         d5m.sim_done <= 1;
         a2: assert (~d5m.valid)
         $display("[d5m] Y-Coord-> %d X-Coord-> %d Frame Done.",d5m.y_coord,d5m.x_coord);
     end
     //------------------------------------------------------------------------------------
-    if (d5m.completed_resolution_line_64) begin
-        $display("[vfp] Y-> %d X-> %d",d5m.y_coord,d5m.x_coord);
-    end
-    //------------------------------------------------------------------------------------
-    if (d5m.completed_resolution_line_128) begin
-        $display("[d5m] Y-> %d X-> %d",d5m.y_coord,d5m.x_coord);
-    end
-    //------------------------------------------------------------------------------------
-    if (d5m.completed_resolution_line_400) begin
-        $display("[d5m] Y-> %d X-> %d",d5m.y_coord,d5m.x_coord);
-    end
-    //------------------------------------------------------------------------------------
-    if (d5m.completed_resolution_line_1920) begin
+    if (d5m.completed_resolution_line) begin
         $display("[d5m] Y-> %d X-> %d",d5m.y_coord,d5m.x_coord);
     end
     //------------------------------------------------------------------------------------
@@ -123,7 +118,7 @@ module rgbAssertion(pixclk,mmclk,reset,valid,iRed,iGreen,iBlue,m_axis_mm2s_tvali
       vfp.sim_done <= 0;
     end
     //------------------------------------------------------------------------------------
-    else if (vfp.valid && ~vfp.completed_resolution_line_400 && ~vfp.sim_done) begin
+    else if (vfp.valid && ~vfp.completed_resolution_line && ~vfp.sim_done) begin
       vfp.x_coord       <= vfp.x_coord + 1'b1;
       vfp.increment_row <= 0;
         if (vfp.increment_row) begin
@@ -131,32 +126,20 @@ module rgbAssertion(pixclk,mmclk,reset,valid,iRed,iGreen,iBlue,m_axis_mm2s_tvali
         end
     end
     //------------------------------------------------------------------------------------
-    else if (vfp.completed_resolution_line_400) begin
+    else if (vfp.completed_resolution_line) begin
      vfp.x_coord        <= 0;
      vfp.increment_row  <= 1;
     end
     //------------------------------------------------------------------------------------
     //-- Frame Done
     //------------------------------------------------------------------------------------
-    if (vfp.completed_resolution_400_300) begin
+    if (vfp.completed_resolution) begin
         vfp.sim_done <= 1;
         vfp_a1: assert (~vfp.valid)
         $display("[vfp] Y-Coord-> %d X-Coord-> %d Frame Done.",vfp.y_coord,vfp.x_coord);
     end
     //------------------------------------------------------------------------------------
-    if (vfp.completed_resolution_line_64) begin
-        $display("[vfp] Y-> %d X-> %d",vfp.y_coord,vfp.x_coord);
-    end
-    //------------------------------------------------------------------------------------
-    if (vfp.completed_resolution_line_128) begin
-        $display("[vfp] Y-> %d X-> %d",vfp.y_coord,vfp.x_coord);
-    end
-    //------------------------------------------------------------------------------------
-    if (vfp.completed_resolution_line_400) begin
-        $display("[vfp] Y-> %d X-> %d",vfp.y_coord,vfp.x_coord);
-    end
-    //------------------------------------------------------------------------------------
-    if (vfp.completed_resolution_line_1920) begin
+    if (vfp.completed_resolution_line) begin
         $display("[vfp] Y-> %d X-> %d",vfp.y_coord,vfp.x_coord);
     end
     //------------------------------------------------------------------------------------

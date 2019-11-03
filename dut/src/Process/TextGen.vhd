@@ -6,8 +6,8 @@ use work.vpfrecords.all;
 use work.portspackage.all;
 entity TextGen is
 generic(
-    img_width        : integer := 4096;
-    img_height       : integer := 4096;
+    img_width_bmp    : integer := 1920;
+    img_height_bmp   : integer := 1080;
     b_data_width     : integer := 32);
 port (
     clk              : in std_logic;
@@ -23,12 +23,12 @@ architecture Behavioral of TextGen is
     signal pixOn : std_logic := '0';
 begin
 grid.x <= to_integer(unsigned(txCord.x(11 downto 0)));
-grid.y <= 128 - to_integer(unsigned(txCord.y(11 downto 0)));
+grid.y <= (img_height_bmp-1) - (to_integer(unsigned(txCord.y(11 downto 0))));
 textElement2: PixelOnDisplay
 generic map (
-    img_width    => img_width,
-    img_height   => img_height,
-    b_data_width => b_data_width)
+    img_width_bmp  => img_width_bmp,
+    img_height_bmp => img_height_bmp,
+    b_data_width   => b_data_width)
 port map(
     clk          => clk,
     rst_l        => rst_l,

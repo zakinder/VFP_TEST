@@ -290,8 +290,8 @@ type coord is record
     y                : std_logic_vector(15 downto 0);
 end record;
 type cord is record
-    x                : natural;
-    y                : natural;
+    x                : integer;
+    y                : integer;
 end record;
 type coefficient is record
     k1               : std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);

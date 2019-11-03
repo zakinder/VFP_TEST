@@ -6,111 +6,108 @@ use work.vpfRecords.all;
 use work.portspackage.all;
 entity frameProcess is
 generic (
-    i_data_width            : integer := 8;
-    s_data_width            : integer := 16;
-    b_data_width            : integer := 32;
-    img_width               : integer := 2751;
-    adwrWidth               : integer := 16;
-    addrWidth               : integer := 12);
+    i_data_width              : integer := 8;
+    s_data_width              : integer := 16;
+    b_data_width              : integer := 32;
+    img_width                 : integer := 2751;
+    adwrWidth                 : integer := 16;
+    addrWidth                 : integer := 12;
+    img_width_bmp             : integer := 1920;
+    img_height_bmp            : integer := 1080;
+    F_TES                     : boolean := false;
+    F_LUM                     : boolean := false;
+    F_TRM                     : boolean := false;
+    F_RGB                     : boolean := false;
+    F_SHP                     : boolean := false;
+    F_BLU                     : boolean := false;
+    F_EMB                     : boolean := false;
+    F_YCC                     : boolean := false;
+    F_SOB                     : boolean := false;
+    F_CGA                     : boolean := false;
+    F_HSV                     : boolean := false;
+    F_HSL                     : boolean := false;
+    F_CGA_TO_CGA              : boolean := false;
+    F_CGA_TO_HSL              : boolean := false;
+    F_CGA_TO_HSV              : boolean := false;
+    F_CGA_TO_YCC              : boolean := false;
+    F_CGA_TO_SHP              : boolean := false;
+    F_CGA_TO_BLU              : boolean := false;
+    F_SHP_TO_SHP              : boolean := false;
+    F_SHP_TO_HSL              : boolean := false;
+    F_SHP_TO_HSV              : boolean := false;
+    F_SHP_TO_YCC              : boolean := false;
+    F_SHP_TO_CGA              : boolean := false;
+    F_SHP_TO_BLU              : boolean := false;
+    F_BLU_TO_BLU              : boolean := false;
+    F_BLU_TO_HSL              : boolean := false;
+    F_BLU_TO_HSV              : boolean := false;
+    F_BLU_TO_YCC              : boolean := false;
+    F_BLU_TO_CGA              : boolean := false;
+    F_BLU_TO_SHP              : boolean := false);
 port (
-    clk                     : in std_logic;
-    rst_l                   : in std_logic;
-    iRgbSet                 : in rRgb;
-    --cpu side in
-    iRgbCoord               : in region;
-    iPoiRegion              : in poi;
-    iKls                    : in coefficient;
-    iAls                    : in coefficient;
-    iLumTh                  : in integer;
-    iHsvPerCh               : in integer;
-    iYccPerCh               : in integer;
-    iEdgeType               : in std_logic_vector(b_data_width-1 downto 0);
-    iThreshold              : in std_logic_vector(b_data_width/2-1 downto 0); 
-    --out
-    oFrameData              : out fcolors;
-    --to cpu
-    oFifoStatus             : out std_logic_vector(b_data_width-1 downto 0);
-    oGridLockData           : out std_logic_vector(b_data_width-1 downto 0));
+    clk                       : in std_logic;
+    rst_l                     : in std_logic;
+    iRgbSet                   : in rRgb;
+    --cpu side in             
+    iRgbCoord                 : in region;
+    iPoiRegion                : in poi;
+    iKls                      : in coefficient;
+    iAls                      : in coefficient;
+    iLumTh                    : in integer;
+    iHsvPerCh                 : in integer;
+    iYccPerCh                 : in integer;
+    iEdgeType                 : in std_logic_vector(b_data_width-1 downto 0);
+    iThreshold                : in std_logic_vector(b_data_width/2-1 downto 0); 
+    --out                     
+    oFrameData                : out fcolors;
+    --to cpu                  
+    oFifoStatus               : out std_logic_vector(b_data_width-1 downto 0);
+    oGridLockData             : out std_logic_vector(b_data_width-1 downto 0));
 end entity;
 architecture arch of frameProcess is
-    signal txCord           : coord;
-    signal rgbV1Correct     : channel;
-    signal rgbV2Correct     : channel;
-    signal rgbIn            : channel;
-    signal rgbRemix         : channel;
-    signal rgbPoi           : channel;
-    signal rgbDetect        : channel;
-    signal hsv              : hsvChannel;
-    signal hsl              : hslChannel;
-    signal hsvCcBlur4vx     : hsvChannel;
-    signal cord             : coord;
-    signal syncxy           : coord;
-    signal cordIn           : coord;
-    signal rgbSum           : tpRgb;
-    signal rgbImageKernelv1 : colors;
-    signal rgbImageKernelv2 : colors;
-    signal rgbImageKernelv3 : colors;
-    signal rgbImageKernelv4 : colors;
-    signal rgbImageKernelv5 : colors;
-    signal iKcoeff          : kernelCoeff;
-    signal rgbImageFilters  : frameColors;
-    signal lumThreshold     : std_logic_vector(7 downto 0);
-    signal cHsv             : std_logic_vector(2 downto 0);
-    signal cYcc             : std_logic_vector(2 downto 0);
-    signal edgeValid        : std_logic;
-    signal rgbDetectLock    : std_logic;
-    signal rgbPoiLock       : std_logic;
-    signal sValid           : std_logic;
-    -------------------------------------------------
-    constant F_TES          : boolean := false;
-    constant F_LUM          : boolean := false;
-    constant F_TRM          : boolean := false;
-    constant F_RGB          : boolean := true;
-    constant F_SHP          : boolean := true;
-    constant F_BLU          : boolean := true;
-    constant F_EMB          : boolean := true;
-    constant F_YCC          : boolean := false;
-    constant F_SOB          : boolean := true;
-    constant F_CGA          : boolean := true;
-    constant F_HSV          : boolean := true;
-    constant F_HSL          : boolean := true;
-    -------------------------------------------------
-    constant F_CGA_TO_CGA   : boolean := false;
-    constant F_CGA_TO_HSL   : boolean := true;
-    constant F_CGA_TO_HSV   : boolean := false;
-    constant F_CGA_TO_YCC   : boolean := false;
-    constant F_CGA_TO_SHP   : boolean := true;
-    constant F_CGA_TO_BLU   : boolean := false;
-    -------------------------------------------------
-    constant F_SHP_TO_SHP   : boolean := false;
-    constant F_SHP_TO_HSL   : boolean := false;
-    constant F_SHP_TO_HSV   : boolean := false;
-    constant F_SHP_TO_YCC   : boolean := false;
-    constant F_SHP_TO_CGA   : boolean := true;
-    constant F_SHP_TO_BLU   : boolean := false;
-    -------------------------------------------------
-    constant F_BLU_TO_BLU   : boolean := false;
-    constant F_BLU_TO_HSL   : boolean := false;
-    constant F_BLU_TO_HSV   : boolean := false;
-    constant F_BLU_TO_YCC   : boolean := false;
-    constant F_BLU_TO_CGA   : boolean := false;
-    constant F_BLU_TO_SHP   : boolean := false;
-    -------------------------------------------------
-    constant MASK_TRUE      : boolean := true;
-    constant MASK_FLSE      : boolean := false;
-    constant M_SOB_LUM      : boolean := SelFrame(F_SOB,F_LUM,MASK_FLSE);
-    constant M_SOB_TRM      : boolean := SelFrame(F_SOB,F_TRM,MASK_FLSE);
-    constant M_SOB_RGB      : boolean := SelFrame(F_SOB,F_RGB,MASK_TRUE);
-    constant M_SOB_SHP      : boolean := SelFrame(F_SOB,F_SHP,MASK_TRUE);
-    constant M_SOB_BLU      : boolean := SelFrame(F_SOB,F_BLU,MASK_FLSE);
-    constant M_SOB_YCC      : boolean := SelFrame(F_SOB,F_YCC,MASK_FLSE);
-    constant M_SOB_CGA      : boolean := SelFrame(F_SOB,F_CGA,MASK_TRUE);
-    constant M_SOB_HSV      : boolean := SelFrame(F_SOB,F_HSV,MASK_TRUE);
-    constant M_SOB_HSL      : boolean := SelFrame(F_SOB,F_HSL,MASK_TRUE);
+    signal txCord             : coord;
+    signal rgbV1Correct       : channel;
+    signal rgbV2Correct       : channel;
+    signal rgbIn              : channel;
+    signal rgbRemix           : channel;
+    signal rgbPoi             : channel;
+    signal rgbDetect          : channel;
+    signal hsv                : hsvChannel;
+    signal hsl                : hslChannel;
+    signal hsvCcBlur4vx       : hsvChannel;
+    signal cord               : coord;
+    signal syncxy             : coord;
+    signal cordIn             : coord;
+    signal rgbSum             : tpRgb;
+    signal rgbImageKernelv1   : colors;
+    signal rgbImageKernelv2   : colors;
+    signal rgbImageKernelv3   : colors;
+    signal rgbImageKernelv4   : colors;
+    signal rgbImageKernelv5   : colors;
+    signal iKcoeff            : kernelCoeff;
+    signal rgbImageFilters    : frameColors;
+    signal lumThreshold       : std_logic_vector(7 downto 0);
+    signal cHsv               : std_logic_vector(2 downto 0);
+    signal cYcc               : std_logic_vector(2 downto 0);
+    signal edgeValid          : std_logic;
+    signal rgbDetectLock      : std_logic;
+    signal rgbPoiLock         : std_logic;
+    signal sValid             : std_logic;
+    constant MASK_TRUE        : boolean := true;
+    constant MASK_FLSE        : boolean := false;
+    constant M_SOB_LUM        : boolean := SelFrame(F_SOB,F_LUM,MASK_FLSE);
+    constant M_SOB_TRM        : boolean := SelFrame(F_SOB,F_TRM,MASK_FLSE);
+    constant M_SOB_RGB        : boolean := SelFrame(F_SOB,F_RGB,MASK_TRUE);
+    constant M_SOB_SHP        : boolean := SelFrame(F_SOB,F_SHP,MASK_TRUE);
+    constant M_SOB_BLU        : boolean := SelFrame(F_SOB,F_BLU,MASK_FLSE);
+    constant M_SOB_YCC        : boolean := SelFrame(F_SOB,F_YCC,MASK_FLSE);
+    constant M_SOB_CGA        : boolean := SelFrame(F_SOB,F_CGA,MASK_TRUE);
+    constant M_SOB_HSV        : boolean := SelFrame(F_SOB,F_HSV,MASK_TRUE);
+    constant M_SOB_HSL        : boolean := SelFrame(F_SOB,F_HSL,MASK_TRUE);
 begin
-    lumThreshold           <= std_logic_vector(to_unsigned(iLumTh,8));
-    cHsv                   <= std_logic_vector(to_unsigned(iHsvPerCh,3));--[0-cHsv,1-cHsvH,2-cHsvS,3-cHsvV]
-    cYcc                   <= std_logic_vector(to_unsigned(iYccPerCh,3));--[0-cYcc,1-cYccY,2-cYccB,3-cYccR]
+    lumThreshold                 <= std_logic_vector(to_unsigned(iLumTh,8));
+    cHsv                         <= std_logic_vector(to_unsigned(iHsvPerCh,3));--[0-cHsv,1-cHsvH,2-cHsvS,3-cHsvV]
+    cYcc                         <= std_logic_vector(to_unsigned(iYccPerCh,3));--[0-cYcc,1-cYccY,2-cYccB,3-cYccR]
     -------------------------------------------------
     oFrameData.sobel             <= rgbImageFilters.sobel;
     oFrameData.embos             <= rgbImageFilters.embos;
