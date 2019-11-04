@@ -42,7 +42,7 @@ port (
     endOfFrame           : out std_logic);
 end imageReadInterface;
 architecture Behavioral of imageReadInterface is
-    --signal   aclk                : std_logic;
+
     signal   rgbRead             : channel;
     signal   txCord              : coord;
     signal   enableWrite         : std_logic := lo;

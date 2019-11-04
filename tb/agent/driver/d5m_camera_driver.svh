@@ -52,7 +52,7 @@ class d5m_camera_driver extends uvm_driver #(d5m_camera_transaction);
     //====================================================================================
     virtual protected task d5m_frame();
         forever begin
-            @(posedge d5m_camera_vif.pixclk);
+            @(posedge d5m_camera_vif.clkmm);
             seq_item_port.get_next_item(req);
             drive_transfer(req);
             seq_item_port.item_done();
@@ -102,7 +102,7 @@ class d5m_camera_driver extends uvm_driver #(d5m_camera_transaction);
         endcase    
     endtask: drive_data_phase
     virtual protected task read_d5m_phase(d5m_camera_transaction d5m_tx);
-            @(posedge d5m_camera_vif.pixclk);
+            @(posedge d5m_camera_vif.clkmm);
             d5m_camera_vif.d5p.iImageTypeTest  <= 1'b0;
             d5m_camera_vif.d5p.iReadyToRead    <= 1'b1;
             d5m_tx.d5m.valid                   <= d5m_camera_vif.d5m.valid;
@@ -116,7 +116,7 @@ class d5m_camera_driver extends uvm_driver #(d5m_camera_transaction);
             d5m_tx.d5m.y                       <= d5m_camera_vif.d5m.y;
             d5m_tx.d5m.eof                     <= d5m_camera_vif.d5m.eof;
         forever begin
-            @(posedge d5m_camera_vif.pixclk);
+            @(posedge d5m_camera_vif.clkmm);
             if (d5m_camera_vif.d5m.eof) break;
         end
     endtask: read_d5m_phase
@@ -151,7 +151,7 @@ class d5m_camera_driver extends uvm_driver #(d5m_camera_transaction);
         d5m_camera_vif.AWVALID <= 1'b1;
         //wait for write response
         for(axi_lite_ctr = 0; axi_lite_ctr <= 62; axi_lite_ctr ++) begin
-            @(posedge d5m_camera_vif.ACLK);
+            @(posedge d5m_camera_vif.clkmm);
             if (d5m_camera_vif.BVALID) break;
         end
         if (axi_lite_ctr == 62) begin
@@ -168,9 +168,9 @@ class d5m_camera_driver extends uvm_driver #(d5m_camera_transaction);
         d5m_camera_vif.WDATA  <= d5m_tx.axi4_lite.data;
         d5m_camera_vif.WSTRB  <= 4'hf;
         d5m_camera_vif.WVALID <= 1'b1;
-        @(posedge d5m_camera_vif.ACLK);
+        @(posedge d5m_camera_vif.clkmm);
             for(axi_lite_ctr = 0; axi_lite_ctr <= 62; axi_lite_ctr ++) begin
-            @(posedge d5m_camera_vif.ACLK);
+            @(posedge d5m_camera_vif.clkmm);
             //------------------------------
             if (d5m_camera_vif.WREADY) 
                 d5m_camera_vif.AWADDR  <= 8'h0;
@@ -182,13 +182,13 @@ class d5m_camera_driver extends uvm_driver #(d5m_camera_transaction);
             if (axi_lite_ctr == 62) begin
             `uvm_error("axi_lite_master_driver","AWVALID timeout");
             end
-        @(posedge d5m_camera_vif.ACLK);
+        @(posedge d5m_camera_vif.clkmm);
         d5m_camera_vif.WDATA  <= 32'h0;
         d5m_camera_vif.WSTRB  <= 4'h0;
         d5m_camera_vif.WVALID <= 1'b0;
         //wait for write response
         for(axi_lite_ctr = 0; axi_lite_ctr <= 62; axi_lite_ctr ++) begin
-            @(posedge d5m_camera_vif.ACLK);
+            @(posedge d5m_camera_vif.clkmm);
             if (d5m_camera_vif.BVALID) break;
         end
         if (axi_lite_ctr == 62) begin
@@ -198,7 +198,7 @@ class d5m_camera_driver extends uvm_driver #(d5m_camera_transaction);
             if (d5m_camera_vif.BVALID == 1'b1 && d5m_camera_vif.BRESP != 2'h0)
             `uvm_error("axi_lite_master_driver","Received ERROR Write Response");
             d5m_camera_vif.BREADY <= d5m_camera_vif.BVALID;
-         @(posedge d5m_camera_vif.ACLK);
+         @(posedge d5m_camera_vif.clkmm);
         end
     endtask: drive_write_data_channel
     //====================================================================================
@@ -212,13 +212,13 @@ class d5m_camera_driver extends uvm_driver #(d5m_camera_transaction);
         d5m_camera_vif.ARPROT  <= 3'h0;
         d5m_camera_vif.ARVALID <= 1'b1;
         for(axi_lite_ctr = 0; axi_lite_ctr <= 62; axi_lite_ctr ++) begin
-            @(posedge d5m_camera_vif.ACLK);
+            @(posedge d5m_camera_vif.clkmm);
             if (d5m_camera_vif.ARREADY) break;
         end
         if (axi_lite_ctr == 62) begin
             `uvm_error("axi_lite_master_driver","ARVALID timeout");
         end
-        @(posedge d5m_camera_vif.ACLK);
+        @(posedge d5m_camera_vif.clkmm);
         d5m_camera_vif.ARADDR  <= 8'h0;
         d5m_camera_vif.ARPROT  <= 3'h0;
         d5m_camera_vif.ARVALID <= 1'b0;    
@@ -231,7 +231,7 @@ class d5m_camera_driver extends uvm_driver #(d5m_camera_transaction);
     virtual protected task drive_read_data_channel (output bit [31:0] data, output bit error);
         int axi_lite_ctr;
         for(axi_lite_ctr = 0; axi_lite_ctr <= 62; axi_lite_ctr ++) begin
-            @(posedge d5m_camera_vif.ACLK);
+            @(posedge d5m_camera_vif.clkmm);
             if (d5m_camera_vif.RVALID) break;
         end
         data = d5m_camera_vif.RDATA;
@@ -242,7 +242,7 @@ class d5m_camera_driver extends uvm_driver #(d5m_camera_transaction);
         if (d5m_camera_vif.RVALID == 1'b1 && d5m_camera_vif.RRESP != 2'h0)
             `uvm_error("axi_lite_master_driver","Received ERROR Read Response");
             d5m_camera_vif.RREADY <= d5m_camera_vif.RVALID;
-            @(posedge d5m_camera_vif.ACLK);
+            @(posedge d5m_camera_vif.clkmm);
         end
     endtask: drive_read_data_channel
 endclass: d5m_camera_driver

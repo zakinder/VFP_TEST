@@ -8,9 +8,9 @@ imageReadInterface            #(
     .img_height_bmp            (img_height_bmp                    ),
     .read_bmp                  (read_bmp                          ))
 imageReadInterfaceInst         (
-    .clk                       (d5m_camera_vif.pixclk             ),
-    .m_axis_mm2s_aclk          (d5m_camera_vif.ACLK               ),
-    .aclk                      (d5m_camera_vif.d5p.clkmm          ),
+    .clk                       (d5m_camera_vif.clkmm              ),
+    .m_axis_mm2s_aclk          (d5m_camera_vif.clkmm              ),
+    .aclk                      (d5m_camera_vif.clkmm              ),
     .reset                     (d5m_camera_vif.reset              ),
     .iReadyToRead              (d5m_camera_vif.d5p.iReadyToRead   ),
     .iImageTypeTest            (d5m_camera_vif.d5p.iImageTypeTest ),
@@ -84,12 +84,12 @@ VFP_v1_0                      #(
     .F_BLU_TO_SHP              ( F_BLU_TO_SHP                     ))
 dutVFP_v1Inst                  (
     //d5m input
-    .pixclk                    (d5m_camera_vif.pixclk             ),//(d5m_camera_vif.ACLK   ),
+    .pixclk                    (d5m_camera_vif.clkmm              ),//(d5m_camera_vif.ACLK   ),
     .ifval                     (d5m_camera_vif.d5m.fvalid         ),//(d5m_camera_vif.ifval),
     .ilval                     (d5m_camera_vif.d5m.lvalid         ),//(d5m_camera_vif.ilval ),
     .idata                     (d5m_camera_vif.d5m.rgb            ),//(d5m_camera_vif.idata ),
     //tx channel
-    .rgb_m_axis_aclk           (d5m_camera_vif.ACLK               ),
+    .rgb_m_axis_aclk           (d5m_camera_vif.clkmm              ),
     .rgb_m_axis_aresetn        (d5m_camera_vif.ARESETN            ),
     .rgb_m_axis_tready         (d5m_camera_vif.rgb_s_axis_tready  ),//input
     .rgb_m_axis_tvalid         (d5m_camera_vif.rgb_m_axis_tvalid  ),//output
@@ -97,7 +97,7 @@ dutVFP_v1Inst                  (
     .rgb_m_axis_tuser          (d5m_camera_vif.rgb_m_axis_tuser   ),//output
     .rgb_m_axis_tdata          (d5m_camera_vif.rgb_m_axis_tdata   ),//output
     //rx channel               
-    .rgb_s_axis_aclk           (d5m_camera_vif.ACLK               ),
+    .rgb_s_axis_aclk           (d5m_camera_vif.clkmm              ),
     .rgb_s_axis_aresetn        (d5m_camera_vif.ARESETN            ),
     .rgb_s_axis_tready         (d5m_camera_vif.rgb_s_axis_tready  ),//output
     .rgb_s_axis_tvalid         (d5m_camera_vif.rgb_m_axis_tvalid  ),//input
@@ -105,7 +105,7 @@ dutVFP_v1Inst                  (
     .rgb_s_axis_tuser          (d5m_camera_vif.rgb_m_axis_tuser   ),//input
     .rgb_s_axis_tdata          (d5m_camera_vif.rgb_m_axis_tdata   ),//input
     //destination channel                                    
-    .m_axis_mm2s_aclk          (d5m_camera_vif.ACLK               ),
+    .m_axis_mm2s_aclk          (d5m_camera_vif.clkmm              ),
     .m_axis_mm2s_aresetn       (d5m_camera_vif.ARESETN            ),
     .m_axis_mm2s_tready        (d5m_camera_vif.m_axis_mm2s_tready ),//input
     .m_axis_mm2s_tvalid        (d5m_camera_vif.m_axis_mm2s_tvalid ),//output
@@ -117,7 +117,7 @@ dutVFP_v1Inst                  (
     .m_axis_mm2s_tid           (d5m_camera_vif.m_axis_mm2s_tid    ),//output
     .m_axis_mm2s_tdest         (d5m_camera_vif.m_axis_mm2s_tdest  ),//output
     //video configuration      
-    .vfpconfig_aclk            (d5m_camera_vif.ACLK               ),
+    .vfpconfig_aclk            (d5m_camera_vif.clkmm              ),
     .vfpconfig_aresetn         (d5m_camera_vif.ARESETN            ),
     .vfpconfig_awaddr          (d5m_camera_vif.AWADDR             ),
     .vfpconfig_awprot          (d5m_camera_vif.AWPROT             ),

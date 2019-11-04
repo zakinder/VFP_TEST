@@ -129,7 +129,7 @@ class d5m_camera_image_file_sequence extends d5m_camera_base_seq;
         bit [31:0] max_num_video_select  = 32'h32;//180
         axi_write_channel(oRgbOsharp,10);
         axi_write_channel(oEdgeType,11);
-        axi_write_channel(threshold,20);
+        axi_write_channel(threshold,config_data_threshold);
         axi_write_channel(videoChannel,select_hsv);
         axi_write_channel(cChannel,15);
         axi_write_channel(dChannel,select_rgb_not_ycbcr);
@@ -182,7 +182,7 @@ class axi_config_blur_image_frame_sequence extends uvm_sequence #(d5m_camera_tra
     virtual protected task axi_write_config_reg ();
         axi_write_channel(oRgbOsharp,10);
         axi_write_channel(oEdgeType,11);
-        axi_write_channel(threshold,20);
+        axi_write_channel(threshold,config_data_threshold);
         axi_write_channel(videoChannel,select_blur);
         axi_write_channel(dChannel,select_ycbcr);
     endtask: axi_write_config_reg
@@ -232,7 +232,7 @@ class axi_config_emboss_image_frame_sequence extends uvm_sequence #(d5m_camera_t
     virtual protected task axi_write_config_reg ();
         axi_write_channel(oRgbOsharp,10);
         axi_write_channel(oEdgeType,11);
-        axi_write_channel(threshold,20);
+        axi_write_channel(threshold,config_data_threshold);
         axi_write_channel(videoChannel,select_emboss);
         axi_write_channel(dChannel,select_ycbcr);
     endtask: axi_write_config_reg
@@ -282,7 +282,7 @@ class axi_config_rgb_image_frame_sequence extends uvm_sequence #(d5m_camera_tran
     virtual protected task axi_write_config_reg ();
         axi_write_channel(oRgbOsharp,10);
         axi_write_channel(oEdgeType,11);
-        axi_write_channel(threshold,20);
+        axi_write_channel(threshold,config_data_threshold);
         axi_write_channel(videoChannel,select_rgb);
         axi_write_channel(dChannel,select_ycbcr);
     endtask: axi_write_config_reg
@@ -332,7 +332,7 @@ class axi_config_sharp_image_frame_sequence extends uvm_sequence #(d5m_camera_tr
     virtual protected task axi_write_config_reg ();
         axi_write_channel(oRgbOsharp,10);
         axi_write_channel(oEdgeType,11);
-        axi_write_channel(threshold,20);
+        axi_write_channel(threshold,config_data_threshold);
         axi_write_channel(videoChannel,select_sharp);
         axi_write_channel(dChannel,select_ycbcr);
     endtask: axi_write_config_reg
@@ -382,7 +382,7 @@ class axi_config_cgain_image_frame_sequence extends uvm_sequence #(d5m_camera_tr
     virtual protected task axi_write_config_reg ();
         axi_write_channel(oRgbOsharp,10);
         axi_write_channel(oEdgeType,11);
-        axi_write_channel(threshold,20);
+        axi_write_channel(threshold,config_data_threshold);
         axi_write_channel(videoChannel,select_cgain);
         axi_write_channel(cChannel,15);
         axi_write_channel(dChannel,select_ycbcr);
@@ -449,7 +449,7 @@ class axi_config_cgain_hsl_image_frame_sequence extends uvm_sequence #(d5m_camer
     virtual protected task axi_write_config_reg ();
         axi_write_channel(oRgbOsharp,10);
         axi_write_channel(oEdgeType,11);
-        axi_write_channel(threshold,20);
+        axi_write_channel(threshold,config_data_threshold);
         axi_write_channel(videoChannel,select_cgainToHsl);
         axi_write_channel(cChannel,15);
         axi_write_channel(dChannel,select_ycbcr);
@@ -516,7 +516,7 @@ class axi_config_sharp_cgain_image_frame_sequence extends uvm_sequence #(d5m_cam
     virtual protected task axi_write_config_reg ();
         axi_write_channel(oRgbOsharp,10);
         axi_write_channel(oEdgeType,11);
-        axi_write_channel(threshold,20);
+        axi_write_channel(threshold,config_data_threshold);
         axi_write_channel(videoChannel,select_SharpToCgain);
         axi_write_channel(cChannel,15);
         axi_write_channel(dChannel,select_ycbcr);
@@ -583,7 +583,7 @@ class axi_config_cgain_sharp_image_frame_sequence extends uvm_sequence #(d5m_cam
     virtual protected task axi_write_config_reg ();
         axi_write_channel(oRgbOsharp,10);
         axi_write_channel(oEdgeType,11);
-        axi_write_channel(threshold,20);
+        axi_write_channel(threshold,config_data_threshold);
         axi_write_channel(videoChannel,select_cgainToSharp);
         axi_write_channel(cChannel,15);
         axi_write_channel(dChannel,select_ycbcr);
@@ -650,9 +650,9 @@ class axi_config_sobel_image_frame_sequence extends uvm_sequence #(d5m_camera_tr
     virtual protected task axi_write_config_reg ();
         axi_write_channel(oRgbOsharp,10);
         axi_write_channel(oEdgeType,11);
-        axi_write_channel(threshold,20);
+        axi_write_channel(threshold,config_data_threshold);
         axi_write_channel(videoChannel,select_sobel);
-        axi_write_channel(dChannel,select_ycbcr);
+        axi_write_channel(dChannel,select_rgb_not_ycbcr);
     endtask: axi_write_config_reg
     virtual protected task axi_write_channel (bit[7:0] addr,bit[31:0] data);
             d5m_camera_transaction item;
@@ -684,6 +684,329 @@ class d5m_camera_image_sobel_sequence extends uvm_sequence #(uvm_sequence_item);
     d5m_image_seq.start(aL_sqr);
  endtask : body
 endclass : d5m_camera_image_sobel_sequence
+
+
+// ----------------------------------------------------------------------------------------------
+// TEST : [SOBEL_MASK_HSL]
+// ----------------------------------------------------------------------------------------------
+class axi_config_sobel_mask_hsl_image_frame_sequence extends uvm_sequence #(d5m_camera_transaction);
+    `uvm_object_utils(axi_config_sobel_mask_hsl_image_frame_sequence)
+    function new(string name="axi_config_sobel_mask_hsl_image_frame_sequence");
+        super.new(name);
+    endfunction
+    virtual task body();
+        d5m_camera_transaction item;
+        axi_write_config_reg();
+    endtask: body
+    // -------------------------------------------------------
+    virtual protected task axi_write_config_reg ();
+        axi_write_channel(oRgbOsharp,10);
+        axi_write_channel(oEdgeType,11);
+        axi_write_channel(threshold,config_data_threshold);
+        axi_write_channel(videoChannel,select_sobel_mask_hsl);
+        axi_write_channel(dChannel,select_rgb_not_ycbcr);
+    endtask: axi_write_config_reg
+    virtual protected task axi_write_channel (bit[7:0] addr,bit[31:0] data);
+            d5m_camera_transaction item;
+            `uvm_create(item)
+            item.axi4_lite.addr           = {7'h0,addr};
+            item.axi4_lite.data           = data;
+            item.d5m_txn                  = AXI4_WRITE;
+            `uvm_send(item);
+    endtask: axi_write_channel
+endclass: axi_config_sobel_mask_hsl_image_frame_sequence
+class d5m_camera_image_sobel_mask_hsl_sequence extends uvm_sequence #(uvm_sequence_item);
+   `uvm_object_utils(d5m_camera_image_sobel_mask_hsl_sequence);
+   d5m_image_generator_sequence d5m_image_seq;
+   axi_config_sobel_mask_hsl_image_frame_sequence axi_config_seq;
+   protected d5m_camera_sequencer aL_sqr;
+   uvm_component uvm_component_h;
+ function new(string name = "d5m_camera_image_sobel_mask_hsl_sequence");
+   super.new(name);
+   uvm_component_h =  uvm_top.find("*aL_sqr");
+   if (uvm_component_h == null)
+   `uvm_fatal("RUNALL SEQUENCE", "Failed to get the d5m_camera_sequencer")
+  if (!$cast(aL_sqr, uvm_component_h))
+   `uvm_fatal("RUNALL SEQUENCE", "Failed to cast from uvm_component_h.")
+    d5m_image_seq 	= d5m_image_generator_sequence::type_id::create("d5m_image_seq");
+    axi_config_seq 	= axi_config_sobel_mask_hsl_image_frame_sequence::type_id::create("axi_config_seq");
+ endfunction : new
+ task body();
+    axi_config_seq.start(aL_sqr);
+    d5m_image_seq.start(aL_sqr);
+ endtask : body
+endclass : d5m_camera_image_sobel_mask_hsl_sequence
+
+
+
+// ----------------------------------------------------------------------------------------------
+// TEST : [SOBEL_MASK_RGB]
+// ----------------------------------------------------------------------------------------------
+class axi_config_sobel_mask_rgb_image_frame_sequence extends uvm_sequence #(d5m_camera_transaction);
+    `uvm_object_utils(axi_config_sobel_mask_rgb_image_frame_sequence)
+    function new(string name="axi_config_sobel_mask_rgb_image_frame_sequence");
+        super.new(name);
+    endfunction
+    virtual task body();
+        d5m_camera_transaction item;
+        axi_write_config_reg();
+    endtask: body
+    // -------------------------------------------------------
+    virtual protected task axi_write_config_reg ();
+        axi_write_channel(oRgbOsharp,10);
+        axi_write_channel(oEdgeType,11);
+        axi_write_channel(threshold,config_data_threshold);
+        axi_write_channel(videoChannel,select_sobel_mask_rgb);
+        axi_write_channel(dChannel,select_rgb_not_ycbcr);
+    endtask: axi_write_config_reg
+    virtual protected task axi_write_channel (bit[7:0] addr,bit[31:0] data);
+            d5m_camera_transaction item;
+            `uvm_create(item)
+            item.axi4_lite.addr           = {7'h0,addr};
+            item.axi4_lite.data           = data;
+            item.d5m_txn                  = AXI4_WRITE;
+            `uvm_send(item);
+    endtask: axi_write_channel
+endclass: axi_config_sobel_mask_rgb_image_frame_sequence
+class d5m_camera_image_sobel_mask_rgb_sequence extends uvm_sequence #(uvm_sequence_item);
+   `uvm_object_utils(d5m_camera_image_sobel_mask_rgb_sequence);
+   d5m_image_generator_sequence d5m_image_seq;
+   axi_config_sobel_mask_rgb_image_frame_sequence axi_config_seq;
+   protected d5m_camera_sequencer aL_sqr;
+   uvm_component uvm_component_h;
+ function new(string name = "d5m_camera_image_sobel_mask_rgb_sequence");
+   super.new(name);
+   uvm_component_h =  uvm_top.find("*aL_sqr");
+   if (uvm_component_h == null)
+   `uvm_fatal("RUNALL SEQUENCE", "Failed to get the d5m_camera_sequencer")
+  if (!$cast(aL_sqr, uvm_component_h))
+   `uvm_fatal("RUNALL SEQUENCE", "Failed to cast from uvm_component_h.")
+    d5m_image_seq 	= d5m_image_generator_sequence::type_id::create("d5m_image_seq");
+    axi_config_seq 	= axi_config_sobel_mask_rgb_image_frame_sequence::type_id::create("axi_config_seq");
+ endfunction : new
+ task body();
+    axi_config_seq.start(aL_sqr);
+    d5m_image_seq.start(aL_sqr);
+ endtask : body
+endclass : d5m_camera_image_sobel_mask_rgb_sequence
+
+
+
+
+// ----------------------------------------------------------------------------------------------
+// TEST : [SOBEL_MASK_SHP]
+// ----------------------------------------------------------------------------------------------
+class axi_config_sobel_mask_shp_image_frame_sequence extends uvm_sequence #(d5m_camera_transaction);
+    `uvm_object_utils(axi_config_sobel_mask_shp_image_frame_sequence)
+    function new(string name="axi_config_sobel_mask_shp_image_frame_sequence");
+        super.new(name);
+    endfunction
+    virtual task body();
+        d5m_camera_transaction item;
+        axi_write_config_reg();
+    endtask: body
+    // -------------------------------------------------------
+    virtual protected task axi_write_config_reg ();
+        axi_write_channel(oRgbOsharp,10);
+        axi_write_channel(oEdgeType,11);
+        axi_write_channel(threshold,config_data_threshold);
+        axi_write_channel(videoChannel,select_sobel_mask_shp);
+        axi_write_channel(dChannel,select_rgb_not_ycbcr);
+    endtask: axi_write_config_reg
+    virtual protected task axi_write_channel (bit[7:0] addr,bit[31:0] data);
+            d5m_camera_transaction item;
+            `uvm_create(item)
+            item.axi4_lite.addr           = {7'h0,addr};
+            item.axi4_lite.data           = data;
+            item.d5m_txn                  = AXI4_WRITE;
+            `uvm_send(item);
+    endtask: axi_write_channel
+endclass: axi_config_sobel_mask_shp_image_frame_sequence
+class d5m_camera_image_sobel_mask_shp_sequence extends uvm_sequence #(uvm_sequence_item);
+   `uvm_object_utils(d5m_camera_image_sobel_mask_shp_sequence);
+   d5m_image_generator_sequence d5m_image_seq;
+   axi_config_sobel_mask_shp_image_frame_sequence axi_config_seq;
+   protected d5m_camera_sequencer aL_sqr;
+   uvm_component uvm_component_h;
+ function new(string name = "d5m_camera_image_sobel_mask_shp_sequence");
+   super.new(name);
+   uvm_component_h =  uvm_top.find("*aL_sqr");
+   if (uvm_component_h == null)
+   `uvm_fatal("RUNALL SEQUENCE", "Failed to get the d5m_camera_sequencer")
+  if (!$cast(aL_sqr, uvm_component_h))
+   `uvm_fatal("RUNALL SEQUENCE", "Failed to cast from uvm_component_h.")
+    d5m_image_seq 	= d5m_image_generator_sequence::type_id::create("d5m_image_seq");
+    axi_config_seq 	= axi_config_sobel_mask_shp_image_frame_sequence::type_id::create("axi_config_seq");
+ endfunction : new
+ task body();
+    axi_config_seq.start(aL_sqr);
+    d5m_image_seq.start(aL_sqr);
+ endtask : body
+endclass : d5m_camera_image_sobel_mask_shp_sequence
+
+// ----------------------------------------------------------------------------------------------
+// TEST : [SOBEL_MASK_HSV]
+// ----------------------------------------------------------------------------------------------
+class axi_config_sobel_mask_hsv_image_frame_sequence extends uvm_sequence #(d5m_camera_transaction);
+    `uvm_object_utils(axi_config_sobel_mask_hsv_image_frame_sequence)
+    function new(string name="axi_config_sobel_mask_hsv_image_frame_sequence");
+        super.new(name);
+    endfunction
+    virtual task body();
+        d5m_camera_transaction item;
+        axi_write_config_reg();
+    endtask: body
+    // -------------------------------------------------------
+    virtual protected task axi_write_config_reg ();
+        axi_write_channel(oRgbOsharp,10);
+        axi_write_channel(oEdgeType,11);
+        axi_write_channel(threshold,config_data_threshold);
+        axi_write_channel(videoChannel,select_sobel_mask_hsv);
+        axi_write_channel(dChannel,select_rgb_not_ycbcr);
+    endtask: axi_write_config_reg
+    virtual protected task axi_write_channel (bit[7:0] addr,bit[31:0] data);
+            d5m_camera_transaction item;
+            `uvm_create(item)
+            item.axi4_lite.addr           = {7'h0,addr};
+            item.axi4_lite.data           = data;
+            item.d5m_txn                  = AXI4_WRITE;
+            `uvm_send(item);
+    endtask: axi_write_channel
+endclass: axi_config_sobel_mask_hsv_image_frame_sequence
+class d5m_camera_image_sobel_mask_hsv_sequence extends uvm_sequence #(uvm_sequence_item);
+   `uvm_object_utils(d5m_camera_image_sobel_mask_hsv_sequence);
+   d5m_image_generator_sequence d5m_image_seq;
+   axi_config_sobel_mask_hsv_image_frame_sequence axi_config_seq;
+   protected d5m_camera_sequencer aL_sqr;
+   uvm_component uvm_component_h;
+ function new(string name = "d5m_camera_image_sobel_mask_hsv_sequence");
+   super.new(name);
+   uvm_component_h =  uvm_top.find("*aL_sqr");
+   if (uvm_component_h == null)
+   `uvm_fatal("RUNALL SEQUENCE", "Failed to get the d5m_camera_sequencer")
+  if (!$cast(aL_sqr, uvm_component_h))
+   `uvm_fatal("RUNALL SEQUENCE", "Failed to cast from uvm_component_h.")
+    d5m_image_seq 	= d5m_image_generator_sequence::type_id::create("d5m_image_seq");
+    axi_config_seq 	= axi_config_sobel_mask_hsv_image_frame_sequence::type_id::create("axi_config_seq");
+ endfunction : new
+ task body();
+    axi_config_seq.start(aL_sqr);
+    d5m_image_seq.start(aL_sqr);
+ endtask : body
+endclass : d5m_camera_image_sobel_mask_hsv_sequence
+
+
+
+// ----------------------------------------------------------------------------------------------
+// TEST : [SOBEL_MASK_CGA]
+// ----------------------------------------------------------------------------------------------
+class axi_config_sobel_mask_cga_image_frame_sequence extends uvm_sequence #(d5m_camera_transaction);
+    `uvm_object_utils(axi_config_sobel_mask_cga_image_frame_sequence)
+    function new(string name="axi_config_sobel_mask_cga_image_frame_sequence");
+        super.new(name);
+    endfunction
+    virtual task body();
+        d5m_camera_transaction item;
+        axi_write_config_reg();
+    endtask: body
+    // -------------------------------------------------------
+    virtual protected task axi_write_config_reg ();
+        axi_write_channel(oRgbOsharp,10);
+        axi_write_channel(oEdgeType,11);
+        axi_write_channel(threshold,config_data_threshold);
+        axi_write_channel(videoChannel,select_sobel_mask_cga);
+        axi_write_channel(dChannel,select_rgb_not_ycbcr);
+    endtask: axi_write_config_reg
+    virtual protected task axi_write_channel (bit[7:0] addr,bit[31:0] data);
+            d5m_camera_transaction item;
+            `uvm_create(item)
+            item.axi4_lite.addr           = {7'h0,addr};
+            item.axi4_lite.data           = data;
+            item.d5m_txn                  = AXI4_WRITE;
+            `uvm_send(item);
+    endtask: axi_write_channel
+endclass: axi_config_sobel_mask_cga_image_frame_sequence
+class d5m_camera_image_sobel_mask_cga_sequence extends uvm_sequence #(uvm_sequence_item);
+   `uvm_object_utils(d5m_camera_image_sobel_mask_cga_sequence);
+   d5m_image_generator_sequence d5m_image_seq;
+   axi_config_sobel_mask_cga_image_frame_sequence axi_config_seq;
+   protected d5m_camera_sequencer aL_sqr;
+   uvm_component uvm_component_h;
+ function new(string name = "d5m_camera_image_sobel_mask_cga_sequence");
+   super.new(name);
+   uvm_component_h =  uvm_top.find("*aL_sqr");
+   if (uvm_component_h == null)
+   `uvm_fatal("RUNALL SEQUENCE", "Failed to get the d5m_camera_sequencer")
+  if (!$cast(aL_sqr, uvm_component_h))
+   `uvm_fatal("RUNALL SEQUENCE", "Failed to cast from uvm_component_h.")
+    d5m_image_seq 	= d5m_image_generator_sequence::type_id::create("d5m_image_seq");
+    axi_config_seq 	= axi_config_sobel_mask_cga_image_frame_sequence::type_id::create("axi_config_seq");
+ endfunction : new
+ task body();
+    axi_config_seq.start(aL_sqr);
+    d5m_image_seq.start(aL_sqr);
+ endtask : body
+endclass : d5m_camera_image_sobel_mask_cga_sequence
+
+
+
+// ----------------------------------------------------------------------------------------------
+// TEST : [SOBEL_MASK_BLU]
+// ----------------------------------------------------------------------------------------------
+class axi_config_sobel_mask_blu_image_frame_sequence extends uvm_sequence #(d5m_camera_transaction);
+    `uvm_object_utils(axi_config_sobel_mask_blu_image_frame_sequence)
+    function new(string name="axi_config_sobel_mask_blu_image_frame_sequence");
+        super.new(name);
+    endfunction
+    virtual task body();
+        d5m_camera_transaction item;
+        axi_write_config_reg();
+    endtask: body
+    // -------------------------------------------------------
+    virtual protected task axi_write_config_reg ();
+        axi_write_channel(oRgbOsharp,10);
+        axi_write_channel(oEdgeType,11);
+        axi_write_channel(threshold,config_data_threshold);
+        axi_write_channel(videoChannel,select_sobel_mask_blu);
+        axi_write_channel(dChannel,select_rgb_not_ycbcr);
+    endtask: axi_write_config_reg
+    virtual protected task axi_write_channel (bit[7:0] addr,bit[31:0] data);
+            d5m_camera_transaction item;
+            `uvm_create(item)
+            item.axi4_lite.addr           = {7'h0,addr};
+            item.axi4_lite.data           = data;
+            item.d5m_txn                  = AXI4_WRITE;
+            `uvm_send(item);
+    endtask: axi_write_channel
+endclass: axi_config_sobel_mask_blu_image_frame_sequence
+class d5m_camera_image_sobel_mask_blu_sequence extends uvm_sequence #(uvm_sequence_item);
+   `uvm_object_utils(d5m_camera_image_sobel_mask_blu_sequence);
+   d5m_image_generator_sequence d5m_image_seq;
+   axi_config_sobel_mask_blu_image_frame_sequence axi_config_seq;
+   protected d5m_camera_sequencer aL_sqr;
+   uvm_component uvm_component_h;
+ function new(string name = "d5m_camera_image_sobel_mask_blu_sequence");
+   super.new(name);
+   uvm_component_h =  uvm_top.find("*aL_sqr");
+   if (uvm_component_h == null)
+   `uvm_fatal("RUNALL SEQUENCE", "Failed to get the d5m_camera_sequencer")
+  if (!$cast(aL_sqr, uvm_component_h))
+   `uvm_fatal("RUNALL SEQUENCE", "Failed to cast from uvm_component_h.")
+    d5m_image_seq 	= d5m_image_generator_sequence::type_id::create("d5m_image_seq");
+    axi_config_seq 	= axi_config_sobel_mask_blu_image_frame_sequence::type_id::create("axi_config_seq");
+ endfunction : new
+ task body();
+    axi_config_seq.start(aL_sqr);
+    d5m_image_seq.start(aL_sqr);
+ endtask : body
+endclass : d5m_camera_image_sobel_mask_blu_sequence
+
+
+
+
+
+
+
 // ----------------------------------------------------------------------------------------------
 // TEST : [HSV]
 // ----------------------------------------------------------------------------------------------
@@ -700,7 +1023,7 @@ class axi_config_hsv_image_frame_sequence extends uvm_sequence #(d5m_camera_tran
     virtual protected task axi_write_config_reg ();
         axi_write_channel(oRgbOsharp,10);
         axi_write_channel(oEdgeType,11);
-        axi_write_channel(threshold,20);
+        axi_write_channel(threshold,config_data_threshold);
         axi_write_channel(videoChannel,select_hsv);
         axi_write_channel(dChannel,select_ycbcr);
     endtask: axi_write_config_reg
@@ -750,7 +1073,7 @@ class axi_config_hsl_image_frame_sequence extends uvm_sequence #(d5m_camera_tran
     virtual protected task axi_write_config_reg ();
         axi_write_channel(oRgbOsharp,10);
         axi_write_channel(oEdgeType,11);
-        axi_write_channel(threshold,20);
+        axi_write_channel(threshold,config_data_threshold);
         axi_write_channel(videoChannel,select_hsl);
         axi_write_channel(dChannel,select_ycbcr);
     endtask: axi_write_config_reg

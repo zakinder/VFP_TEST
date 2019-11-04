@@ -1,3 +1,4 @@
+@echo off
 cd ../../tb
 
 %~d1
@@ -12,7 +13,7 @@ set "textFile=frame_en_lib.svh"
 @REM --------------------------------------------
 :start_run_from_here
 @set /p frame_size=" FRAME_SIZE(0,1,2,3): "
-@set /p replace_to=" TYPES(shtocg,cgtosh,cgtohl): "
+@set /p replace_to=" TYPES(shtocg,cgtosh,cgtohl,sbmscg,sbmshl): "
 @set /p standalone=" STANDALONE(1-true): "
 
 @GOTO cgain
@@ -52,17 +53,38 @@ set "textFile=frame_en_lib.svh"
 @set "this_check_rgb_type=emboss"
 @set "next_check_rgb_type=shtocg"
 @GOTO SEARCH_REPLACE
-
 :shtocg
 @set "this_check_rgb_type=shtocg"
 @set "next_check_rgb_type=cgtosh"
 @GOTO SEARCH_REPLACE
-
 :cgtosh
 @set "this_check_rgb_type=cgtosh"
+@set "next_check_rgb_type=sbmscg"
+@GOTO SEARCH_REPLACE
+:sbmscg
+@set "this_check_rgb_type=sbmscg"
+@set "next_check_rgb_type=sbmssh"
+@GOTO SEARCH_REPLACE
+:sbmssh
+@set "this_check_rgb_type=sbmssh"
+@set "next_check_rgb_type=sbmsbl"
+@GOTO SEARCH_REPLACE
+:sbmsbl
+@set "this_check_rgb_type=sbmsbl"
+@set "next_check_rgb_type=sbmshl"
+@GOTO SEARCH_REPLACE
+:sbmshl
+@set "this_check_rgb_type=sbmshl"
+@set "next_check_rgb_type=sbmshv"
+@GOTO SEARCH_REPLACE
+:sbmshv
+@set "this_check_rgb_type=sbmshv"
+@set "next_check_rgb_type=sbmsrb"
+@GOTO SEARCH_REPLACE
+:sbmsrb
+@set "this_check_rgb_type=sbmsrb"
 @set "next_check_rgb_type=cgtohl"
 @GOTO SEARCH_REPLACE
-
 :cgtohl
 @set "this_check_rgb_type=cgtohl"
 @set "next_check_rgb_type=vsim_run"
@@ -116,6 +138,12 @@ for /f "delims=" %%i in ('type "%textFile%" ^& break ^> "%textFile%" ') do (
 @if "%next_check_rgb_type%"=="emboss" (@GOTO emboss)
 @if "%next_check_rgb_type%"=="shtocg" (@GOTO shtocg)
 @if "%next_check_rgb_type%"=="cgtosh" (@GOTO cgtosh)
+@if "%next_check_rgb_type%"=="sbmscg" (@GOTO sbmscg)
+@if "%next_check_rgb_type%"=="sbmssh" (@GOTO sbmssh)
+@if "%next_check_rgb_type%"=="sbmsbl" (@GOTO sbmsbl)
+@if "%next_check_rgb_type%"=="sbmshl" (@GOTO sbmshl)
+@if "%next_check_rgb_type%"=="sbmshv" (@GOTO sbmshv)
+@if "%next_check_rgb_type%"=="sbmsrb" (@GOTO sbmsrb)
 @if "%next_check_rgb_type%"=="cgtohl" (@GOTO cgtohl)
 @if "%next_check_rgb_type%"=="vsim_run" (@GOTO vsim_run)
 @REM --------------------------------------------
@@ -132,6 +160,12 @@ for /f "delims=" %%i in ('type "%textFile%" ^& break ^> "%textFile%" ') do (
 @if "%replace_to%"=="emboss" (@GOTO vsim_run_emboss)
 @if "%replace_to%"=="shtocg" (@GOTO vsim_run_sharptocgain)
 @if "%replace_to%"=="cgtosh" (@GOTO vsim_run_cgaintosharp)
+@if "%replace_to%"=="sbmscg" (@GOTO vsim_run_sobelmaskcgain)
+@if "%replace_to%"=="sbmssh" (@GOTO vsim_run_sobelmasksharp)
+@if "%replace_to%"=="sbmsbl" (@GOTO vsim_run_sobelmaskblur)
+@if "%replace_to%"=="sbmshl" (@GOTO vsim_run_sobelmaskhsl)
+@if "%replace_to%"=="sbmshv" (@GOTO vsim_run_sobelmaskhsv)
+@if "%replace_to%"=="sbmsrb" (@GOTO vsim_run_sobelmaskrgb)
 @if "%replace_to%"=="cgtohl" (@GOTO vsim_run_cgaintohsl)
 
 :vsim_run_cgain
@@ -140,6 +174,7 @@ cd ../workspace/run
 @echo current type:  %replace_to%
 if "%standalone%" EQU "1" (
 @echo running standalone
+@echo off
 vsim -c -do d5m_camera_image_file_cgain_test.tcl
 @GOTO pause_done
 ) else (
@@ -190,6 +225,7 @@ cd ../workspace/run
 @echo current type:  %replace_to%
 if "%standalone%" EQU "1" (
 @echo running standalone
+@echo off
 vsim -c -do d5m_camera_image_file_hsl_test.tcl
 @GOTO pause_done
 ) else (
@@ -206,6 +242,7 @@ cd ../workspace/run
 @echo current type:  %replace_to%
 if "%standalone%" EQU "1" (
 @echo running standalone
+@echo off
 vsim -c -do d5m_camera_image_file_hsv_test.tcl
 @GOTO pause_done
 ) else (
@@ -303,6 +340,103 @@ vsim -c -do d5m_camera_image_file_cgain_sharp_test.tcl
 @echo running not standalone
 vsim -c -do d5m_camera_image_file_cgain_sharp_test.tcl
 cd ../../tb
+@set "replace_to=sbmscg"
+@GOTO cgain
+)
+
+:vsim_run_sobelmaskcgain
+
+cd ../workspace/run
+@echo current type:  %replace_to%
+if "%standalone%" EQU "1" (
+@echo running standalone
+vsim -c -do d5m_camera_image_file_sobel_mask_cga_test.tcl
+@GOTO pause_done
+) else (
+@echo running not standalone
+vsim -c -do d5m_camera_image_file_sobel_mask_cga_test.tcl
+cd ../../tb
+@set "replace_to=sbmssh"
+@GOTO cgain
+)
+
+:vsim_run_sobelmasksharp
+
+cd ../workspace/run
+@echo current type:  %replace_to%
+if "%standalone%" EQU "1" (
+@echo running standalone
+vsim -c -do d5m_camera_image_file_sobel_mask_shp_test.tcl
+@GOTO pause_done
+) else (
+@echo running not standalone
+vsim -c -do d5m_camera_image_file_sobel_mask_shp_test.tcl
+cd ../../tb
+@set "replace_to=sbmsbl"
+@GOTO cgain
+)
+
+:vsim_run_sobelmaskblur
+
+cd ../workspace/run
+@echo current type:  %replace_to%
+if "%standalone%" EQU "1" (
+@echo running standalone
+vsim -c -do d5m_camera_image_file_sobel_mask_blu_test.tcl
+@GOTO pause_done
+) else (
+@echo running not standalone
+vsim -c -do d5m_camera_image_file_sobel_mask_blu_test.tcl
+cd ../../tb
+@set "replace_to=sbmshl"
+@GOTO cgain
+)
+
+:vsim_run_sobelmaskhsl
+
+cd ../workspace/run
+@echo current type:  %replace_to%
+if "%standalone%" EQU "1" (
+@echo running standalone
+vsim -c -do d5m_camera_image_file_sobel_mask_hsl_test.tcl
+@GOTO pause_done
+) else (
+@echo running not standalone
+vsim -c -do d5m_camera_image_file_sobel_mask_hsl_test.tcl
+cd ../../tb
+@set "replace_to=sbmshv"
+@GOTO cgain
+)
+
+
+:vsim_run_sobelmaskhsv
+
+cd ../workspace/run
+@echo current type:  %replace_to%
+if "%standalone%" EQU "1" (
+@echo running standalone
+vsim -c -do d5m_camera_image_file_sobel_mask_hsv_test.tcl
+@GOTO pause_done
+) else (
+@echo running not standalone
+vsim -c -do d5m_camera_image_file_sobel_mask_hsv_test.tcl
+cd ../../tb
+@set "replace_to=sbmsrb"
+@GOTO cgain
+)
+
+:vsim_run_sobelmaskrgb
+
+cd ../workspace/run
+@echo current type:  %replace_to%
+if "%standalone%" EQU "1" (
+@echo running standalone
+vsim -c -do d5m_camera_image_file_sobel_mask_rgb_test.tcl
+@GOTO pause_done
+) else (
+@echo running not standalone
+vsim -c -do d5m_camera_image_file_sobel_mask_rgb_test.tcl
+cd ../../tb
 @set "replace_to=cgtohl"
 @GOTO cgain
 )
@@ -316,6 +450,7 @@ cd ../workspace/run
 
 if "%standalone%" EQU "1" (
 @echo running standalone
+@echo off
 vsim -c -do d5m_camera_image_file_cgain_hsl_test.tcl
 @GOTO pause_done
 ) else (

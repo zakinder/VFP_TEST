@@ -25,7 +25,7 @@ class d5m_camera_monitor extends uvm_monitor;
     virtual protected task collect_transactions();
             d5m_camera_transaction d5m_tx;
             forever begin
-            @(posedge d5m_camera_vif.pixclk)
+            @(posedge d5m_camera_vif.clkmm)
                 d5m_tx            = d5m_camera_transaction::type_id::create("d5m_tx"); 
                 d5m_tx.d5m.valid  = d5m_camera_vif.d5m.valid;
                 d5m_tx.d5m.red    = d5m_camera_vif.d5m.red;

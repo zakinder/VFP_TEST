@@ -4,6 +4,8 @@
 `include "../../interfaces/d5m_camera_if.sv"
 `include "../../interfaces/vfp_config_d5m_camera_dut.sv"
 `include "../../interfaces/rgbAssertion_dut.sv"
+//`timescale 1ns/1ps
+//`timescale 1ns/100ps 
 module top;
     import uvm_pkg::*;
     import d5m_camera_pkg::*;
@@ -25,16 +27,16 @@ module top;
     ARESETN = 0;
     #100ns ARESETN = 1;
   end
-   initial begin
-   pixclk = 0;
-   #5ns;
-   forever #5ns pixclk = ! pixclk;
-   end
-   initial begin
-   ACLK = 0;
-   #5ns;
-   forever #5ns ACLK = ! ACLK;
-   end
+   // initial begin
+   // pixclk = 0;
+   // #5ns;
+   // forever #5ns pixclk = ! pixclk;
+   // end
+   // initial begin
+   // ACLK = 0;
+   // #5ns;
+   // forever #5ns ACLK = ! ACLK;
+   // end
     initial begin
         uvm_config_db   #(virtual d5m_camera_if) ::set(null, "*", "d5m_camera_vif", d5m_camera_vif);
         run_test();
