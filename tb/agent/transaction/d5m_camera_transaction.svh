@@ -11,30 +11,95 @@ class colors extends uvm_sequence_item;
       `uvm_field_int (enable, UVM_ALL_ON)
    `uvm_object_utils_end
 endclass
+
+//  +------------------------+
+//  | d5m_camera_transaction |
+//  |------------------------|
+//  |                        |
+//  |                        |
+//  |                        |
+//  |                        |
+//  +------------------------+
 class d5m_camera_transaction extends uvm_sequence_item;
-    //-------------------------------
-    //imageReadInterface
-    //-------------------------------
+
+    //-----------------
+    //DATA MEMBERS
+    //-----------------
+    
+    // Represent the used data through the stimulus
     rand rgb_channel         vfp;
+    
     rand rgb_channel         d5m;
+    
     rand cof_channel         cof;
+    
     rand axi4_lite_channel   axi4_lite;
+    
     rand d5m_interconnect    d5m_inf;
+    
     rand pattern_channel     d5p;
+    
     rand colors              m_color;
+    
+    rand int A;
+    rand int B;
     bit [31:0] axi4_lite_valid_address_list[]= '{0,4,8,12,16,20,24,28,124,128,132,136,140,144,148,200,204,208,212,216,220,224,228,232};
+    
     //-------------------------------
-    constraint cof_image_width   {`IMAGE_CONFIG(cof.image_width,frame_width)  }
-    constraint cof_lval_offset   {`IMAGE_CONFIG(cof.lval_offset,lvalid_offset)}
-    constraint cof_lval_lines    {`IMAGE_CONFIG(cof.lval_lines,frame_height)  }
-    constraint cof_number_frames {`IMAGE_CONFIG(cof.number_frames,num_frames) }
+    //Data items that contain randomly assigned data members require constraints to constrain the range of values they will be assigned. 
     //-------------------------------
+    
+    constraint cof_c_image_width   {`IMAGE_CONFIG(A,frame_width)  }
+    constraint cof_c_number_frames {`IMAGE_CONFIG(B,lvalid_offset) }
+    constraint cof_image_width     {`IMAGE_CONFIG(cof.image_width,frame_width)  }
+    constraint cof_lval_offset     {`IMAGE_CONFIG(cof.lval_offset,lvalid_offset)}
+    constraint cof_lval_lines      {`IMAGE_CONFIG(cof.lval_lines,frame_height)  }
+    constraint cof_number_frames   {`IMAGE_CONFIG(cof.number_frames,num_frames) }
+    //-------------------------------
+    
     rand d5m_txn_e      d5m_txn;
+    
     constraint c_fibonacci {axi4_lite.addr inside {axi4_lite_valid_address_list};}
+    
+    //Constructor
     function new (string name = "");
         super.new(name);
-    m_color = colors::type_id::create ("m_color");    
+        m_color = colors::type_id::create ("m_color");    
     endfunction
+    
+    function void do_copy(uvm_object rhs);
+    d5m_camera_transaction rhs_;
+        if(!$cast(rhs_, rhs)) begin
+            uvm_report_error("do_copy", "cast failed, check types");
+        end
+        axi4_lite.addr = rhs_.axi4_lite.addr;
+        A = rhs_.B;
+        B = rhs_.A;
+    endfunction: do_copy
+
+    function bit do_compare(uvm_object rhs, uvm_comparer comparer);
+    d5m_camera_transaction rhs_;
+    do_compare = $cast(rhs_, rhs) &&
+    super.do_compare(rhs, comparer) &&
+    // if we comment out the line below, the A field
+    // is still compared (by the field macro compare
+    // method)
+    A == rhs_.A &&
+    B == rhs_.B;
+
+    endfunction: do_compare
+    function string convert2string();
+        return $sformatf(" A:\t%0d\n B:\t%0d", A, B);
+    endfunction: convert2string
+
+    function convert_A();
+        return A;
+    endfunction: convert_A
+    
+    function convert_B();
+        return B;
+    endfunction: convert_B
+    
     // function void pre_randomize(); 
      // super.pre_randomize();
         // `uvm_info("BASE PRE_RANDOMIZATION", "BASE PRE_RANDOMIZATION",UVM_LOW)
@@ -91,7 +156,10 @@ class d5m_camera_transaction extends uvm_sequence_item;
         `SV_RAND_CHECK(axi4_lite.addr,oYccPerCh,axi4_lite.data,config_data_oYccPerCh)
         `uvm_info("addr", $sformatf("addr=%0d data=%0d", axi4_lite.addr,axi4_lite.data), UVM_LOW)
     endfunction 
+    //Utility and Field macros
     `uvm_object_utils_begin(d5m_camera_transaction)
+        `uvm_field_int  (A,                             UVM_DEFAULT)
+        `uvm_field_int  (B,                             UVM_DEFAULT)
         `uvm_field_int  (vfp.clkmm,                     UVM_DEFAULT);
         `uvm_field_int  (vfp.valid,                     UVM_DEFAULT);
         `uvm_field_int  (vfp.lvalid,                    UVM_DEFAULT);

@@ -1,5 +1,22 @@
-`include "../../defin_lib.svh"
 
+
+
+// +--------------------+     +--------------------+     +-----+     +------+
+// |run_test()          |     |uvm_test_top        |     | env |     | comp |
+// |--------------------|     |--------------------|     |-----|     |------|
+// |build               |     |build               |     | bld |     | bld  |
+// |connect             |---->|connect             |---->| cnt |---->| cnt  |
+// |end_of_elaboration  |<----|end_of_elaboration  |<----| eoe |<----| eoe  |
+// |start_of_simulation |<----|start_of_simulation |<----| sos |<----| sos  |
+// |run                 |-----|run                 |-----| run |-----| run  |
+// |extract             |<----|extract             |<----| ext |<----| ext  |
+// |check               |<----|check               |<----| chk |<----| chk  |
+// |report              |<----|report              |<----| rpt |<----| rpt  |
+// |final               |<----|final               |<----| fnl |<----| fnl  |
+// +--------------------+     +--------------------+     +-----+     +------+
+
+
+`include "../../defin_lib.svh"
 `include "../../generic_pack.svh"
 `include "../../interfaces/d5m_camera_if.sv"
 `include "../../interfaces/vfp_config_d5m_camera_dut.sv"

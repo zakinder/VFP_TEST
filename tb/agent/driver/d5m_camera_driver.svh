@@ -1,4 +1,12 @@
-// UVM_DRIVER : d5m_camera_DRV [d5m_camera]
+// UVM_DRIVER : d5m_camera_drv [d5m_camera]
+// +------------------------+
+// |    d5m_camera_driver   |
+// |------------------------|
+// |                        |
+// |                        |
+// |                        |
+// |                        |
+// +------------------------+
 class d5m_camera_driver extends uvm_driver #(d5m_camera_transaction);
     protected virtual d5m_camera_if d5m_camera_vif;
     protected int     id;

@@ -4,7 +4,9 @@
 //The scoreboard will get this predicted result as well and make a comparison between the two values.
 class template_monitor_predict extends uvm_monitor;
     `uvm_component_utils(template_monitor_predict)
+    // Analysis Port to scoreboard
     uvm_analysis_port#(tp_transaction)  mon_ap_afterToDut;
+    
     virtual tp_if                       tp_vif;
     tp_transaction                      tx_pred;
     tp_transaction                      sa_tx_cg;

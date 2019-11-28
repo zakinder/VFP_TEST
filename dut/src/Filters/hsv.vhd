@@ -44,21 +44,21 @@ architecture behavioral of hsv_c is
     signal lumValue1xD   : std_logic_vector(i_data_width-1 downto 0) :=(others => '0');
     signal lumValue2xD   : std_logic_vector(i_data_width-1 downto 0) :=(others => '0');
     --Saturate
-    signal satUfTop      : ufixed(17 downto 0) :=(others => '0');
-    signal satUfTopV     : ufixed(17 downto 0) :=(others => '0');
-    signal satUfBott     : ufixed(7 downto 0) :=(others => '0');
+    signal satUfTop      : ufixed(17 downto 0)  :=(others => '0');
+    signal satUfTopV     : ufixed(17 downto 0)  :=(others => '0');
+    signal satUfBott     : ufixed(7 downto 0)   :=(others => '0');
     signal satValueQuot  : ufixed(17 downto -8) :=(others => '0');
     signal satValueQuotV : ufixed(17 downto -8) :=(others => '0');
-    signal satValue      : ufixed(7 downto 0) :=(others => '0');
+    signal satValue      : ufixed(7 downto 0)   :=(others => '0');
     signal satValue1xD   : std_logic_vector(7 downto 0) :=(others => '0');
     --Hue Rsiz
-    signal hueTop        : ufixed(17 downto 0) :=(others => '0');
-    signal hueBot        : ufixed(8 downto 0) :=(others => '0');
+    signal hueTop        : ufixed(17 downto 0)  :=(others => '0');
+    signal hueBot        : ufixed(8 downto 0)   :=(others => '0');
     signal hueQuot       : ufixed(17 downto -9) :=(others => '0');
-    signal hueQuot1x     : ufixed(7 downto 0) :=(others => '0');
-    signal hueDeg        : ufixed(26 downto 0) :=(others => '0');
-    signal hueDeg1x      : ufixed(7 downto 0) :=(others => '0');
-    signal hueValue      : unsigned(7 downto 0):= (others => '0');
+    signal hueQuot1x     : ufixed(7 downto 0)   :=(others => '0');
+    signal hueDeg        : ufixed(26 downto 0)  :=(others => '0');
+    signal hueDeg1x      : ufixed(7 downto 0)   :=(others => '0');
+    signal hueValue      : unsigned(7 downto 0) := (others => '0');
 begin
 rgbToUfP: process (clk,reset)begin
     if (reset = lo) then
@@ -130,7 +130,7 @@ lumP: process (clk) begin
 end process lumP;
 lumResizeP: process (clk) begin
     if rising_edge(clk) then 
-        lumValue <= resize(lumValueQuot,lumValue);
+        lumValue    <= resize(lumValueQuot,lumValue);
         lumValue1xD <= std_logic_vector(to_unsigned(lumValue,8));
         lumValue2xD <= lumValue1xD;
     end if;
@@ -150,11 +150,13 @@ end process hValueP;
 -- SATURATE
 -------------------------------------------------
 satUfTopV      <= (256.0 * rgbDelta);
+
 satNumniatorUfP: process (clk) begin
     if rising_edge(clk) then 
         satUfTop      <= satUfTopV;
     end if;
 end process satNumniatorUfP;
+
 satDominaUfCalP: process (clk) begin
     if rising_edge(clk) then 
         if (maxValue > 0) then
@@ -162,12 +164,15 @@ satDominaUfCalP: process (clk) begin
         end if;
     end if;
 end process satDominaUfCalP;
+
 satValueQuotV <= (satUfTop / satUfBott);
+
 satDividerP: process (clk) begin
     if rising_edge(clk) then 
         satValueQuot <= satValueQuotV;
     end if;
 end process satDividerP;
+
 satDividerResizeP: process (clk) begin
     if rising_edge(clk) then 
         satValue    <= resize(satValueQuot,satValue);

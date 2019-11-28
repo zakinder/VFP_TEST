@@ -62,9 +62,10 @@ class d5m_camera_fc_subscriber extends uvm_subscriber#(d5m_camera_transaction);
    endgroup: rgb_cg
     function new(string name, uvm_component parent);
         super.new(name, parent);
-        rgb_cg = new;
+        rgb_cg = new; // Instantiate covergroup
     endfunction: new
     function void write(d5m_camera_transaction t);
+        //sample directive
         d5m_txn = t;
         rgb_cg.sample();
     endfunction: write

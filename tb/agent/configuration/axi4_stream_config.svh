@@ -1,4 +1,5 @@
 // UVM_OBJECT : AXI4_STREAM_CONFIG [AXI4_STREAM]
+//To verify a master, the slave will be active and the master will be passive. 
 class axi4_stream_config extends uvm_object;
     uvm_active_passive_enum master_active = UVM_ACTIVE;
     uvm_active_passive_enum slave_active  = UVM_ACTIVE;

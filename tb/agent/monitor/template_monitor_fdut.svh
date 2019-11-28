@@ -3,7 +3,9 @@
 //and it will pass the result to the scoreboard.
 class template_monitor_fdut extends uvm_monitor; 
     `uvm_component_utils(template_monitor_fdut)
+    // Analysis Port to scoreboard
     uvm_analysis_port#(tp_transaction)  mon_ap_fdut;
+   // Interafce instance
     virtual tp_if                       tp_vif;
     function new(string name, uvm_component parent);
         super.new(name, parent);

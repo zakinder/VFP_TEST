@@ -1,16 +1,33 @@
 // UVM_SEQUENCE : D5M_CAMERA_IMAGE_FILE_SEQUENCE [d5m_camera]
 class d5m_image_random_sequence extends uvm_sequence #(d5m_camera_transaction);
    `uvm_object_utils(d5m_image_random_sequence);
-   d5m_camera_transaction item;
+   d5m_camera_transaction item,s2;
    function new(string name = "d5m_image_random_sequence");
       super.new(name);
    endfunction : new
    virtual task body();
-      repeat (50) begin : random_loop
+      repeat (1) begin : random_loop
+         //create method
          item = d5m_camera_transaction::type_id::create("item");
+         s2 = d5m_camera_transaction::type_id::create("s2");
          start_item(item);
+          //randomizing the seq_item
          assert(item.randomize());
+         
+        //`uvm_info(get_type_name(),$psprintf("convert_A %0x",item.convert_A), UVM_LOW)
+        `uvm_info("convert_A", item.convert2string(), UVM_LOW);
+        `uvm_info(get_type_name(),$psprintf("convert_axi4_lite %0d",item.axi4_lite.addr), UVM_LOW)
+
          finish_item(item);
+         start_item(s2);
+         assert(s2.randomize());
+         s2.copy(item);
+       // `uvm_info(get_type_name(),$psprintf("convert_B %0x",s2.convert_B), UVM_LOW)
+        `uvm_info("convert_B", s2.convert2string(), UVM_LOW);
+        `uvm_info(get_type_name(),$psprintf("s1==s2: ",item.compare(s2)), UVM_LOW)
+        `uvm_info(get_type_name(),$psprintf("convert_axi4_lite %0d",s2.axi4_lite.addr), UVM_LOW)
+         finish_item(s2);
+
       end : random_loop
     endtask: body
 endclass : d5m_image_random_sequence
@@ -275,7 +292,7 @@ class axi_config_rgb_image_frame_sequence extends uvm_sequence #(d5m_camera_tran
         super.new(name);
     endfunction
     virtual task body();
-        d5m_camera_transaction item;
+        d5m_camera_transaction item, s2;
         axi_write_config_reg();
     endtask: body
     // -------------------------------------------------------
@@ -287,7 +304,8 @@ class axi_config_rgb_image_frame_sequence extends uvm_sequence #(d5m_camera_tran
         axi_write_channel(dChannel,select_ycbcr);
     endtask: axi_write_config_reg
     virtual protected task axi_write_channel (bit[7:0] addr,bit[31:0] data);
-            d5m_camera_transaction item;
+        d5m_camera_transaction item;
+
             `uvm_create(item)
             item.axi4_lite.addr           = {7'h0,addr};
             item.axi4_lite.data           = data;
@@ -299,6 +317,7 @@ class d5m_camera_image_rgb_sequence extends uvm_sequence #(uvm_sequence_item);
    `uvm_object_utils(d5m_camera_image_rgb_sequence);
    d5m_image_generator_sequence d5m_image_seq;
    axi_config_rgb_image_frame_sequence axi_config_seq;
+   d5m_image_random_sequence image_seq;
    protected d5m_camera_sequencer aL_sqr;
    uvm_component uvm_component_h;
  function new(string name = "d5m_camera_image_rgb_sequence");
@@ -310,10 +329,13 @@ class d5m_camera_image_rgb_sequence extends uvm_sequence #(uvm_sequence_item);
    `uvm_fatal("RUNALL SEQUENCE", "Failed to cast from uvm_component_h.")
     d5m_image_seq 	= d5m_image_generator_sequence::type_id::create("d5m_image_seq");
     axi_config_seq 	= axi_config_rgb_image_frame_sequence::type_id::create("axi_config_seq");
+    image_seq 	= d5m_image_random_sequence::type_id::create("image_seq");
  endfunction : new
  task body();
-    axi_config_seq.start(aL_sqr);
-    d5m_image_seq.start(aL_sqr);
+ image_seq.start(aL_sqr);
+    //axi_config_seq.start(aL_sqr);
+    //d5m_image_seq.start(aL_sqr);
+    
  endtask : body
 endclass : d5m_camera_image_rgb_sequence
 // ----------------------------------------------------------------------------------------------

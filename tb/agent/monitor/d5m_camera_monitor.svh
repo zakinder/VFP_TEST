@@ -2,16 +2,23 @@
 class d5m_camera_monitor extends uvm_monitor;
     protected virtual   d5m_camera_if d5m_camera_vif;
     protected int       id;
+    
+    //DECLARE ANALYSIS PORT
     uvm_analysis_port #(d5m_camera_transaction) item_collected_port;
+    
     protected d5m_camera_transaction d5m_txn;
+    
     `uvm_component_utils_begin(d5m_camera_monitor)
         `uvm_field_int(id, UVM_DEFAULT)
     `uvm_component_utils_end
+    
+    // NEW - CONSTRUCTOR
     function new (string name, uvm_component parent);
         super.new(name, parent);
         d5m_txn = new();
         item_collected_port = new("item_collected_port", this);
     endfunction
+    
     function void build_phase (uvm_phase phase);
         super.build_phase(phase);
         if(!uvm_config_db#(virtual d5m_camera_if)::get(this, "", "d5m_camera_vif", d5m_camera_vif))
@@ -23,6 +30,7 @@ class d5m_camera_monitor extends uvm_monitor;
         join
     endtask: run_phase
     virtual protected task collect_transactions();
+            // Placeholder to capture transaction information.
             d5m_camera_transaction d5m_tx;
             forever begin
             @(posedge d5m_camera_vif.clkmm)
