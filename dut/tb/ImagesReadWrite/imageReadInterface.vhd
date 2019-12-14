@@ -92,8 +92,8 @@ port map (
     endOfFrame            => end_of_frame);
 imageWriteInst: imageWrite
 generic map (
-    enImageText           => false,
-    enImageIndex          => false,
+    enImageText           => true,
+    enImageIndex          => true,
     i_data_width          => i_data_width,
     img_width_bmp         => img_width_bmp,
     img_height_bmp        => img_height_bmp,

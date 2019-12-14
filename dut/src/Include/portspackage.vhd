@@ -29,26 +29,10 @@ generic (
     M_SOB_CGA                   : boolean := false;
     M_SOB_HSV                   : boolean := false;
     M_SOB_HSL                   : boolean := false;
-    F_CGA_TO_CGA                : boolean := false;
-    F_CGA_TO_HSL                : boolean := false;
-    F_CGA_TO_HSV                : boolean := false;
-    F_CGA_TO_YCC                : boolean := false;
-    F_CGA_TO_SHP                : boolean := false;
-    F_CGA_TO_BLU                : boolean := false;
-    F_SHP_TO_SHP                : boolean := false;
-    F_SHP_TO_HSL                : boolean := false;
-    F_SHP_TO_HSV                : boolean := false;
-    F_SHP_TO_YCC                : boolean := false;
-    F_SHP_TO_CGA                : boolean := false;
-    F_SHP_TO_BLU                : boolean := false;
-    F_BLU_TO_BLU                : boolean := false;
-    F_BLU_TO_HSL                : boolean := false;
-    F_BLU_TO_HSV                : boolean := false;
-    F_BLU_TO_YCC                : boolean := false;
-    F_BLU_TO_CGA                : boolean := false;
-    F_BLU_TO_SHP                : boolean := false;
     img_width                   : integer := 2751;
     img_height                  : integer := 4096;
+    adwrWidth                   : integer := 16;
+    addrWidth                   : integer := 12;
     s_data_width                : integer := 16;
     i_data_width                : integer := 8);
 port (                          
@@ -56,10 +40,12 @@ port (
     rst_l                       : in std_logic;
     txCord                      : in coord;
     lumThreshold                : in  std_logic_vector(7 downto 0);
-    iThreshold                  : in std_logic_vector(15 downto 0); 
+    iThreshold                  : in std_logic_vector(s_data_width-1 downto 0); 
     iRgb                        : in channel;
     cHsv                        : in std_logic_vector(2 downto 0);
     cYcc                        : in std_logic_vector(2 downto 0);
+    iVideoChannel               : in std_logic_vector(b_data_width-1 downto 0);
+    iAls                        : in coefficient;
     iKcoeff                     : in kernelCoeff;
     edgeValid                   : out std_logic;
     oRgb                        : out frameColors);
@@ -255,25 +241,7 @@ generic (
     F_SOB                       : boolean := false;
     F_CGA                       : boolean := false;
     F_HSV                       : boolean := false;
-    F_HSL                       : boolean := false;
-    F_CGA_TO_CGA                : boolean := false;
-    F_CGA_TO_HSL                : boolean := false;
-    F_CGA_TO_HSV                : boolean := false;
-    F_CGA_TO_YCC                : boolean := false;
-    F_CGA_TO_SHP                : boolean := false;
-    F_CGA_TO_BLU                : boolean := false;
-    F_SHP_TO_SHP                : boolean := false;
-    F_SHP_TO_HSL                : boolean := false;
-    F_SHP_TO_HSV                : boolean := false;
-    F_SHP_TO_YCC                : boolean := false;
-    F_SHP_TO_CGA                : boolean := false;
-    F_SHP_TO_BLU                : boolean := false;
-    F_BLU_TO_BLU                : boolean := false;
-    F_BLU_TO_HSL                : boolean := false;
-    F_BLU_TO_HSV                : boolean := false;
-    F_BLU_TO_YCC                : boolean := false;
-    F_BLU_TO_CGA                : boolean := false;
-    F_BLU_TO_SHP                : boolean := false);
+    F_HSL                       : boolean := false);
 port (
     m_axis_mm2s_aclk            : in std_logic;
     m_axis_mm2s_aresetn         : in std_logic;
@@ -362,7 +330,6 @@ port (
     vTap1x                      : in std_logic_vector(7 downto 0);
     vTap2x                      : in std_logic_vector(7 downto 0);
     kls                         : in coefficient;  
-    endOfFrame                  : in std_logic;     
     DataO                       : out std_logic_vector(7 downto 0));
 end component sharpMac;
 component dataTaps is
@@ -410,25 +377,7 @@ generic (
     F_SOB                       : boolean := false;
     F_CGA                       : boolean := false;
     F_HSV                       : boolean := false;
-    F_HSL                       : boolean := false;
-    F_CGA_TO_CGA                : boolean := false;
-    F_CGA_TO_HSL                : boolean := false;
-    F_CGA_TO_HSV                : boolean := false;
-    F_CGA_TO_YCC                : boolean := false;
-    F_CGA_TO_SHP                : boolean := false;
-    F_CGA_TO_BLU                : boolean := false;
-    F_SHP_TO_SHP                : boolean := false;
-    F_SHP_TO_HSL                : boolean := false;
-    F_SHP_TO_HSV                : boolean := false;
-    F_SHP_TO_YCC                : boolean := false;
-    F_SHP_TO_CGA                : boolean := false;
-    F_SHP_TO_BLU                : boolean := false;
-    F_BLU_TO_BLU                : boolean := false;
-    F_BLU_TO_HSL                : boolean := false;
-    F_BLU_TO_HSV                : boolean := false;
-    F_BLU_TO_YCC                : boolean := false;
-    F_BLU_TO_CGA                : boolean := false;
-    F_BLU_TO_SHP                : boolean := false);
+    F_HSL                       : boolean := false);
 port (              
     clk                         : in std_logic;
     rst_l                       : in std_logic;
@@ -437,11 +386,12 @@ port (
     iPoiRegion                  : in poi;
     iKls                        : in coefficient;
     iAls                        : in coefficient;
+    iVideoChannel               : in std_logic_vector(b_data_width-1 downto 0);
     iLumTh                      : in integer;
     iHsvPerCh                   : in integer;
     iYccPerCh                   : in integer;
     iEdgeType                   : in std_logic_vector(b_data_width-1 downto 0);
-    iThreshold                  : in std_logic_vector(b_data_width/2-1 downto 0); 
+    iThreshold                  : in std_logic_vector(15 downto 0); 
     oFrameData                  : out fcolors;
     oFifoStatus                 : out std_logic_vector(b_data_width-1 downto 0);
     oGridLockData               : out std_logic_vector(b_data_width-1 downto 0));
@@ -453,8 +403,20 @@ port (
     clk                         : in std_logic;
     iValid                      : in std_logic;
     iCord                       : in coord;
-    oRgb                        : out tpRgb);
+    oRgb                        : out blurchannel);
 end component frameTestPattern;
+component ResoTestPattern is
+generic (
+    s_data_width                : integer := 16);
+port (             
+    clk                   : in std_logic;
+    iValid                : in std_logic;
+    iCord                 : in coord;
+    oRgbCo                : out channel;
+    oRgbRed               : out channel;
+    oRgbGre               : out channel;
+    oRgbBlu               : out channel);
+end component ResoTestPattern;
 component sharpFilter is
 generic (
     i_data_width                : integer := 8;
@@ -465,8 +427,7 @@ port (
     clk                         : in std_logic;
     rst_l                       : in std_logic;
     iRgb                        : in channel;
-    kls                         : in coefficient;
-    endOfFrame                  : in std_logic;   
+    kls                         : in coefficient; 
     oRgb                        : out channel);
 end component sharpFilter;
 component FrameMask is
@@ -480,23 +441,18 @@ port (
     i2Rgb                       : in channel;
     oRgb                        : out channel);
 end component FrameMask;
-component dither is
+component ditherFilter is
 generic (
-    img_width                   : integer := 2751;
-    img_height                  : integer := 512;
-    color_width                 : integer := 8;
-    reduced_width               : integer := 4);
+    img_width         : integer := 512;
+    img_height        : integer := 512;
+    color_width       : integer := 8;
+    reduced_width     : integer := 4);
 port (                
-    clk                         : in  std_logic;
-    enable                      : in  std_logic;
-    x                           : in  integer range 0 to img_width-1;
-    din_r                       : in  std_logic_vector(color_width-1 downto 0);
-    din_g                       : in  std_logic_vector(color_width-1 downto 0);
-    din_b                       : in  std_logic_vector(color_width-1 downto 0);
-    dout_r                      : out std_logic_vector(color_width-1 downto 0) := (others => '0');
-    dout_g                      : out std_logic_vector(color_width-1 downto 0) := (others => '0');
-    dout_b                      : out std_logic_vector(color_width-1 downto 0) := (others => '0'));
-end component dither;
+    clk               : in  std_logic;
+    iCord_x           : in  std_logic_vector(15 downto 0);
+    iRgb              : in  channel;
+    oRgb              : out  channel);
+end component ditherFilter;
 component blurFilter is
 generic (
     iMSB                        : integer := 11;
@@ -522,10 +478,11 @@ port (
 end component blurMac;
 component TestPattern is
 port (                
-    clk                         : in std_logic;
-    ChannelS                    : in integer;
-    rgbSum                      : in tpRgb;
-    oRgb                        : out channel);
+    clk                   : in std_logic;
+    iValid                : in std_logic;
+    iCord                 : in coord;
+    tpSelect              : in integer;
+    oRgb                  : out channel);
 end component TestPattern;
 component edgeObjects is
 generic (
@@ -668,7 +625,6 @@ port (
 end component rgb_ycbcr;
 component colorCorrection is
 generic (
-    img_width                   : integer := 2751;
     i_data_width                : integer := 8);
 port (                          
     clk                         : in std_logic;
@@ -737,7 +693,7 @@ port (
     hours                       : in std_logic_vector(4 downto 0);
     rgbCoord                    : out region;
     aBusSelect                  : out std_logic_vector(b_data_width-1 downto 0);
-    threshold                   : out std_logic_vector(s_data_width-1 downto 0);
+    threshold                   : out std_logic_vector(15 downto 0);
     videoChannel                : out std_logic_vector(b_data_width-1 downto 0);
     dChannel                    : out std_logic_vector(b_data_width-1 downto 0);
     cChannel                    : out std_logic_vector(b_data_width-1 downto 0);

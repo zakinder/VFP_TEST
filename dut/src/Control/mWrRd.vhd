@@ -19,7 +19,7 @@ port (
     oYccPerCh        : out integer;
     rgbCoord         : out region;
     aBusSelect       : out std_logic_vector(b_data_width-1 downto 0);
-    threshold        : out std_logic_vector(b_data_width/2 -1 downto 0);
+    threshold        : out std_logic_vector(15 downto 0);
     videoChannel     : out std_logic_vector(b_data_width-1 downto 0);
     dChannel         : out std_logic_vector(b_data_width-1 downto 0);
     cChannel         : out std_logic_vector(b_data_width-1 downto 0);
@@ -38,7 +38,7 @@ begin
     oRgbOsharp              <= wrRegsIn.cfigReg0;
     oEdgeType               <= wrRegsIn.cfigReg1;
     aBusSelect              <= wrRegsIn.cfigReg3;
-    threshold               <= wrRegsIn.cfigReg4(b_data_width/2 -1 downto 0);
+    threshold               <= wrRegsIn.cfigReg4(15 downto 0);
     videoChannel            <= wrRegsIn.cfigReg5;
     dChannel                <= wrRegsIn.cfigReg6;
     cChannel                <= wrRegsIn.cfigReg7;

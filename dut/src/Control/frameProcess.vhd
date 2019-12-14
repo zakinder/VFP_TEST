@@ -25,25 +25,7 @@ generic (
     F_SOB                     : boolean := false;
     F_CGA                     : boolean := false;
     F_HSV                     : boolean := false;
-    F_HSL                     : boolean := false;
-    F_CGA_TO_CGA              : boolean := false;
-    F_CGA_TO_HSL              : boolean := false;
-    F_CGA_TO_HSV              : boolean := false;
-    F_CGA_TO_YCC              : boolean := false;
-    F_CGA_TO_SHP              : boolean := false;
-    F_CGA_TO_BLU              : boolean := false;
-    F_SHP_TO_SHP              : boolean := false;
-    F_SHP_TO_HSL              : boolean := false;
-    F_SHP_TO_HSV              : boolean := false;
-    F_SHP_TO_YCC              : boolean := false;
-    F_SHP_TO_CGA              : boolean := false;
-    F_SHP_TO_BLU              : boolean := false;
-    F_BLU_TO_BLU              : boolean := false;
-    F_BLU_TO_HSL              : boolean := false;
-    F_BLU_TO_HSV              : boolean := false;
-    F_BLU_TO_YCC              : boolean := false;
-    F_BLU_TO_CGA              : boolean := false;
-    F_BLU_TO_SHP              : boolean := false);
+    F_HSL                     : boolean := false);
 port (
     clk                       : in std_logic;
     rst_l                     : in std_logic;
@@ -57,7 +39,8 @@ port (
     iHsvPerCh                 : in integer;
     iYccPerCh                 : in integer;
     iEdgeType                 : in std_logic_vector(b_data_width-1 downto 0);
-    iThreshold                : in std_logic_vector(b_data_width/2-1 downto 0); 
+    iVideoChannel             : in std_logic_vector(b_data_width-1 downto 0);
+    iThreshold                : in std_logic_vector(15 downto 0); 
     --out                     
     oFrameData                : out fcolors;
     --to cpu                  
@@ -211,26 +194,10 @@ generic map(
     M_SOB_CGA           =>  M_SOB_CGA,
     M_SOB_HSV           =>  M_SOB_HSV,
     M_SOB_HSL           =>  M_SOB_HSL,
-    F_CGA_TO_CGA        =>  F_CGA_TO_CGA,
-    F_CGA_TO_HSL        =>  F_CGA_TO_HSL,
-    F_CGA_TO_HSV        =>  F_CGA_TO_HSV,
-    F_CGA_TO_YCC        =>  F_CGA_TO_YCC,
-    F_CGA_TO_SHP        =>  F_CGA_TO_SHP,
-    F_CGA_TO_BLU        =>  F_CGA_TO_BLU,
-    F_SHP_TO_SHP        =>  F_SHP_TO_SHP,
-    F_SHP_TO_HSL        =>  F_SHP_TO_HSL,
-    F_SHP_TO_HSV        =>  F_SHP_TO_HSV,
-    F_SHP_TO_YCC        =>  F_SHP_TO_YCC,
-    F_SHP_TO_CGA        =>  F_SHP_TO_CGA,
-    F_SHP_TO_BLU        =>  F_SHP_TO_BLU,
-    F_BLU_TO_BLU        =>  F_BLU_TO_BLU,
-    F_BLU_TO_HSL        =>  F_BLU_TO_HSL,
-    F_BLU_TO_HSV        =>  F_BLU_TO_HSV,
-    F_BLU_TO_YCC        =>  F_BLU_TO_YCC,
-    F_BLU_TO_CGA        =>  F_BLU_TO_CGA,
-    F_BLU_TO_SHP        =>  F_BLU_TO_SHP,
     img_width           =>  img_width,
     img_height          =>  img_width + 100,
+    adwrWidth           =>  adwrWidth,
+    addrWidth           =>  addrWidth,
     s_data_width        =>  s_data_width,
     i_data_width        =>  i_data_width)
 port map(
@@ -239,9 +206,11 @@ port map(
     txCord              => cord,
     lumThreshold        => lumThreshold,
     iThreshold          => iThreshold,
+	iVideoChannel       => iVideoChannel,
     iRgb                => rgbIn,
     cHsv                => cHsv,
     cYcc                => cYcc,
+	iAls                => iAls,
     iKcoeff             => iKcoeff,
     edgeValid           => edgeValid,
     oRgb                => rgbImageFilters);
@@ -273,12 +242,4 @@ port map(
     fifoStatus          => oFifoStatus,
     oGridLocation       => rgbPoiLock,
     oRgb                => rgbPoi);
-frameTestPatternInst: frameTestPattern
-generic map(
-    s_data_width        => s_data_width)
-port map(   
-    clk                 => clk,
-    iValid              => rgbIn.valid,
-    iCord               => cord,
-    oRgb                => rgbSum);
 end architecture;

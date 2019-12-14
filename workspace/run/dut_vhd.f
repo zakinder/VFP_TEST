@@ -6,6 +6,12 @@
 ../../dut/src/Include/vpfRecords.vhd
 ../../dut/src/Include/portspackage.vhd
 
+../../dut/src/Filters/blurMac.vhd
+../../dut/src/Filters/blurFilter.vhd
+../../dut/src/Filters/colorCorrection.vhd
+../../dut/src/Filters/sharpMac.vhd
+../../dut/src/Filters/sharpFilter.vhd
+
 ../../dut/src/Filters/Filters.vhd
 ../../dut/src/Filters/KernelCore.vhd
 ../../dut/src/Filters/Kernel.vhd
@@ -13,6 +19,9 @@
 ../../dut/src/Filters/hsl.vhd
 ../../dut/src/Filters/CoefMult.vhd
 ../../dut/src/Filters/rgb_ycbcr.vhd
+../../dut/src/Filters/DitherFilter.vhd
+
+
 
 ../../dut/src/Control/buffer_controller.vhd
 ../../dut/src/Control/TapsController.vhd
@@ -36,7 +45,7 @@
 ../../dut/src/Process/TextGen.vhd
 ../../dut/src/Process/PixelOnDisplay.vhd
 ../../dut/src/Process/FrameMask.vhd
-../../dut/src/Process/frameTestPattern.vhd
+
 ../../dut/src/Process/gridLockFifo.vhd
 ../../dut/src/Process/LumValue.vhd
 ../../dut/src/Process/pixelCord.vhd
@@ -45,6 +54,7 @@
 ../../dut/src/Process/SegmentColors.vhd
 ../../dut/src/Process/SyncFrames.vhd
 ../../dut/src/Process/TestPattern.vhd
+../../dut/src/Process/frameTestPattern.vhd
 
 ../../dut/hdl/vfpTop.vhd
 ../../dut/hdl/vfpConfig.vhd

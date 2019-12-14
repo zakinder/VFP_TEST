@@ -201,7 +201,7 @@ class axi_config_blur_image_frame_sequence extends uvm_sequence #(d5m_camera_tra
         axi_write_channel(oEdgeType,11);
         axi_write_channel(threshold,config_data_threshold);
         axi_write_channel(videoChannel,select_blur);
-        axi_write_channel(dChannel,select_ycbcr);
+        axi_write_channel(dChannel,select_rgb_not_ycbcr);
     endtask: axi_write_config_reg
     virtual protected task axi_write_channel (bit[7:0] addr,bit[31:0] data);
             d5m_camera_transaction item;
@@ -251,7 +251,7 @@ class axi_config_emboss_image_frame_sequence extends uvm_sequence #(d5m_camera_t
         axi_write_channel(oEdgeType,11);
         axi_write_channel(threshold,config_data_threshold);
         axi_write_channel(videoChannel,select_emboss);
-        axi_write_channel(dChannel,select_ycbcr);
+        axi_write_channel(dChannel,select_rgb_not_ycbcr);
     endtask: axi_write_config_reg
     virtual protected task axi_write_channel (bit[7:0] addr,bit[31:0] data);
             d5m_camera_transaction item;
@@ -301,7 +301,7 @@ class axi_config_rgb_image_frame_sequence extends uvm_sequence #(d5m_camera_tran
         axi_write_channel(oEdgeType,11);
         axi_write_channel(threshold,config_data_threshold);
         axi_write_channel(videoChannel,select_rgb);
-        axi_write_channel(dChannel,select_ycbcr);
+        axi_write_channel(dChannel,select_rgb_not_ycbcr);
     endtask: axi_write_config_reg
     virtual protected task axi_write_channel (bit[7:0] addr,bit[31:0] data);
         d5m_camera_transaction item;
@@ -317,7 +317,7 @@ class d5m_camera_image_rgb_sequence extends uvm_sequence #(uvm_sequence_item);
    `uvm_object_utils(d5m_camera_image_rgb_sequence);
    d5m_image_generator_sequence d5m_image_seq;
    axi_config_rgb_image_frame_sequence axi_config_seq;
-   d5m_image_random_sequence image_seq;
+   //d5m_image_random_sequence image_seq;
    protected d5m_camera_sequencer aL_sqr;
    uvm_component uvm_component_h;
  function new(string name = "d5m_camera_image_rgb_sequence");
@@ -329,13 +329,12 @@ class d5m_camera_image_rgb_sequence extends uvm_sequence #(uvm_sequence_item);
    `uvm_fatal("RUNALL SEQUENCE", "Failed to cast from uvm_component_h.")
     d5m_image_seq 	= d5m_image_generator_sequence::type_id::create("d5m_image_seq");
     axi_config_seq 	= axi_config_rgb_image_frame_sequence::type_id::create("axi_config_seq");
-    image_seq 	= d5m_image_random_sequence::type_id::create("image_seq");
+    //image_seq 	= d5m_image_random_sequence::type_id::create("image_seq");
  endfunction : new
  task body();
- image_seq.start(aL_sqr);
-    //axi_config_seq.start(aL_sqr);
-    //d5m_image_seq.start(aL_sqr);
-    
+ //image_seq.start(aL_sqr);
+    axi_config_seq.start(aL_sqr);
+    d5m_image_seq.start(aL_sqr);
  endtask : body
 endclass : d5m_camera_image_rgb_sequence
 // ----------------------------------------------------------------------------------------------
@@ -356,7 +355,7 @@ class axi_config_sharp_image_frame_sequence extends uvm_sequence #(d5m_camera_tr
         axi_write_channel(oEdgeType,11);
         axi_write_channel(threshold,config_data_threshold);
         axi_write_channel(videoChannel,select_sharp);
-        axi_write_channel(dChannel,select_ycbcr);
+        axi_write_channel(dChannel,select_rgb_not_ycbcr);
     endtask: axi_write_config_reg
     virtual protected task axi_write_channel (bit[7:0] addr,bit[31:0] data);
             d5m_camera_transaction item;
@@ -407,7 +406,7 @@ class axi_config_cgain_image_frame_sequence extends uvm_sequence #(d5m_camera_tr
         axi_write_channel(threshold,config_data_threshold);
         axi_write_channel(videoChannel,select_cgain);
         axi_write_channel(cChannel,15);
-        axi_write_channel(dChannel,select_ycbcr);
+        axi_write_channel(dChannel,select_rgb_not_ycbcr);
         axi_write_channel(pReg_pointInterest,10);
         axi_write_channel(pReg_deltaConfig,5);
         axi_write_channel(pReg_cpuAckGoAgain,1);
@@ -474,7 +473,7 @@ class axi_config_cgain_hsl_image_frame_sequence extends uvm_sequence #(d5m_camer
         axi_write_channel(threshold,config_data_threshold);
         axi_write_channel(videoChannel,select_cgainToHsl);
         axi_write_channel(cChannel,15);
-        axi_write_channel(dChannel,select_ycbcr);
+        axi_write_channel(dChannel,select_rgb_not_ycbcr);
         axi_write_channel(pReg_pointInterest,10);
         axi_write_channel(pReg_deltaConfig,5);
         axi_write_channel(pReg_cpuAckGoAgain,1);
@@ -541,7 +540,7 @@ class axi_config_sharp_cgain_image_frame_sequence extends uvm_sequence #(d5m_cam
         axi_write_channel(threshold,config_data_threshold);
         axi_write_channel(videoChannel,select_SharpToCgain);
         axi_write_channel(cChannel,15);
-        axi_write_channel(dChannel,select_ycbcr);
+        axi_write_channel(dChannel,select_rgb_not_ycbcr);
         axi_write_channel(pReg_pointInterest,10);
         axi_write_channel(pReg_deltaConfig,5);
         axi_write_channel(pReg_cpuAckGoAgain,1);
@@ -590,6 +589,74 @@ class d5m_camera_image_sharp_cgain_sequence extends uvm_sequence #(uvm_sequence_
  endtask : body
 endclass : d5m_camera_image_sharp_cgain_sequence
 // ----------------------------------------------------------------------------------------------
+// TEST : [CGAINTOCGAIN]
+// ----------------------------------------------------------------------------------------------
+class axi_config_cgain_cgain_image_frame_sequence extends uvm_sequence #(d5m_camera_transaction);
+    `uvm_object_utils(axi_config_cgain_cgain_image_frame_sequence)
+    function new(string name="axi_config_cgain_cgain_image_frame_sequence");
+        super.new(name);
+    endfunction
+    virtual task body();
+        d5m_camera_transaction item;
+        axi_write_config_reg();
+    endtask: body
+    // -------------------------------------------------------
+    virtual protected task axi_write_config_reg ();
+        axi_write_channel(oRgbOsharp,10);
+        axi_write_channel(oEdgeType,11);
+        axi_write_channel(threshold,config_data_threshold);
+        axi_write_channel(videoChannel,select_cgainToCgain);
+        axi_write_channel(cChannel,15);
+        axi_write_channel(dChannel,select_rgb_not_ycbcr);
+        axi_write_channel(pReg_pointInterest,10);
+        axi_write_channel(pReg_deltaConfig,5);
+        axi_write_channel(pReg_cpuAckGoAgain,1);
+        axi_write_channel(pReg_cpuWgridLock,1);
+        axi_write_channel(pReg_cpuAckoffFrame,6);
+        axi_write_channel(pReg_fifoReadAddress,6);
+        axi_write_channel(pReg_clearFifoData,5);
+        axi_write_channel(rgbCoord_rl,0);
+        axi_write_channel(rgbCoord_rh,255);
+        axi_write_channel(rgbCoord_gl,0);
+        axi_write_channel(rgbCoord_gh,255);
+        axi_write_channel(rgbCoord_bl,0);
+        axi_write_channel(rgbCoord_bh,255);
+        axi_write_channel(oLumTh,36);
+        axi_write_channel(oHsvPerCh,0);
+        axi_write_channel(oYccPerCh,0);
+    endtask: axi_write_config_reg
+    virtual protected task axi_write_channel (bit[7:0] addr,bit[31:0] data);
+            d5m_camera_transaction item;
+            `uvm_create(item)
+            item.axi4_lite.addr           = {7'h0,addr};
+            item.axi4_lite.data           = data;
+            item.d5m_txn                  = AXI4_WRITE;
+            `uvm_send(item);
+    endtask: axi_write_channel
+endclass: axi_config_cgain_cgain_image_frame_sequence
+class d5m_camera_image_cgain_cgain_sequence extends uvm_sequence #(uvm_sequence_item);
+   `uvm_object_utils(d5m_camera_image_cgain_cgain_sequence);
+   d5m_image_generator_sequence d5m_image_seq;
+   axi_config_cgain_cgain_image_frame_sequence axi_config_seq;
+   protected d5m_camera_sequencer aL_sqr;
+   uvm_component uvm_component_h;
+ function new(string name = "d5m_camera_image_cgain_cgain_sequence");
+   super.new(name);
+   uvm_component_h =  uvm_top.find("*aL_sqr");
+   if (uvm_component_h == null)
+   `uvm_fatal("RUNALL SEQUENCE", "Failed to get the d5m_camera_sequencer")
+  if (!$cast(aL_sqr, uvm_component_h))
+   `uvm_fatal("RUNALL SEQUENCE", "Failed to cast from uvm_component_h.")
+    d5m_image_seq 	= d5m_image_generator_sequence::type_id::create("d5m_image_seq");
+    axi_config_seq 	= axi_config_cgain_cgain_image_frame_sequence::type_id::create("axi_config_seq");
+ endfunction : new
+ task body();
+    axi_config_seq.start(aL_sqr);
+    d5m_image_seq.start(aL_sqr);
+ endtask : body
+endclass : d5m_camera_image_cgain_cgain_sequence
+
+// ----------------------------------------------------------------------------------------------
 // TEST : [CGAIN_HSL]
 // ----------------------------------------------------------------------------------------------
 class axi_config_cgain_sharp_image_frame_sequence extends uvm_sequence #(d5m_camera_transaction);
@@ -608,7 +675,7 @@ class axi_config_cgain_sharp_image_frame_sequence extends uvm_sequence #(d5m_cam
         axi_write_channel(threshold,config_data_threshold);
         axi_write_channel(videoChannel,select_cgainToSharp);
         axi_write_channel(cChannel,15);
-        axi_write_channel(dChannel,select_ycbcr);
+        axi_write_channel(dChannel,select_rgb_not_ycbcr);
         axi_write_channel(pReg_pointInterest,10);
         axi_write_channel(pReg_deltaConfig,5);
         axi_write_channel(pReg_cpuAckGoAgain,1);
@@ -1047,7 +1114,7 @@ class axi_config_hsv_image_frame_sequence extends uvm_sequence #(d5m_camera_tran
         axi_write_channel(oEdgeType,11);
         axi_write_channel(threshold,config_data_threshold);
         axi_write_channel(videoChannel,select_hsv);
-        axi_write_channel(dChannel,select_ycbcr);
+        axi_write_channel(dChannel,select_rgb_not_ycbcr);
     endtask: axi_write_config_reg
     virtual protected task axi_write_channel (bit[7:0] addr,bit[31:0] data);
             d5m_camera_transaction item;
@@ -1097,7 +1164,7 @@ class axi_config_hsl_image_frame_sequence extends uvm_sequence #(d5m_camera_tran
         axi_write_channel(oEdgeType,11);
         axi_write_channel(threshold,config_data_threshold);
         axi_write_channel(videoChannel,select_hsl);
-        axi_write_channel(dChannel,select_ycbcr);
+        axi_write_channel(dChannel,select_rgb_not_ycbcr);
     endtask: axi_write_config_reg
     virtual protected task axi_write_channel (bit[7:0] addr,bit[31:0] data);
             d5m_camera_transaction item;

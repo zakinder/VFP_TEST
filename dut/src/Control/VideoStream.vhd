@@ -26,25 +26,7 @@ generic (
     F_SOB                     : boolean := false;
     F_CGA                     : boolean := false;
     F_HSV                     : boolean := false;
-    F_HSL                     : boolean := false;
-    F_CGA_TO_CGA              : boolean := false;
-    F_CGA_TO_HSL              : boolean := false;
-    F_CGA_TO_HSV              : boolean := false;
-    F_CGA_TO_YCC              : boolean := false;
-    F_CGA_TO_SHP              : boolean := false;
-    F_CGA_TO_BLU              : boolean := false;
-    F_SHP_TO_SHP              : boolean := false;
-    F_SHP_TO_HSL              : boolean := false;
-    F_SHP_TO_HSV              : boolean := false;
-    F_SHP_TO_YCC              : boolean := false;
-    F_SHP_TO_CGA              : boolean := false;
-    F_SHP_TO_BLU              : boolean := false;
-    F_BLU_TO_BLU              : boolean := false;
-    F_BLU_TO_HSL              : boolean := false;
-    F_BLU_TO_HSV              : boolean := false;
-    F_BLU_TO_YCC              : boolean := false;
-    F_BLU_TO_CGA              : boolean := false;
-    F_BLU_TO_SHP              : boolean := false);
+    F_HSL                     : boolean := false);
 port (
     m_axis_mm2s_aclk     : in std_logic;
     m_axis_mm2s_aresetn  : in std_logic;
@@ -58,7 +40,7 @@ architecture arch_imp of VideoStream is
     signal seconds       : std_logic_vector(i_data_width-3 downto 0);
     signal minutes       : std_logic_vector(i_data_width-3 downto 0);
     signal hours         : std_logic_vector(i_data_width/2 downto 0);
-    signal threshold     : std_logic_vector(b_data_width/2-1 downto 0);
+    signal threshold     : std_logic_vector(15 downto 0);
     signal videoChannel  : std_logic_vector(b_data_width-1 downto 0):= (others => '0');
     signal edgeType      : std_logic_vector(b_data_width-1 downto 0):= (others => '0');
     signal cRgbOsharp    : std_logic_vector(b_data_width-1 downto 0):= (others => '0');
@@ -96,29 +78,12 @@ generic map(
     F_SOB                => F_SOB,
     F_CGA                => F_CGA,
     F_HSV                => F_HSV,
-    F_HSL                => F_HSL,
-    F_CGA_TO_CGA         => F_CGA_TO_CGA,
-    F_CGA_TO_HSL         => F_CGA_TO_HSL,
-    F_CGA_TO_HSV         => F_CGA_TO_HSV,
-    F_CGA_TO_YCC         => F_CGA_TO_YCC,
-    F_CGA_TO_SHP         => F_CGA_TO_SHP,
-    F_CGA_TO_BLU         => F_CGA_TO_BLU,
-    F_SHP_TO_SHP         => F_SHP_TO_SHP,
-    F_SHP_TO_HSL         => F_SHP_TO_HSL,
-    F_SHP_TO_HSV         => F_SHP_TO_HSV,
-    F_SHP_TO_YCC         => F_SHP_TO_YCC,
-    F_SHP_TO_CGA         => F_SHP_TO_CGA,
-    F_SHP_TO_BLU         => F_SHP_TO_BLU,
-    F_BLU_TO_BLU         => F_BLU_TO_BLU,
-    F_BLU_TO_HSL         => F_BLU_TO_HSL,
-    F_BLU_TO_HSV         => F_BLU_TO_HSV,
-    F_BLU_TO_YCC         => F_BLU_TO_YCC,
-    F_BLU_TO_CGA         => F_BLU_TO_CGA,
-    F_BLU_TO_SHP         => F_BLU_TO_SHP)
+    F_HSL                => F_HSL)
 port map(
     clk                  => m_axis_mm2s_aclk,
     rst_l                => m_axis_mm2s_aresetn,
     iRgbSet              => iRgbSet,
+    iVideoChannel        => videoChannel,
     iEdgeType            => edgeType,
     iPoiRegion           => pRegion,
     iThreshold           => threshold,

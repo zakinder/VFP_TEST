@@ -63,25 +63,7 @@ VFP_v1_0                      #(
     .F_SOB                     ( F_SOB                            ),
     .F_CGA                     ( F_CGA                            ),
     .F_HSV                     ( F_HSV                            ),
-    .F_HSL                     ( F_HSL                            ),
-    .F_CGA_TO_CGA              ( F_CGA_TO_CGA                     ),
-    .F_CGA_TO_HSL              ( F_CGA_TO_HSL                     ),
-    .F_CGA_TO_HSV              ( F_CGA_TO_HSV                     ),
-    .F_CGA_TO_YCC              ( F_CGA_TO_YCC                     ),
-    .F_CGA_TO_SHP              ( F_CGA_TO_SHP                     ),
-    .F_CGA_TO_BLU              ( F_CGA_TO_BLU                     ),
-    .F_SHP_TO_SHP              ( F_SHP_TO_SHP                     ),
-    .F_SHP_TO_HSL              ( F_SHP_TO_HSL                     ),
-    .F_SHP_TO_HSV              ( F_SHP_TO_HSV                     ),
-    .F_SHP_TO_YCC              ( F_SHP_TO_YCC                     ),
-    .F_SHP_TO_CGA              ( F_SHP_TO_CGA                     ),
-    .F_SHP_TO_BLU              ( F_SHP_TO_BLU                     ),
-    .F_BLU_TO_BLU              ( F_BLU_TO_BLU                     ),
-    .F_BLU_TO_HSL              ( F_BLU_TO_HSL                     ),
-    .F_BLU_TO_HSV              ( F_BLU_TO_HSV                     ),
-    .F_BLU_TO_YCC              ( F_BLU_TO_YCC                     ),
-    .F_BLU_TO_CGA              ( F_BLU_TO_CGA                     ),
-    .F_BLU_TO_SHP              ( F_BLU_TO_SHP                     ))
+    .F_HSL                     ( F_HSL                            ))
 dutVFP_v1Inst                  (
     //d5m input
     .pixclk                    (d5m_camera_vif.clkmm              ),//(d5m_camera_vif.ACLK   ),

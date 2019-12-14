@@ -13,7 +13,7 @@ set "textFile=frame_en_lib.svh"
 @REM --------------------------------------------
 :start_run_from_here
 @set /p frame_size=" FRAME_SIZE(0,1,2,3): "
-@set /p replace_to=" TYPES(shtocg,cgtosh,cgtohl,sbmscg,sbmshl): "
+@set /p replace_to=" TYPES(shtocg,cgtosh,cgtohl,sbmscg,sbmshl,cgtocg): "
 @set /p standalone=" STANDALONE(1-true): "
 
 @GOTO cgain
@@ -51,6 +51,10 @@ set "textFile=frame_en_lib.svh"
 @GOTO SEARCH_REPLACE
 :emboss
 @set "this_check_rgb_type=emboss"
+@set "next_check_rgb_type=cgtocg"
+@GOTO SEARCH_REPLACE
+:cgtocg
+@set "this_check_rgb_type=cgtocg"
 @set "next_check_rgb_type=shtocg"
 @GOTO SEARCH_REPLACE
 :shtocg
@@ -136,6 +140,7 @@ for /f "delims=" %%i in ('type "%textFile%" ^& break ^> "%textFile%" ') do (
 @if "%next_check_rgb_type%"=="rgb" (@GOTO rgb)
 @if "%next_check_rgb_type%"=="sobel" (@GOTO sobel)
 @if "%next_check_rgb_type%"=="emboss" (@GOTO emboss)
+@if "%next_check_rgb_type%"=="cgtocg" (@GOTO cgtocg)
 @if "%next_check_rgb_type%"=="shtocg" (@GOTO shtocg)
 @if "%next_check_rgb_type%"=="cgtosh" (@GOTO cgtosh)
 @if "%next_check_rgb_type%"=="sbmscg" (@GOTO sbmscg)
@@ -158,6 +163,7 @@ for /f "delims=" %%i in ('type "%textFile%" ^& break ^> "%textFile%" ') do (
 @if "%replace_to%"=="rgb" (@GOTO vsim_run_rgb)
 @if "%replace_to%"=="sobel" (@GOTO vsim_run_sobel)
 @if "%replace_to%"=="emboss" (@GOTO vsim_run_emboss)
+@if "%replace_to%"=="cgtocg" (@GOTO vsim_run_cgaintocgain)
 @if "%replace_to%"=="shtocg" (@GOTO vsim_run_sharptocgain)
 @if "%replace_to%"=="cgtosh" (@GOTO vsim_run_cgaintosharp)
 @if "%replace_to%"=="sbmscg" (@GOTO vsim_run_sobelmaskcgain)
@@ -302,9 +308,27 @@ vsim -c -do d5m_camera_image_file_emboss_test.tcl
 @echo running not standalone
 vsim -c -do d5m_camera_image_file_emboss_test.tcl
 cd ../../tb
+@set "replace_to=cgtocg"
+@GOTO cgain
+)
+
+
+:vsim_run_cgaintocgain
+
+cd ../workspace/run
+@echo current type:  %replace_to%
+if "%standalone%" EQU "1" (
+@echo running standalone
+vsim -c -do d5m_camera_image_file_cgain_cgain_test.tcl
+@GOTO pause_done
+) else (
+@echo running not standalone
+vsim -c -do d5m_camera_image_file_cgain_cgain_test.tcl
+cd ../../tb
 @set "replace_to=shtocg"
 @GOTO cgain
 )
+
 
 
 
