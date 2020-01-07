@@ -17,7 +17,8 @@
 
 
 `include "../../defin_lib.svh"
-`include "../../generic_pack.svh"
+
+
 `include "../../interfaces/d5m_camera_if.sv"
 `include "../../interfaces/vfp_config_d5m_camera_dut.sv"
 `include "../../interfaces/rgbAssertion_dut.sv"

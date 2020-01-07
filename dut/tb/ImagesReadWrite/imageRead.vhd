@@ -20,6 +20,7 @@ port (
     fvalid             : out std_logic;
     lvalid             : out std_logic;
     oRgb               : out channel;
+    oFileCont          : out cord;
     oCord              : out coord;
     endOfFrame         : out std_logic);
 end imageRead;
@@ -51,7 +52,10 @@ begin
     oRgb.valid  <= lineValid when (Xcont < img_width_bmp and Ycont < img_height_bmp and SetToRead = hi) else lo;
     oCord.x     <= std_logic_vector(to_unsigned(xImagecont, 16));
     oCord.y     <= std_logic_vector(to_unsigned(yImagecont, 16));
-    initFrame   <= hi when (SetToRead = hi and readyToRead = hi and i_count <= img_frames_cnt_bmp) else lo;
+    
+    oFileCont.x     <= xImagecont;
+    oFileCont.y     <= yImagecont;
+    initFrame       <= hi when (SetToRead = hi and readyToRead = hi and i_count <= img_frames_cnt_bmp) else lo;
     -------------------------------------------------------------------------
     pcreate_pixelpositions: process(clk,reset)begin
         if (reset = lo) then

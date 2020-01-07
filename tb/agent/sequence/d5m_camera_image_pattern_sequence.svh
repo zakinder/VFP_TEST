@@ -204,7 +204,7 @@ class d5m_camera_image_pattern_sequence extends d5m_camera_base_seq;
             `uvm_create(item)
             item.axi4_lite.addr           = {7'h0,addr};
             item.axi4_lite.data           = data;
-            item.d5m_txn        = AXI4_WRITE;
+            item.d5m_txn                  = AXI4_WRITE;
             `uvm_send(item);
     endtask: axi_write_channel
     virtual protected task axi_read_channel();

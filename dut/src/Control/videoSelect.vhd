@@ -33,6 +33,7 @@ architecture Behavioral of videoSelect is
     signal channels           : channel;
     signal kCoeffYcbcr        : kernelCoeff;
     signal rgbText            : channel;
+    signal dead               : channel;
     signal location           : cord := (x => 8, y => 8);
 begin
     kCoeffYcbcr.k1    <= x"0101";-- [ 0.257]
@@ -173,13 +174,20 @@ port map(
     cb                   => ycbcr.green,
     cr                   => ycbcr.blue,
     oValid               => ycbcr.valid);
+    
 channelOutP: process (clk) begin
     if rising_edge(clk) then
         oCord <= iFrameData.cod;
         if (eChannelSelect = 0) then
-            rgbText  <= ycbcr;
+            oRgb.red    <= ycbcr.red;
+            oRgb.green  <= ycbcr.green;
+            oRgb.blue   <= ycbcr.blue;
+            oRgb.valid  <= ycbcr.valid;
         else
-            rgbText  <= channels;
+            oRgb.red    <= channels.red;
+            oRgb.green  <= channels.green;
+            oRgb.blue   <= channels.blue;
+            oRgb.valid  <= channels.valid;
         end if;
     end if;
 end process channelOutP;
@@ -196,5 +204,5 @@ port map(
     txCord          => iFrameData.cod,
     location        => location,
     iRgb            => rgbText,
-    oRgb            => oRgb);
+    oRgb            => dead);
 end Behavioral;

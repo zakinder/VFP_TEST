@@ -20,11 +20,11 @@ class d5m_camera_sequence extends d5m_camera_base_seq;
         type_idata  data_type;
         //----------------------------------------------------
         `uvm_create(item)
-        item.d5p.rgb           = 0;
-        item.d5p.lvalid        = 1'b0;
-        item.d5p.fvalid        = 1'b0;
+        item.d5p.rgb            = 0;
+        item.d5p.lvalid         = 1'b0;
+        item.d5p.fvalid         = 1'b0;
         item.d5p.iImageTypeTest = 1'b0;
-        item.d5m_txn        = D5M_WRITE;
+        item.d5m_txn            = D5M_WRITE;
         `uvm_send(item);
         //----------------------------------------------------
         axi_write_config_reg();
@@ -275,6 +275,7 @@ class d5m_camera_sequence extends d5m_camera_base_seq;
             end
         end
     endtask: d5m_write_create_frames
+
     virtual protected task axi_write_aBusSelect_channel (bit[7:0] addr,bit[31:0] data);
             d5m_camera_transaction item;
             `uvm_create(item)

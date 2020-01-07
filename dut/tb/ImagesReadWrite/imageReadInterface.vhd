@@ -42,7 +42,7 @@ port (
     endOfFrame           : out std_logic);
 end imageReadInterface;
 architecture Behavioral of imageReadInterface is
-
+    signal   pFileCont           : cord;
     signal   rgbRead             : channel;
     signal   txCord              : coord;
     signal   enableWrite         : std_logic := lo;
@@ -74,6 +74,7 @@ begin
     doneTask                     <= hi when (iReadyToRead = hi and doneWrite = lo) else lo;
     endOfFrame                   <= hi when (doneWrite = hi) else lo;
 
+
 ImageReadInst: imageRead
 generic map (
     i_data_width          => i_data_width,
@@ -88,6 +89,7 @@ port map (
     fvalid                => f_valid,
     lvalid                => l_valid,
     oRgb                  => rgbRead,
+    oFileCont             => pFileCont,
     oCord                 => txCord,
     endOfFrame            => end_of_frame);
 imageWriteInst: imageWrite
@@ -99,7 +101,10 @@ generic map (
     img_height_bmp        => img_height_bmp,
     input_file            => read_bmp,
     output_file           => read_bmp)
-port map (                  
+port map (
+    clk                   => clk,
+    iFile                 => rgbRead,
+    iFileCont             => pFileCont,
     pixclk                => m_axis_mm2s_aclk,
     enableWrite           => enableWrite,
     doneWrite             => doneWrite,

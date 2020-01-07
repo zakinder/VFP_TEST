@@ -198,6 +198,12 @@ type rgbToUfRecord is record
     green            : ufixed(7 downto 0);
     blue             : ufixed(7 downto 0);
 end record;
+type rgbToU1MSBfRecord is record
+    valid            : std_logic;
+    red              : ufixed(8 downto 0);
+    green            : ufixed(8 downto 0);
+    blue             : ufixed(8 downto 0);
+end record;
 type rgbToUf2BytesRecord is record
     red              : ufixed(15 downto 0);
     green            : ufixed(15 downto 0);

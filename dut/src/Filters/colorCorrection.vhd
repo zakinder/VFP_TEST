@@ -48,15 +48,15 @@ syncValid_P: process (clk,rst_l)begin
 end process syncValid_P;
 ccSfConfig_P: process (clk,rst_l)begin
     if rst_l = '0' then
-        cc.ccSf.k1           <= x"0B";
+        cc.ccSf.k1           <= x"09";
         cc.ccSf.k2           <= x"FE";
         cc.ccSf.k3           <= x"FF";
         cc.ccSf.k4           <= x"FF";
-        cc.ccSf.k5           <= x"0B";
+        cc.ccSf.k5           <= x"06";
         cc.ccSf.k6           <= x"FE";
         cc.ccSf.k7           <= x"FE";
         cc.ccSf.k8           <= x"FF";
-        cc.ccSf.k9           <= x"0B";
+        cc.ccSf.k9           <= x"04";
     elsif rising_edge(clk) then 
     if(als.config /= 0) then
         cc.ccSf.k1           <= to_sfixed(als.k1(7 downto 0),cc.ccSf.k1);

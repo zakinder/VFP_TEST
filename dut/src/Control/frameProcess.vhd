@@ -52,6 +52,9 @@ architecture arch of frameProcess is
     signal rgbV1Correct       : channel;
     signal rgbV2Correct       : channel;
     signal rgbIn              : channel;
+    signal pRgbInverted       : channel;
+    signal pRgbFiltered       : channel;
+    signal pInRgb             : channel;
     signal rgbRemix           : channel;
     signal rgbPoi             : channel;
     signal rgbDetect          : channel;
@@ -76,6 +79,10 @@ architecture arch of frameProcess is
     signal rgbDetectLock      : std_logic;
     signal rgbPoiLock         : std_logic;
     signal sValid             : std_logic;
+    signal ycbcr              : channel;
+    signal ycbcrPer           : channel;
+    signal cgainIoOut         : channel;
+    
     constant MASK_TRUE        : boolean := true;
     constant MASK_FLSE        : boolean := false;
     constant M_SOB_LUM        : boolean := SelFrame(F_SOB,F_LUM,MASK_FLSE);
@@ -171,6 +178,47 @@ end process pipCoordP;
     iKcoeff.k9   <= iKls.k9(15 downto 0); 
     iKcoeff.kSet <= iKls.config;
     -------------------------------------------------
+colorCorrectionInst: colorCorrection
+generic map(
+    i_data_width        => i_data_width)
+port map(           
+    clk                 => clk,
+    rst_l               => rst_l,
+    iRgb                => rgbIn,
+    als                 => iAls,    
+    oRgb                => cgainIoOut);
+rgbInvertedInst: rgbInverted
+generic map(
+    i_data_width        => i_data_width)
+port map(
+    clk                 => clk,
+    reset               => rst_l,
+    iRgb                => rgbIn,
+    oRgb                => pInRgb,
+    oRgbInverted        => pRgbInverted,
+    oRgbFiltered        => pRgbFiltered);
+ycbcrInst: rgb_ycbcr
+generic map(
+    i_data_width         => i_data_width,
+    i_precision          => 12,
+    i_full_range         => TRUE)
+port map(
+    clk                  => clk,
+    rst_l                => rst_l,
+    iRgb                 => pRgbInverted,
+    y                    => ycbcr.red,
+    cb                   => ycbcr.green,
+    cr                   => ycbcr.blue,
+    oValid               => ycbcr.valid);
+    
+    
+ycbcrPer.red   <= ycbcr.red;
+ycbcrPer.green <= ycbcr.green;
+ycbcrPer.blue  <= ycbcr.blue;
+ycbcrPer.valid <= ycbcr.valid;
+
+
+    
 FiltersInst: Filters
 generic map(
     F_TES               =>  F_TES,
@@ -183,8 +231,8 @@ generic map(
     F_YCC               =>  F_YCC,
     F_SOB               =>  F_SOB,
     F_CGA               =>  F_CGA,
-    F_HSV               =>  F_HSV,
-    F_HSL               =>  F_HSL,
+    F_HSV               =>  true,
+    F_HSL               =>  true,
     M_SOB_LUM           =>  M_SOB_LUM,
     M_SOB_TRM           =>  M_SOB_TRM,
     M_SOB_RGB           =>  M_SOB_RGB,
@@ -206,11 +254,11 @@ port map(
     txCord              => cord,
     lumThreshold        => lumThreshold,
     iThreshold          => iThreshold,
-	iVideoChannel       => iVideoChannel,
-    iRgb                => rgbIn,
+    iVideoChannel       => iVideoChannel,
+    iRgb                => cgainIoOut,
     cHsv                => cHsv,
     cYcc                => cYcc,
-	iAls                => iAls,
+    iAls                => iAls,
     iKcoeff             => iKcoeff,
     edgeValid           => edgeValid,
     oRgb                => rgbImageFilters);
@@ -220,7 +268,7 @@ generic map(
 port map(
     clk                 => clk,
     rst_l               => rst_l,
-    iRgb                => rgbIn,
+    iRgb                => pInRgb,
     rgbCoord            => iRgbCoord,
     endOfFrame          => iRgbSet.pEof,
     iCord               => cord,
@@ -234,7 +282,7 @@ generic map(
 port map(
     clk                 => clk,
     rst_l               => rst_l,
-    iRgb                => rgbIn,
+    iRgb                => pInRgb,
     iCord               => cord,
     endOfFrame          => iRgbSet.pEof,
     gridLockDatao       => oGridLockData,

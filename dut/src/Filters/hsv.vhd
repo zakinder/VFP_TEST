@@ -44,21 +44,24 @@ architecture behavioral of hsv_c is
     signal lumValue1xD   : std_logic_vector(i_data_width-1 downto 0) :=(others => '0');
     signal lumValue2xD   : std_logic_vector(i_data_width-1 downto 0) :=(others => '0');
     --Saturate
-    signal satUfTop      : ufixed(17 downto 0)  :=(others => '0');
-    signal satUfTopV     : ufixed(17 downto 0)  :=(others => '0');
-    signal satUfBott     : ufixed(7 downto 0)   :=(others => '0');
+    signal satUfTop      : ufixed(17 downto 0) :=(others => '0');
+    signal satUfTopV     : ufixed(17 downto 0) :=(others => '0');
+    signal satUfBott     : ufixed(7 downto 0) :=(others => '0');
     signal satValueQuot  : ufixed(17 downto -8) :=(others => '0');
     signal satValueQuotV : ufixed(17 downto -8) :=(others => '0');
-    signal satValue      : ufixed(7 downto 0)   :=(others => '0');
+    signal satValue      : ufixed(7 downto 0) :=(others => '0');
     signal satValue1xD   : std_logic_vector(7 downto 0) :=(others => '0');
     --Hue Rsiz
-    signal hueTop        : ufixed(17 downto 0)  :=(others => '0');
-    signal hueBot        : ufixed(8 downto 0)   :=(others => '0');
+    signal hueTop        : ufixed(17 downto 0) :=(others => '0');
+    signal hueBot        : ufixed(8 downto 0) :=(others => '0');
     signal hueQuot       : ufixed(17 downto -9) :=(others => '0');
-    signal hueQuot1x     : ufixed(7 downto 0)   :=(others => '0');
-    signal hueDeg        : ufixed(26 downto 0)  :=(others => '0');
-    signal hueDeg1x      : ufixed(7 downto 0)   :=(others => '0');
-    signal hueValue      : unsigned(7 downto 0) := (others => '0');
+    signal hueQuot1x     : ufixed(7 downto 0) :=(others => '0');
+    signal hueDeg        : ufixed(26 downto 0) :=(others => '0');
+    signal hueDeg1x      : ufixed(7 downto 0) :=(others => '0');
+    signal hueDeg2x      : ufixed(7 downto 0) :=(others => '0');
+    signal hueValue      : unsigned(7 downto 0):= (others => '0');
+    signal hueValueMa    : unsigned(15 downto 0):= (others => '0');
+    
 begin
 rgbToUfP: process (clk,reset)begin
     if (reset = lo) then
@@ -130,7 +133,7 @@ lumP: process (clk) begin
 end process lumP;
 lumResizeP: process (clk) begin
     if rising_edge(clk) then 
-        lumValue    <= resize(lumValueQuot,lumValue);
+        lumValue <= resize(lumValueQuot,lumValue);
         lumValue1xD <= std_logic_vector(to_unsigned(lumValue,8));
         lumValue2xD <= lumValue1xD;
     end if;
@@ -149,14 +152,12 @@ end process hValueP;
 -------------------------------------------------
 -- SATURATE
 -------------------------------------------------
-satUfTopV      <= (256.0 * rgbDelta);
-
+satUfTopV      <= (255.0 * rgbDelta);
 satNumniatorUfP: process (clk) begin
     if rising_edge(clk) then 
         satUfTop      <= satUfTopV;
     end if;
 end process satNumniatorUfP;
-
 satDominaUfCalP: process (clk) begin
     if rising_edge(clk) then 
         if (maxValue > 0) then
@@ -164,15 +165,12 @@ satDominaUfCalP: process (clk) begin
         end if;
     end if;
 end process satDominaUfCalP;
-
 satValueQuotV <= (satUfTop / satUfBott);
-
 satDividerP: process (clk) begin
     if rising_edge(clk) then 
         satValueQuot <= satValueQuotV;
     end if;
 end process satDividerP;
-
 satDividerResizeP: process (clk) begin
     if rising_edge(clk) then 
         satValue    <= resize(satValueQuot,satValue);
@@ -196,23 +194,23 @@ hueP: process (clk) begin
     if (uFs3Rgb.red  = maxValue) then
             hueDeg <= to_ufixed (0.0,hueDeg);
         if (uFs3Rgb.green >= uFs3Rgb.blue) then
-            hueTop        <= (uFs3Rgb.green - uFs3Rgb.blue) * 43;
+            hueTop        <= (uFs3Rgb.green - uFs3Rgb.blue) * 255;
         else
-            hueTop        <= (uFs3Rgb.blue - uFs3Rgb.green) * 43;
+            hueTop        <= (uFs3Rgb.blue - uFs3Rgb.green) * 255;
         end if;
     elsif(uFs3Rgb.green = maxValue)  then
-            hueDeg <= to_ufixed (85.0,hueDeg);
+            hueDeg <= to_ufixed (2.0,hueDeg);
         if (uFs3Rgb.blue >= uFs3Rgb.red ) then
-            hueTop       <= (uFs3Rgb.blue - uFs3Rgb.red ) * 43;
+            hueTop       <= (uFs3Rgb.blue - uFs3Rgb.red ) * 255;
         else
-            hueTop       <= (uFs3Rgb.red  - uFs3Rgb.blue) * 43;
+            hueTop       <= (uFs3Rgb.red  - uFs3Rgb.blue) * 255;
         end if;
     elsif(uFs3Rgb.blue = maxValue)  then
-            hueDeg <= to_ufixed (171.0,hueDeg);
+            hueDeg <= to_ufixed (4.0,hueDeg);
         if (uFs3Rgb.red  >= uFs3Rgb.green) then
-            hueTop       <= (uFs3Rgb.red  - uFs3Rgb.green) * 43;
+            hueTop       <= (uFs3Rgb.red  - uFs3Rgb.green) * 255;
         else
-            hueTop       <= (uFs3Rgb.green - uFs3Rgb.red ) * 43;
+            hueTop       <= (uFs3Rgb.green - uFs3Rgb.red ) * 255;
         end if;
     end if;
   end if;
@@ -225,6 +223,7 @@ end process hueDividerP;
 hueDegreeP: process (clk) begin
     if rising_edge(clk) then 
         hueDeg1x       <= resize(hueDeg,hueDeg1x);
+        hueDeg2x       <= hueDeg1x;
     end if;
 end process hueDegreeP;
 hueDividerResizeP: process (clk) begin
@@ -234,7 +233,12 @@ hueDividerResizeP: process (clk) begin
 end process hueDividerResizeP;
 hueValueP: process (clk) begin
     if rising_edge(clk) then 
-        hueValue <= (to_unsigned(hueQuot1x,8) + to_unsigned(hueDeg1x,8));
+    hueValue <= (to_unsigned(hueQuot1x,8));
+        --hueValue <= (to_unsigned(hueQuot1x,8) + to_unsigned(hueDeg2x,8));
+        --hueValue   <= (to_unsigned(hueQuot1x,8) + to_unsigned(hueDeg1x,8));
+
+        --hueValue <= resize(hueValueMa,hueValue);
+        
     end if;
 end process hueValueP;
 -------------------------------------------------

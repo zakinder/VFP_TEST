@@ -49,7 +49,20 @@ port (
     iKcoeff                     : in kernelCoeff;
     edgeValid                   : out std_logic;
     oRgb                        : out frameColors);
-end component Filters; 
+end component Filters;
+
+component rgbInverted is
+generic (
+    i_data_width   : integer := 8);
+port (  
+    clk            : in  std_logic;
+    reset          : in  std_logic;
+    iRgb           : in  channel;
+    oRgb           : out channel;
+    oRgbInverted   : out channel;
+    oRgbFiltered   : out channel);
+end component rgbInverted;
+
 component ColorSpaceLimits is
 generic (
     i_data_width                : integer := 8);
@@ -896,14 +909,15 @@ generic (
     img_height_bmp              : integer := 300;
     input_file                  : string  := "input_image");
 port (                
-    clk                         : in  std_logic;
-    reset                       : in  std_logic;
-    readyToRead                 : in  std_logic;
-    lvalid                      : out std_logic;
-    fvalid                      : out std_logic;
-    oRgb                        : out channel;
-    oCord                       : out coord;
-    endOfFrame                  : out std_logic);
+    clk                : in  std_logic;
+    reset              : in  std_logic;
+    readyToRead        : in  std_logic;
+    fvalid             : out std_logic;
+    lvalid             : out std_logic;
+    oRgb               : out channel;
+    oFileCont          : out cord;
+    oCord              : out coord;
+    endOfFrame         : out std_logic);
 end component imageRead;
 component imageWrite is
 generic (
@@ -915,10 +929,13 @@ generic (
     input_file                  : string  := "input_image";
     output_file                 : string  := "output_image");
 port (                
-    pixclk                      : in   std_logic;
-    enableWrite                 : in   std_logic;
-    doneWrite                   : out  std_logic;
-    iRgb                        : in channel);
+    clk                         : in  std_logic;
+    iFile                       : in  channel;
+    iFileCont                   : in  cord;
+    pixclk                      : in  std_logic;
+    enableWrite                 : in  std_logic;
+    doneWrite                   : out std_logic;
+    iRgb                        : in  channel);
 end component imageWrite;
 component FontRom is
 port (  
