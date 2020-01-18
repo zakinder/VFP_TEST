@@ -942,6 +942,8 @@ package generic_pack;
     parameter config_data_threshold            = 80;
     parameter select_ycbcr                     = 0;
     parameter select_rgb_not_ycbcr             = 1;
+    parameter en_ycbcr                         = 0;
+    parameter en_rgb                           = 1;
     parameter select_cgain                     = 0;
     parameter select_sharp                     = 1;
     parameter select_blur                      = 2;
@@ -1050,4 +1052,28 @@ typedef struct packed {
     logic [11:0] x;
     logic [11:0] y;
 } pattern_channel;
+typedef struct packed {
+    int rgb_sharp;
+    int edge_type;
+    int config_threshold;
+    int video_channel;
+    int c_channel;
+    int en_ycbcr_or_rgb;
+    int point_interest;
+    int delta_config;
+    int cpu_ack_go_again;
+    int cpu_wgrid_lock;
+    int cpu_ack_off_frame;
+    int fifo_read_address;
+    int clear_fifo_data;
+    int rgb_cord_rl;
+    int rgb_cord_rh;
+    int rgb_cord_gl;
+    int rgb_cord_gh;
+    int rgb_cord_bl;
+    int rgb_cord_bh;
+    int lum_th;
+    int hsv_per_ch;
+    int ycc_per_ch;
+} vfp_config;
 endpackage                

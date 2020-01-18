@@ -219,7 +219,7 @@ cd ../workspace/run0
 @echo current type:  %replace_to%
 if "%standalone%" EQU "1" (
 @echo running standalone
-vsim -do d5m_camera_image_file_sharp_cgain_test.tcl
+vsim -c -do d5m_camera_image_file_sharp_cgain_test.tcl
 @GOTO pause_done
 ) else (
 vsim -c -do d5m_camera_image_file_sharp_cgain_test.tcl

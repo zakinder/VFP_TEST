@@ -1,7 +1,30 @@
 `define AX_TYPE_MASK 6'h38
 
 parameter DATA_BYTES = 16;
-
+typedef struct packed {
+    int rgb_sharp;
+    int edge_type;
+    int config_threshold;
+    int video_channel;
+    int c_channel;
+    int en_ycbcr_or_rgb;
+    int point_interest;
+    int delta_config;
+    int cpu_ack_go_again;
+    int cpu_wgrid_lock;
+    int cpu_ack_off_frame;
+    int fifo_read_address;
+    int clear_fifo_data;
+    int rgb_cord_rl;
+    int rgb_cord_rh;
+    int rgb_cord_gl;
+    int rgb_cord_gh;
+    int rgb_cord_bl;
+    int rgb_cord_bh;
+    int lum_th;
+    int hsv_per_ch;
+    int ycc_per_ch;
+} vfp_config;
 typedef struct packed {
 logic valid;
 logic [7:0] red;
