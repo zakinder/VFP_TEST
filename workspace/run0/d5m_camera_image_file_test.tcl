@@ -1,6 +1,6 @@
 vlib work
-
 vlib msim
+
 vlib msim/xbip_utils_v3_0_7
 vlib msim/axi_utils_v2_0_3
 vlib msim/xbip_pipe_v3_0_3
@@ -39,9 +39,12 @@ vcom  -64 -93 -work floating_point_v7_1_4       -f C:/Images/REPOS/GitHub/compil
 
 
 
-vcom -f dut_vhd.f
-vlog -f dut_vlg.f
-vlog -f tb_d5m_camera_test.f
+set INCLUDE_FILES_SRC_DIR "../../includes"
+vcom -f ${INCLUDE_FILES_SRC_DIR}/dut_vhd.f
+vlog -f ${INCLUDE_FILES_SRC_DIR}/dut_vlg.f
+vlog -f ${INCLUDE_FILES_SRC_DIR}/tb_d5m_camera_test.f
+
+
 vopt top -o top_optimized  +acc +cover=sbfec+top(rtl).
 vsim top_optimized -coverage +UVM_TESTNAME=d5m_camera_image_file_test
 set NoQuitOnFinish 1

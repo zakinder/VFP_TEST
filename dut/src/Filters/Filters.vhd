@@ -74,15 +74,11 @@ architecture Behavioral of Filters is
     signal blur2vx             : channel;
     signal blur3vx             : channel;
     signal rgbSel              : channel;
-    
 begin
-
     edgeValid               <= sEdgeValid;
     oRgb                    <= fRgb;
     vChannelSelect          <= to_integer(unsigned(iVideoChannel));
     lThSelect               <= to_integer(unsigned(lumThreshold));
-
-
 ditherFilterInst: ditherFilter
 generic map (
     img_width         => img_width,  
@@ -94,7 +90,6 @@ port map (
     iCord_x           => txCord.x,
     iRgb              => iRgb,
     oRgb              => ditRgb);
-    
 blurFilter1xInst: blurFilter
 generic map(
     iMSB                => blurMsb,
@@ -108,7 +103,6 @@ port map(
     rst_l               => rst_l,
     iRgb                => ditRgb,
     oRgb                => blur1vx);
-
 blurFilter2xInst: blurFilter
 generic map(
     iMSB                => blurMsb - 1,
@@ -122,7 +116,6 @@ port map(
     rst_l               => rst_l,
     iRgb                => blur1vx,
     oRgb                => blur2vx);
-    
 blurFilter3xInst: blurFilter
 generic map(
     iMSB                => blurMsb - 1,
@@ -136,7 +129,6 @@ port map(
     rst_l               => rst_l,
     iRgb                => blur2vx,
     oRgb                => blur3vx);
-    
 lThSelectP: process (clk) begin
     if rising_edge(clk) then
         if (lThSelect = 0)  then
@@ -146,7 +138,6 @@ lThSelectP: process (clk) begin
         end if;
     end if;
 end process lThSelectP;
-
 ImageKernelInst: Kernel
 generic map(
     INRGB_FRAME         => F_RGB,
@@ -175,7 +166,6 @@ port map(
     iKcoeff             => iKcoeff,
     oEdgeValid          => sEdgeValid,
     oRgb                => rgbImageKernel);
-    
 blurFilter0xInst: blurFilter
 generic map(
     iMSB                => blurMsb,
@@ -189,8 +179,6 @@ port map(
     rst_l               => rst_l,
     iRgb                => iRgb,
     oRgb                => rgbImageKernel_blur);
-	
-
 CgainIoP: process (clk) begin
     if rising_edge(clk) then
         if (vChannelSelect = 27) then
@@ -211,8 +199,6 @@ CgainIoP: process (clk) begin
         end if;
     end if;
 end process CgainIoP;
-
-
 SharpIoP: process (clk) begin
     if rising_edge(clk) then
         if (vChannelSelect = 25) then
@@ -233,8 +219,6 @@ SharpIoP: process (clk) begin
         end if;
     end if;
 end process SharpIoP;
-
-
 BlurIoP: process (clk) begin
     if rising_edge(clk) then
         if (vChannelSelect = 26) then
@@ -258,8 +242,6 @@ BlurIoP: process (clk) begin
         end if;
     end if;
 end process BlurIoP;
-
-
 YcbcrIoP: process (clk) begin
     if rising_edge(clk) then
         if (vChannelSelect = 24) then
@@ -274,8 +256,6 @@ YcbcrIoP: process (clk) begin
         end if;
     end if;
 end process YcbcrIoP;
-
-
     fRgb.cgainToYcbcr   <= fRgb1.ycbcr;--CgainToYcbcr
     fRgb.cgainToShp     <= fRgb1.sharp;--CgainToSharp
     fRgb.cgainToBlu     <= fRgb1.blur; --CgainToBlur
@@ -294,8 +274,6 @@ end process YcbcrIoP;
     fRgb.shpToHsv       <= fRgb2.hsv;  --SharpToHsv  ,HsvToSharp
     fRgb.bluToHsl       <= fRgb3.hsl;  --BlurToHsl   ,HslToBlur
     fRgb.bluToHsv       <= fRgb3.hsv;  --BlurToHsv   ,HsvToBlur
-    
-    
 colorCorrectionInst: colorCorrection
 generic map(
     i_data_width        => i_data_width)
@@ -305,7 +283,6 @@ port map(
     iRgb                => cgainIoIn,
     als                 => iAls,    
     oRgb                => cgainIoOut);
-    
 sharpFilterInst: sharpFilter
 generic map(
     i_data_width        => i_data_width,
@@ -344,23 +321,8 @@ port map(
     cb                   => YcbcrIoOut.green,
     cr                   => YcbcrIoOut.blue,
     oValid               => YcbcrIoOut.valid);
-
-
-
-
-
-
-
-
-
-
-
-
-
 TEST_FRAME_ENABLE: if (F_TES = true) generate
-    
 begin
-
 TestPatternInst: TestPattern
 port map(
     clk           => clk,
@@ -369,7 +331,6 @@ port map(
     tpSelect      => lThSelect,
     oRgb          => fRgb.tPattern);
 end generate TEST_FRAME_ENABLE;
-
 MASK_SOB_CGA_FRAME_ENABLE: if (M_SOB_CGA = true) generate
     signal tp2cgain   : channel;
     signal tp2        : std_logic_vector(23 downto 0) := (others => '0');

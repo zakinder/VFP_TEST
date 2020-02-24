@@ -22,6 +22,8 @@ port (
     pixclk         : in  std_logic;
     enableWrite    : in  std_logic;
     doneWrite      : out std_logic;
+    oCord          : out coord;
+    oFrameEnable   : out std_logic;
     iRgb           : in  channel);
 end imageWrite;
 architecture Behavioral of imageWrite is 
@@ -66,7 +68,9 @@ architecture Behavioral of imageWrite is
     signal pFileCont       : cord      := (x => 0, y => 0);
     -------------------------------------------------------------------------
 begin
-doneWrite <= imageCompleted;
+    oCord.x     <= std_logic_vector(to_unsigned(Xcont, 16));
+    oCord.y     <= std_logic_vector(to_unsigned(Ycont, 16));
+    doneWrite <= imageCompleted;
 process (pixclk) begin
     if rising_edge(pixclk) then
         rgb   <= iRgb;
@@ -85,6 +89,7 @@ process (clk) begin
     end if;
 end process;
 frameEnable <= hi when (enableWrite = hi and imageCompleted = lo);
+oFrameEnable <= hi when (enableWrite = hi and wrImageFile = lo) else lo;
 process(pixclk)begin
     if rising_edge(pixclk) then
         if(frameEnable = hi) then

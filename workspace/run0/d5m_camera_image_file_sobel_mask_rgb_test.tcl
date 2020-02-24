@@ -34,9 +34,12 @@ vcom  -64 -93 -work xbip_bram18k_v3_0_3         -f C:/Images/REPOS/GitHub/compil
 vcom  -64 -93 -work mult_gen_v12_0_12           -f C:/Images/REPOS/GitHub/compile_simlib/mult_gen_v12_0_12/.cxl.vhdl.mult_gen_v12_0_12.mult_gen_v12_0_12.nt64.cmf
 vcom  -64 -93 -work floating_point_v7_1_4       -f C:/Images/REPOS/GitHub/compile_simlib/floating_point_v7_1_4/.cxl.vhdl.floating_point_v7_1_4.floating_point_v7_1_4.nt64.cmf
 
-vcom -f dut_vhd.f
-vlog -f dut_vlg.f
-vlog -f tb_d5m_camera_test.f
+set INCLUDE_FILES_SRC_DIR "../../includes"
+vcom -f ${INCLUDE_FILES_SRC_DIR}/dut_vhd.f
+vlog -f ${INCLUDE_FILES_SRC_DIR}/dut_vlg.f
+vlog -f ${INCLUDE_FILES_SRC_DIR}/tb_d5m_camera_test.f
+
+
 vopt top -o top_optimized  +acc +cover=sbfec+top(rtl).
 vsim top_optimized -coverage +UVM_TESTNAME=d5m_camera_image_file_sobel_mask_rgb_test
 set NoQuitOnFinish 1

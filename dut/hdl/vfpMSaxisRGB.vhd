@@ -53,7 +53,17 @@ architecture arch_imp of videoProcess_v1_0_rgb_m_axis is
     signal tx_axis_tdata     : std_logic_vector(s_data_width-1 downto 0);
     type video_io_state is (VIDEO_SET_RESET,VIDEO_SOF_OFF,VIDEO_SOF_ON,VIDEO_END_OF_LINE);
     signal VIDEO_STATES      : video_io_state; 
+    signal pFileRgb          : channel;
 begin
+process (m_axis_mm2s_aclk) begin
+    if rising_edge(m_axis_mm2s_aclk) then
+            pFileRgb.valid <= iStreamData.ycbcr.valid;
+            pFileRgb.red   <= iStreamData.ycbcr.red;
+            pFileRgb.green <= iStreamData.ycbcr.green;
+            pFileRgb.blue  <= iStreamData.ycbcr.blue;
+    end if;
+end process;
+
 process (m_axis_mm2s_aclk) begin
     if rising_edge(m_axis_mm2s_aclk) then
             mpeg42XBR  <= not(mpeg42XBR) and iStreamData.ycbcr.valid;
@@ -115,7 +125,7 @@ process (m_axis_mm2s_aclk) begin
                     end if;
                 end if;
             else
-                    tx_axis_tdata  <= (iStreamData.ycbcr.red & iStreamData.ycbcr.green & iStreamData.ycbcr.blue);
+                    tx_axis_tdata  <= (pFileRgb.red & pFileRgb.green & pFileRgb.blue);
             end if; 
             if (iStreamData.ycbcr.valid = hi) then
                 tx_axis_tlast  <= lo;

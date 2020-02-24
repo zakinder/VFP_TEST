@@ -38,12 +38,15 @@ architecture arch_imp of videoProcess_v1_0_m_axis_mm2s is
     signal maxis_mm2s_tvalid        : std_logic:= lo;
     signal maxis_mmss_tvalid        : std_logic:= lo;
     signal mm2s_tready              : std_logic:= lo;
+    signal sync_tlast               : std_logic:= lo;
+    
 begin
 process(aclk) begin
     if rising_edge(aclk) then
         axis_tvalid <= rgb_s_axis_tvalid;
         mm2s_tready <= m_axis_mm2s_tready;
         axis_tuser  <= rgb_s_axis_tuser;
+        sync_tlast  <= rgb_s_axis_tlast;
         if (s_data_width  = 16)then-- initiate response
             axis_tdata  <= std_logic_vector(resize(unsigned(rgb_s_axis_tdata(15 downto 8) & rgb_s_axis_tdata(7 downto 0)), axis_tdata'length));
         else
@@ -71,7 +74,7 @@ process (aclk) begin
         when video_trans_in_progress =>
             maxis_mm2s_tuser   <= axis_tuser;
             maxis_mm2s_tdata   <= axis_tdata;
-            if (rgb_s_axis_tlast = hi)then
+            if (sync_tlast = hi)then
                 axis_tlast <=hi;
                 maxis_mm2s_tvalid  <=lo;
                 pixel_locations_address <= wait_to_go;

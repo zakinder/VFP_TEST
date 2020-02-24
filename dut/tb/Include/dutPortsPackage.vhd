@@ -139,19 +139,19 @@ port (
     olm           : out rgbConstraint;
     endOfFrame    : out std_logic);
 end component imageRead;
-component imageWrite is
-generic (
-    enImageText                 : boolean := false;
-    enImageIndex                : boolean := false;
-    i_data_width                : integer := 8;
-    test                        : string  := "folder";
-    input_file                  : string  := "input_image";
-    output_file                 : string  := "output_image");
-port (                
-    pixclk                      : in  std_logic;
-    enableWrite                 : in  std_logic;
-    iRgb                        : in channel);
-end component imageWrite;
+--component imageWrite is
+--generic (
+--    enImageText                 : boolean := false;
+--    enImageIndex                : boolean := false;
+--    i_data_width                : integer := 8;
+--    test                        : string  := "folder";
+--    input_file                  : string  := "input_image";
+--    output_file                 : string  := "output_image");
+--port (                
+--    pixclk                      : in  std_logic;
+--    enableWrite                 : in  std_logic;
+--    iRgb                        : in channel);
+--end component imageWrite;
 component kernel1Read is
 generic (
     s_data_width    : integer := 16;

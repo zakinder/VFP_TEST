@@ -1,6 +1,3 @@
-
-
-
 // +--------------------+     +--------------------+     +-----+     +------+
 // |run_test()          |     |uvm_test_top        |     | env |     | comp |
 // |--------------------|     |--------------------|     |-----|     |------|
@@ -14,16 +11,10 @@
 // |report              |<----|report              |<----| rpt |<----| rpt  |
 // |final               |<----|final               |<----| fnl |<----| fnl  |
 // +--------------------+     +--------------------+     +-----+     +------+
-
-
 `include "../../defin_lib.svh"
-
-
 `include "../../interfaces/d5m_camera_if.sv"
 `include "../../interfaces/vfp_config_d5m_camera_dut.sv"
 `include "../../interfaces/rgbAssertion_dut.sv"
-//`timescale 1ns/1ps
-//`timescale 1ns/100ps 
 module top;
     import uvm_pkg::*;
     import d5m_camera_pkg::*;
@@ -31,30 +22,20 @@ module top;
     bit ACLK;
     bit reset;
     bit ARESETN;
-    //INTERFACE
+    //Interface
     d5m_camera_if                d5m_camera_vif(ACLK,pixclk,reset,ARESETN);
-    //MODULE
+    //Module
     vfpConfigd5mCameraDut        vfp_dut(d5m_camera_vif);
     imageReadInterfaceDut        imageRead_dut(d5m_camera_vif);
     rgbAssertionDut              rgbAssertion_dut(d5m_camera_vif);
-  initial begin
+    initial begin
     reset = 0;
     #100ns reset = 1;
-  end
-  initial begin
+    end
+    initial begin
     ARESETN = 0;
     #100ns ARESETN = 1;
-  end
-   // initial begin
-   // pixclk = 0;
-   // #5ns;
-   // forever #5ns pixclk = ! pixclk;
-   // end
-   // initial begin
-   // ACLK = 0;
-   // #5ns;
-   // forever #5ns ACLK = ! ACLK;
-   // end
+    end
     initial begin
         uvm_config_db   #(virtual d5m_camera_if) ::set(null, "*", "d5m_camera_vif", d5m_camera_vif);
         run_test();

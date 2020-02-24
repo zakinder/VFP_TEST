@@ -935,6 +935,8 @@ port (
     pixclk                      : in  std_logic;
     enableWrite                 : in  std_logic;
     doneWrite                   : out std_logic;
+    oFrameEnable                : out std_logic;
+    oCord                       : out coord;
     iRgb                        : in  channel);
 end component imageWrite;
 component FontRom is

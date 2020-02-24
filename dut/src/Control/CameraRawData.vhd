@@ -44,6 +44,7 @@ architecture arch_imp of CameraRawData is
     signal ilvalSync4     : std_logic :=lo;
     signal ifvalSync1     : std_logic :=lo;
     signal ifvalSync2     : std_logic :=lo;
+    signal ifvalSync3     : std_logic :=lo;
     signal endOfLine      : std_logic :=lo;
     ----
     signal rVdata         : std_logic_vector(dataWidth-1 downto 0):= (others => lo);
@@ -89,6 +90,7 @@ cdcSignals: process (m_axis_aclk) begin
         ilvalSync2  <= ilvalSync1;
 		ifvalSync1  <= ifval;
         ifvalSync2  <= ifvalSync1;
+        ifvalSync3  <= ifvalSync2;
     end if;
 end process cdcSignals;
 edgeDetect: process (m_axis_aclk) begin
@@ -128,7 +130,7 @@ readLineP: process (m_axis_aclk) begin
 				d5mStates     <= readLineState;
             end if;
         when eolState =>
-            if (ifvalSync2 = lo)  then --endOfLine and Sof
+            if (ifvalSync3 = lo)  then --endOfLine and Sof
                 cordy     <= zero;
                 d5mStates <= eofState;
 		    elsif(pEol = hi) then
@@ -163,7 +165,7 @@ d5mP: process (m_axis_aclk) begin
             oRawData.dita <= std_logic_vector(resize(unsigned(rVdata), oRawData.dita'length));
         else
             oRawData.data <= (others =>lo);
-            oRawData.dita <= (others =>lo);
+           -- oRawData.dita <= (others =>lo);
         end if;
     end if;
 end process d5mP;

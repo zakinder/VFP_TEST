@@ -7,6 +7,8 @@ interface d5m_camera_if(input bit ACLK,pixclk,reset,ARESETN);
     axi4_lite_channel   axi4_lite;
     d5m_interconnect    d5m_inf;
     pattern_channel     d5p;
+    vfp_axi4            axi4;
+    
     logic               ifval;
     bit                 clkmm;
     logic [7:0]         AWADDR;
@@ -50,5 +52,5 @@ interface d5m_camera_if(input bit ACLK,pixclk,reset,ARESETN);
     logic [0:0]         m_axis_mm2s_tid;   //output
     logic [0:0]         m_axis_mm2s_tdest; //output
     modport ConfigMaster(input pixclk,clkmm,reset,d5p,ACLK,ARESETN,AWADDR,AWPROT,AWVALID,WDATA,WSTRB,WVALID,BREADY,ARADDR,ARPROT,ARVALID,RREADY,rgb_m_axis_tready,rgb_s_axis_tvalid,rgb_s_axis_tlast,rgb_s_axis_tuser,rgb_s_axis_tdata,m_axis_mm2s_tready,
-    output  d5m,AWREADY,ARREADY,RDATA,RRESP,RVALID,WREADY,BRESP,BVALID,rgb_m_axis_tvalid,rgb_m_axis_tlast,rgb_m_axis_tuser,rgb_m_axis_tdata,rgb_s_axis_tready,m_axis_mm2s_tvalid,m_axis_mm2s_tuser,m_axis_mm2s_tlast,m_axis_mm2s_tdata,m_axis_mm2s_tkeep,m_axis_mm2s_tstrb,m_axis_mm2s_tid,m_axis_mm2s_tdest);
+    output  d5m,axi4,AWREADY,ARREADY,RDATA,RRESP,RVALID,WREADY,BRESP,BVALID,rgb_m_axis_tvalid,rgb_m_axis_tlast,rgb_m_axis_tuser,rgb_m_axis_tdata,rgb_s_axis_tready,m_axis_mm2s_tvalid,m_axis_mm2s_tuser,m_axis_mm2s_tlast,m_axis_mm2s_tdata,m_axis_mm2s_tkeep,m_axis_mm2s_tstrb,m_axis_mm2s_tid,m_axis_mm2s_tdest);
 endinterface: d5m_camera_if

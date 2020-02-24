@@ -15,4 +15,4 @@ for %%f in (%delete_files_without_extension%) do (
 
 rd work /s /q
 rd msim /s /q
-
+rd ..\coverage_reports\questa_html_coverage_reports\ /s /q

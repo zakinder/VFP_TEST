@@ -19,7 +19,7 @@ port (
 end PixelOnDisplay;
 
 architecture Behavioral of PixelOnDisplay is
-    constant NU_MRGB_TYPES       : natural := 40;
+    constant NU_MRGB_TYPES       : natural := 50;
     signal displayText           : string(1 to 5):= "INRGB";
     signal vChannelSelect        : natural range 0 to NU_MRGB_TYPES := 0;
     signal fontAddress           : integer := 0;

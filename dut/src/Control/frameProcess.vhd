@@ -255,7 +255,7 @@ port map(
     lumThreshold        => lumThreshold,
     iThreshold          => iThreshold,
     iVideoChannel       => iVideoChannel,
-    iRgb                => cgainIoOut,
+    iRgb                => rgbIn,--cgainIoOut,
     cHsv                => cHsv,
     cYcc                => cYcc,
     iAls                => iAls,

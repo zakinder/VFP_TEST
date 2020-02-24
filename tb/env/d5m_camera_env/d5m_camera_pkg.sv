@@ -1,4 +1,4 @@
-  `include "../../agent/d5m_camera_agent_pkg.sv"
+  `include "../../agents/d5m_agent/d5m_camera_agent_pkg.sv"
 package d5m_camera_pkg;
   import d5m_camera_agent_pkg::*;
   import uvm_pkg::*;
@@ -8,4 +8,5 @@ package d5m_camera_pkg;
   `include "../../test/d5m_camera/d5m_camera_test.sv"
   `include "../../test/d5m_camera/d5m_camera_image_pattern_test.sv"
   `include "../../test/d5m_camera/d5m_camera_image_file_test.sv"
+  `include "../../test/d5m_camera/d5m_rgb_patten_test.sv"
 endpackage:d5m_camera_pkg
