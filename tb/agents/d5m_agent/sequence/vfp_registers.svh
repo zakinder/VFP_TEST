@@ -1,3 +1,4 @@
+// Class: vfp_registers
 class vfp_registers extends uvm_object;
   `uvm_object_utils(vfp_registers)
   rand vfp_regs reg_field;
@@ -110,9 +111,11 @@ class vfp_registers extends uvm_object;
   constraint c_fixed_REG_61 { reg_field.REG_61 == write_unused; }
   constraint c_fixed_REG_62 { reg_field.REG_62 == write_unused; }
   constraint c_fixed_REG_63 { reg_field.REG_63 == write_unused; }
+  // Function: new
   function new(string name = "vfp_registers");
     super.new(name);
-  endfunction
+  endfunction: new
+  // Function: post_randomize
   function void post_randomize();
   { <<  {regs_packet}} = reg_field;
   endfunction : post_randomize

@@ -1,15 +1,16 @@
+// Class: d5m_rgb_sequence
 class d5m_rgb_sequence extends uvm_sequence #(d5m_camera_transaction);
     `uvm_object_utils(d5m_rgb_sequence)
     
     cell_box                cell_box_pkts;
     vfp_configuration       vfp_pkts;
-    
+    // Function: new
     function new(string name="d5m_rgb_sequence");
         super.new(name);
         cell_box_pkts = cell_box::type_id::create("cell_box_pkts");
         vfp_pkts = vfp_configuration::type_id::create("vfp_pkts");
     endfunction
-    
+    // Method: body 
     virtual task body();
         //----------------------------------------------------
         d5m_camera_transaction item;
@@ -33,15 +34,12 @@ class d5m_rgb_sequence extends uvm_sequence #(d5m_camera_transaction);
         cell_set choices;
 
 
-        //choices       = thu;
-        //----------------------------------------------------
-        //cell_box_pkts.re_gen_cell_box(7,7,1,10,choices);
-        //----------------------------------------------------
+
         vfp_pkts.randomize();
         vfp_pkts.unpack_packets();
         vfp_pkts.check_packets();
         vfp_pkts.pack_packets();
-        //----------------------------------------------------
+
         vpkts = {<<{vfp_pkts.reg_vpkts}};
         `uvm_info("SEQ", $sformatf("vfp_modev vpkts REG_00=%0d", vpkts.REG_00), UVM_LOW)
         `uvm_info("SEQ", $sformatf("vfp_modev vpkts REG_01=%0d", vpkts.REG_01), UVM_LOW)
@@ -68,8 +66,7 @@ class d5m_rgb_sequence extends uvm_sequence #(d5m_camera_transaction);
         //axi_write_channel(oLumTh,vpkts.REG_56);
         //axi_write_channel(oHsvPerCh,vpkts.REG_57);
         //axi_write_channel(oYccPerCh,vpkts.REG_58);
-        //----------------------------------------------------
-        //item.randomize();
+
         `uvm_create(item)
         item.d5p.rgb           = 0;
         item.d5p.lvalid        = 1'b0;
@@ -91,7 +88,7 @@ class d5m_rgb_sequence extends uvm_sequence #(d5m_camera_transaction);
         create_rgb_frames(number_frames,lval_lines,lval_offset,image_width);
         //----------------------------------------------------
     endtask: body
-    
+    // Method: axi_write_channel_test 
     virtual protected task axi_write_channel_test();
         d5m_camera_transaction item;
         bit[7:0] addr;
@@ -105,7 +102,7 @@ class d5m_rgb_sequence extends uvm_sequence #(d5m_camera_transaction);
             `uvm_send(item);
         end
     endtask: axi_write_channel_test
-    
+    // Method: axi_read_channel_test 
     virtual protected task axi_read_channel_test();
         d5m_camera_transaction item;
         bit[7:0] addr;
@@ -119,14 +116,14 @@ class d5m_rgb_sequence extends uvm_sequence #(d5m_camera_transaction);
             `uvm_send(item);
         end
     endtask: axi_read_channel_test
-    
+    // Method: axi_multi_writes_to_address 
     virtual protected task axi_multi_writes_to_address (bit[7:0] waddr,bit[31:0] max_value);
         bit[31:0] data;
         for(data = 0; data  <= max_value; data++) begin
            axi_write_channel(waddr,data);
         end
     endtask: axi_multi_writes_to_address
-    
+    // Method: axi_write_channel 
     virtual protected task axi_write_channel (bit[7:0] addr,bit[31:0] data);
         d5m_camera_transaction item;
         `uvm_create(item)
@@ -135,7 +132,7 @@ class d5m_rgb_sequence extends uvm_sequence #(d5m_camera_transaction);
         item.d5m_txn                  = AXI4_WRITE;
         `uvm_send(item);
     endtask: axi_write_channel
-    
+    // Method: axi_read_channel 
     virtual protected task axi_read_channel();
         d5m_camera_transaction item;
         bit[7:0] addr;
@@ -146,7 +143,7 @@ class d5m_rgb_sequence extends uvm_sequence #(d5m_camera_transaction);
             `uvm_send(item);
         end
     endtask: axi_read_channel
-    
+    // Method: d5m_write_pre_set_ifval 
     virtual protected task d5m_write_pre_set_ifval();
         d5m_camera_transaction item;
         int preset_cycles;
@@ -166,7 +163,7 @@ class d5m_rgb_sequence extends uvm_sequence #(d5m_camera_transaction);
     endtask: d5m_write_pre_set_ifval
 
     
-
+    // Method: create_rgb_frames 
     virtual protected task create_rgb_frames(int nframes,int l_lines,int l_offset,int image_width);
         d5m_camera_transaction item;
 
@@ -233,7 +230,7 @@ class d5m_rgb_sequence extends uvm_sequence #(d5m_camera_transaction);
         end
     endtask: create_rgb_frames
 
-
+    // Method: write_per_pixel 
     virtual protected task write_per_pixel(bit ImTyTest,bit rImage,bit fval,bit lval, bit[23:0] rgb);
         d5m_camera_transaction item;
         `uvm_create(item)
@@ -245,7 +242,7 @@ class d5m_rgb_sequence extends uvm_sequence #(d5m_camera_transaction);
             item.d5m_txn            = D5M_WRITE;
         `uvm_send(item);
     endtask: write_per_pixel
-
+    // Method: axi_write_aBusSelect_channel 
     virtual protected task axi_write_aBusSelect_channel (bit[7:0] addr,bit[31:0] data);
         d5m_camera_transaction item;
         `uvm_create(item)

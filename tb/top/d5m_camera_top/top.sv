@@ -15,6 +15,7 @@
 `include "../../interfaces/d5m_camera_if.sv"
 `include "../../interfaces/vfp_config_d5m_camera_dut.sv"
 `include "../../interfaces/rgbAssertion_dut.sv"
+// module: top
 module top;
     import uvm_pkg::*;
     import d5m_camera_pkg::*;
@@ -22,11 +23,13 @@ module top;
     bit ACLK;
     bit reset;
     bit ARESETN;
-    //Interface
+    // module: d5m_camera_vif
     d5m_camera_if                d5m_camera_vif(ACLK,pixclk,reset,ARESETN);
-    //Module
+    // module: vfp_dut
     vfpConfigd5mCameraDut        vfp_dut(d5m_camera_vif);
+    // module: imageRead_dut
     imageReadInterfaceDut        imageRead_dut(d5m_camera_vif);
+    // module: rgbAssertion_dut
     rgbAssertionDut              rgbAssertion_dut(d5m_camera_vif);
     initial begin
     reset = 0;

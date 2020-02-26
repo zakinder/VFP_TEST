@@ -1,17 +1,30 @@
-// UVM_ENV : d5m_camera_ENV
+// Class: d5m_camera_env
+// This Class, 
+
 class d5m_camera_env extends uvm_env;
     `uvm_component_utils(d5m_camera_env)
-    
+
+
     protected virtual interface d5m_camera_if d5m_camera_vif;
-    
+    // handle: aL_agt
+    // this method reset the signals to dut
     d5m_camera_agent               aL_agt;
+    // handle: aL_fc_sub
+    // this method reset the signals to dut
     d5m_camera_fc_subscriber       aL_fc_sub;
+    // handle: aL_sb
+    // this method reset the signals to dut
     d5m_scoreboard                 aL_sb;
     
+
+    
+    // Function: new
     function new(string name, uvm_component parent);
         super.new(name, parent);
     endfunction: new
     
+    // Function: build_phase
+
     function void build_phase(uvm_phase phase);
         super.build_phase(phase);
         
@@ -24,6 +37,7 @@ class d5m_camera_env extends uvm_env;
         
     endfunction: build_phase
     
+    // Function: connect_phase
     function void connect_phase(uvm_phase phase);
         super.connect_phase(phase);
         

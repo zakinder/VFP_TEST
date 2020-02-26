@@ -1,3 +1,4 @@
+// Class: d5m_monitor_predict
 class d5m_monitor_predict extends uvm_monitor;
 
     cell_box                d5m_cell_box_predict_pkts;
@@ -9,6 +10,7 @@ class d5m_monitor_predict extends uvm_monitor;
     protected int       id;
     
     cell_set choices;
+    
     bit[23:0] rgb;
     bit[7:0] rgb_red_data;
     bit[7:0] rgb_gre_data;
@@ -24,7 +26,7 @@ class d5m_monitor_predict extends uvm_monitor;
 
     //Declare analysis port
     uvm_analysis_port #(d5m_camera_transaction) d5m_mon_prd;
-    
+
     protected d5m_camera_transaction predict_d5m_txn,predict_d5m;
     
     `uvm_component_utils_begin(d5m_monitor_predict)
@@ -97,7 +99,7 @@ class d5m_monitor_predict extends uvm_monitor;
     cross_iff_rgb  : cross      red_predict_cp,     green_predict_cp,     blue_predict_cp,     xCord_iff_cp, yCord_iff_cp;
     endgroup: d5m_predict_cg
 
-    // New - constructor
+    // Function: new
     function new (string name, uvm_component parent);
         super.new(name, parent);
         choices            = rgb_incrementer; //rgb_051_100_med_dark
@@ -107,19 +109,20 @@ class d5m_monitor_predict extends uvm_monitor;
         d5m_mon_prd = new("d5m_mon_prd", this);
         d5m_predict_cg = new;
     endfunction: new
-    
+    // Function: build_phase
     function void build_phase (uvm_phase phase);
         super.build_phase(phase);
         // Get virtual interface handle from the configuration DB
         if(!uvm_config_db#(virtual d5m_camera_if)::get(this, "", "d5m_camera_vif", d5m_camera_vif))
         `uvm_fatal("NOVIF",{"virtual interface must be set for: ",get_full_name(), ".d5m_camera_vif"});
     endfunction: build_phase
-    
+    // Method:  run_phase
     virtual task run_phase (uvm_phase phase);
         fork
             collect_transactions();
         join
     endtask: run_phase
+    // Method:  collect_transactions
     virtual protected task collect_transactions();
         // Placeholder to capture transaction information.
         d5m_camera_transaction predict_d5m;

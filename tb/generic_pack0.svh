@@ -1,5 +1,6 @@
 `include "frame_en_lib0.svh"
 package generic_pack;
+
   `define true                               1
   `define false                              0
   `define d5m_data1x_witdh                   12
@@ -989,6 +990,8 @@ package generic_pack;
     parameter img_height_bmp                   = 64;
     parameter selected_video_channel           = select_cgain;
   `endif
+  
+  
     parameter revision_number                  = 32'h09072019;
     parameter C_rgb_m_axis_TDATA_WIDTH         = 24;//16;
     parameter C_rgb_m_axis_START_COUNT         = 32;
@@ -1098,7 +1101,7 @@ package generic_pack;
     parameter fval_l                           = 1'b0;
     parameter lval_h                           = 1'b1;
     parameter lval_l                           = 1'b0;
-    parameter ImTyTest_en_patten               = 1'b1; //1 internal pattern , 0 from image file
+    parameter ImTyTest_en_patten               = 1'b1;//1 internal pattern , 0 from image file
     parameter rImage_disable                   = 1'b0;// if ImTyTest set 1 then set this variable 0 otherwise used for when to read image file when write image module is ready upon clear.
     
 typedef struct packed {
@@ -1123,6 +1126,7 @@ typedef struct packed {
     reg [15:0]  detect;
     reg         increment_row;
 } vfp_channels;
+
 typedef struct packed {
     bit          clkmm;
     logic        valid;
@@ -1137,6 +1141,7 @@ typedef struct packed {
     logic [11:0] x;
     logic [11:0] y;
 } rgb_channel;
+
 typedef struct packed {
     int          image_width;
     int          lval_offset;
@@ -1148,14 +1153,17 @@ typedef struct packed {
     logic [11:0] x;
     logic [11:0] y;
 } cof_channel;
+
 typedef struct packed {
     bit [15:0]   addr;
     bit [31:0]   data;
 } axi4_lite_channel;
+
 typedef struct packed {
     bit [15:0]   addr;
     bit [31:0]   data;
 } d5m_interconnect;
+
 typedef struct packed {
     bit          clkmm;
     logic        iReadyToRead;
@@ -1169,6 +1177,7 @@ typedef struct packed {
     logic [11:0] x;
     logic [11:0] y;
 } pattern_channel;
+
 typedef struct packed {
     int rgb_sharp;
     int edge_type;
@@ -1215,6 +1224,7 @@ typedef struct packed {
     logic               RVALID;
     logic               RREADY;
 } vfp_axi4;
+
 typedef struct packed {
     logic               tready;
     logic               tvalid;
@@ -1293,49 +1303,54 @@ typedef struct packed {
   logic [31:0] REG_62;
   logic [31:0] REG_63;
 } vfp_regs;
+/* Enum: e_bool
 
+
+   FALSE    - Causes the counter to only increment in odd numbers.
+   TRUE   - Causes the counter to only increment in even numbers.
+*/
 typedef enum {FALSE, TRUE} e_bool;
 
 
-  typedef enum{
-    SYS_READ,
-    SYS_WRITE
-  } sys_cmd_enum;
+typedef enum{
+  SYS_READ,
+  SYS_WRITE
+} sys_cmd_enum;
 
-  typedef enum{
-    MST_UNDEF,
-    MST_A,
-    MST_B,
-    MST_C
-  }sys_master_enum;
+typedef enum{
+  MST_UNDEF,
+  MST_A,
+  MST_B,
+  MST_C
+}sys_master_enum;
 
-  typedef enum{
-    SLV_UNDEF,
-    SLV_X,
-    SLV_Y,
-    SLV_Z
-  }sys_slave_enum;
+typedef enum{
+  SLV_UNDEF,
+  SLV_X,
+  SLV_Y,
+  SLV_Z
+}sys_slave_enum;
 
-  typedef enum {
-    rgb_incrementer, 
-    sun, 
-    mon, 
-    wed, 
-    thu, 
-    fri, 
-    sat, 
-    red1, 
-    red2, 
-    red3, 
-    red4,
-    rgb_000_000_black,
-    rgb_001_050_dark,
-    rgb_051_100_med_dark,
-    rgb_101_150_medium,
-    rgb_151_200_med_light,
-    rgb_201_255_light,
-    rgb_255_255_white
-  } cell_set;
+typedef enum {
+  rgb_incrementer, 
+  sun, 
+  mon, 
+  wed, 
+  thu, 
+  fri, 
+  sat, 
+  red1, 
+  red2, 
+  red3, 
+  red4,
+  rgb_000_000_black,
+  rgb_001_050_dark,
+  rgb_051_100_med_dark,
+  rgb_101_150_medium,
+  rgb_151_200_med_light,
+  rgb_201_255_light,
+  rgb_255_255_white
+} cell_set;
 
 parameter set_increment_value   = 50;
 parameter set_cell_red_value    = 5; 

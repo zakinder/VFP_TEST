@@ -1,9 +1,10 @@
-// UVM_SEQUENCE : d5m_camera_DIRECTED_SEQ [d5m_camera]
+// Class: d5m_camera_sequence
 class d5m_camera_sequence extends d5m_camera_base_seq;
     `uvm_object_utils(d5m_camera_sequence)
+    // Function: new
     function new(string name="d5m_camera_sequence");
         super.new(name);
-    endfunction
+    endfunction: new
     // body --------------------------------------------------
     virtual task body();
         d5m_camera_transaction item;

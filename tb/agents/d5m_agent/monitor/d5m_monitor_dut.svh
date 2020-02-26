@@ -17,27 +17,27 @@ class d5m_monitor_dut extends uvm_monitor;
         `uvm_field_int(id, UVM_DEFAULT)
     `uvm_component_utils_end
     
-    // New - constructor
+    // Function: new
     function new (string name, uvm_component parent);
         super.new(name, parent);
 
         // Create an instance of the analysis port
         mon_d5m_dut = new("mon_d5m_dut", this);
     endfunction: new
-    
+    // Function: build_phase
     function void build_phase (uvm_phase phase);
         super.build_phase(phase);
         // Get virtual interface handle from the configuration DB
         if(!uvm_config_db#(virtual d5m_camera_if)::get(this, "", "d5m_camera_vif", d5m_camera_vif))
         `uvm_fatal("NOVIF",{"virtual interface must be set for: ",get_full_name(), ".d5m_camera_vif"});
     endfunction: build_phase
-    
+    // Method:  run_phase
     virtual task run_phase (uvm_phase phase);
         fork
             collect_transactions();
         join
     endtask: run_phase
-
+    // Method:  collect_transactions
     virtual protected task collect_transactions();
         // Placeholder to capture transaction information.
         d5m_camera_transaction rx_fdut;

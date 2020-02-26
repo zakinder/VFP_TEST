@@ -1,8 +1,9 @@
-// UVM_SEQUENCE : d5m_camera_DIRECTED_SEQ [d5m_camera]
+// Class: d5m_camera_image_pattern_sequence
 class d5m_camera_image_pattern_sequence extends d5m_camera_base_seq;
     `uvm_object_utils(d5m_camera_image_pattern_sequence)
     cell_box        cell_box_pkts;
    // Object         m_pkts;
+    // Function: new
     function new(string name="d5m_camera_image_pattern_sequence");
         super.new(name);
         cell_box_pkts = cell_box::type_id::create("cell_box_pkts");

@@ -1,5 +1,4 @@
-
-
+// Class: d5m_camera_image_hsv_sequence
 class d5m_camera_image_hsv_sequence extends uvm_sequence #(uvm_sequence_item);
 
    `uvm_object_utils(d5m_camera_image_hsv_sequence);
@@ -10,21 +9,21 @@ class d5m_camera_image_hsv_sequence extends uvm_sequence #(uvm_sequence_item);
    protected d5m_camera_sequencer           aL_sqr;
    uvm_component                            uvm_component_h;
 
-
- function new(string name = "d5m_camera_image_hsv_sequence");
-    super.new(name);
-    uvm_component_h   =  uvm_top.find("*aL_sqr");
-    if (uvm_component_h == null)
+    // Function: new
+    function new(string name = "d5m_camera_image_hsv_sequence");
+        super.new(name);
+        uvm_component_h   =  uvm_top.find("*aL_sqr");
+        if (uvm_component_h == null)
         `uvm_fatal("RUNALL SEQUENCE", "Failed to get the d5m_camera_sequencer")
-    if (!$cast(aL_sqr, uvm_component_h))
+        if (!$cast(aL_sqr, uvm_component_h))
         `uvm_fatal("RUNALL SEQUENCE", "Failed to cast from uvm_component_h.")
-    d5m_image_seq 	= d5m_image_generator_sequence::type_id::create("d5m_image_seq");
-    axi_config_seq 	= axi_config_image_frame_sequence::type_id::create("axi_config_seq");
- endfunction : new
+        d5m_image_seq 	= d5m_image_generator_sequence::type_id::create("d5m_image_seq");
+        axi_config_seq 	= axi_config_image_frame_sequence::type_id::create("axi_config_seq");
+    endfunction : new
  
 
- 
- task body();
+    // Method: body
+    task body();
     //-------------------------------------------
     // Override axi config data
     //-------------------------------------------

@@ -1,3 +1,4 @@
+// Class: d5m_camera_image_cgain_cgain_sequence
 class d5m_camera_image_cgain_sequence extends uvm_sequence #(uvm_sequence_item);
 
    `uvm_object_utils(d5m_camera_image_cgain_sequence);
@@ -8,7 +9,7 @@ class d5m_camera_image_cgain_sequence extends uvm_sequence #(uvm_sequence_item);
    protected d5m_camera_sequencer           aL_sqr;
    uvm_component                            uvm_component_h;
 
-
+    // Function: new
  function new(string name = "d5m_camera_image_cgain_sequence");
     super.new(name);
     uvm_component_h   =  uvm_top.find("*aL_sqr");

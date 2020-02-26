@@ -1,6 +1,8 @@
+// Class: d5m_camera_fc_subscriber
 //This class provides an analysis export for receiving transactions 
 //from a connected analysis export.  Making such a connection this 
 //component to any transactions emitted by the connected analysis port
+
 class d5m_camera_fc_subscriber extends uvm_subscriber#(d5m_camera_transaction);
     `uvm_component_utils(d5m_camera_fc_subscriber)
     
@@ -94,22 +96,7 @@ class d5m_camera_fc_subscriber extends uvm_subscriber#(d5m_camera_transaction);
         }  
 
     endgroup: axi4_cg
-    
-    
-   // vch_cp : coverpoint d5m_txn.axi4.WDATA[15:0] {
-   //     option.at_least   = 1;
-   //     bins v_ch_cga      = {select_cgain};
-   //     bins v_ch_sha      = {select_sharp};
-   //     bins v_ch_blu      = {select_blur};
-   //     bins v_ch_hsl      = {select_hsl};
-   //     bins v_ch_hsv      = {select_hsv};
-   //     bins v_ch_rgb      = {select_rgb};
-   //     bins v_ch_sob      = {select_sobel};
-   //     bins v_ch_emb      = {select_emboss};
-   // }
-   // 
-   // endgroup: vch_cp
-    
+
     covergroup rgb_cg;
         red_cp : coverpoint d5m_txn.d5m.rgb[7:0] {
             bins red_000_000_black      = {0}       iff(d5m_txn.d5m.lvalid == 1'b1);
@@ -215,14 +202,14 @@ class d5m_camera_fc_subscriber extends uvm_subscriber#(d5m_camera_transaction);
 
         
     endgroup: rgb_slave_cg
-    
+    // Function: new
     function new(string name, uvm_component parent);
         super.new(name, parent);
         rgb_cg       = new; // Instantiate covergroup
         rgb_slave_cg = new; // Instantiate covergroup
         axi4_cg      = new; // Instantiate covergroup
     endfunction: new
-    
+    // Function: write
     // The d5m_camera_transaction from the monitor is sampled by write function.
     function void write(d5m_camera_transaction t);
         //sample directive

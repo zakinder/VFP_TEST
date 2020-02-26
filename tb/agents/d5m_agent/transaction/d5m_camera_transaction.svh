@@ -56,6 +56,7 @@
 //  |                        |
 //  |                        |
 //  +------------------------+
+// Class: d5m_camera_transaction
 class d5m_camera_transaction extends uvm_sequence_item;
 
     //-----------------
@@ -101,12 +102,12 @@ class d5m_camera_transaction extends uvm_sequence_item;
     
     constraint c_fibonacci {axi4_lite.addr inside {axi4_lite_valid_address_list};}
     
-    //Constructor
+    // Function: new
     function new (string name = "");
         super.new(name);
         m_color = colors::type_id::create ("m_color");    
     endfunction
-    
+    // Function: do_copy
     function void do_copy(uvm_object rhs);
     d5m_camera_transaction rhs_;
         if(!$cast(rhs_, rhs)) begin
@@ -116,7 +117,7 @@ class d5m_camera_transaction extends uvm_sequence_item;
         A = rhs_.B;
         B = rhs_.A;
     endfunction: do_copy
-
+    // Function: do_compare
     function bit do_compare(uvm_object rhs, uvm_comparer comparer);
     d5m_camera_transaction rhs_;
     do_compare = $cast(rhs_, rhs) &&
@@ -128,14 +129,15 @@ class d5m_camera_transaction extends uvm_sequence_item;
     B == rhs_.B;
 
     endfunction: do_compare
+    // Function: convert2string
     function string convert2string();
         return $sformatf(" A:\t%0d\n B:\t%0d", A, B);
     endfunction: convert2string
-
+    // Function: convert_A
     function convert_A();
         return A;
     endfunction: convert_A
-    
+    // Function: convert_B
     function convert_B();
         return B;
     endfunction: convert_B
@@ -168,6 +170,7 @@ class d5m_camera_transaction extends uvm_sequence_item;
         // `SV_RAND_CHECK(axi4_lite.addr,oYccPerCh,axi4_lite.data,config_data_oYccPerCh)
         // `uvm_info("addr", $sformatf("addr=%0d data=%0d", axi4_lite.addr,axi4_lite.data), UVM_LOW)
     // endfunction 
+    // Function: post_randomize
     function void post_randomize(); 
     super.post_randomize();
        `uvm_info("BASE POST_RANDOMIZATION", "BASE POST_RANDOMIZATION",UVM_LOW)

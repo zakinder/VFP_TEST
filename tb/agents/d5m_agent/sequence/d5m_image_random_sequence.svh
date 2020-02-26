@@ -1,6 +1,8 @@
+// Class: d5m_image_random_sequence
 class d5m_image_random_sequence extends uvm_sequence #(d5m_camera_transaction);
    `uvm_object_utils(d5m_image_random_sequence);
    d5m_camera_transaction item,s2;
+    // Function: new
    function new(string name = "d5m_image_random_sequence");
       super.new(name);
    endfunction : new

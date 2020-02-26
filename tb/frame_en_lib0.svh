@@ -1,3 +1,3 @@
 package frame_en_lib;
-    `define sharp_v0                      1
+    `define rgb_v0                      1
 endpackage

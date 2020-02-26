@@ -1,3 +1,4 @@
+// Class: cell_unit
 class cell_unit extends uvm_object;
   `uvm_object_utils(cell_unit)
     cell_set selected_box;
@@ -91,12 +92,12 @@ class cell_unit extends uvm_object;
                                 blu == set_cell_blu;
     }
 
-    
+    // Function: new
     function new(string name = "cell_unit");
         super.new(name);
     endfunction: new
     
-    
+    // Function: pre_call
     function void pre_call(input cell_set selected_box,int incre,set_cell_r,set_cell_g,set_cell_b);
 
     set_cell_red = set_cell_r + incre + offset_r;
@@ -164,29 +165,33 @@ class cell_unit extends uvm_object;
 
     endfunction: pre_call
 endclass: cell_unit
-
+// Class: set_cell_unit
 class set_cell_unit extends cell_unit;
     `uvm_object_utils(set_cell_unit)
     
+    // Function: new
     function new(string name = "set_cell_unit");
         super.new(name);
         selected_box = sun;
     endfunction: new
     
+    // Function: pre_call_set
     function void pre_call_set(int set_increment,set_cell_red,set_cell_gre,set_cell_blu);
         pre_call(selected_box,set_increment,set_cell_red,set_cell_gre,set_cell_blu);
     endfunction: pre_call_set
     
 endclass: set_cell_unit
-
+// Class: per_cell
 class per_cell extends set_cell_unit;
     `uvm_object_utils(per_cell)
     
+    // Function: new
     function new(string name = "per_cell");
         super.new(name);
         selected_box = sun;
     endfunction: new
     
+    // Function: pre_randomize_call
     function void pre_randomize_call(input cell_set choices,int set_increment,set_cell_red,set_cell_gre,set_cell_blu);
         selected_box = choices;
         pre_call_set(set_increment,set_cell_red,set_cell_gre,set_cell_blu);
@@ -194,7 +199,7 @@ class per_cell extends set_cell_unit;
     
 endclass: per_cell
 
-
+// Class: per_set_rows
 class per_set_rows extends uvm_object;
     `uvm_object_utils(per_set_rows)
     string  obj_name;
@@ -208,13 +213,15 @@ class per_set_rows extends uvm_object;
     int set_r_gre;
     int set_r_blu;
     
+    // Function: new
     function new(string name = "per_set_rows");
         super.new(name);
         obj_name = name;
         c_block    = new[1];
         c_block_size = c_block.size;
-
     endfunction: new
+    
+    // Function: create_c_block_arrays
     virtual function create_c_block_arrays(int c_size = 5);
         c_block    = new[c_size];
         foreach(c_block[i])
@@ -224,6 +231,7 @@ class per_set_rows extends uvm_object;
         c_block_size = c_block.size;
     endfunction: create_c_block_arrays
     
+    // Function: per_rows_call
     function void per_rows_call(input cell_set choices,int set_increment,set_cell_per_r_red,set_cell_per_r_gre,set_cell_per_r_blu,ar_size);
     create_c_block_arrays(ar_size);
 
@@ -240,7 +248,7 @@ class per_set_rows extends uvm_object;
         set_r_blu = set_cell_per_r_blu;
     endfunction: per_rows_call
 
-
+    // Function: convert2string
     virtual function string convert2string();
         string contents = "";
         $sformat(contents, "%s obj_name=%s\n", contents, obj_name);
@@ -253,7 +261,7 @@ class per_set_rows extends uvm_object;
     
 endclass: per_set_rows
 
-
+// Class: per_set_cols
 class per_set_cols extends uvm_object;
     `uvm_object_utils(per_set_cols)
     string  obj_name;
@@ -261,13 +269,15 @@ class per_set_cols extends uvm_object;
     int c_rows_size;
     int per_set_cols_r_red;
     
+    // Function: new
     function new(string name = "per_set_cols");
         super.new(name);
         obj_name = name;
         c_rows = new[1];
         c_rows_size = c_rows.size;
     endfunction: new
-
+    
+    // Function: create_arrays
     virtual function create_arrays(int c_size = 5);
         c_rows    = new[c_size];
         foreach(c_rows[i])
@@ -276,7 +286,8 @@ class per_set_cols extends uvm_object;
         end   
         c_rows_size = c_rows.size;
     endfunction: create_arrays
-
+    
+    // Function: per_cols_call
     function void per_cols_call(input cell_set choices,int set_increment,set_cell_per_r_red,set_cell_per_r_gre,set_cell_per_r_blu,ar_size);
         $display("set choices:%s\n ", choices);
         for(int i = 0; i < c_rows_size; i++) begin
@@ -287,7 +298,7 @@ class per_set_cols extends uvm_object;
         end
     endfunction: per_cols_call
 
-
+    // Function: convert2string
     virtual function string convert2string();
         string contents = "";
         $sformat(contents, "%s obj_name=%s", contents, obj_name);
@@ -300,7 +311,7 @@ class per_set_cols extends uvm_object;
     
 endclass: per_set_cols
 
-
+// Class: cell_box
 class cell_box extends uvm_object;
     `uvm_object_utils(cell_box)
     string  obj_name;
@@ -308,6 +319,7 @@ class cell_box extends uvm_object;
     //cell_set choices;
     rand per_set_cols c_blocker;
     rand cell_set my_choices;
+    // Function: new
     function new(string name = "cell_box");
         super.new(name);
         obj_name = name;
@@ -318,7 +330,7 @@ class cell_box extends uvm_object;
     function void pre_randomize();
     endfunction: pre_randomize
 
-
+    // Function: re_gen_cell_box
     function void re_gen_cell_box(input int outter_size,inner_size,set_cell_red,set_cell_gre,set_cell_blu,set_incr,cell_set choices);
         c_blocker.create_arrays(outter_size);
 

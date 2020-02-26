@@ -1,5 +1,4 @@
-
-
+// Class: d5m_camera_image_sobel_mask_cga_sequence
 class d5m_camera_image_sobel_mask_cga_sequence extends uvm_sequence #(uvm_sequence_item);
 
    `uvm_object_utils(d5m_camera_image_sobel_mask_cga_sequence);

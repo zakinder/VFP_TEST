@@ -1,10 +1,12 @@
-// UVM_TEST : d5m_camera_TEST [d5m_camera]
+// Class: d5m_camera_test
 class d5m_camera_test extends uvm_test;
     `uvm_component_utils(d5m_camera_test)
     d5m_camera_env aL_env;
+    // Function: new
     function new(string name, uvm_component parent);
         super.new(name, parent);
     endfunction: new
+    // Function: build_phase
     function void build_phase(uvm_phase phase);
         super.build_phase(phase);
         begin
@@ -15,11 +17,13 @@ class d5m_camera_test extends uvm_test;
             aL_env = d5m_camera_env::type_id::create(.name("aL_env"),.parent(this));
         end
     endfunction: build_phase
+    // Function: end_of_elaboration_phase
     function void end_of_elaboration_phase(uvm_phase phase);
         super.end_of_elaboration_phase(phase);
         this.print();
         factory.print();
-    endfunction
+    endfunction: end_of_elaboration_phase
+    // Function: run_phase
     task run_phase(uvm_phase phase);
         d5m_camera_sequence    d5m_camera_seq;
         phase.raise_objection(.obj(this));

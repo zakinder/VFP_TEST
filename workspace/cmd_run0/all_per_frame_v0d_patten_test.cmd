@@ -154,13 +154,13 @@ for /f "delims=" %%i in ('type "%textFile%" ^& break ^> "%textFile%" ') do (
 @REM ----------------------- RUN TEST CASE
 @REM --------------------------------------------
 :vsim_run
-@if "%replace_to%"=="cgain" (@GOTO vsim_run_cgain)
-@if "%replace_to%"=="sharp" (@GOTO vsim_run_sharp)
-@if "%replace_to%"=="blur" (@GOTO vsim_run_blur)
-@if "%replace_to%"=="hsl" (@GOTO vsim_run_hsl)
-@if "%replace_to%"=="hsv" (@GOTO vsim_run_hsv)
-@if "%replace_to%"=="rgb" (@GOTO vsim_run_rgb)
-@if "%replace_to%"=="sobel" (@GOTO vsim_run_sobel)
+@if "%replace_to%"=="cgain"  (@GOTO vsim_run_cgain)
+@if "%replace_to%"=="sharp"  (@GOTO vsim_run_sharp)
+@if "%replace_to%"=="blur"   (@GOTO vsim_run_blur)
+@if "%replace_to%"=="hsl"    (@GOTO vsim_run_hsl)
+@if "%replace_to%"=="hsv"    (@GOTO vsim_run_hsv)
+@if "%replace_to%"=="rgb"    (@GOTO vsim_run_rgb)
+@if "%replace_to%"=="sobel"  (@GOTO vsim_run_sobel)
 @if "%replace_to%"=="emboss" (@GOTO vsim_run_emboss)
 @if "%replace_to%"=="cgtocg" (@GOTO vsim_run_cgaintocgain)
 @if "%replace_to%"=="shtocg" (@GOTO vsim_run_sharptocgain)

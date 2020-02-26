@@ -1,5 +1,7 @@
+// Class: d5m_camera_image_file_sequence
 class d5m_camera_image_file_sequence extends d5m_camera_base_seq;
     `uvm_object_utils(d5m_camera_image_file_sequence)
+    // Function: new
     function new(string name="d5m_camera_image_file_sequence");
         super.new(name);
     endfunction

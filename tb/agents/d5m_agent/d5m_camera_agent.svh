@@ -1,31 +1,40 @@
-//  UVM_AGENT : d5m_camera_AGT [d5m_camera]
-//  +------------------------+------------------------+
-//  | d5m_camera_agent                                |
-//  +------------------------+------------------------+
-//  | Methods                | Description            |
-//  |------------------------|------------------------|
-//  | new                    |                        |
-//  | build_phase            |                        |
-//  | connect_phase          |                        |
-//  +------------------------+------------------------+
-//  UVM_AGENT : d5m_camera_AGT [d5m_camera]
-//  +------------------------+------------------------+
-//  | d5m_camera_agent                                |
-//  +------------------------+------------------------+
-//  | Members                | Description            |
-//  |------------------------|------------------------|
-//  | new                    |                        |
-//  |------------------------|                        |
-//  | Methods                |                        |
-//  |------------------------|                        |
-//  | new                    |                        |
-//  | build_phase            |                        |
-//  | connect_phase          |                        |
-//  +------------------------+------------------------+
-//the scoreboard will receive the transactions from the Monitors implemented and connected inside this agent.
+// Class: d5m_camera_agent
+// Heading:This is *bold text*.
+// This is _underlined text with spaces_.
+//
+//- Bullet one.
+//- Bullet two.
+//  Bullet two continued.
+//- Bullet three.
+//
+//Some text after the bullet list.
+//
+//  * Level one.
+//
+//  * Level two, first paragraph.
+//    Level two, first paragraph continued.
+//
+//    Level two, second paragraph.
+//
+//      * Level three.
+//--- Code
+//int x = 12;
+//int y = 0;
+//---
+//
+//==== Perl ====
+//my $x = 12;
+//my $y = 0;
+//==============
+//
+//___ Text ____________
+//
+//This is plain text.
+//___
+// The scoreboard will receive the transactions from the Monitors implemented and connected inside this agent.
 class d5m_camera_agent extends uvm_agent;
     `uvm_component_utils(d5m_camera_agent)
-    
+    //
     uvm_analysis_port#(d5m_camera_transaction) item_collected_port;
     
     uvm_analysis_port#(d5m_camera_transaction) agent_ap_mon_dut;
@@ -39,10 +48,18 @@ class d5m_camera_agent extends uvm_agent;
     d5m_monitor_dut            sa_d5m_mon_dut;
     d5m_monitor_predict        sa_d5m_mon_prd;
     
+    /* Function: new
+     * Parameters:
+     *
+     *    name - Description of x.
+     *    parent - Description of y.
+     */
     function new (string name, uvm_component parent);
         super.new(name, parent);
     endfunction: new 
     
+
+    // Function: build_phase
     // Use build() method to create agents's subcomponents.
     function void build_phase(uvm_phase phase);
         super.build_phase(phase);
@@ -63,7 +80,7 @@ class d5m_camera_agent extends uvm_agent;
         end
         
     endfunction: build_phase
-    
+    // Function: connect_phase
     // Use connect() method to connect the component TLM ports
     function void connect_phase(uvm_phase phase);
         if (get_is_active() == UVM_ACTIVE) begin

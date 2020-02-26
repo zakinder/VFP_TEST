@@ -1,6 +1,4 @@
-// ----------------------------------------------------------------------------------------------
-// SEQUENCE : [AXI_CONFIG CGAIN]
-// ----------------------------------------------------------------------------------------------
+// Class: axi_config_image_frame_sequence
 class axi_config_image_frame_sequence extends uvm_sequence #(d5m_camera_transaction);
    `uvm_object_utils(axi_config_image_frame_sequence)
     int rgb_sharp           = 10;
@@ -25,12 +23,15 @@ class axi_config_image_frame_sequence extends uvm_sequence #(d5m_camera_transact
     int lum_th              = 36;
     int hsv_per_ch          = 0;
     int ycc_per_ch          = 0;
+    // Function: new
    function new(string name="axi_config_image_frame_sequence");
        super.new(name);
-   endfunction
+   endfunction: new
+    // Function: SetStatus
    function void SetStatus(input int Y);
       en_ycbcr_or_rgb = Y;
    endfunction: SetStatus
+    // Method:  body
    virtual task body();
        d5m_camera_transaction item;
        axi_write_channel(oRgbOsharp,rgb_sharp);
@@ -56,14 +57,15 @@ class axi_config_image_frame_sequence extends uvm_sequence #(d5m_camera_transact
        axi_write_channel(oHsvPerCh,hsv_per_ch);
        axi_write_channel(oYccPerCh,ycc_per_ch);
    endtask: body
-   // -------------------------------------------------------
 
-   virtual task axi_write_channel (bit[7:0] addr,bit[31:0] data);
-           d5m_camera_transaction item;
-           `uvm_create(item)
-           item.axi4_lite.addr           = {7'h0,addr};
-           item.axi4_lite.data           = data;
-           item.d5m_txn                  = AXI4_WRITE;
-           `uvm_send(item);
+    // Method:  axi_write_channel
+    virtual task axi_write_channel (bit[7:0] addr,bit[31:0] data);
+        d5m_camera_transaction item;
+        `uvm_create(item)
+        item.axi4_lite.addr           = {7'h0,addr};
+        item.axi4_lite.data           = data;
+        item.d5m_txn                  = AXI4_WRITE;
+        `uvm_send(item);
    endtask: axi_write_channel
+   
 endclass: axi_config_image_frame_sequence

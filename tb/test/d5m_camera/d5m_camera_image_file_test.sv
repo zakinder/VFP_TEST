@@ -1,10 +1,12 @@
-// UVM_TEST : d5m_camera_TEST [d5m_camera]
+// Class: d5m_camera_image_file_test
 class d5m_camera_image_file_test extends uvm_test;
     `uvm_component_utils(d5m_camera_image_file_test)
     d5m_camera_env aL_env;
+    // Function: new
     function new(string name, uvm_component parent);
         super.new(name, parent);
     endfunction: new
+    // Function: build_phase
     function void build_phase(uvm_phase phase);
         super.build_phase(phase);
         begin
@@ -15,11 +17,13 @@ class d5m_camera_image_file_test extends uvm_test;
             aL_env = d5m_camera_env::type_id::create(.name("aL_env"),.parent(this));
         end
     endfunction: build_phase
+    // Function: end_of_elaboration_phase
     function void end_of_elaboration_phase(uvm_phase phase);
         super.end_of_elaboration_phase(phase);
         this.print();
         factory.print();
-    endfunction
+    endfunction: end_of_elaboration_phase
+    // Function: run_phase
     task run_phase(uvm_phase phase);
         d5m_camera_image_file_sequence    d5m_camera_seq;
         phase.raise_objection(.obj(this));
@@ -30,13 +34,15 @@ class d5m_camera_image_file_test extends uvm_test;
         phase.drop_objection(.obj(this));
     endtask: run_phase
 endclass: d5m_camera_image_file_test
-// TEST : [SHARP]
+// Class: d5m_camera_image_file_sharp_test
 class d5m_camera_image_file_sharp_test extends uvm_test;
     `uvm_component_utils(d5m_camera_image_file_sharp_test)
     d5m_camera_env aL_env;
+    // Function: new
     function new(string name, uvm_component parent);
         super.new(name, parent);
     endfunction: new
+    // Function: build_phase
     function void build_phase(uvm_phase phase);
         super.build_phase(phase);
         begin
@@ -47,11 +53,12 @@ class d5m_camera_image_file_sharp_test extends uvm_test;
             aL_env = d5m_camera_env::type_id::create(.name("aL_env"),.parent(this));
         end
     endfunction: build_phase
+    // Function: end_of_elaboration_phase
     function void end_of_elaboration_phase(uvm_phase phase);
         super.end_of_elaboration_phase(phase);
         this.print();
         factory.print();
-    endfunction
+    endfunction: end_of_elaboration_phase
     task run_phase(uvm_phase phase);
         d5m_camera_image_sharp_sequence    d5m_camera_seq;
         phase.raise_objection(.obj(this));
@@ -62,7 +69,7 @@ class d5m_camera_image_file_sharp_test extends uvm_test;
         phase.drop_objection(.obj(this));
     endtask: run_phase
 endclass: d5m_camera_image_file_sharp_test
-// TEST : [CGAIN]
+// Class: d5m_camera_image_file_cgain_test
 class d5m_camera_image_file_cgain_test extends uvm_test;
     `uvm_component_utils(d5m_camera_image_file_cgain_test)
     d5m_camera_env aL_env;
@@ -94,8 +101,7 @@ class d5m_camera_image_file_cgain_test extends uvm_test;
         phase.drop_objection(.obj(this));
     endtask: run_phase
 endclass: d5m_camera_image_file_cgain_test
-
-// TEST : [CGAIN_HSL]
+// Class: d5m_camera_image_file_cgain_hsl_test
 class d5m_camera_image_file_cgain_hsl_test extends uvm_test;
     `uvm_component_utils(d5m_camera_image_file_cgain_hsl_test)
     d5m_camera_env aL_env;
@@ -127,8 +133,7 @@ class d5m_camera_image_file_cgain_hsl_test extends uvm_test;
         phase.drop_objection(.obj(this));
     endtask: run_phase
 endclass: d5m_camera_image_file_cgain_hsl_test
-
-// TEST : [CGAIN_HSL]
+// Class: d5m_camera_image_file_cgain_sharp_test
 class d5m_camera_image_file_cgain_sharp_test extends uvm_test;
     `uvm_component_utils(d5m_camera_image_file_cgain_sharp_test)
     d5m_camera_env aL_env;
@@ -160,8 +165,7 @@ class d5m_camera_image_file_cgain_sharp_test extends uvm_test;
         phase.drop_objection(.obj(this));
     endtask: run_phase
 endclass: d5m_camera_image_file_cgain_sharp_test
-
-// TEST : [CGAIN_HSL]
+// Class: d5m_camera_image_file_sharp_cgain_test
 class d5m_camera_image_file_sharp_cgain_test extends uvm_test;
     `uvm_component_utils(d5m_camera_image_file_sharp_cgain_test)
     d5m_camera_env aL_env;
@@ -193,8 +197,7 @@ class d5m_camera_image_file_sharp_cgain_test extends uvm_test;
         phase.drop_objection(.obj(this));
     endtask: run_phase
 endclass: d5m_camera_image_file_sharp_cgain_test
-
-// TEST : [CGAIN_CGAIN]
+// Class: d5m_camera_image_file_cgain_cgain_test
 class d5m_camera_image_file_cgain_cgain_test extends uvm_test;
     `uvm_component_utils(d5m_camera_image_file_cgain_cgain_test)
     d5m_camera_env aL_env;
@@ -226,9 +229,7 @@ class d5m_camera_image_file_cgain_cgain_test extends uvm_test;
         phase.drop_objection(.obj(this));
     endtask: run_phase
 endclass: d5m_camera_image_file_cgain_cgain_test
-
-
-// TEST : [SOBEL_MASK_HSL]
+// Class: d5m_camera_image_file_sobel_mask_hsl_test
 class d5m_camera_image_file_sobel_mask_hsl_test extends uvm_test;
     `uvm_component_utils(d5m_camera_image_file_sobel_mask_hsl_test)
     d5m_camera_env aL_env;
@@ -260,7 +261,7 @@ class d5m_camera_image_file_sobel_mask_hsl_test extends uvm_test;
         phase.drop_objection(.obj(this));
     endtask: run_phase
 endclass: d5m_camera_image_file_sobel_mask_hsl_test
-// TEST : [SOBEL_MASK_BLU]
+// Class: d5m_camera_image_file_sobel_mask_blu_test
 class d5m_camera_image_file_sobel_mask_blu_test extends uvm_test;
     `uvm_component_utils(d5m_camera_image_file_sobel_mask_blu_test)
     d5m_camera_env aL_env;
@@ -292,8 +293,7 @@ class d5m_camera_image_file_sobel_mask_blu_test extends uvm_test;
         phase.drop_objection(.obj(this));
     endtask: run_phase
 endclass: d5m_camera_image_file_sobel_mask_blu_test
-
-// TEST : [SOBEL_MASK_CGA]
+// Class: d5m_camera_image_file_sobel_mask_cga_test
 class d5m_camera_image_file_sobel_mask_cga_test extends uvm_test;
     `uvm_component_utils(d5m_camera_image_file_sobel_mask_cga_test)
     d5m_camera_env aL_env;
@@ -325,9 +325,7 @@ class d5m_camera_image_file_sobel_mask_cga_test extends uvm_test;
         phase.drop_objection(.obj(this));
     endtask: run_phase
 endclass: d5m_camera_image_file_sobel_mask_cga_test
-
-
-// TEST : [SOBEL_MASK_HSV]
+// Class: d5m_camera_image_file_sobel_mask_hsv_test
 class d5m_camera_image_file_sobel_mask_hsv_test extends uvm_test;
     `uvm_component_utils(d5m_camera_image_file_sobel_mask_hsv_test)
     d5m_camera_env aL_env;
@@ -359,9 +357,7 @@ class d5m_camera_image_file_sobel_mask_hsv_test extends uvm_test;
         phase.drop_objection(.obj(this));
     endtask: run_phase
 endclass: d5m_camera_image_file_sobel_mask_hsv_test
-
-
-// TEST : [SOBEL_MASK_RGB]
+// Class: d5m_camera_image_file_sobel_mask_rgb_test
 class d5m_camera_image_file_sobel_mask_rgb_test extends uvm_test;
     `uvm_component_utils(d5m_camera_image_file_sobel_mask_rgb_test)
     d5m_camera_env aL_env;
@@ -393,9 +389,7 @@ class d5m_camera_image_file_sobel_mask_rgb_test extends uvm_test;
         phase.drop_objection(.obj(this));
     endtask: run_phase
 endclass: d5m_camera_image_file_sobel_mask_rgb_test
-
-
-// TEST : [SOBEL_MASK_SHP]
+// Class: d5m_camera_image_file_sobel_mask_shp_test
 class d5m_camera_image_file_sobel_mask_shp_test extends uvm_test;
     `uvm_component_utils(d5m_camera_image_file_sobel_mask_shp_test)
     d5m_camera_env aL_env;
@@ -427,10 +421,7 @@ class d5m_camera_image_file_sobel_mask_shp_test extends uvm_test;
         phase.drop_objection(.obj(this));
     endtask: run_phase
 endclass: d5m_camera_image_file_sobel_mask_shp_test
-
-
-
-// TEST : [BLUR]
+// Class: d5m_camera_image_file_blur_test
 class d5m_camera_image_file_blur_test extends uvm_test;
     `uvm_component_utils(d5m_camera_image_file_blur_test)
     d5m_camera_env aL_env;
@@ -462,7 +453,7 @@ class d5m_camera_image_file_blur_test extends uvm_test;
         phase.drop_objection(.obj(this));
     endtask: run_phase
 endclass: d5m_camera_image_file_blur_test
-// TEST : [EMBOSS]
+// Class: d5m_camera_image_file_emboss_test
 class d5m_camera_image_file_emboss_test extends uvm_test;
     `uvm_component_utils(d5m_camera_image_file_emboss_test)
     d5m_camera_env aL_env;
@@ -494,7 +485,7 @@ class d5m_camera_image_file_emboss_test extends uvm_test;
         phase.drop_objection(.obj(this));
     endtask: run_phase
 endclass: d5m_camera_image_file_emboss_test
-// TEST : [SOBEL]
+// Class: d5m_camera_image_file_sobel_test
 class d5m_camera_image_file_sobel_test extends uvm_test;
     `uvm_component_utils(d5m_camera_image_file_sobel_test)
     d5m_camera_env aL_env;
@@ -526,7 +517,7 @@ class d5m_camera_image_file_sobel_test extends uvm_test;
         phase.drop_objection(.obj(this));
     endtask: run_phase
 endclass: d5m_camera_image_file_sobel_test
-// TEST : [RGB]
+// Class: d5m_camera_image_file_rgb_test
 class d5m_camera_image_file_rgb_test extends uvm_test;
     `uvm_component_utils(d5m_camera_image_file_rgb_test)
     d5m_camera_env aL_env;
@@ -558,7 +549,7 @@ class d5m_camera_image_file_rgb_test extends uvm_test;
         phase.drop_objection(.obj(this));
     endtask: run_phase
 endclass: d5m_camera_image_file_rgb_test
-// TEST : [HSL]
+// Class: d5m_camera_image_file_hsl_test
 class d5m_camera_image_file_hsl_test extends uvm_test;
     `uvm_component_utils(d5m_camera_image_file_hsl_test)
     d5m_camera_env aL_env;
@@ -590,7 +581,7 @@ class d5m_camera_image_file_hsl_test extends uvm_test;
         phase.drop_objection(.obj(this));
     endtask: run_phase
 endclass: d5m_camera_image_file_hsl_test
-// TEST : [HSV]
+// Class: d5m_camera_image_file_hsv_test
 class d5m_camera_image_file_hsv_test extends uvm_test;
     `uvm_component_utils(d5m_camera_image_file_hsv_test)
     d5m_camera_env aL_env;
