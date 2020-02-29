@@ -31,21 +31,9 @@ architecture Behavioral of videoSelect is
     signal eChannelSelect     : integer;
     signal ycbcr              : channel;
     signal channels           : channel;
-    signal kCoeffYcbcr        : kernelCoeff;
-    signal rgbText            : channel;
-    signal dead               : channel;
     signal location           : cord := (x => 8, y => 8);
+    signal rgbText            : channel;
 begin
-    kCoeffYcbcr.k1    <= x"0101";-- [ 0.257]
-    kCoeffYcbcr.k2    <= x"01F8";-- [ 0.504]
-    kCoeffYcbcr.k3    <= x"0062";-- [ 0.098]
-    kCoeffYcbcr.k4    <= x"FF6C";-- [-0.148]
-    kCoeffYcbcr.k5    <= x"FEDD";-- [-0.291]
-    kCoeffYcbcr.k6    <= x"01B7";-- [ 0.439]
-    kCoeffYcbcr.k7    <= x"01B7";-- [ 0.439]
-    kCoeffYcbcr.k8    <= x"FE90";-- [-0.368]
-    kCoeffYcbcr.k9    <= x"FFB9";-- [-0.071]
-    kCoeffYcbcr.kSet  <= 6;
     vChannelSelect    <= to_integer(unsigned(videoChannel));
     eChannelSelect    <= to_integer(unsigned(dChannel));
     oEof              <= iFrameData.pEof;
@@ -160,12 +148,11 @@ videoOutP: process (clk) begin
         end if;
     end if;
 end process videoOutP;
-
 ycbcrInst: rgb_ycbcr
 generic map(
     i_data_width         => i_data_width,
     i_precision          => 12,
-    i_full_range         => FALSE)
+    i_full_range         => TRUE)
 port map(
     clk                  => clk,
     rst_l                => rst_l,
@@ -174,24 +161,11 @@ port map(
     cb                   => ycbcr.green,
     cr                   => ycbcr.blue,
     oValid               => ycbcr.valid);
-    
-channelOutP: process (clk) begin
+process (clk) begin
     if rising_edge(clk) then
         oCord <= iFrameData.cod;
-        if (eChannelSelect = 0) then
-            oRgb.red    <= ycbcr.red;
-            oRgb.green  <= ycbcr.green;
-            oRgb.blue   <= ycbcr.blue;
-            oRgb.valid  <= ycbcr.valid;
-        else
-            oRgb.red    <= channels.red;
-            oRgb.green  <= channels.green;
-            oRgb.blue   <= channels.blue;
-            oRgb.valid  <= channels.valid;
-        end if;
     end if;
-end process channelOutP;
-
+end process;
 TextGenYcbcrInst: TextGen
 generic map (
     img_width_bmp   => img_width_bmp,
@@ -203,6 +177,64 @@ port map(
     videoChannel    => videoChannel,
     txCord          => iFrameData.cod,
     location        => location,
-    iRgb            => rgbText,
-    oRgb            => dead);
+    iRgb            => ycbcr,
+    oRgb            => rgbText);
+channelOutP: process (clk) begin
+    if rising_edge(clk) then
+        if (eChannelSelect = 0) then
+            oRgb   <= ycbcr;
+        elsif(eChannelSelect = 1)then
+            oRgb   <= channels;
+        elsif(eChannelSelect = 2)then
+            oRgb   <= rgbText;
+        elsif(eChannelSelect = 3)then
+            oRgb.valid   <= ycbcr.valid;
+            oRgb.red     <= ycbcr.red;
+            oRgb.green   <= ycbcr.red;
+            oRgb.blue    <= ycbcr.red; 
+        elsif(eChannelSelect = 4)then
+            oRgb.valid   <= ycbcr.valid;
+            oRgb.red     <= ycbcr.green;
+            oRgb.green   <= ycbcr.green;
+            oRgb.blue    <= ycbcr.green;
+        elsif(eChannelSelect = 5)then
+            oRgb.valid   <= ycbcr.valid;
+            oRgb.red     <= ycbcr.blue;
+            oRgb.green   <= ycbcr.blue;
+            oRgb.blue    <= ycbcr.blue;
+        elsif(eChannelSelect = 6)then
+            oRgb.valid   <= ycbcr.valid;
+            oRgb.red     <= ycbcr.red;
+            oRgb.green   <= black;
+            oRgb.blue    <= black;
+        elsif(eChannelSelect = 7)then
+            oRgb.valid   <= ycbcr.valid;
+            oRgb.red     <= black;
+            oRgb.green   <= ycbcr.green;
+            oRgb.blue    <= black;
+        elsif(eChannelSelect = 8)then
+            oRgb.valid   <= ycbcr.valid;
+            oRgb.red     <= black;
+            oRgb.green   <= black;
+            oRgb.blue    <= ycbcr.blue;
+        elsif(eChannelSelect = 9)then
+            oRgb.valid   <= ycbcr.valid;
+            oRgb.red     <= ycbcr.red;
+            oRgb.green   <= ycbcr.green;
+            oRgb.blue    <= ycbcr.red; 
+        elsif(eChannelSelect = 10)then
+            oRgb.valid   <= ycbcr.valid;
+            oRgb.red     <= ycbcr.green;
+            oRgb.green   <= ycbcr.green;
+            oRgb.blue    <= ycbcr.blue;
+        elsif(eChannelSelect = 11)then
+            oRgb.valid   <= ycbcr.valid;
+            oRgb.red     <= ycbcr.blue;
+            oRgb.green   <= ycbcr.green;
+            oRgb.blue    <= ycbcr.blue;
+        else
+            oRgb         <= ycbcr;
+        end if;
+    end if;
+end process channelOutP;
 end Behavioral;

@@ -82,15 +82,15 @@ architecture arch of frameProcess is
     signal ycbcr              : channel;
     signal ycbcrPer           : channel;
     signal cgainIoOut         : channel;
-    
+    -------------------------------------------------
     constant MASK_TRUE        : boolean := true;
     constant MASK_FLSE        : boolean := false;
     constant M_SOB_LUM        : boolean := SelFrame(F_SOB,F_LUM,MASK_FLSE);
     constant M_SOB_TRM        : boolean := SelFrame(F_SOB,F_TRM,MASK_FLSE);
     constant M_SOB_RGB        : boolean := SelFrame(F_SOB,F_RGB,MASK_TRUE);
     constant M_SOB_SHP        : boolean := SelFrame(F_SOB,F_SHP,MASK_TRUE);
-    constant M_SOB_BLU        : boolean := SelFrame(F_SOB,F_BLU,MASK_FLSE);
-    constant M_SOB_YCC        : boolean := SelFrame(F_SOB,F_YCC,MASK_FLSE);
+    constant M_SOB_BLU        : boolean := SelFrame(F_SOB,F_BLU,MASK_TRUE);
+    constant M_SOB_YCC        : boolean := SelFrame(F_SOB,F_YCC,MASK_TRUE);
     constant M_SOB_CGA        : boolean := SelFrame(F_SOB,F_CGA,MASK_TRUE);
     constant M_SOB_HSV        : boolean := SelFrame(F_SOB,F_HSV,MASK_TRUE);
     constant M_SOB_HSL        : boolean := SelFrame(F_SOB,F_HSL,MASK_TRUE);
@@ -210,15 +210,10 @@ port map(
     cb                   => ycbcr.green,
     cr                   => ycbcr.blue,
     oValid               => ycbcr.valid);
-    
-    
 ycbcrPer.red   <= ycbcr.red;
 ycbcrPer.green <= ycbcr.green;
 ycbcrPer.blue  <= ycbcr.blue;
 ycbcrPer.valid <= ycbcr.valid;
-
-
-    
 FiltersInst: Filters
 generic map(
     F_TES               =>  F_TES,
@@ -231,8 +226,8 @@ generic map(
     F_YCC               =>  F_YCC,
     F_SOB               =>  F_SOB,
     F_CGA               =>  F_CGA,
-    F_HSV               =>  true,
-    F_HSL               =>  true,
+    F_HSV               =>  F_HSV,
+    F_HSL               =>  F_HSL,
     M_SOB_LUM           =>  M_SOB_LUM,
     M_SOB_TRM           =>  M_SOB_TRM,
     M_SOB_RGB           =>  M_SOB_RGB,

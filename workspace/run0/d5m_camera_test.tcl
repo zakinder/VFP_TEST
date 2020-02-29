@@ -40,7 +40,7 @@ vcom  -64 -93 -work floating_point_v7_1_4       -f C:/Images/REPOS/GitHub/compil
 set INCLUDE_FILES_SRC_DIR "../../includes"
 vcom -f ${INCLUDE_FILES_SRC_DIR}/dut_vhd.f
 vlog -f ${INCLUDE_FILES_SRC_DIR}/dut_vlg.f
-vlog -f ${INCLUDE_FILES_SRC_DIR}/tb_d5m_camera_test.f
+
 
 
 vopt top -o top_optimized  +acc +cover=sbfec+top(rtl).

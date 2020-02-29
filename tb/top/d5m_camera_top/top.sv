@@ -11,7 +11,7 @@
 // |report              |<----|report              |<----| rpt |<----| rpt  |
 // |final               |<----|final               |<----| fnl |<----| fnl  |
 // +--------------------+     +--------------------+     +-----+     +------+
-`include "../../defin_lib.svh"
+
 `include "../../interfaces/d5m_camera_if.sv"
 `include "../../interfaces/vfp_config_d5m_camera_dut.sv"
 `include "../../interfaces/rgbAssertion_dut.sv"
@@ -40,7 +40,9 @@ module top;
     #100ns ARESETN = 1;
     end
     initial begin
+        //set
         uvm_config_db   #(virtual d5m_camera_if) ::set(null, "*", "d5m_camera_vif", d5m_camera_vif);
         run_test();
+
     end
 endmodule: top

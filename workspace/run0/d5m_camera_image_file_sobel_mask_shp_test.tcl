@@ -37,20 +37,20 @@ vcom  -64 -93 -work floating_point_v7_1_4       -f C:/Images/REPOS/GitHub/compil
 set INCLUDE_FILES_SRC_DIR "../../includes"
 vcom -f ${INCLUDE_FILES_SRC_DIR}/dut_vhd.f
 vlog -f ${INCLUDE_FILES_SRC_DIR}/dut_vlg.f
-vlog -f ${INCLUDE_FILES_SRC_DIR}/tb_d5m_camera_test.f
+
 
 
 vopt top -o top_optimized  +acc +cover=sbfec+top(rtl).
-vsim top_optimized -coverage +UVM_TESTNAME=d5m_camera_image_file_sobel_mask_shp_test
+vsim top_optimized -coverage +UVM_TESTNAME=img_sobel_mask_shp_test
 set NoQuitOnFinish 1
 onbreak {resume}
 log /* -r
 run -all
-coverage attribute -name TESTNAME -value d5m_camera_image_file_sobel_mask_shp_test
-coverage save d5m_camera_image_file_sobel_mask_shp_test.ucdb
-vcover report d5m_camera_image_file_sobel_mask_shp_test.ucdb -cvg -details
-coverage report -html -htmldir ../coverage_reports/questa_html_coverage_reports/d5m_camera_image_file_sobel_mask_shp_test -source -details -assert -directive -cvg -code bcefst -verbose -threshL 50 -threshH 90
-coverage report -file ../coverage_reports/d5m_camera_image_file_sobel_mask_shp_test.txt -byfile -totals -assert -directive -cvg -codeAll
+coverage attribute -name TESTNAME -value img_sobel_mask_shp_test
+coverage save img_sobel_mask_shp_test.ucdb
+vcover report img_sobel_mask_shp_test.ucdb -cvg -details
+coverage report -html -htmldir ../coverage_reports/questa_html_coverage_reports/img_sobel_mask_shp_test -source -details -assert -directive -cvg -code bcefst -verbose -threshL 50 -threshH 90
+coverage report -file ../coverage_reports/img_sobel_mask_shp_test.txt -byfile -totals -assert -directive -cvg -codeAll
 quit
 
 

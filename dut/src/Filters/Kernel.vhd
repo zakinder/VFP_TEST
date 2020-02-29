@@ -25,7 +25,7 @@ generic (
 port (
     clk                : in std_logic;
     rst_l              : in std_logic;
-    lumThreshold       : in  std_logic_vector(i_data_width-1 downto 0);
+    lumThreshold       : in std_logic_vector(i_data_width-1 downto 0);
     iThreshold         : in std_logic_vector(15 downto 0); 
     txCord             : in coord;
     iRgb               : in channel;

@@ -1,4 +1,6 @@
 `include "frame_en_lib0.svh"
+
+// package: generic_pack
 package generic_pack;
 
   `define true                               1
@@ -1103,24 +1105,26 @@ package generic_pack;
     parameter lval_l                           = 1'b0;
     parameter ImTyTest_en_patten               = 1'b1;//1 internal pattern , 0 from image file
     parameter rImage_disable                   = 1'b0;// if ImTyTest set 1 then set this variable 0 otherwise used for when to read image file when write image module is ready upon clear.
-    
+    parameter time_out                         = 62;
+    parameter low                              = 0;
+    parameter high                             = 1;
 typedef struct packed {
     bit         clkmm;
-    logic       valid;
-    logic [7:0] red;
-    logic [7:0] green;
-    logic [7:0] blue;
-    logic       sim_done;
-    logic       completed_resolution_line;
-    logic       completed_resolution;
-    logic       completed_resolution_line_64;
-    logic       completed_resolution_line_128;
-    logic       completed_resolution_line_400;
-    logic       completed_resolution_line_1920;
-    logic       completed_resolution64_64;
-    logic       completed_resolution128_128;
-    logic       completed_resolution_400_300;
-    logic       completed_resolution_1920_1080;
+    bit       valid;
+    bit [7:0] red;
+    bit [7:0] green;
+    bit [7:0] blue;
+    bit       sim_done;
+    bit       completed_resolution_line;
+    bit       completed_resolution;
+    bit       completed_resolution_line_64;
+    bit       completed_resolution_line_128;
+    bit       completed_resolution_line_400;
+    bit       completed_resolution_line_1920;
+    bit       completed_resolution64_64;
+    bit       completed_resolution128_128;
+    bit       completed_resolution_400_300;
+    bit       completed_resolution_1920_1080;
     reg [15:0]  x_coord;
     reg [15:0]  y_coord;
     reg [15:0]  detect;
@@ -1129,17 +1133,17 @@ typedef struct packed {
 
 typedef struct packed {
     bit          clkmm;
-    logic        valid;
-    logic        lvalid;
-    logic        fvalid;
-    logic        eof;
-    logic        sof;
-    logic [7:0]  red;
-    logic [7:0]  green;
-    logic [7:0]  blue;
-    logic [23:0] rgb;
-    logic [11:0] x;
-    logic [11:0] y;
+    bit        valid;
+    bit        lvalid;
+    bit        fvalid;
+    bit        eof;
+    bit        sof;
+    bit [7:0]  red;
+    bit [7:0]  green;
+    bit [7:0]  blue;
+    bit [23:0] rgb;
+    bit [11:0] x;
+    bit [11:0] y;
 } rgb_channel;
 
 typedef struct packed {
@@ -1147,11 +1151,11 @@ typedef struct packed {
     int          lval_offset;
     int          lval_lines;
     int          number_frames;
-    logic [7:0]  red;
-    logic [7:0]  green;
-    logic [7:0]  blue;
-    logic [11:0] x;
-    logic [11:0] y;
+    bit [7:0]  red;
+    bit [7:0]  green;
+    bit [7:0]  blue;
+    bit [11:0] x;
+    bit [11:0] y;
 } cof_channel;
 
 typedef struct packed {
@@ -1159,178 +1163,188 @@ typedef struct packed {
     bit [31:0]   data;
 } axi4_lite_channel;
 
-typedef struct packed {
-    bit [15:0]   addr;
-    bit [31:0]   data;
-} d5m_interconnect;
+
 
 typedef struct packed {
     bit          clkmm;
-    logic        iReadyToRead;
-    logic        iImageTypeTest;
-    logic        valid;
-    logic        lvalid;
-    logic        fvalid;
-    logic        eof;
-    logic        sof;
-    logic [23:0] rgb;
-    logic [11:0] x;
-    logic [11:0] y;
+    bit        iReadyToRead;
+    bit        iImageTypeTest;
+    bit        valid;
+    bit        lvalid;
+    bit        fvalid;
+    bit        eof;
+    bit        sof;
+    bit [23:0] rgb;
+    bit [11:0] x;
+    bit [11:0] y;
 } pattern_channel;
 
-typedef struct packed {
-    int rgb_sharp;
-    int edge_type;
-    int config_threshold;
-    int video_channel;
-    int c_channel;
-    int en_ycbcr_or_rgb;
-    int point_interest;
-    int delta_config;
-    int cpu_ack_go_again;
-    int cpu_wgrid_lock;
-    int cpu_ack_off_frame;
-    int fifo_read_address;
-    int clear_fifo_data;
-    int rgb_cord_rl;
-    int rgb_cord_rh;
-    int rgb_cord_gl;
-    int rgb_cord_gh;
-    int rgb_cord_bl;
-    int rgb_cord_bh;
-    int lum_th;
-    int hsv_per_ch;
-    int ycc_per_ch;
-} vfp_config;
+//typedef struct packed {
+//    int rgb_sharp;
+//    int edge_type;
+//    int config_threshold;
+//    int video_channel;
+//    int c_channel;
+//    int en_ycbcr_or_rgb;
+//    int point_interest;
+//    int delta_config;
+//    int cpu_ack_go_again;
+//    int cpu_wgrid_lock;
+//    int cpu_ack_off_frame;
+//    int fifo_read_address;
+//    int clear_fifo_data;
+//    int rgb_cord_rl;
+//    int rgb_cord_rh;
+//    int rgb_cord_gl;
+//    int rgb_cord_gh;
+//    int rgb_cord_bl;
+//    int rgb_cord_bh;
+//    int lum_th;
+//    int hsv_per_ch;
+//    int ycc_per_ch;
+//} vfp_config;
 
 typedef struct packed {
-    logic [7:0]         AWADDR;
-    logic [ 2:0]        AWPROT;
-    logic               AWVALID;
-    logic               AWREADY;
-    logic [31:0]        WDATA;
-    logic [ 3:0]        WSTRB;
-    logic               WVALID;
-    logic               WREADY;
-    logic [1:0]         BRESP;
-    logic               BVALID;
-    logic               BREADY;
-    logic [7:0]         ARADDR;
-    logic [ 2:0]        ARPROT;
-    logic               ARVALID;
-    logic               ARREADY;
-    logic [31:0]        RDATA;
-    logic [ 1:0]        RRESP;
-    logic               RVALID;
-    logic               RREADY;
+    bit [7:0]         AWADDR;
+    bit [ 2:0]        AWPROT;
+    bit               AWVALID;
+    bit               AWREADY;
+    bit [31:0]        WDATA;
+    bit [ 3:0]        WSTRB;
+    bit               WVALID;
+    bit               WREADY;
+    bit [1:0]         BRESP;
+    bit               BVALID;
+    bit               BREADY;
+    bit [7:0]         ARADDR;
+    bit [ 2:0]        ARPROT;
+    bit               ARVALID;
+    bit               ARREADY;
+    bit [31:0]        RDATA;
+    bit [ 1:0]        RRESP;
+    bit               RVALID;
+    bit               RREADY;
 } vfp_axi4;
 
 typedef struct packed {
-    logic               tready;
-    logic               tvalid;
-    logic               tuser;
-    logic               tlast;
-    logic [23:0]        tdata;
-    logic [2:0]         tkeep;
-    logic [2:0]         tstrb;
-    logic [0:0]         tid;
-    logic [0:0]         tdest;
+    bit               tready;
+    bit               tvalid;
+    bit               tuser;
+    bit               tlast;
+    bit [23:0]        tdata;
+    bit [2:0]         tkeep;
+    bit [2:0]         tstrb;
+    bit [0:0]         tid;
+    bit [0:0]         tdest;
 } vfp_axi_stream;
-
+/* typedef: vfp_regs
+   REG_00    - Causes the counter to only increment in odd numbers.
+   REG_01     - Causes the counter to only increment in even numbers.
+*/
 typedef struct packed {
-  logic [31:0] REG_00;
-  logic [31:0] REG_01;
-  logic [31:0] REG_02;
-  logic [31:0] REG_03;
-  logic [31:0] REG_04;
-  logic [31:0] REG_05;
-  logic [31:0] REG_06;
-  logic [31:0] REG_07;
-  logic [31:0] REG_08;
-  logic [31:0] REG_09;
-  logic [31:0] REG_10;
-  logic [31:0] REG_11;
-  logic [31:0] REG_12;
-  logic [31:0] REG_13;
-  logic [31:0] REG_14;
-  logic [31:0] REG_15;
-  logic [31:0] REG_16;
-  logic [31:0] REG_17;
-  logic [31:0] REG_18;
-  logic [31:0] REG_19;
-  logic [31:0] REG_20;
-  logic [31:0] REG_21;
-  logic [31:0] REG_22;
-  logic [31:0] REG_23;
-  logic [31:0] REG_24;
-  logic [31:0] REG_25;
-  logic [31:0] REG_26;
-  logic [31:0] REG_27;
-  logic [31:0] REG_28;
-  logic [31:0] REG_29;
-  logic [31:0] REG_30;
-  logic [31:0] REG_31;
-  logic [31:0] REG_32;
-  logic [31:0] REG_33;
-  logic [31:0] REG_34;
-  logic [31:0] REG_35;
-  logic [31:0] REG_36;
-  logic [31:0] REG_37;
-  logic [31:0] REG_38;
-  logic [31:0] REG_39;
-  logic [31:0] REG_40;
-  logic [31:0] REG_41;
-  logic [31:0] REG_42;
-  logic [31:0] REG_43;
-  logic [31:0] REG_44;
-  logic [31:0] REG_45;
-  logic [31:0] REG_46;
-  logic [31:0] REG_47;
-  logic [31:0] REG_48;
-  logic [31:0] REG_49;
-  logic [31:0] REG_50;
-  logic [31:0] REG_51;
-  logic [31:0] REG_52;
-  logic [31:0] REG_53;
-  logic [31:0] REG_54;
-  logic [31:0] REG_55;
-  logic [31:0] REG_56;
-  logic [31:0] REG_57;
-  logic [31:0] REG_58;
-  logic [31:0] REG_59;
-  logic [31:0] REG_60;
-  logic [31:0] REG_61;
-  logic [31:0] REG_62;
-  logic [31:0] REG_63;
+  bit [31:0] REG_00;
+  bit [31:0] REG_01;
+  bit [31:0] REG_02;
+  bit [31:0] REG_03;
+  bit [31:0] REG_04;
+  bit [31:0] REG_05;
+  bit [31:0] REG_06;
+  bit [31:0] REG_07;
+  bit [31:0] REG_08;
+  bit [31:0] REG_09;
+  bit [31:0] REG_10;
+  bit [31:0] REG_11;
+  bit [31:0] REG_12;
+  bit [31:0] REG_13;
+  bit [31:0] REG_14;
+  bit [31:0] REG_15;
+  bit [31:0] REG_16;
+  bit [31:0] REG_17;
+  bit [31:0] REG_18;
+  bit [31:0] REG_19;
+  bit [31:0] REG_20;
+  bit [31:0] REG_21;
+  bit [31:0] REG_22;
+  bit [31:0] REG_23;
+  bit [31:0] REG_24;
+  bit [31:0] REG_25;
+  bit [31:0] REG_26;
+  bit [31:0] REG_27;
+  bit [31:0] REG_28;
+  bit [31:0] REG_29;
+  bit [31:0] REG_30;
+  bit [31:0] REG_31;
+  bit [31:0] REG_32;
+  bit [31:0] REG_33;
+  bit [31:0] REG_34;
+  bit [31:0] REG_35;
+  bit [31:0] REG_36;
+  bit [31:0] REG_37;
+  bit [31:0] REG_38;
+  bit [31:0] REG_39;
+  bit [31:0] REG_40;
+  bit [31:0] REG_41;
+  bit [31:0] REG_42;
+  bit [31:0] REG_43;
+  bit [31:0] REG_44;
+  bit [31:0] REG_45;
+  bit [31:0] REG_46;
+  bit [31:0] REG_47;
+  bit [31:0] REG_48;
+  bit [31:0] REG_49;
+  bit [31:0] REG_50;
+  bit [31:0] REG_51;
+  bit [31:0] REG_52;
+  bit [31:0] REG_53;
+  bit [31:0] REG_54;
+  bit [31:0] REG_55;
+  bit [31:0] REG_56;
+  bit [31:0] REG_57;
+  bit [31:0] REG_58;
+  bit [31:0] REG_59;
+  bit [31:0] REG_60;
+  bit [31:0] REG_61;
+  bit [31:0] REG_62;
+  bit [31:0] REG_63;
 } vfp_regs;
 /* Enum: e_bool
-
-
    FALSE    - Causes the counter to only increment in odd numbers.
-   TRUE   - Causes the counter to only increment in even numbers.
+   TRUE     - Causes the counter to only increment in even numbers.
 */
 typedef enum {FALSE, TRUE} e_bool;
 
-
+/* Enum: sys_cmd_enum
+   FALSE    - Causes the counter to only increment in odd numbers.
+   TRUE     - Causes the counter to only increment in even numbers.
+*/
 typedef enum{
   SYS_READ,
   SYS_WRITE
 } sys_cmd_enum;
-
+/* Enum: sys_master_enum
+   FALSE    - Causes the counter to only increment in odd numbers.
+   TRUE     - Causes the counter to only increment in even numbers.
+*/
 typedef enum{
   MST_UNDEF,
   MST_A,
   MST_B,
   MST_C
 }sys_master_enum;
-
+/* Enum: sys_slave_enum
+   FALSE    - Causes the counter to only increment in odd numbers.
+   TRUE     - Causes the counter to only increment in even numbers.
+*/
 typedef enum{
   SLV_UNDEF,
   SLV_X,
   SLV_Y,
   SLV_Z
 }sys_slave_enum;
-
+/* Enum: cell_set
+   rgb_incrementer    - Causes the counter to only increment in odd numbers.
+   rgb_000_000_black     - Causes the counter to only increment in even numbers.
+*/
 typedef enum {
   rgb_incrementer, 
   sun, 
@@ -1352,12 +1366,128 @@ typedef enum {
   rgb_255_255_white
 } cell_set;
 
-parameter set_increment_value   = 50;
-parameter set_cell_red_value    = 5; 
-parameter set_cell_gre_value    = 20;
-parameter set_cell_blu_value    = 20;
-parameter offset_r              = 10;
-parameter offset_g              = 20;
-parameter offset_b              = 30;
+parameter set_increment_value   = 87;
 
+parameter set_cell_red_value    = 45; 
+parameter set_cell_gre_value    = 30;
+parameter set_cell_blu_value    = 20;
+
+parameter offset_r              = 30;
+parameter offset_g              = 5;
+parameter offset_b              = 3;
+
+`define AX_TYPE_MASK 6'h38
+
+parameter DATA_BYTES = 16;
+/* Enum: channels
+   rgb_incrementer    - Causes the counter to only increment in odd numbers.
+   rgb_000_000_black     - Causes the counter to only increment in even numbers.
+*/
+typedef struct packed {
+bit valid;
+bit [7:0] red;
+bit [7:0] green;
+bit [7:0] blue;
+} channels;
+/* Enum: width_confg1_t
+   rgb_incrementer    - Causes the counter to only increment in odd numbers.
+   rgb_000_000_black     - Causes the counter to only increment in even numbers.
+*/
+typedef struct packed {
+   byte unsigned addr_width;
+   byte unsigned data_width;
+} width_confg1_t;
+/* Enum: width_confg1_t
+   rgb_incrementer    - Causes the counter to only increment in odd numbers.
+   rgb_000_000_black     - Causes the counter to only increment in even numbers.
+*/
+typedef struct packed {
+   int unsigned payload_length;
+} width_confg2_t;
+
+typedef struct packed {
+   width_confg1_t w_p1;
+   width_confg2_t w_p2;
+} set_config;
+
+typedef struct {
+    bit [7:0] address;
+    bit [15:0] data;
+  } packet_t;
+  
+typedef struct {
+    bit [3:0] high_nibble;
+    bit [3:0] low_nibble;
+    bit [4:0] id;
+  } layer1_t;
+ 
+  typedef struct {
+    bit [3:0] address;
+    bit [3:0] data;
+    bit [4:0] id;
+  } frame_t;
+  
+  
+typedef enum { READ, WRITE } axi_lite_txn_e;
+typedef enum { AXI4_READ, AXI4_WRITE, D5M_WRITE, IMAGE_READ } d5m_txn_e;
+
+parameter set_config par_1 = '{ '{ addr_width: 11, data_width: 8 }, '{ payload_length: 2 } };
+parameter set_config par_2 = '{ '{ addr_width: 11, data_width: 8 }, '{ payload_length: 4 } };
+parameter set_config par_3 = '{ '{ addr_width: 11, data_width: 8 }, '{ payload_length: 3 } };
+
+typedef enum bit [5:0] {
+    AX_FLOW_TYPE                = 6'h00,
+    AX_WRITE_TYPE               = 6'h08,
+    AX_MISC_WRITE_TYPE          = 6'h10,
+    AX_POSTED_WRITE_TYPE        = 6'h18,
+    AX_POSTED_MISC_WRITE_TYPE   = 6'h20,
+    AX_MODE_READ_TYPE           = 6'h28,
+    AX_READ_TYPE                = 6'h30,
+    AX_RESPONSE_TYPE            = 6'h38
+} ax_command_type;
+
+typedef enum bit [5:0] {
+    AX_NULL                     = 6'h00,
+    AX_PRET                     = 6'h01,
+    AX_TRET                     = 6'h02,
+    AX_IRTRY                    = 6'h03,
+    AX_WRITE_16                 = 6'h08,
+    AX_WRITE_32                 = 6'h09,
+    AX_WRITE_48                 = 6'h0a,
+    AX_WRITE_64                 = 6'h0b,
+    AX_WRITE_80                 = 6'h0c,
+    AX_WRITE_96                 = 6'h0d,
+    AX_WRITE_112                = 6'h0e,
+    AX_WRITE_128                = 6'h0f,
+    //-- misc write
+    AX_MODE_WRITE               = 6'h10,
+    AX_BIT_WRITE                = 6'h11,
+    AX_DUAL_8B_ADDI             = 6'h12,
+    AX_SINGLE_16B_ADDI          = 6'h13,
+    AX_POSTED_WRITE_16          = 6'h18,
+    AX_POSTED_WRITE_32          = 6'h19,
+    AX_POSTED_WRITE_48          = 6'h1a,
+    AX_POSTED_WRITE_64          = 6'h1b,
+    AX_POSTED_WRITE_80          = 6'h1c,
+    AX_POSTED_WRITE_96          = 6'h1d,
+    AX_POSTED_WRITE_112         = 6'h1e,
+    AX_POSTED_WRITE_128         = 6'h1f,
+    AX_POSTED_BIT_WRIT          = 6'h21,
+    AX_POSTED_DUAL_8B_ADDI      = 6'h22,
+    AX_POSTED_SINGLE_16B_ADDI   = 6'h23,
+    AX_MODE_READ                = 6'h28,
+    AX_READ_16                  = 6'h30,
+    AX_READ_32                  = 6'h31,
+    AX_READ_48                  = 6'h32,
+    AX_READ_64                  = 6'h33,
+    AX_READ_80                  = 6'h34,
+    AX_READ_96                  = 6'h35,
+    AX_READ_112                 = 6'h36,
+    AX_READ_128                 = 6'h37,
+    AX_READ_RESPONSE            = 6'h38,
+    AX_WRITE_RESPONSE           = 6'h39,
+    AX_MODE_READ_RESPONSE       = 6'h3A,
+    AX_MODE_WRITE_RESPONSE      = 6'h3B,
+    AX_ERROR_RESPONSE           = 6'h3E
+} ax_command_encoding;
 endpackage                
