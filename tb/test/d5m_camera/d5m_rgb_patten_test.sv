@@ -1,7 +1,7 @@
 // Class: d5m_rgb_patten_test
 class d5m_rgb_patten_test extends uvm_test;
     `uvm_component_utils(d5m_rgb_patten_test)
-
+    // handle: aL_env
     d5m_camera_env aL_env;
 
     // Function: new
@@ -16,7 +16,6 @@ class d5m_rgb_patten_test extends uvm_test;
             d5m_camera_configuration d5m_camera_cfg;
             d5m_camera_cfg = new;
             assert(d5m_camera_cfg.randomize());
-            //uvm_config_db#(d5m_camera_configuration)::set(.cntxt(this),.inst_name("*"),.field_name("config"),.value(d5m_camera_cfg));
             aL_env = d5m_camera_env::type_id::create(.name("aL_env"),.parent(this));
         end
     endfunction: build_phase

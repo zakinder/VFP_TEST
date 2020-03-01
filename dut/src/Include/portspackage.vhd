@@ -41,12 +41,14 @@ port (
     txCord                      : in coord;
     lumThreshold                : in  std_logic_vector(7 downto 0);
     iThreshold                  : in std_logic_vector(s_data_width-1 downto 0); 
+    iFilterId                   : in std_logic_vector(b_data_width-1 downto 0);
     iRgb                        : in channel;
     cHsv                        : in std_logic_vector(2 downto 0);
     cYcc                        : in std_logic_vector(2 downto 0);
     iVideoChannel               : in std_logic_vector(b_data_width-1 downto 0);
     iAls                        : in coefficient;
     iKcoeff                     : in kernelCoeff;
+    oKcoeff                     : out kernelCoeff;
     edgeValid                   : out std_logic;
     oRgb                        : out frameColors);
 end component Filters;
@@ -116,6 +118,8 @@ port (
     txCord                      : in coord;
     iRgb                        : in channel;
     iKcoeff                     : in kernelCoeff;
+    iFilterId                   : in std_logic_vector(b_data_width-1 downto 0);
+    oKcoeff                     : out kernelCoeff;
     oEdgeValid                  : out std_logic;
     oRgb                        : out colors);
 end component Kernel; 
@@ -404,7 +408,9 @@ port (
     iHsvPerCh                   : in integer;
     iYccPerCh                   : in integer;
     iEdgeType                   : in std_logic_vector(b_data_width-1 downto 0);
+    iFilterId                   : in std_logic_vector(b_data_width-1 downto 0);
     iThreshold                  : in std_logic_vector(15 downto 0); 
+    oKcoeff                     : out kernelCoeff;
     oFrameData                  : out fcolors;
     oFifoStatus                 : out std_logic_vector(b_data_width-1 downto 0);
     oGridLockData               : out std_logic_vector(b_data_width-1 downto 0));
@@ -712,6 +718,8 @@ port (
     cChannel                    : out std_logic_vector(b_data_width-1 downto 0);
     oRgbOsharp                  : out std_logic_vector(b_data_width-1 downto 0);
     oEdgeType                   : out std_logic_vector(b_data_width-1 downto 0);
+    oFilterId                   : out std_logic_vector(b_data_width-1 downto 0);
+    iKcoeff                     : in kernelCoeff;
     pRegion                     : out poi;
     als                         : out coefficient;
     kls                         : out coefficient;
@@ -899,6 +907,8 @@ port (
     clk                         : in std_logic;
     rst_l                       : in std_logic;
     iKcoeff                     : in kernelCoeff;
+    iFilterId                   : in std_logic_vector(b_data_width-1 downto 0);
+    oKcoeff                     : out kernelCoeff;
     oCoeffProd                  : out kCoefFiltFloat);
 end component CoefMult;
 component imageRead is

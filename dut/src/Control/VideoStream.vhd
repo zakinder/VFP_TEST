@@ -43,11 +43,15 @@ architecture arch_imp of VideoStream is
     signal threshold     : std_logic_vector(15 downto 0);
     signal videoChannel  : std_logic_vector(b_data_width-1 downto 0):= (others => '0');
     signal edgeType      : std_logic_vector(b_data_width-1 downto 0):= (others => '0');
+    signal filterId      : std_logic_vector(b_data_width-1 downto 0):= (others => '0');
     signal cRgbOsharp    : std_logic_vector(b_data_width-1 downto 0):= (others => '0');
     signal dChannel      : std_logic_vector(b_data_width-1 downto 0):= (others => '0');
     signal cChannel      : std_logic_vector(b_data_width-1 downto 0):= (others => '0');
     signal fifoStatus    : std_logic_vector(b_data_width-1 downto 0);
     signal gridLockDatao : std_logic_vector(b_data_width-1 downto 0);
+    signal kcoeff        : kernelCoeff;
+    
+    
     signal rgbCoord      : region;
     signal pRegion       : poi;
     signal frameData     : fcolors;
@@ -85,6 +89,8 @@ port map(
     iRgbSet              => iRgbSet,
     iVideoChannel        => videoChannel,
     iEdgeType            => edgeType,
+    iFilterId            => filterId,
+    oKcoeff              => kcoeff,
     iPoiRegion           => pRegion,
     iThreshold           => threshold,
     iKls                 => kls,
@@ -119,6 +125,8 @@ port map(
     cChannel             => cChannel,
     oRgbOsharp           => cRgbOsharp,
     oEdgeType            => edgeType,
+    oFilterId            => filterId,
+    iKcoeff              => kcoeff,
     pRegion              => pRegion,
     als                  => als,
     kls                  => kls,

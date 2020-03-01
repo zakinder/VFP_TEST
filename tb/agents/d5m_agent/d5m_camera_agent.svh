@@ -1,46 +1,10 @@
-
-// Heading:This is *bold text*.
-// This is _underlined text with spaces_.
-//
-//- Bullet one.
-//- Bullet two.
-//  Bullet two continued.
-//- Bullet three.
-//
-//Some text after the bullet list.
-//
-//  * Level one.
-//
-//  * Level two, first paragraph.
-//    Level two, first paragraph continued.
-//
-//    Level two, second paragraph.
-//
-//      * Level three.
-//--- Code
-//int x = 12;
-//int y = 0;
-//---
-//
-//==== Perl ====
-//my $x = 12;
-//my $y = 0;
-//==============
-//
-//___ Text ____________
-//
-//This is plain text.
-//___
-// The scoreboard will receive the transactions from the Monitors implemented and connected inside this agent.
-
 // Class: d5m_camera_agent
 // This agent encapusalte the d5m driver, monitor and sequencer into single entity
 // by intencitaing and conneting the the component together via TLM interface.
-
 class d5m_camera_agent extends uvm_agent;
     `uvm_component_utils(d5m_camera_agent)
 
-    //
+
     uvm_analysis_port#(d5m_trans) item_collected_port;
     uvm_analysis_port#(d5m_trans) agent_ap_mon_dut;
     uvm_analysis_port#(d5m_trans) agent_ap_mon_prd;
@@ -77,7 +41,6 @@ class d5m_camera_agent extends uvm_agent;
         
         agent_ap_mon_dut         = new(.name("agent_ap_mon_dut"), .parent(this));
         agent_ap_mon_prd         = new(.name("agent_ap_mon_prd"), .parent(this));
-        
         item_collected_port      = new(.name("item_collected_port"),.parent(this));
 
         //Both active and passive agents need a monitor

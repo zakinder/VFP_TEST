@@ -100,12 +100,12 @@ class img_file_seq extends img_base_seq;
         bit [31:0] select_rgbDetect      = 32'h2f;//180
         bit [31:0] select_rgbPoi         = 32'h30;//180
         bit [31:0] max_num_video_select  = 32'h32;//180
-        axi_write_channel(oRgbOsharp,10);
-        axi_write_channel(oEdgeType,11);
-        axi_write_channel(threshold,config_data_threshold);
-        axi_write_channel(videoChannel,selected_video_channel);
-        axi_write_channel(cChannel,15);
-        axi_write_channel(dChannel,select_rgb_not_ycbcr);
+        axi_write_channel(oRgbOsharp,reg_00_rgb_sharp);
+        axi_write_channel(oEdgeType,reg_01_edge_type);
+        axi_write_channel(threshold,reg_04_config_threshold);
+        axi_write_channel(videoChannel,reg_05_video_channel);
+        axi_write_channel(cChannel,reg_07_c_channel);
+        axi_write_channel(dChannel,reg_06_en_ycbcr_or_rgb);
         axi_write_channel(pReg_pointInterest,10);
         axi_write_channel(pReg_deltaConfig,5);
         axi_write_channel(pReg_cpuAckGoAgain,1);

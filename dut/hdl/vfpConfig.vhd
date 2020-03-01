@@ -57,6 +57,8 @@ architecture arch_imp of videoProcess_v1_0_Config is
 
     
 begin
+
+	
     S_AXI_AWREADY    <= axi_awready;
     S_AXI_WREADY     <= axi_wready;
     S_AXI_BRESP      <= axi_bresp;

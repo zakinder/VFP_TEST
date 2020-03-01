@@ -42,10 +42,12 @@ port (
     iRgb                     : in channel;
     lumThreshold             : in  std_logic_vector(7 downto 0);
     iThreshold               : in std_logic_vector(15 downto 0); 
+    iFilterId                : in std_logic_vector(b_data_width-1 downto 0);
     cHsv                     : in std_logic_vector(2 downto 0);
     cYcc                     : in std_logic_vector(2 downto 0);
     iAls                     : in coefficient;
     iKcoeff                  : in kernelCoeff;
+    oKcoeff                  : out kernelCoeff;
     iVideoChannel            : in std_logic_vector(b_data_width-1 downto 0);
     edgeValid                : out std_logic;
     oRgb                     : out frameColors);
@@ -162,6 +164,8 @@ port map(
     txCord              => txCord,
     lumThreshold        => lumThreshold,
     iThreshold          => iThreshold,
+    iFilterId           => iFilterId,
+    oKcoeff             => oKcoeff,
     iRgb                => rgbSel,
     iKcoeff             => iKcoeff,
     oEdgeValid          => sEdgeValid,

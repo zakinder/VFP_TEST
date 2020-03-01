@@ -1,7 +1,6 @@
 // Class: d5m_rgb_seq
 class d5m_rgb_seq extends uvm_sequence #(d5m_trans);
     `uvm_object_utils(d5m_rgb_seq)
-    
     rgb_set_frame                cell_box_pkts;
     vfp_config       vfp_pkts;
     // Function: new
@@ -12,7 +11,6 @@ class d5m_rgb_seq extends uvm_sequence #(d5m_trans);
     endfunction
     // Method: body 
     virtual task body();
-        //----------------------------------------------------
         d5m_trans item;
         vfp_regs vpkts;
         int number_frames;
@@ -26,20 +24,13 @@ class d5m_rgb_seq extends uvm_sequence #(d5m_trans);
         bit [7:0] aBusSelect             = 8'h0C;
         bit enable_pattern               = 1'b0;
         int incre=0;
-
-
         int outter_ar_size;
         int inner_ar_size;
-
         cell_set choices;
-
-
-
         vfp_pkts.randomize();
         vfp_pkts.unpack_packets();
         vfp_pkts.check_packets();
         vfp_pkts.pack_packets();
-
         vpkts = {<<{vfp_pkts.reg_vpkts}};
         `uvm_info("SEQ", $sformatf("vfp_modev vpkts REG_00=%0d", vpkts.REG_00), UVM_LOW)
         `uvm_info("SEQ", $sformatf("vfp_modev vpkts REG_01=%0d", vpkts.REG_01), UVM_LOW)
@@ -49,24 +40,6 @@ class d5m_rgb_seq extends uvm_sequence #(d5m_trans);
         axi_write_channel(videoChannel,vpkts.REG_05);
         axi_write_channel(dChannel,vpkts.REG_06);
         axi_write_channel(cChannel,vpkts.REG_07);
-
-        //axi_write_channel(pReg_pointInterest,vpkts.REG_31);
-        //axi_write_channel(pReg_deltaConfig,vpkts.REG_32);
-        //axi_write_channel(pReg_cpuAckGoAgain,vpkts.REG_33);
-        //axi_write_channel(pReg_cpuWgridLock,vpkts.REG_34);
-        //axi_write_channel(pReg_cpuAckoffFrame,vpkts.REG_35);
-        //axi_write_channel(pReg_fifoReadAddress,vpkts.REG_36);
-        //axi_write_channel(pReg_clearFifoData,vpkts.REG_37);
-        //axi_write_channel(rgbCoord_rl,vpkts.REG_50);
-        //axi_write_channel(rgbCoord_rh,vpkts.REG_51);
-        //axi_write_channel(rgbCoord_gl,vpkts.REG_52);
-        //axi_write_channel(rgbCoord_gh,vpkts.REG_53);
-        //axi_write_channel(rgbCoord_bl,vpkts.REG_54);
-        //axi_write_channel(rgbCoord_bh,vpkts.REG_55);
-        //axi_write_channel(oLumTh,vpkts.REG_56);
-        //axi_write_channel(oHsvPerCh,vpkts.REG_57);
-        //axi_write_channel(oYccPerCh,vpkts.REG_58);
-
         `uvm_create(item)
         item.d5p.rgb           = 0;
         item.d5p.lvalid        = 1'b0;
@@ -161,12 +134,9 @@ class d5m_rgb_seq extends uvm_sequence #(d5m_trans);
             `uvm_send(item);
         end
     endtask: d5m_write_pre_set_ifval
-
-    
     // Method: create_rgb_frames 
     virtual protected task create_rgb_frames(int nframes,int l_lines,int l_offset,int image_width);
         d5m_trans item;
-
         bit[7:0] rgb_red_data;
         bit[7:0] rgb_gre_data;
         bit[7:0] rgb_blu_data;
@@ -175,17 +145,12 @@ class d5m_rgb_seq extends uvm_sequence #(d5m_trans);
         bit fval      = fval_l;
         bit lval      = lval_l;
         bit[23:0] rgb = 24'h111;
-
         write_per_pixel(ImTyTest,rImage,fval,lval,rgb);
-
         for(int n_frames = 0; n_frames <= nframes; n_frames++) begin
-
         for(int y = 0; y  < l_lines; y++) begin
-        
             if(y == (l_lines-1)) begin
                 fval  = fval_h;
                 lval  = lval_h;// sol[start of line]
-
                 for(int x = 0; x <image_width; x++) begin
                     rgb_red_data = cell_box_pkts.c_blocker.c_rows[y].c_block[x].red;
                     rgb_gre_data = cell_box_pkts.c_blocker.c_rows[y].c_block[x].gre;
@@ -193,22 +158,16 @@ class d5m_rgb_seq extends uvm_sequence #(d5m_trans);
                     rgb = {rgb_red_data,rgb_gre_data,rgb_blu_data};
                     write_per_pixel(ImTyTest,rImage,fval,lval,rgb);
                 end
-
                 fval  = fval_l;
                 lval  = lval_l;// eol[end of line] with after eof
                 rgb   = 24'h111;
-
                 for(int x = 0; x  <l_offset; x++) begin
                     write_per_pixel(ImTyTest,rImage,fval,lval,rgb);
                 end
-
                 write_per_pixel(ImTyTest,rImage,fval,lval,rgb);
-
             end else begin
-
                 fval  = fval_h;
                 lval  = lval_h;// sol[start of line]
-
                 for(int x = 0; x <image_width; x++) begin
                     rgb_red_data = cell_box_pkts.c_blocker.c_rows[y].c_block[x].red;
                     rgb_gre_data = cell_box_pkts.c_blocker.c_rows[y].c_block[x].gre;
@@ -216,20 +175,16 @@ class d5m_rgb_seq extends uvm_sequence #(d5m_trans);
                     rgb     = {rgb_red_data,rgb_gre_data,rgb_blu_data};
                     write_per_pixel(ImTyTest,rImage,fval,lval,rgb);
                 end
-
                 fval  = fval_h;
                 lval  = lval_l;// eol[end of line]
                 rgb   = 24'h111;
-
                 for(int x = 0; x  <l_offset; x++) begin
                     write_per_pixel(ImTyTest,rImage,fval,lval,rgb);
                 end
-                
             end
         end
         end
     endtask: create_rgb_frames
-
     // Method: write_per_pixel 
     virtual protected task write_per_pixel(bit ImTyTest,bit rImage,bit fval,bit lval, bit[23:0] rgb);
         d5m_trans item;
@@ -251,5 +206,4 @@ class d5m_rgb_seq extends uvm_sequence #(d5m_trans);
         item.d5m_txn          = AXI4_WRITE;
         `uvm_send(item);
     endtask: axi_write_aBusSelect_channel
-    
 endclass: d5m_rgb_seq

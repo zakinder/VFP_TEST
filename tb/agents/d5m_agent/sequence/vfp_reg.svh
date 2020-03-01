@@ -1,52 +1,56 @@
 // Class: vfp_reg
 class vfp_reg extends uvm_object;
   `uvm_object_utils(vfp_reg)
+  
   rand vfp_regs reg_field;
+  
   vfp_regs regs_packet;
-  static  int write_unused        = 0;
-  static  int rgb_sharp           = 10;
-  static  int edge_type           = 11;
-  static  int bus_select          = 0;//for video stream
-  static  int config_threshold    = 20;
-  static  int video_channel       = selected_video_channel;
-  static  int en_ycbcr_or_rgb     = en_rgb;
-  static  int c_channel           = 15;
-  static  int kls_k1              = 0;
-  static  int kls_k2              = 0;
-  static  int kls_k3              = 0;
-  static  int kls_k4              = 0;
-  static  int kls_k5              = 0;
-  static  int kls_k6              = 0;
-  static  int kls_k7              = 0;
-  static  int kls_k8              = 0;
-  static  int kls_k9              = 0;
-  static  int kls_config          = 0;
-  static  int als_k1              = 0;
-  static  int als_k2              = 0;
-  static  int als_k3              = 0;
-  static  int als_k4              = 0;
-  static  int als_k5              = 0;
-  static  int als_k6              = 0;
-  static  int als_k7              = 0;
-  static  int als_k8              = 0;
-  static  int als_k9              = 0;
-  static  int als_config          = 0;
-  static  int point_interest      = 10;
-  static  int delta_config        = 5;
-  static  int cpu_ack_go_again    = 1;
-  static  int cpu_wgrid_lock      = 1;
-  static  int cpu_ack_off_frame   = 6;
-  static  int fifo_read_address   = 6;
-  static  int clear_fifo_data     = 5;
-  static  int rgb_cord_rl         = 0;
-  static  int rgb_cord_rh         = 255;
-  static  int rgb_cord_gl         = 0;
-  static  int rgb_cord_gh         = 255;
-  static  int rgb_cord_bl         = 0;
-  static  int rgb_cord_bh         = 255;
-  static  int lum_th              = 36;
-  static  int hsv_per_ch          = 0;
-  static  int ycc_per_ch          = 0;
+  
+  static  int write_unused        = reg_02_wr_unused;
+  static  int rgb_sharp           = reg_00_rgb_sharp;
+  static  int edge_type           = reg_01_edge_type;
+  static  int bus_select          = reg_03_bus_select;
+  static  int config_threshold    = reg_04_config_threshold;
+  static  int video_channel       = reg_05_video_channel;
+  static  int en_ycbcr_or_rgb     = reg_06_en_ycbcr_or_rgb;
+  static  int c_channel           = reg_07_c_channel;
+  static  int kls_k1              = reg_08_kls_k1;
+  static  int kls_k2              = reg_09_kls_k2;
+  static  int kls_k3              = reg_10_kls_k3;
+  static  int kls_k4              = reg_11_kls_k4;
+  static  int kls_k5              = reg_12_kls_k5;
+  static  int kls_k6              = reg_13_kls_k6;
+  static  int kls_k7              = reg_14_kls_k7;
+  static  int kls_k8              = reg_15_kls_k8;
+  static  int kls_k9              = reg_16_kls_k9;
+  static  int kls_config          = reg_17_k_coef;
+  static  int als_k1              = reg_21_als_k1;
+  static  int als_k2              = reg_22_als_k2;
+  static  int als_k3              = reg_23_als_k3;
+  static  int als_k4              = reg_24_als_k4;
+  static  int als_k5              = reg_25_als_k5;
+  static  int als_k6              = reg_26_als_k6;
+  static  int als_k7              = reg_27_als_k7;
+  static  int als_k8              = reg_28_als_k8;
+  static  int als_k9              = reg_29_als_k9;
+  static  int als_config          = reg_30_als_coef;
+  static  int point_interest      = reg_31_point_interest;
+  static  int delta_config        = reg_32_delta_config;
+  static  int cpu_ack_go_again    = reg_33_cpu_ack_go_again;
+  static  int cpu_wgrid_lock      = reg_34_cpu_wgrid_lock;
+  static  int cpu_ack_off_frame   = reg_35_cpu_ack_off_frame;
+  static  int fifo_read_address   = reg_36_fifo_read_address;
+  static  int clear_fifo_data     = reg_37_clear_fifo_data;
+  static  int rgb_cord_rl         = reg_50_rgb_cord_rl;
+  static  int rgb_cord_rh         = reg_51_rgb_cord_rh;
+  static  int rgb_cord_gl         = reg_52_rgb_cord_gl;
+  static  int rgb_cord_gh         = reg_53_rgb_cord_gh;
+  static  int rgb_cord_bl         = reg_54_rgb_cord_bl;
+  static  int rgb_cord_bh         = reg_55_rgb_cord_bh;
+  static  int lum_th              = reg_56_lum_th;
+  static  int hsv_per_ch          = reg_57_hsv_per_ch;
+  static  int ycc_per_ch          = reg_58_ycc_per_ch;
+  
   constraint c_fixed_REG_00 { reg_field.REG_00 == rgb_sharp; }
   constraint c_fixed_REG_01 { reg_field.REG_01 == edge_type; }
   constraint c_fixed_REG_02 { reg_field.REG_02 == write_unused; }

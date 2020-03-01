@@ -16,6 +16,7 @@ class camera_seq extends img_base_seq;
         bit [7:0] pReg_fifoReadAddress   = 8'h90;//116 // pReg_fifoReadEnable --fifo read enable
         bit [31:0] max_fifo_read_address = 32'h400f;//180
         bit [7:0] aBusSelect             = 8'h0C;//12 
+
         bit enable_pattern  = 1'b0;
         typedef enum { pattern, random } type_idata;
         type_idata  data_type;
@@ -51,88 +52,44 @@ class camera_seq extends img_base_seq;
     endtask: body
     // -------------------------------------------------------
     virtual protected task axi_write_config_reg ();
-        bit [7:0] initAddr               = 8'h00;//0   [15]  
-        bit [7:0] oRgbOsharp             = 8'h00;//0   [15]         
-        bit [7:0] oEdgeType              = 8'h04;//4   [15]        
-        bit [7:0] aBusSelect             = 8'h0C;//12  [15]           
-        bit [7:0] threshold              = 8'h10;//16  [15]          
-        bit [7:0] videoChannel           = 8'h14;//20  [15]         
-        bit [7:0] dChannel               = 8'h18;//24  [15]        
-        bit [7:0] cChannel               = 8'h1C;//28  [15]          
-        bit [7:0] kls_k1                 = 8'h20;//32  [15]
-        bit [7:0] kls_k2                 = 8'h24;//36  [15]
-        bit [7:0] kls_k3                 = 8'h28;//40  [15]
-        bit [7:0] kls_k4                 = 8'h2C;//44  [15]
-        bit [7:0] kls_k5                 = 8'h30;//48  [15]
-        bit [7:0] kls_k6                 = 8'h34;//52  [15]
-        bit [7:0] kls_k7                 = 8'h38;//56  [15]
-        bit [7:0] kls_k8                 = 8'h3C;//60  [15]
-        bit [7:0] kls_k9                 = 8'h40;//64  [15]
-        bit [7:0] kls_config             = 8'h44;//68  [15]
-        bit [7:0] kCoefDisabIndex        = 8'h00;//84  [15]
-        bit [7:0] kCoefYcbcrIndex        = 8'h01;//84  [15]
-        bit [7:0] kCoefCgainIndex        = 8'h02;//84  [15]
-        bit [7:0] kCoefSharpIndex        = 8'h03;//84  [15]
-        bit [7:0] kCoefBlureIndex        = 8'h04;//84  [15]
-        bit [7:0] kCoefSobeXIndex        = 8'h05;//84  [15]
-        bit [7:0] kCoefSobeYIndex        = 8'h06;//84  [15]
-        bit [7:0] kCoefEmbosIndex        = 8'h07;//84  [19]
-        bit [7:0] kCoefCgai1Index        = 8'h08;//84  [20]
-        bit [7:0] als_k1                 = 8'h54;//84  [21]
-        bit [7:0] als_k2                 = 8'h58;//88  [22]
-        bit [7:0] als_k3                 = 8'h5C;//92  [23]
-        bit [7:0] als_k4                 = 8'h60;//96  [24]
-        bit [7:0] als_k5                 = 8'h64;//100 [25]
-        bit [7:0] als_k6                 = 8'h68;//104 [26]
-        bit [7:0] als_k7                 = 8'h6C;//108 [27]
-        bit [7:0] als_k8                 = 8'h70;//112 [28]
-        bit [7:0] als_k9                 = 8'h74;//116 [29]
-        bit [7:0] als_config             = 8'h78;//120 [30]
-        bit [7:0] pReg_pointInterest     = 8'h7C;//124 [31]
-        bit [7:0] pReg_deltaConfig       = 8'h80;//128 [32]
-        bit [7:0] pReg_cpuAckGoAgain     = 8'h84;//132 [33]
-        bit [7:0] pReg_cpuWgridLock      = 8'h88;//136 [34]
-        bit [7:0] pReg_cpuAckoffFrame    = 8'h8C;//140 [35]
-        bit [7:0] pReg_fifoReadAddress   = 8'h90;//144 [36] // pReg_fifoReadEnable --fifo read enable
-        bit [7:0] pReg_clearFifoData     = 8'h94;//148 [37]
-        bit [7:0] rgbCoord_rl            = 8'hC8;//84  [50]
-        bit [7:0] rgbCoord_rh            = 8'hCC;//88  [51]
-        bit [7:0] rgbCoord_gl            = 8'hD0;//156 [52]
-        bit [7:0] rgbCoord_gh            = 8'hD4;//160 [53]
-        bit [7:0] rgbCoord_bl            = 8'hD8;//164 [54]
-        bit [7:0] rgbCoord_bh            = 8'hDC;//220 [55]
-        bit [7:0] oLumTh                 = 8'hE0;//224 [56]
-        bit [7:0] oHsvPerCh              = 8'hE4;//228 [57]
-        bit [7:0] oYccPerCh              = 8'hE8;//232 [58]
-        bit [31:0] select_ycbcr          = 32'h0;//180
-        bit [31:0] select_rgb            = 32'h5;//180
-        bit [31:0] select_sharp          = 32'h1;//180
-        bit [31:0] select_hsv            = 32'h4;//180
-        bit [31:0] select_hsl            = 32'h3;//180
-        bit [31:0] select_rgbCorrect     = 32'h2d;//180
-        bit [31:0] select_rgbRemix       = 32'h2e;//180
-        bit [31:0] select_rgbDetect      = 32'h2f;//180
-        bit [31:0] select_rgbPoi         = 32'h30;//180
-        bit [31:0] max_num_video_select  = 32'h32;//180
         axi_write_channel(initAddr,initAddr);
-        axi_write_channel_test();
-        axi_read_channel_test();
-        axi_multi_writes_to_address(videoChannel,max_num_video_select);
-        axi_write_channel(oRgbOsharp,10);
-        axi_write_channel(oEdgeType,11);
-        axi_write_channel(threshold,13);
-        axi_write_channel(videoChannel,select_rgbDetect);
-        axi_write_channel(cChannel,15);
-        axi_write_channel(dChannel,select_ycbcr);
-        //axi_write_channel(kls_k1,17);
-        //axi_write_channel(kls_k2,5);
-        //axi_write_channel(kls_k3,6);
-        //axi_write_channel(kls_k4,5);
-        //axi_write_channel(kls_k5,6);
-        //axi_write_channel(kls_k6,6);
-        //axi_write_channel(kls_k7,5);
-        //axi_write_channel(kls_k8,6);
-        //axi_write_channel(kls_k9,5);
+        //axi_write_channel_test();
+        //axi_read_channel_test();
+        //axi_multi_writes_to_address(videoChannel,max_num_video_select);
+        
+        axi_write_channel(kls_k1,kCoeffCgain_k1);
+        axi_write_channel(kls_k2,kCoeffCgain_k2);
+        axi_write_channel(kls_k3,kCoeffCgain_k3);
+        axi_write_channel(kls_k4,kCoeffCgain_k4);
+        axi_write_channel(kls_k5,kCoeffCgain_k5);
+        axi_write_channel(kls_k6,kCoeffCgain_k6);
+        axi_write_channel(kls_k7,kCoeffCgain_k7);
+        axi_write_channel(kls_k8,kCoeffCgain_k8);
+        axi_write_channel(kls_k9,kCoeffCgain_k9);
+        axi_write_channel(kls_config,kCoeffCgain_kSet);
+
+        
+        axi_write_channel(filter_id,kCoeffCgain_kSet);
+        axi_read_back_channel(kls_k1);
+        axi_read_back_channel(kls_k2);
+        axi_read_back_channel(kls_k3);
+        axi_read_back_channel(kls_k4);
+        axi_read_back_channel(kls_k5);
+        axi_read_back_channel(kls_k6);
+        axi_read_back_channel(kls_k7);
+        axi_read_back_channel(kls_k8);
+        axi_read_back_channel(kls_k9);
+        axi_read_back_channel(kls_config);
+        
+        
+        
+        axi_write_channel(oRgbOsharp,reg_00_rgb_sharp);
+        axi_write_channel(oEdgeType,reg_01_edge_type);
+        axi_write_channel(threshold,reg_04_config_threshold);
+        axi_write_channel(videoChannel,reg_05_video_channel);
+        axi_write_channel(cChannel,reg_07_c_channel);
+        axi_write_channel(dChannel,reg_06_en_ycbcr_or_rgb);
+
         //axi_write_channel(kls_config,kCoefDisabIndex);
         //axi_write_channel(kls_config,kCoefYcbcrIndex);
         //axi_write_channel(kls_config,kCoefCgainIndex);
@@ -143,31 +100,43 @@ class camera_seq extends img_base_seq;
         //axi_write_channel(kls_config,kCoefEmbosIndex);
         //axi_write_channel(kls_config,kCoefCgai1Index);
         //axi_write_channel(als_k1,6);
-        axi_write_channel(als_k2,5);
-        axi_write_channel(als_k3,6);
-        axi_write_channel(als_k4,5);
-        axi_write_channel(als_k5,6);
-        axi_write_channel(als_k6,6);
-        axi_write_channel(als_k7,5);
-        axi_write_channel(als_k8,6);
-        axi_write_channel(als_k9,5);
-        axi_write_channel(als_config,0);
-        axi_write_channel(pReg_pointInterest,10);
-        axi_write_channel(pReg_deltaConfig,5);
-        axi_write_channel(pReg_cpuAckGoAgain,1);
-        axi_write_channel(pReg_cpuWgridLock,1);
-        axi_write_channel(pReg_cpuAckoffFrame,6);
-        axi_write_channel(pReg_fifoReadAddress,6);
-        axi_write_channel(pReg_clearFifoData,5);
-        axi_write_channel(rgbCoord_rl,0);
-        axi_write_channel(rgbCoord_rh,255);
-        axi_write_channel(rgbCoord_gl,0);
-        axi_write_channel(rgbCoord_gh,255);
-        axi_write_channel(rgbCoord_bl,0);
-        axi_write_channel(rgbCoord_bh,255);
-        axi_write_channel(oLumTh,36);
-        axi_write_channel(oHsvPerCh,0);
-        axi_write_channel(oYccPerCh,0);
+        //axi_write_channel(als_k2,5);
+        //axi_write_channel(als_k3,6);
+        //axi_write_channel(als_k4,5);
+        //axi_write_channel(als_k5,6);
+        //axi_write_channel(als_k6,6);
+        //axi_write_channel(als_k7,5);
+        //axi_write_channel(als_k8,6);
+        //axi_write_channel(als_k9,5);
+        //axi_write_channel(als_config,kCoefDisabIndex);
+        //axi_write_channel(als_config,kCoefYcbcrIndex);
+        //axi_write_channel(als_config,kCoefCgainIndex);
+        //axi_write_channel(als_config,kCoefSharpIndex);
+        //axi_write_channel(als_config,kCoefBlureIndex);
+        //axi_write_channel(als_config,kCoefSobeXIndex);
+        //axi_write_channel(als_config,kCoefSobeYIndex);
+        //axi_write_channel(als_config,kCoefEmbosIndex);
+        //axi_write_channel(als_config,kCoefCgai1Index);
+
+        axi_write_channel(pReg_deltaConfig,reg_32_delta_config);
+        axi_write_channel(pReg_cpuAckGoAgain,reg_33_cpu_ack_go_again);
+        axi_write_channel(pReg_cpuWgridLock,reg_34_cpu_wgrid_lock);
+        axi_write_channel(pReg_cpuAckoffFrame,reg_35_cpu_ack_off_frame);
+        axi_write_channel(pReg_fifoReadAddress,reg_36_fifo_read_address);
+        axi_write_channel(pReg_clearFifoData,reg_37_clear_fifo_data);
+        axi_write_channel(rgbCoord_rl,reg_50_rgb_cord_rl);
+        axi_write_channel(rgbCoord_rh,reg_51_rgb_cord_rh);
+        axi_write_channel(rgbCoord_gl,reg_52_rgb_cord_gl);
+        axi_write_channel(rgbCoord_gh,reg_53_rgb_cord_gh);
+        axi_write_channel(rgbCoord_bl,reg_54_rgb_cord_bl);
+        axi_write_channel(rgbCoord_bh,reg_55_rgb_cord_bh);
+        axi_write_channel(oLumTh,reg_56_lum_th);
+        axi_write_channel(oHsvPerCh,reg_57_hsv_per_ch);
+        axi_write_channel(oYccPerCh,reg_58_ycc_per_ch);
+        
+        
+        
+        
     endtask: axi_write_config_reg
     virtual protected task axi_write_channel_test();
             d5m_trans item;
@@ -190,7 +159,7 @@ class camera_seq extends img_base_seq;
             data++;
             `uvm_create(item)
             item.axi4_lite.addr           = {14'h0,addr[7:0]};
-            item.d5m_txn        = AXI4_READ;
+            item.d5m_txn                  = AXI4_READ;
             item.axi4_lite.data           = 0;
             `uvm_send(item);
         end
@@ -204,11 +173,20 @@ class camera_seq extends img_base_seq;
     virtual protected task axi_write_channel (bit[7:0] addr,bit[31:0] data);
             d5m_trans item;
             `uvm_create(item)
-            item.axi4_lite.addr = {7'h0,addr};
-            item.axi4_lite.data           = data;
+            item.axi4_lite.addr = addr;
+            item.axi4_lite.data = data;
             item.d5m_txn        = AXI4_WRITE;
             `uvm_send(item);
+            axi_read_back_channel(addr);
     endtask: axi_write_channel
+    // Method:  axi_write_channel
+    virtual task axi_read_back_channel(bit[7:0] addr);
+        d5m_trans item;
+        `uvm_create(item)
+        item.axi4_lite.addr           = addr;
+        item.d5m_txn                  = AXI4_READ;
+        `uvm_send(item);
+   endtask: axi_read_back_channel
     virtual protected task axi_read_channel();
             d5m_trans item;
             bit[7:0] addr;
@@ -276,7 +254,6 @@ class camera_seq extends img_base_seq;
             end
         end
     endtask: d5m_write_create_frames
-
     virtual protected task axi_write_aBusSelect_channel (bit[7:0] addr,bit[31:0] data);
             d5m_trans item;
             `uvm_create(item)

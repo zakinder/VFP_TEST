@@ -29,6 +29,8 @@ port (
     iThreshold         : in std_logic_vector(15 downto 0); 
     txCord             : in coord;
     iRgb               : in channel;
+    iFilterId          : in std_logic_vector(b_data_width-1 downto 0);
+    oKcoeff            : out kernelCoeff;
     iKcoeff            : in kernelCoeff;
     oEdgeValid         : out std_logic;
     oRgb               : out colors);
@@ -51,6 +53,8 @@ port map (
     clk            => clk,
     rst_l          => rst_l,
     iKcoeff        => iKcoeff,
+    iFilterId      => iFilterId,
+    oKcoeff        => oKcoeff,
     oCoeffProd     => kCoProd);
 -----------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------

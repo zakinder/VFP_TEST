@@ -25,6 +25,8 @@ port (
     cChannel         : out std_logic_vector(b_data_width-1 downto 0);
     oRgbOsharp       : out std_logic_vector(b_data_width-1 downto 0);
     oEdgeType        : out std_logic_vector(b_data_width-1 downto 0);
+    oFilterId        : out std_logic_vector(b_data_width-1 downto 0);
+    iKcoeff          : in kernelCoeff;
     pRegion          : out poi;
     als              : out coefficient;
     kls              : out coefficient;
@@ -37,6 +39,7 @@ architecture Behavioral of mWrRd is
 begin
     oRgbOsharp              <= wrRegsIn.cfigReg0;
     oEdgeType               <= wrRegsIn.cfigReg1;
+    oFilterId               <= wrRegsIn.cfigReg2;
     aBusSelect              <= wrRegsIn.cfigReg3;
     threshold               <= wrRegsIn.cfigReg4(15 downto 0);
     videoChannel            <= wrRegsIn.cfigReg5;
@@ -88,16 +91,16 @@ begin
     rdRegsOut.cfigReg5      <= wrRegsIn.cfigReg5;
     rdRegsOut.cfigReg6      <= wrRegsIn.cfigReg6;
     rdRegsOut.cfigReg7      <= wrRegsIn.cfigReg7;
-    rdRegsOut.cfigReg8      <= wrRegsIn.cfigReg8;
-    rdRegsOut.cfigReg9      <= wrRegsIn.cfigReg9;
-    rdRegsOut.cfigReg10     <= wrRegsIn.cfigReg10;
-    rdRegsOut.cfigReg11     <= wrRegsIn.cfigReg11;
-    rdRegsOut.cfigReg12     <= wrRegsIn.cfigReg12;
-    rdRegsOut.cfigReg13     <= wrRegsIn.cfigReg13;
-    rdRegsOut.cfigReg14     <= wrRegsIn.cfigReg14;
-    rdRegsOut.cfigReg15     <= wrRegsIn.cfigReg15;
-    rdRegsOut.cfigReg16     <= wrRegsIn.cfigReg16;
-    rdRegsOut.cfigReg17     <= wrRegsIn.cfigReg17;
+    rdRegsOut.cfigReg8      <= std_logic_vector(resize(unsigned(iKcoeff.k1), rdRegsOut.cfigReg8'length));
+    rdRegsOut.cfigReg9      <= std_logic_vector(resize(unsigned(iKcoeff.k2), rdRegsOut.cfigReg9'length));
+    rdRegsOut.cfigReg10     <= std_logic_vector(resize(unsigned(iKcoeff.k3), rdRegsOut.cfigReg10'length));
+    rdRegsOut.cfigReg11     <= std_logic_vector(resize(unsigned(iKcoeff.k4), rdRegsOut.cfigReg11'length));
+    rdRegsOut.cfigReg12     <= std_logic_vector(resize(unsigned(iKcoeff.k5), rdRegsOut.cfigReg12'length));
+    rdRegsOut.cfigReg13     <= std_logic_vector(resize(unsigned(iKcoeff.k6), rdRegsOut.cfigReg13'length));
+    rdRegsOut.cfigReg14     <= std_logic_vector(resize(unsigned(iKcoeff.k7), rdRegsOut.cfigReg14'length));
+    rdRegsOut.cfigReg15     <= std_logic_vector(resize(unsigned(iKcoeff.k8), rdRegsOut.cfigReg15'length));
+    rdRegsOut.cfigReg16     <= std_logic_vector(resize(unsigned(iKcoeff.k9), rdRegsOut.cfigReg16'length));
+    rdRegsOut.cfigReg17     <= std_logic_vector(to_unsigned(iKcoeff.kSet,32));
     rdRegsOut.cfigReg28     <= wrRegsIn.cfigReg28;
     rdRegsOut.cfigReg29     <= wrRegsIn.cfigReg29;
     rdRegsOut.cfigReg30     <= wrRegsIn.cfigReg30;

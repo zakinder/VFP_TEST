@@ -1,3 +1,5 @@
+  `include "../../generic_pack0.svh"
+  `include "../../image_kernal_coefs.svh"
   `include "../../agents/d5m_agent/d5m_camera_agent_pkg.sv"
 package d5m_camera_pkg;
   import d5m_camera_agent_pkg::*;

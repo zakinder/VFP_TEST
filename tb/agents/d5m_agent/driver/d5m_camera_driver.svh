@@ -107,8 +107,6 @@ class d5m_camera_driver extends uvm_driver #(d5m_trans);
     // 
     //- axi4_write_address : On selected AXI4_WRITE case write address to axi4 bus.
     //- axi4_wread_address  : On selected AXI4_READ case write read address to axi4 bus.
-
-    
     virtual protected task axi4_address (d5m_trans d5m_tx);
         case (d5m_tx.d5m_txn)
             AXI4_WRITE : axi4_write_address(d5m_tx);
@@ -123,15 +121,14 @@ class d5m_camera_driver extends uvm_driver #(d5m_trans);
     //
     //- axi4_write_data : On selected AXI4_WRITE case write data to axi4 bus.
     //- axi4_read_data  : On selected AXI4_READ case read axi4 bus data.
-   
     virtual protected task axi4_data (d5m_trans d5m_tx);
         bit[31:0] rw_data;
         bit err;
-        rw_data = d5m_tx.axi4_lite.data;
+        //rw_data = d5m_tx.axi4_lite.data;
         case (d5m_tx.d5m_txn)
             AXI4_WRITE : axi4_write_data(d5m_tx);
             AXI4_READ  : axi4_read_data(rw_data, err);
-        endcase    
+        endcase
     endtask: axi4_data
     
     // Function: d5m_pixel
@@ -139,7 +136,6 @@ class d5m_camera_driver extends uvm_driver #(d5m_trans);
     //
     //- d5m_write_pixel_data : On selected D5M_WRITE case write data to d5m mod.
     //- d5m_read_pixel_data  : On selected IMAGE_READ case read data from d5m mod.
-    
     virtual protected task d5m_pixel (d5m_trans d5m_tx);
         case (d5m_tx.d5m_txn)
             D5M_WRITE  : d5m_write_pixel_data(d5m_tx);
@@ -171,7 +167,6 @@ class d5m_camera_driver extends uvm_driver #(d5m_trans);
     // Function: d5m_write_pixel_data
     // In this method, write data to d5m camera mod from d5m_trans sequence.
     //
-
     //- iReadyToRead   : assert low value to this signal to disable image reader module.
     //- iImageTypeTest : provide image type test either seq pattern or from image file.
     //- rgb            : write data to d5m mod
@@ -196,7 +191,7 @@ class d5m_camera_driver extends uvm_driver #(d5m_trans);
     virtual protected task axi4_write_address (d5m_trans d5m_tx);
     
         int axi_lite_ctr;
-        d5m_camera_vif.axi4.AWADDR  <= {8'h0, d5m_tx.axi4_lite.addr};
+        d5m_camera_vif.axi4.AWADDR  <= d5m_tx.axi4_lite.addr;
         d5m_camera_vif.axi4.AWPROT  <= 3'h0;
         d5m_camera_vif.axi4.AWVALID <= 1'b1;
         
@@ -270,7 +265,7 @@ class d5m_camera_driver extends uvm_driver #(d5m_trans);
     //- ARPROT : read data from d5m mod
     virtual protected task axi4_wread_address (d5m_trans d5m_tx);
         int axi_lite_ctr;
-        d5m_camera_vif.axi4.ARADDR  <= {8'h0, d5m_tx.axi4_lite.addr};
+        d5m_camera_vif.axi4.ARADDR  <= d5m_tx.axi4_lite.addr;
         d5m_camera_vif.axi4.ARPROT  <= 3'h0;
         d5m_camera_vif.axi4.ARVALID <= 1'b1;
         for(axi_lite_ctr = 0; axi_lite_ctr <= time_out; axi_lite_ctr ++) begin
@@ -297,19 +292,23 @@ class d5m_camera_driver extends uvm_driver #(d5m_trans);
     //- RRESP  : read data from d5m mod
     virtual protected task axi4_read_data (output bit [31:0] rdata, output bit error);
         int axi_lite_ctr;
+		
         for(axi_lite_ctr = 0; axi_lite_ctr <= time_out; axi_lite_ctr ++) begin
             @(posedge d5m_camera_vif.clkmm);
             if (d5m_camera_vif.axi4.RVALID) break;
         end
+		
         rdata = d5m_camera_vif.axi4.RDATA;
+
         if (axi_lite_ctr == time_out) begin
             `uvm_error("axi_lite_master_driver","RVALID timeout");
-        end
-        else begin
+        end else begin
+
         if (d5m_camera_vif.axi4.RVALID == 1'b1 && d5m_camera_vif.axi4.RRESP != 2'h0)
             `uvm_error("axi_lite_master_driver","Received ERROR Read Response");
             d5m_camera_vif.axi4.RREADY <= d5m_camera_vif.axi4.RVALID;
             @(posedge d5m_camera_vif.clkmm);
         end
+		
     endtask: axi4_read_data
 endclass: d5m_camera_driver

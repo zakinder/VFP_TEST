@@ -15,11 +15,13 @@ class img_cgain_cgain_test extends uvm_test;
             aL_env = d5m_camera_env::type_id::create(.name("aL_env"),.parent(this));
         end
     endfunction: build_phase
+
     function void end_of_elaboration_phase(uvm_phase phase);
         super.end_of_elaboration_phase(phase);
         this.print();
         factory.print();
-    endfunction
+    endfunction: end_of_elaboration_phase
+    
     task run_phase(uvm_phase phase);
         img_cga_cga_seq    d5m_seq;
         phase.raise_objection(.obj(this));

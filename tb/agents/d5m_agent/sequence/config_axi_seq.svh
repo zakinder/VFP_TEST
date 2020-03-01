@@ -1,36 +1,40 @@
 // Class: config_axi4_seq
 class config_axi4_seq extends uvm_sequence #(d5m_trans);
    `uvm_object_utils(config_axi4_seq)
-    int rgb_sharp           = 10;
-    int edge_type           = 11;
-    int config_threshold    = 20;
-    int video_channel       = selected_video_channel;
-    int c_channel           = 15;
-    int en_ycbcr_or_rgb     = en_rgb;
-    int point_interest      = 10;
-    int delta_config        = 5;
-    int cpu_ack_go_again    = 1;
-    int cpu_wgrid_lock      = 1;
-    int cpu_ack_off_frame   = 6;
-    int fifo_read_address   = 6;
-    int clear_fifo_data     = 5;
-    int rgb_cord_rl         = 0;
-    int rgb_cord_rh         = 255;
-    int rgb_cord_gl         = 0;
-    int rgb_cord_gh         = 255;
-    int rgb_cord_bl         = 0;
-    int rgb_cord_bh         = 255;
-    int lum_th              = 36;
-    int hsv_per_ch          = 0;
-    int ycc_per_ch          = 0;
+   
+    int rgb_sharp           = reg_00_rgb_sharp;
+    int edge_type           = reg_01_edge_type;
+    int config_threshold    = reg_04_config_threshold;
+    int video_channel       = reg_05_video_channel;
+    int c_channel           = reg_07_c_channel;
+    int en_ycbcr_or_rgb     = reg_06_en_ycbcr_or_rgb;
+    int point_interest      = reg_31_point_interest;
+    int delta_config        = reg_32_delta_config;
+    int cpu_ack_go_again    = reg_33_cpu_ack_go_again;
+    int cpu_wgrid_lock      = reg_34_cpu_wgrid_lock;
+    int cpu_ack_off_frame   = reg_35_cpu_ack_off_frame;
+    int fifo_read_address   = reg_36_fifo_read_address;
+    int clear_fifo_data     = reg_37_clear_fifo_data;
+    int rgb_cord_rl         = reg_50_rgb_cord_rl;
+    int rgb_cord_rh         = reg_51_rgb_cord_rh;
+    int rgb_cord_gl         = reg_52_rgb_cord_gl;
+    int rgb_cord_gh         = reg_53_rgb_cord_gh;
+    int rgb_cord_bl         = reg_54_rgb_cord_bl;
+    int rgb_cord_bh         = reg_55_rgb_cord_bh;
+    int lum_th              = reg_56_lum_th;
+    int hsv_per_ch          = reg_57_hsv_per_ch;
+    int ycc_per_ch          = reg_58_ycc_per_ch;
+	
     // Function: new
    function new(string name="config_axi4_seq");
        super.new(name);
    endfunction: new
+   
     // Function: SetStatus
    function void SetStatus(input int Y);
       en_ycbcr_or_rgb = Y;
    endfunction: SetStatus
+   
     // Method:  body
    virtual task body();
        d5m_trans item;
@@ -39,7 +43,7 @@ class config_axi4_seq extends uvm_sequence #(d5m_trans);
        axi_write_channel(threshold,config_threshold);
        axi_write_channel(videoChannel,video_channel);
        axi_write_channel(cChannel,c_channel);
-       axi_write_channel(dChannel,en_ycbcr_or_rgb);
+       axi_write_channel(dChannel,reg_06_en_ycbcr_or_rgb);
        axi_write_channel(pReg_pointInterest,point_interest);
        axi_write_channel(pReg_deltaConfig,delta_config);
        axi_write_channel(pReg_cpuAckGoAgain,cpu_ack_go_again);
@@ -56,16 +60,27 @@ class config_axi4_seq extends uvm_sequence #(d5m_trans);
        axi_write_channel(oLumTh,lum_th);
        axi_write_channel(oHsvPerCh,hsv_per_ch);
        axi_write_channel(oYccPerCh,ycc_per_ch);
+
    endtask: body
 
-    // Method:  axi_write_channel
+	// Method:  axi_write_channel
     virtual task axi_write_channel (bit[7:0] addr,bit[31:0] data);
         d5m_trans item;
         `uvm_create(item)
-        item.axi4_lite.addr           = {7'h0,addr};
+        item.axi4_lite.addr           = addr;
         item.axi4_lite.data           = data;
         item.d5m_txn                  = AXI4_WRITE;
         `uvm_send(item);
-   endtask: axi_write_channel
+		axi_read_back_channel(addr);
+	endtask: axi_write_channel
+	
+	// Method:  axi_read_back_channel
+	virtual task axi_read_back_channel(bit[7:0] addr);
+        d5m_trans item;
+        `uvm_create(item)
+        item.axi4_lite.addr           = addr;
+        item.d5m_txn                  = AXI4_READ;
+        `uvm_send(item);
+   endtask: axi_read_back_channel
    
 endclass: config_axi4_seq

@@ -39,6 +39,8 @@ port (
     iHsvPerCh                 : in integer;
     iYccPerCh                 : in integer;
     iEdgeType                 : in std_logic_vector(b_data_width-1 downto 0);
+    iFilterId                 : in std_logic_vector(b_data_width-1 downto 0);
+    oKcoeff                   : out kernelCoeff;
     iVideoChannel             : in std_logic_vector(b_data_width-1 downto 0);
     iThreshold                : in std_logic_vector(15 downto 0); 
     --out                     
@@ -250,6 +252,8 @@ port map(
     lumThreshold        => lumThreshold,
     iThreshold          => iThreshold,
     iVideoChannel       => iVideoChannel,
+    iFilterId           => iFilterId,
+    oKcoeff             => oKcoeff,
     iRgb                => rgbIn,--cgainIoOut,
     cHsv                => cHsv,
     cYcc                => cYcc,

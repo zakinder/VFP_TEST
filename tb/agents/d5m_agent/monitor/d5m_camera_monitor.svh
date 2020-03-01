@@ -70,10 +70,11 @@ class d5m_camera_monitor extends uvm_monitor;
                 
                 //From dut: video configuration
                 
-                if (d5m_camera_vif.axi4.WVALID) begin
-                    d5m_tx.axi4       = d5m_camera_vif.axi4;
-                end
                 
+                d5m_tx.axi4       = d5m_camera_vif.axi4;
+                //if (d5m_camera_vif.axi4.RVALID == 1'b1) begin
+                //    `uvm_info("rdata",$sformatf("RDATA = %H",d5m_camera_vif.axi4.RDATA[15:0]), UVM_LOW)
+                //end
                 //From dut: tx channel
 
                 //From dut: rx channel

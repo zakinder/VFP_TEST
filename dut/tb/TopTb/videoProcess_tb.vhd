@@ -119,30 +119,34 @@ begin
         resetn  <= hi;
     wait;
     end process;
-F_CGA_BRIGHT_FRAME_ENABLE: if (F_CGA_BRIGHT = true) generate
-begin
-kernel1ReadInst: ReadCoeffFile
-generic map (
-    s_data_width    => s_data_width,
-    input_file      => "ReadCoeffData")
-port map (                  
-    clk               => clk,
-    reset             => resetn,
-    iCord             => txCord,
-    kSet1Out          => kCoeff);
-end generate F_CGA_BRIGHT_FRAME_ENABLE;
-READ_COEFF_DATA_ENABLE: if (F_READ_COEFF_DATA = true) generate
-begin
-kernel1ReadInst: ReadCoeffFile
-generic map (
-    s_data_width    => s_data_width,
-    input_file      => "ReadCoeffData")
-port map (                  
-    clk               => clk,
-    reset             => resetn,
-    iCord             => txCord,
-    kSet1Out          => kCoeff);
-end generate READ_COEFF_DATA_ENABLE;
+
+    F_CGA_BRIGHT_FRAME_ENABLE: if (F_CGA_BRIGHT = true) generate
+    begin
+    kernel1ReadInst: ReadCoeffFile
+    generic map (
+        s_data_width    => s_data_width,
+        input_file      => "ReadCoeffData")
+    port map (                  
+        clk               => clk,
+        reset             => resetn,
+        iCord             => txCord,
+        kSet1Out          => kCoeff);
+    end generate F_CGA_BRIGHT_FRAME_ENABLE;
+
+
+    READ_COEFF_DATA_ENABLE: if (F_READ_COEFF_DATA = true) generate
+    begin
+    kernel1ReadInst: ReadCoeffFile
+    generic map (
+        s_data_width    => s_data_width,
+        input_file      => "ReadCoeffData")
+    port map (                  
+        clk               => clk,
+        reset             => resetn,
+        iCord             => txCord,
+        kSet1Out          => kCoeff);
+    end generate READ_COEFF_DATA_ENABLE;
+    
 FILTERS_TEST_ENABLED: if (DUT_FILTERS_TESTENABLED = true) generate
     constant init_type_Rgb   : type_Rgb := (valid => lo, red => (others => '0'), green => (others => '0'), blue => (others => '0'));
     signal enableWrite       : std_logic := lo;

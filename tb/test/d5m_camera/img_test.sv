@@ -1,7 +1,7 @@
 // Class: img_test
 class img_test extends uvm_test;
     `uvm_component_utils(img_test)
-    
+    // handle: aL_env
     d5m_camera_env aL_env;
     
     // Function: new

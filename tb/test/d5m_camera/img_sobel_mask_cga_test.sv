@@ -19,7 +19,7 @@ class img_sobel_mask_cga_test extends uvm_test;
         super.end_of_elaboration_phase(phase);
         this.print();
         factory.print();
-    endfunction
+    endfunction: end_of_elaboration_phase
     task run_phase(uvm_phase phase);
         img_sbmk_cga_seq    d5m_seq;
         phase.raise_objection(.obj(this));

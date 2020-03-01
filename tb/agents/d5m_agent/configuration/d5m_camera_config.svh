@@ -2,12 +2,13 @@
 class d5m_camera_configuration extends uvm_object;
     `uvm_object_utils(d5m_camera_configuration)
     rand bit [2:0] mode;
-    
+    bit coverage_enable = 1;
     // Function: new
     function new(string name = "d5m_camera_configuration");
         super.new(name);
     endfunction: new
     
+    // Function: do_print
     function void do_print (uvm_printer printer);
         printer.knobs.depth=0;
         printer.print_int ("mode", mode, $bits(mode));

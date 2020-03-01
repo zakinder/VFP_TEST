@@ -1,10 +1,13 @@
 // Class: d5m_camera_test
 class d5m_camera_test extends uvm_test;
     `uvm_component_utils(d5m_camera_test)
-    
+    // handle: aL_env
     d5m_camera_env aL_env;
+    // handle: d5m_camera_cfg
     d5m_camera_configuration d5m_camera_cfg;
+    // handle: tprinter
     uvm_table_printer tprinter;
+
     // Function: new
     function new(string name, uvm_component parent);
         super.new(name, parent);
@@ -46,7 +49,7 @@ class d5m_camera_test extends uvm_test;
         d5m_seq.start(aL_env.aL_agt.aL_sqr);
         phase.drop_objection(.obj(this));
     endtask: run_phase
-    
+    // Function: cfg_printer
    function void cfg_printer ();
       tprinter.knobs.full_name = 1;               // Show full name of the variable relative to class instance
       tprinter.knobs.size = 0;                    // Do not show size column
