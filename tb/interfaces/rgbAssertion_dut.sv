@@ -1,6 +1,6 @@
 // MODULE : ADDER [TEMPLATE]
 module rgbAssertionDut(d5m_camera_if.ConfigMaster d5m_camera_vif);
-import generic_pack::*;
+
 rgbAssertion rgb_dut   (
    .pixclk             (d5m_camera_vif.clkmm),
    .mmclk              (d5m_camera_vif.clkmm),

@@ -1,8 +1,8 @@
-// Class: d5m_monitor_predict
-class d5m_monitor_predict extends uvm_monitor;
+// Class: d5m_mon_pred
+class d5m_mon_pred extends uvm_monitor;
 
-    // handle: d5m_cell_box_predict_pkts
-    rgb_set_frame                d5m_cell_box_predict_pkts;
+    // handle: img_pred_h
+    rgb_set_frame  img_pred_h;
     
     // handle: d5m_camera_vif
     // Interafce instance
@@ -29,14 +29,16 @@ class d5m_monitor_predict extends uvm_monitor;
     //Declare analysis port
     uvm_analysis_port #(d5m_trans) d5m_mon_prd;
 
-    protected d5m_trans predict_d5m_txn,predict_d5m;
+    protected d5m_trans pred_h;
+    protected d5m_trans pred_d5m_h;
     
-    `uvm_component_utils_begin(d5m_monitor_predict)
+    
+    `uvm_component_utils_begin(d5m_mon_pred)
         `uvm_field_int(id, UVM_DEFAULT)
     `uvm_component_utils_end
     
     covergroup d5m_predict_cg;
-        red_predict_cp : coverpoint predict_d5m_txn.vfp.red {
+        red_predict_cp : coverpoint pred_h.vfp.red {
         bins red_000_025_darker     = {0,25};
         bins red_026_050_dark       = {26,50};
         bins red_051_100_med_dark   = {51,100};
@@ -45,7 +47,7 @@ class d5m_monitor_predict extends uvm_monitor;
         bins red_201_255_light      = {201,255};
         }
         
-        green_predict_cp : coverpoint predict_d5m_txn.vfp.green {
+        green_predict_cp : coverpoint pred_h.vfp.green {
         bins grn_000_025_darker     = {0,25};
         bins grn_026_050_dark       = {26,50};
         bins grn_051_100_med_dark   = {51,100};
@@ -54,7 +56,7 @@ class d5m_monitor_predict extends uvm_monitor;
         bins grn_201_255_light      = {201,255};
         }
         
-        blue_predict_cp : coverpoint predict_d5m_txn.vfp.blue {
+        blue_predict_cp : coverpoint pred_h.vfp.blue {
         bins blu_000_025_darker     = {0,25};
         bins blu_026_050_dark       = {26,50};
         bins blu_051_100_med_dark   = {51,100};
@@ -96,12 +98,12 @@ class d5m_monitor_predict extends uvm_monitor;
         bins blu_255_255_white      = {255}     iff(d5m_camera_vif.d5m.lvalid == high);
         }
         
-        xCord_iff_cp : coverpoint predict_d5m_txn.vfp.x[5:0] iff (predict_d5m_txn.vfp.valid ==high){
+        xCord_iff_cp : coverpoint pred_h.vfp.x[5:0] iff (pred_h.vfp.valid ==high){
         option.at_least     = 1;
         option.auto_bin_max = 4;
         }
         
-        yCord_iff_cp : coverpoint predict_d5m_txn.vfp.y[5:0] iff (predict_d5m_txn.vfp.valid ==high){
+        yCord_iff_cp : coverpoint pred_h.vfp.y[5:0] iff (pred_h.vfp.valid ==high){
         option.at_least     = 1;
         option.auto_bin_max = 4;
         }
@@ -113,8 +115,8 @@ class d5m_monitor_predict extends uvm_monitor;
     // Function: new
     function new (string name, uvm_component parent);
         super.new(name, parent);
-        choices            = rgb_incrementer;
-        d5m_cell_box_predict_pkts = rgb_set_frame::type_id::create("d5m_cell_box_predict_pkts");
+        choices    = rgb_incrementer;
+        img_pred_h = rgb_set_frame::type_id::create("img_pred_h");
         d5m_predict_cg = new;
     endfunction: new
     
@@ -136,25 +138,26 @@ class d5m_monitor_predict extends uvm_monitor;
     
     // Method:  collect_transactions
     virtual protected task collect_transactions();
+    
         // Placeholder to capture transaction information.
-        d5m_trans predict_d5m;
-        predict_d5m        = d5m_trans::type_id::create("predict_d5m"); 
-        d5m_cell_box_predict_pkts.re_gen_cell_box(lval_lines,image_width,set_cell_red_value,set_cell_gre_value,set_cell_blu_value,set_increment_value,choices);
+        d5m_trans pred_d5m_h;
+        pred_d5m_h        = d5m_trans::type_id::create("pred_d5m_h"); 
+        img_pred_h.re_gen_cell_box(lval_lines,image_width,set_cell_red_value,set_cell_gre_value,set_cell_blu_value,set_increment_value,choices);
+        
         forever begin
         @(posedge d5m_camera_vif.clkmm)
-           // if(d5m_camera_vif.d5m.valid==1'b1) begin
-                predict_d5m.vfp.red   = d5m_cell_box_predict_pkts.c_blocker.c_rows[d5m_camera_vif.d5m.y].c_block[d5m_camera_vif.d5m.x].red;
-                predict_d5m.vfp.green = d5m_cell_box_predict_pkts.c_blocker.c_rows[d5m_camera_vif.d5m.y].c_block[d5m_camera_vif.d5m.x].gre;
-                predict_d5m.vfp.blue  = d5m_cell_box_predict_pkts.c_blocker.c_rows[d5m_camera_vif.d5m.y].c_block[d5m_camera_vif.d5m.x].blu;
-                predict_d5m.vfp.x     = d5m_camera_vif.d5m.x;
-                predict_d5m.vfp.y     = d5m_camera_vif.d5m.y;
-                predict_d5m.vfp.valid = d5m_camera_vif.d5m.valid;
-                predict_d5m_txn       = predict_d5m;
-                d5m_predict_cg.sample();
-                //Send the transaction to the analysis port
-                d5m_mon_prd.write(predict_d5m);
-          //  end
+            pred_d5m_h.vfp.red   = img_pred_h.c_blocker.c_rows[d5m_camera_vif.d5m.y].c_block[d5m_camera_vif.d5m.x].red;
+            pred_d5m_h.vfp.green = img_pred_h.c_blocker.c_rows[d5m_camera_vif.d5m.y].c_block[d5m_camera_vif.d5m.x].gre;
+            pred_d5m_h.vfp.blue  = img_pred_h.c_blocker.c_rows[d5m_camera_vif.d5m.y].c_block[d5m_camera_vif.d5m.x].blu;
+            pred_d5m_h.vfp.x     = d5m_camera_vif.d5m.x;
+            pred_d5m_h.vfp.y     = d5m_camera_vif.d5m.y;
+            pred_d5m_h.vfp.valid = d5m_camera_vif.d5m.valid;
+            pred_h       = pred_d5m_h;
+            d5m_predict_cg.sample();
+            //Send the transaction to the analysis port
+            d5m_mon_prd.write(pred_d5m_h);
         end
+        
     endtask: collect_transactions
 
-endclass: d5m_monitor_predict
+endclass: d5m_mon_pred

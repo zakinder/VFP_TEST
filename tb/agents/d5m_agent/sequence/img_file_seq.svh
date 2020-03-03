@@ -5,8 +5,8 @@ class img_file_seq extends img_base_seq;
     function new(string name="img_file_seq");
         super.new(name);
     endfunction
-    // body --------------------------------------------------
-    virtual task body();
+    // Method:  body
+    virtual    task body();
         d5m_trans item;
         int number_frames;
         int lval_lines;

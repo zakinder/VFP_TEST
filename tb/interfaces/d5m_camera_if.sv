@@ -1,5 +1,5 @@
 // INTERFACE : axi_lite_IF [AXI4_LITE]
-    import generic_pack::*;
+
 interface d5m_camera_if(input bit ACLK,pixclk,reset,ARESETN);
     rgb_channel         vfp;
     rgb_channel         d5m;
@@ -51,6 +51,7 @@ interface d5m_camera_if(input bit ACLK,pixclk,reset,ARESETN);
     logic [2:0]         m_axis_mm2s_tstrb; //output
     logic [0:0]         m_axis_mm2s_tid;   //output
     logic [0:0]         m_axis_mm2s_tdest; //output
+    
     modport ConfigMaster(input pixclk,clkmm,reset,d5p,ACLK,ARESETN,rgb_m_axis_tready,rgb_s_axis_tvalid,rgb_s_axis_tlast,rgb_s_axis_tuser,rgb_s_axis_tdata,m_axis_mm2s_tready,
     output  d5m,axi4,rgb_m_axis_tvalid,rgb_m_axis_tlast,rgb_m_axis_tuser,rgb_m_axis_tdata,rgb_s_axis_tready,m_axis_mm2s_tvalid,m_axis_mm2s_tuser,m_axis_mm2s_tlast,m_axis_mm2s_tdata,m_axis_mm2s_tkeep,m_axis_mm2s_tstrb,m_axis_mm2s_tid,m_axis_mm2s_tdest);
 endinterface: d5m_camera_if

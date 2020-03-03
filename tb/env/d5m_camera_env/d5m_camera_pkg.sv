@@ -1,11 +1,17 @@
   `include "../../generic_pack0.svh"
+  `include "../../vfp_structs.svh"
   `include "../../image_kernal_coefs.svh"
   `include "../../agents/d5m_agent/d5m_camera_agent_pkg.sv"
+
 package d5m_camera_pkg;
   import d5m_camera_agent_pkg::*;
   import uvm_pkg::*;
+  import generic_pack::*;
   `include "uvm_macros.svh"
   `include "../../defin_lib.svh"
+  `include "../../config/sb_subscriber.svh"
+  `include "../../config/rgb_scoreboard.svh"
+
   `include "d5m_camera_env.sv"
   `include "../../test/d5m_camera/d5m_camera_test.sv"
   `include "../../test/d5m_camera/d5m_camera_image_pattern_test.sv"

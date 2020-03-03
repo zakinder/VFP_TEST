@@ -6,7 +6,8 @@ class img_random_seq extends uvm_sequence #(d5m_trans);
    function new(string name = "img_random_seq");
       super.new(name);
    endfunction : new
-   virtual task body();
+    // Method:  body
+   virtual    task body();
       repeat (1) begin : random_loop
          //create method
          item = d5m_trans::type_id::create("item");

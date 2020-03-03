@@ -4,10 +4,8 @@
 // from a connected analysis export.
 class d5m_camera_fc_subscriber extends uvm_subscriber#(d5m_trans);
     `uvm_component_utils(d5m_camera_fc_subscriber)
-    
     // handle: d5m_txn
     d5m_trans d5m_txn;
-    
     //Axi4 coverage groups
     covergroup axi4_cg;
         // vfp config registers coverpoint
@@ -58,20 +56,19 @@ class d5m_camera_fc_subscriber extends uvm_subscriber#(d5m_trans);
         bins reg228_hsv_per_ch        = {oHsvPerCh}            iff(d5m_txn.axi4.WVALID == 1'b1);
         bins reg232_ycc_per_ch        = {oYccPerCh}            iff(d5m_txn.axi4.WVALID == 1'b1);
         }
-		
         // vfp config registers value coverpoint
         vfp_registers_write_data_cp : coverpoint d5m_txn.axi4.WDATA[15:0] {
         option.at_least               = 1;
-        bins reg00_rgb_sharp          = {reg_00_rgb_sharp}	        iff(d5m_txn.axi4.AWADDR == oRgbOsharp)&&(d5m_txn.axi4.WVALID == 1'b1)&&(d5m_txn.axi4.AWVALID == 1'b1);
-        bins reg04_edge_type          = {reg_01_edge_type}	        iff(d5m_txn.axi4.AWADDR == oEdgeType)&&(d5m_txn.axi4.WVALID == 1'b1)&&(d5m_txn.axi4.AWVALID == 1'b1);
-        bins reg12_bus_select         = {reg_03_bus_select}	        iff(d5m_txn.axi4.AWADDR == aBusSelect)&&(d5m_txn.axi4.WVALID == 1'b1)&&(d5m_txn.axi4.AWVALID == 1'b1);
-        bins reg16_threshold          = {reg_04_config_threshold}	iff(d5m_txn.axi4.AWADDR == threshold)&&(d5m_txn.axi4.WVALID == 1'b1)&&(d5m_txn.axi4.AWVALID == 1'b1);
-        bins reg20_video_channel      = {reg_05_video_channel}	    iff(d5m_txn.axi4.AWADDR == videoChannel)&&(d5m_txn.axi4.WVALID == 1'b1)&&(d5m_txn.axi4.AWVALID == 1'b1);
-        bins reg24_d_channel          = {reg_06_en_ycbcr_or_rgb}	iff(d5m_txn.axi4.AWADDR == dChannel)&&(d5m_txn.axi4.WVALID == 1'b1)&&(d5m_txn.axi4.AWVALID == 1'b1);
-        bins reg28_c_channel          = {reg_07_c_channel}	        iff(d5m_txn.axi4.AWADDR == cChannel)&&(d5m_txn.axi4.WVALID == 1'b1)&&(d5m_txn.axi4.AWVALID == 1'b1);
-        bins reg32_kls_k1             = {reg_08_kls_k1}	            iff(d5m_txn.axi4.AWADDR == kls_k1)&&(d5m_txn.axi4.WVALID == 1'b1)&&(d5m_txn.axi4.AWVALID == 1'b1);
-        bins reg36_kls_k2             = {reg_09_kls_k2}	            iff(d5m_txn.axi4.AWADDR == kls_k2)&&(d5m_txn.axi4.WVALID == 1'b1)&&(d5m_txn.axi4.AWVALID == 1'b1);
-        bins reg40_kls_k3             = {reg_10_kls_k3}	            iff(d5m_txn.axi4.AWADDR == kls_k3)&&(d5m_txn.axi4.WVALID == 1'b1)&&(d5m_txn.axi4.AWVALID == 1'b1);
+        bins reg00_rgb_sharp          = {reg_00_rgb_sharp}          iff(d5m_txn.axi4.AWADDR == oRgbOsharp)&&(d5m_txn.axi4.WVALID == 1'b1)&&(d5m_txn.axi4.AWVALID == 1'b1);
+        bins reg04_edge_type          = {reg_01_edge_type}          iff(d5m_txn.axi4.AWADDR == oEdgeType)&&(d5m_txn.axi4.WVALID == 1'b1)&&(d5m_txn.axi4.AWVALID == 1'b1);
+        bins reg12_bus_select         = {reg_03_bus_select}         iff(d5m_txn.axi4.AWADDR == aBusSelect)&&(d5m_txn.axi4.WVALID == 1'b1)&&(d5m_txn.axi4.AWVALID == 1'b1);
+        bins reg16_threshold          = {reg_04_config_threshold}   iff(d5m_txn.axi4.AWADDR == threshold)&&(d5m_txn.axi4.WVALID == 1'b1)&&(d5m_txn.axi4.AWVALID == 1'b1);
+        bins reg20_video_channel      = {reg_05_video_channel}      iff(d5m_txn.axi4.AWADDR == videoChannel)&&(d5m_txn.axi4.WVALID == 1'b1)&&(d5m_txn.axi4.AWVALID == 1'b1);
+        bins reg24_d_channel          = {reg_06_en_ycbcr_or_rgb}    iff(d5m_txn.axi4.AWADDR == dChannel)&&(d5m_txn.axi4.WVALID == 1'b1)&&(d5m_txn.axi4.AWVALID == 1'b1);
+        bins reg28_c_channel          = {reg_07_c_channel}          iff(d5m_txn.axi4.AWADDR == cChannel)&&(d5m_txn.axi4.WVALID == 1'b1)&&(d5m_txn.axi4.AWVALID == 1'b1);
+        bins reg32_kls_k1             = {reg_08_kls_k1}             iff(d5m_txn.axi4.AWADDR == kls_k1)&&(d5m_txn.axi4.WVALID == 1'b1)&&(d5m_txn.axi4.AWVALID == 1'b1);
+        bins reg36_kls_k2             = {reg_09_kls_k2}             iff(d5m_txn.axi4.AWADDR == kls_k2)&&(d5m_txn.axi4.WVALID == 1'b1)&&(d5m_txn.axi4.AWVALID == 1'b1);
+        bins reg40_kls_k3             = {reg_10_kls_k3}             iff(d5m_txn.axi4.AWADDR == kls_k3)&&(d5m_txn.axi4.WVALID == 1'b1)&&(d5m_txn.axi4.AWVALID == 1'b1);
         bins reg44_kls_k4             = {reg_11_kls_k4}             iff(d5m_txn.axi4.AWADDR == kls_k4)&&(d5m_txn.axi4.WVALID == 1'b1)&&(d5m_txn.axi4.AWVALID == 1'b1);
         bins reg48_kls_k5             = {reg_12_kls_k5}             iff(d5m_txn.axi4.AWADDR == kls_k5)&&(d5m_txn.axi4.WVALID == 1'b1)&&(d5m_txn.axi4.AWVALID == 1'b1);
         bins reg52_kls_k6             = {reg_13_kls_k6}             iff(d5m_txn.axi4.AWADDR == kls_k6)&&(d5m_txn.axi4.WVALID == 1'b1)&&(d5m_txn.axi4.AWVALID == 1'b1);
@@ -134,23 +131,19 @@ class d5m_camera_fc_subscriber extends uvm_subscriber#(d5m_trans);
         bins v_ch_rgb_det  = {select_rgbDetect}        iff(d5m_txn.axi4.AWADDR == videoChannel)&&(d5m_txn.axi4.WVALID == 1'b1);
         bins v_ch_rgb_poi  = {select_rgbPoi}           iff(d5m_txn.axi4.AWADDR == videoChannel)&&(d5m_txn.axi4.WVALID == 1'b1);
         }
-		
-		
-		
-		
         // vfp config registers value coverpoint
         vfp_registers_read_data_cp : coverpoint d5m_txn.axi4.RDATA { 
         option.at_least               = 1;
-        bins reg00_rgb_sharp          = {reg_00_rgb_sharp}	        iff(d5m_txn.axi4.ARADDR == oRgbOsharp)&&(d5m_txn.axi4.RVALID == 1'b1);
-        bins reg04_edge_type          = {reg_01_edge_type}	        iff(d5m_txn.axi4.ARADDR == oEdgeType)&&(d5m_txn.axi4.RVALID == 1'b1);
-        bins reg12_bus_select         = {reg_03_bus_select}	        iff(d5m_txn.axi4.ARADDR == aBusSelect)&&(d5m_txn.axi4.RVALID == 1'b1);
-        bins reg16_threshold          = {reg_04_config_threshold}	iff(d5m_txn.axi4.ARADDR == threshold)&&(d5m_txn.axi4.RVALID == 1'b1);
-        bins reg20_video_channel      = {reg_05_video_channel}	    iff(d5m_txn.axi4.ARADDR == videoChannel)&&(d5m_txn.axi4.RVALID == 1'b1);
-        bins reg24_d_channel          = {reg_06_en_ycbcr_or_rgb}	iff(d5m_txn.axi4.ARADDR == dChannel)&&(d5m_txn.axi4.RVALID == 1'b1);
-        bins reg28_c_channel          = {reg_07_c_channel}	        iff(d5m_txn.axi4.ARADDR == cChannel)&&(d5m_txn.axi4.RVALID == 1'b1);
-        bins reg32_kls_k1             = {reg_08_kls_k1}	            iff(d5m_txn.axi4.ARADDR == kls_k1)&&(d5m_txn.axi4.RVALID == 1'b1);
-        bins reg36_kls_k2             = {reg_09_kls_k2}	            iff(d5m_txn.axi4.ARADDR == kls_k2)&&(d5m_txn.axi4.RVALID == 1'b1);
-        bins reg40_kls_k3             = {reg_10_kls_k3}	            iff(d5m_txn.axi4.ARADDR == kls_k3)&&(d5m_txn.axi4.RVALID == 1'b1);
+        bins reg00_rgb_sharp          = {reg_00_rgb_sharp}          iff(d5m_txn.axi4.ARADDR == oRgbOsharp)&&(d5m_txn.axi4.RVALID == 1'b1);
+        bins reg04_edge_type          = {reg_01_edge_type}          iff(d5m_txn.axi4.ARADDR == oEdgeType)&&(d5m_txn.axi4.RVALID == 1'b1);
+        bins reg12_bus_select         = {reg_03_bus_select}         iff(d5m_txn.axi4.ARADDR == aBusSelect)&&(d5m_txn.axi4.RVALID == 1'b1);
+        bins reg16_threshold          = {reg_04_config_threshold}   iff(d5m_txn.axi4.ARADDR == threshold)&&(d5m_txn.axi4.RVALID == 1'b1);
+        bins reg20_video_channel      = {reg_05_video_channel}      iff(d5m_txn.axi4.ARADDR == videoChannel)&&(d5m_txn.axi4.RVALID == 1'b1);
+        bins reg24_d_channel          = {reg_06_en_ycbcr_or_rgb}    iff(d5m_txn.axi4.ARADDR == dChannel)&&(d5m_txn.axi4.RVALID == 1'b1);
+        bins reg28_c_channel          = {reg_07_c_channel}          iff(d5m_txn.axi4.ARADDR == cChannel)&&(d5m_txn.axi4.RVALID == 1'b1);
+        bins reg32_kls_k1             = {reg_08_kls_k1}             iff(d5m_txn.axi4.ARADDR == kls_k1)&&(d5m_txn.axi4.RVALID == 1'b1);
+        bins reg36_kls_k2             = {reg_09_kls_k2}             iff(d5m_txn.axi4.ARADDR == kls_k2)&&(d5m_txn.axi4.RVALID == 1'b1);
+        bins reg40_kls_k3             = {reg_10_kls_k3}             iff(d5m_txn.axi4.ARADDR == kls_k3)&&(d5m_txn.axi4.RVALID == 1'b1);
         bins reg44_kls_k4             = {reg_11_kls_k4}             iff(d5m_txn.axi4.ARADDR == kls_k4)&&(d5m_txn.axi4.RVALID == 1'b1);
         bins reg48_kls_k5             = {reg_12_kls_k5}             iff(d5m_txn.axi4.ARADDR == kls_k5)&&(d5m_txn.axi4.RVALID == 1'b1);
         bins reg52_kls_k6             = {reg_13_kls_k6}             iff(d5m_txn.axi4.ARADDR == kls_k6)&&(d5m_txn.axi4.RVALID == 1'b1);
@@ -185,12 +178,9 @@ class d5m_camera_fc_subscriber extends uvm_subscriber#(d5m_trans);
         bins reg228_hsv_per_ch        = {reg_57_hsv_per_ch}         iff(d5m_txn.axi4.ARADDR == oHsvPerCh)&&(d5m_txn.axi4.RVALID == 1'b1);
         bins reg232_ycc_per_ch        = {reg_58_ycc_per_ch}         iff(d5m_txn.axi4.ARADDR == oYccPerCh)&&(d5m_txn.axi4.RVALID == 1'b1);
         }
-
     endgroup: axi4_cg
-    
     //Rgb pixel coverage groups
     covergroup rgb_cg;
-
         // rgb red pixel in given range coverpoint
         red_cp : coverpoint d5m_txn.d5m.rgb[7:0] {
         bins red_000_000_black      = {0}       iff(d5m_txn.d5m.lvalid == high);
@@ -261,9 +251,7 @@ class d5m_camera_fc_subscriber extends uvm_subscriber#(d5m_trans);
         cross_rgb_auto      : cross red_auto_pixel_cp,gre_auto_pixel_cp,blu_auto_pixel_cp;
         cross_max_rgb       : cross red_auto_pixel_cp,gre_auto_pixel_cp,blu_auto_pixel_cp,xCord_iff_cp,yCord_iff_cp;
         cross_iff_rgb       : cross red_cp,green_cp,blue_cp,xCord_iff_cp,yCord_iff_cp;
-        
     endgroup: rgb_cg
-    
     //Rgb pixel processed coverage groups
     covergroup rgb_slave_cg;
         // rgb red processed pixel in given range coverpoint
@@ -303,9 +291,7 @@ class d5m_camera_fc_subscriber extends uvm_subscriber#(d5m_trans);
         rgb_black_white_cr : cross red_cp, green_cp, blue_cp{
         bins black = binsof(red_cp.red_000_000_black) && binsof(green_cp.grn_000_000_black) && binsof(blue_cp.blu_000_000_black);
         bins white = binsof(red_cp.red_255_255_white) && binsof(green_cp.grn_255_255_white) && binsof(blue_cp.blu_255_255_white);}
-
     endgroup: rgb_slave_cg
-    
     // Function: new
     // Construct covergroups
     function new(string name, uvm_component parent);
@@ -314,7 +300,6 @@ class d5m_camera_fc_subscriber extends uvm_subscriber#(d5m_trans);
         rgb_slave_cg = new;
         axi4_cg      = new;
     endfunction: new
-
     // Function: write
     // Sample covergroups
     function void write(d5m_trans t);
@@ -323,5 +308,4 @@ class d5m_camera_fc_subscriber extends uvm_subscriber#(d5m_trans);
         rgb_slave_cg.sample();
         axi4_cg.sample();
     endfunction: write
-
 endclass: d5m_camera_fc_subscriber

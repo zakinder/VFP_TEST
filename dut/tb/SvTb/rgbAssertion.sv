@@ -1,4 +1,5 @@
 import generic_pack::*;
+import vfp_structs_pack::*;
 module rgbAssertion(pixclk,mmclk,reset,valid,iRed,iGreen,iBlue,m_axis_mm2s_tvalid,m_axis_mm2s_tdata);
   input logic        pixclk;
   input logic        reset;

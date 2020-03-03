@@ -1,8 +1,9 @@
 // Class: d5m_rgb_patten_test
 class d5m_rgb_patten_test extends uvm_test;
     `uvm_component_utils(d5m_rgb_patten_test)
-    // handle: aL_env
-    d5m_camera_env aL_env;
+    
+    // handle: d5m_env_h
+    d5m_camera_env d5m_env_h;
 
     // Function: new
     function new(string name, uvm_component parent);
@@ -16,7 +17,7 @@ class d5m_rgb_patten_test extends uvm_test;
             d5m_camera_configuration d5m_camera_cfg;
             d5m_camera_cfg = new;
             assert(d5m_camera_cfg.randomize());
-            aL_env = d5m_camera_env::type_id::create(.name("aL_env"),.parent(this));
+            d5m_env_h = d5m_camera_env::type_id::create(.name("d5m_env_h"),.parent(this));
         end
     endfunction: build_phase
 
@@ -29,12 +30,12 @@ class d5m_rgb_patten_test extends uvm_test;
 
     // Function: run_phase
     task run_phase(uvm_phase phase);
-        d5m_rgb_seq    d5m_seq;
+        d5m_rgb_seq    seq_h;
         phase.raise_objection(.obj(this));
-        d5m_seq = d5m_rgb_seq::type_id::create(.name("d5m_seq"));
-        assert(d5m_seq.randomize());
-        `uvm_info("aL_env", { "\n", d5m_seq.sprint() }, UVM_LOW)
-        d5m_seq.start(aL_env.aL_agt.aL_sqr);
+        seq_h = d5m_rgb_seq::type_id::create(.name("seq_h"));
+        assert(seq_h.randomize());
+        `uvm_info("d5m_env_h", { "\n", seq_h.sprint() }, UVM_LOW)
+        seq_h.start(d5m_env_h.d5m_agt_h.d5m_sqr_h);
         phase.drop_objection(.obj(this));
     endtask: run_phase
     

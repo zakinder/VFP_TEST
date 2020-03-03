@@ -3,26 +3,22 @@ package d5m_camera_agent_pkg;
   import uvm_pkg::*;
   import generic_pack::*;
   import filters_coef_pack::*;
+  import vfp_structs_pack::*;
   `include "uvm_macros.svh"
-
   `include "../../defin_lib.svh"
   `include "transaction/d5m_trans.svh"
-
   `include "sequence/vfp_reg.svh"
   `include "sequence/vfp_config.svh"
-  
   `include "sequence/rgb_cell_unit.svh"
   `include "sequence/rgb_set_cell.svh"
   `include "sequence/rgb_per_cell.svh"
   `include "sequence/rgb_set_rows.svh"
   `include "sequence/rgb_set_cols.svh"
   `include "sequence/rgb_set_frame.svh"
-  
   `include "sequence/img_seqr.svh"
-  
   `include "sequence/img_base_seq.svh"
   `include "sequence/camera_seq.svh"
-  `include "sequence/img_gen_seq.svh"
+  `include "sequence/img_read_seq.svh"
   `include "sequence/img_random_seq.svh"
   `include "sequence/img_file_seq.svh"
   `include "sequence/d5m_rgb_seq.svh"
@@ -53,5 +49,5 @@ package d5m_camera_agent_pkg;
   `include "monitor/d5m_monitor_predict.svh"
   `include "coverage/d5m_camera_coverage.svh"
   `include "d5m_camera_agent.svh"
-  `include "coverage/d5m_scoreboard.svh"
+  //`include "coverage/d5m_scoreboard.svh"
 endpackage:d5m_camera_agent_pkg

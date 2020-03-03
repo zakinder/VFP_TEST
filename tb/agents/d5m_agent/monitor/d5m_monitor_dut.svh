@@ -1,5 +1,5 @@
-// Class: d5m_monitor_dut
-class d5m_monitor_dut extends uvm_monitor;
+// Class: d5m_mon_dut
+class d5m_mon_dut extends uvm_monitor;
 
     // handle: d5m_camera_vif
     // Interafce instance
@@ -13,7 +13,7 @@ class d5m_monitor_dut extends uvm_monitor;
 
     protected d5m_trans rx_fdut;
     
-    `uvm_component_utils_begin(d5m_monitor_dut)
+    `uvm_component_utils_begin(d5m_mon_dut)
         `uvm_field_int(id, UVM_DEFAULT)
     `uvm_component_utils_end
     
@@ -21,7 +21,6 @@ class d5m_monitor_dut extends uvm_monitor;
     // Create mon_d5m_dut instance of the analysis port
     function new (string name, uvm_component parent);
         super.new(name, parent);
-        //mon_d5m_dut = new("mon_d5m_dut", this);
     endfunction: new
     
     // Function: build_phase
@@ -29,10 +28,8 @@ class d5m_monitor_dut extends uvm_monitor;
     // Build the analysis port mon_d5m_dut
     function void build_phase (uvm_phase phase);
         super.build_phase(phase);
-        
         if(!uvm_config_db#(virtual d5m_camera_if)::get(this, "", "d5m_camera_vif", d5m_camera_vif))
         `uvm_fatal("NOVIF",{"virtual interface must be set for: ",get_full_name(), ".d5m_camera_vif"});
-        
         mon_d5m_dut = new("mon_d5m_dut", this);
     endfunction: build_phase
     
@@ -51,25 +48,20 @@ class d5m_monitor_dut extends uvm_monitor;
         forever begin
         @(posedge d5m_camera_vif.clkmm)
             //Monitor interface sigals and populate "rx_fdut" data object.
-            //if(d5m_camera_vif.d5m.valid==1'b1) begin
-                rx_fdut.d5m.valid  = d5m_camera_vif.d5m.valid;
-                rx_fdut.d5m.red    = d5m_camera_vif.d5m.red;
-                rx_fdut.d5m.green  = d5m_camera_vif.d5m.green;
-                rx_fdut.d5m.blue   = d5m_camera_vif.d5m.blue;
-           // end
-            //if(d5m_camera_vif.d5m.lvalid==1'b1) begin
-                rx_fdut.d5m.rgb    = d5m_camera_vif.d5m.rgb;
-                rx_fdut.d5m.lvalid = d5m_camera_vif.d5m.lvalid;
-                rx_fdut.d5m.fvalid = d5m_camera_vif.d5m.fvalid;
-                rx_fdut.d5m.x      = d5m_camera_vif.d5m.x;
-                rx_fdut.d5m.y      = d5m_camera_vif.d5m.y;
-                rx_fdut.d5m.eof    = d5m_camera_vif.d5m.eof;
-            //end
-
+            rx_fdut.d5m.valid  = d5m_camera_vif.d5m.valid;
+            rx_fdut.d5m.red    = d5m_camera_vif.d5m.red;
+            rx_fdut.d5m.green  = d5m_camera_vif.d5m.green;
+            rx_fdut.d5m.blue   = d5m_camera_vif.d5m.blue;
+            rx_fdut.d5m.rgb    = d5m_camera_vif.d5m.rgb;
+            rx_fdut.d5m.lvalid = d5m_camera_vif.d5m.lvalid;
+            rx_fdut.d5m.fvalid = d5m_camera_vif.d5m.fvalid;
+            rx_fdut.d5m.x      = d5m_camera_vif.d5m.x;
+            rx_fdut.d5m.y      = d5m_camera_vif.d5m.y;
+            rx_fdut.d5m.eof    = d5m_camera_vif.d5m.eof;
             //Send the transaction to the analysis port
             mon_d5m_dut.write(rx_fdut);
             
         end
     endtask: collect_transactions
     
-endclass: d5m_monitor_dut
+endclass: d5m_mon_dut

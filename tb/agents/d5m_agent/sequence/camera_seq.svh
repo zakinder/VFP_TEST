@@ -1,12 +1,14 @@
 // Class: camera_seq
 class camera_seq extends img_base_seq;
     `uvm_object_utils(camera_seq)
+    
     // Function: new
     function new(string name="camera_seq");
         super.new(name);
     endfunction: new
-    // body --------------------------------------------------
-    virtual task body();
+    // Method:  body
+    virtual    task body();
+    
         d5m_trans item;
         int number_frames;
         int lval_lines;
@@ -16,11 +18,11 @@ class camera_seq extends img_base_seq;
         bit [7:0] pReg_fifoReadAddress   = 8'h90;//116 // pReg_fifoReadEnable --fifo read enable
         bit [31:0] max_fifo_read_address = 32'h400f;//180
         bit [7:0] aBusSelect             = 8'h0C;//12 
-
-        bit enable_pattern  = 1'b0;
+        bit enable_pattern               = 1'b0;
+        
         typedef enum { pattern, random } type_idata;
         type_idata  data_type;
-        //----------------------------------------------------
+
         `uvm_create(item)
         item.d5p.rgb            = 0;
         item.d5p.lvalid         = 1'b0;
@@ -28,17 +30,17 @@ class camera_seq extends img_base_seq;
         item.d5p.iImageTypeTest = 1'b0;
         item.d5m_txn            = D5M_WRITE;
         `uvm_send(item);
-        //----------------------------------------------------
+
         axi_write_config_reg();
         d5m_read();
-        //----------------------------------------------------
-       //d5m_write_pre_set_ifval();
-       //number_frames  = item.cof.number_frames;
-       //lval_lines     = item.cof.lval_lines;
-       //lval_offset    = item.cof.lval_offset;
-       //image_width    = item.image_width;
-       //axi_write_channel(aBusSelect,0);
-       //d5m_write_create_frames(number_frames,lval_lines,lval_offset,image_width,enable_pattern);
+
+        //d5m_write_pre_set_ifval();
+        //number_frames  = item.cof.number_frames;
+        //lval_lines     = item.cof.lval_lines;
+        //lval_offset    = item.cof.lval_offset;
+        //image_width    = item.image_width;
+        //axi_write_channel(aBusSelect,0);
+        //d5m_write_create_frames(number_frames,lval_lines,lval_offset,image_width,enable_pattern);
         //axi_write_channel(aBusSelect,1);
         //enable_pattern  = 1'b1;
         //d5m_write_create_frames(number_frames,lval_lines,lval_offset,image_width,enable_pattern);
@@ -50,9 +52,11 @@ class camera_seq extends img_base_seq;
         //axi_multi_writes_to_address(pReg_fifoReadAddress,max_fifo_read_address);
         //----------------------------------------------------
     endtask: body
-    // -------------------------------------------------------
+    // Method:  axi_write_config_reg
     virtual protected task axi_write_config_reg ();
+    
         axi_write_channel(initAddr,initAddr);
+        
         //axi_write_channel_test();
         //axi_read_channel_test();
         //axi_multi_writes_to_address(videoChannel,max_num_video_select);
@@ -133,11 +137,9 @@ class camera_seq extends img_base_seq;
         axi_write_channel(oLumTh,reg_56_lum_th);
         axi_write_channel(oHsvPerCh,reg_57_hsv_per_ch);
         axi_write_channel(oYccPerCh,reg_58_ycc_per_ch);
-        
-        
-        
-        
+
     endtask: axi_write_config_reg
+    // Method:  axi_write_channel_test
     virtual protected task axi_write_channel_test();
             d5m_trans item;
             bit[7:0] addr;
@@ -151,6 +153,7 @@ class camera_seq extends img_base_seq;
             `uvm_send(item);
         end
     endtask: axi_write_channel_test
+    // Method:  axi_read_channel_test
     virtual protected task axi_read_channel_test();
             d5m_trans item;
             bit[7:0] addr;
@@ -164,12 +167,14 @@ class camera_seq extends img_base_seq;
             `uvm_send(item);
         end
     endtask: axi_read_channel_test
+    // Method:  axi_multi_writes_to_address
     virtual protected task axi_multi_writes_to_address (bit[7:0] waddr,bit[31:0] max_value);
        bit[31:0] data;
        for(data = 0; data  <= max_value; data++) begin
            axi_write_channel(waddr,data);
        end
     endtask: axi_multi_writes_to_address
+    // Method:  axi_write_channel
     virtual protected task axi_write_channel (bit[7:0] addr,bit[31:0] data);
             d5m_trans item;
             `uvm_create(item)
@@ -179,14 +184,16 @@ class camera_seq extends img_base_seq;
             `uvm_send(item);
             axi_read_back_channel(addr);
     endtask: axi_write_channel
-    // Method:  axi_write_channel
+    
+    // Method:  axi_read_back_channel
     virtual task axi_read_back_channel(bit[7:0] addr);
         d5m_trans item;
         `uvm_create(item)
         item.axi4_lite.addr           = addr;
         item.d5m_txn                  = AXI4_READ;
         `uvm_send(item);
-   endtask: axi_read_back_channel
+    endtask: axi_read_back_channel
+    // Method:  axi_read_channel
     virtual protected task axi_read_channel();
             d5m_trans item;
             bit[7:0] addr;
@@ -197,6 +204,7 @@ class camera_seq extends img_base_seq;
             `uvm_send(item);
         end
     endtask: axi_read_channel
+    // Method:  d5m_write_pre_set_ifval
     virtual protected task d5m_write_pre_set_ifval();
         d5m_trans item;
         int preset_cycles;
@@ -214,6 +222,7 @@ class camera_seq extends img_base_seq;
             `uvm_send(item);
         end
     endtask: d5m_write_pre_set_ifval
+    // Method:  d5m_write_create_frames
     virtual protected task d5m_write_create_frames(int number_frames,int lval_lines,int lval_offset,int image_width,bit enable_pattern);
         d5m_trans item;
         int y_cord;
@@ -254,6 +263,7 @@ class camera_seq extends img_base_seq;
             end
         end
     endtask: d5m_write_create_frames
+    
     virtual protected task axi_write_aBusSelect_channel (bit[7:0] addr,bit[31:0] data);
             d5m_trans item;
             `uvm_create(item)
@@ -262,6 +272,7 @@ class camera_seq extends img_base_seq;
             item.d5m_txn        = AXI4_WRITE;
             `uvm_send(item);
     endtask: axi_write_aBusSelect_channel
+    
     virtual protected task d5m_read ();
             d5m_trans item;
             `uvm_create(item)
@@ -269,4 +280,5 @@ class camera_seq extends img_base_seq;
             item.d5m_txn            = IMAGE_READ;
             `uvm_send(item);
     endtask: d5m_read
+    
 endclass: camera_seq

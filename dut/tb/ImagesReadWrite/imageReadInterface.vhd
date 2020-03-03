@@ -81,10 +81,10 @@ begin
     lvalid                       <= l_valid when (iImageTypeTest = lo) else ilvalid;
     fvalid                       <= f_valid when (iImageTypeTest = lo) else ifvalid;
     
-    mm2rgb.valid                 <= m_axis_mm2s_tvalid and valid2ndFrame;
-    mm2rgb.red                   <= m_axis_mm2s_tdata(23 downto 16) when valid2ndFrame = hi else x"00";
-    mm2rgb.green                 <= m_axis_mm2s_tdata(15 downto 8)  when valid2ndFrame = hi else x"00";
-    mm2rgb.blue                  <= m_axis_mm2s_tdata(7 downto 0)   when valid2ndFrame = hi else x"00";
+    mm2rgb.valid                 <= m_axis_mm2s_tvalid;
+    mm2rgb.red                   <= m_axis_mm2s_tdata(23 downto 16);
+    mm2rgb.green                 <= m_axis_mm2s_tdata(15 downto 8);
+    mm2rgb.blue                  <= m_axis_mm2s_tdata(7 downto 0);
     
     valid                        <= mm2rgb1Sync.valid and dFrameEnable;
     red                          <= mm2rgb1Sync.red;

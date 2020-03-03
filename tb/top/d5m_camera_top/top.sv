@@ -21,10 +21,12 @@
 module top;
     import uvm_pkg::*;
     import d5m_camera_pkg::*;
+    
     bit pixclk;
     bit ACLK;
     bit reset;
     bit ARESETN;
+    
     // module: d5m_camera_vif
     d5m_camera_if                d5m_camera_vif(ACLK,pixclk,reset,ARESETN);
     // module: vfp_dut
@@ -33,17 +35,21 @@ module top;
     imageReadInterfaceDut        imageRead_dut(d5m_camera_vif);
     // module: rgbAssertion_dut
     rgbAssertionDut              rgbAssertion_dut(d5m_camera_vif);
+    
     initial begin
         reset = 0;
         #100ns reset = 1;
     end
+    
     initial begin
         ARESETN = 0;
         #100ns ARESETN = 1;
     end
+    
     initial begin
         //set
         uvm_config_db   #(virtual d5m_camera_if) ::set(null, "*", "d5m_camera_vif", d5m_camera_vif);
         run_test();
     end
+    
 endmodule: top

@@ -115,11 +115,11 @@ package constantspackage is
     constant ROUND_RESULT_WIDTH        : natural := ADD_RESULT_WIDTH - FRAC_BITS_TO_KEEP;
     constant ROUND                     : signed(ADD_RESULT_WIDTH-1 downto 0) := to_signed(0, ADD_RESULT_WIDTH-FRAC_BITS_TO_KEEP)&'1' & to_signed(0, FRAC_BITS_TO_KEEP-1);  
     -------------------------------------------------------------------------
-    constant pixclk_freq               : real    := 1000.00e6;
-    constant aclk_freq                 : real    := 1000.00e6;
-    constant mm2s_aclk                 : real    := 1000.00e6;
-    constant maxis_aclk                : real    := 1000.00e6;
-    constant saxis_aclk                : real    := 1000.00e6;
+    constant pixclk_freq               : real    := 100.00e6;
+    constant aclk_freq                 : real    := 100.00e6;
+    constant mm2s_aclk                 : real    := 100.00e6;
+    constant maxis_aclk                : real    := 100.00e6;
+    constant saxis_aclk                : real    := 100.00e6;
     -------------------------------------------------------------------------
     procedure clk_gen(signal clk : out std_logic; constant FREQ : real);
     function max(L, R: INTEGER)         return INTEGER;

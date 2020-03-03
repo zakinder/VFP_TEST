@@ -1,12 +1,11 @@
 // Class: d5m_camera_configuration
 class d5m_camera_configuration extends uvm_object;
     `uvm_object_utils(d5m_camera_configuration)
-    
     protected virtual d5m_camera_if d5m_camera_vif;
     rand bit [2:0] mode;
     
-    uvm_active_passive_enum active = UVM_ACTIVE;
-    bit has_jb_fc_sub = 1; // switch to instantiate a functional coverage subscriber
+   uvm_active_passive_enum active = UVM_ACTIVE;
+   bit has_jb_fc_sub = 1; // switch to instantiate a functional coverage subscriber
     
     bit coverage_enable = 1;
     bit enable_scoreboard = 1;

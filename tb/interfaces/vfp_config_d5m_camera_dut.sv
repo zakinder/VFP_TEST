@@ -1,6 +1,7 @@
 // MODULE : imageReadInterfaceInst
+
 module imageReadInterfaceDut(d5m_camera_if.ConfigMaster d5m_camera_vif);
-import generic_pack::*;  
+
 imageReadInterface            #(
     .i_data_width              (i_data_width                      ),
     .img_frames_cnt_bmp        (img_frames_cnt_bmp                ),
@@ -31,9 +32,11 @@ imageReadInterfaceInst         (
     .yCord                     (d5m_camera_vif.d5m.y              ),
     .endOfFrame                (d5m_camera_vif.d5m.eof            ));
 endmodule: imageReadInterfaceDut
+
+
 // MODULE : VFP_v1_0
 module vfpConfigd5mCameraDut(d5m_camera_if.ConfigMaster d5m_camera_vif);
-import generic_pack::*;  
+ 
 VFP_v1_0                      #(
     .revision_number           ( revision_number                  ),
     .C_rgb_m_axis_TDATA_WIDTH  ( C_rgb_m_axis_TDATA_WIDTH         ),
@@ -75,31 +78,31 @@ dutVFP_v1Inst                  (
     //tx channel
     .rgb_m_axis_aclk           (d5m_camera_vif.clkmm              ),
     .rgb_m_axis_aresetn        (d5m_camera_vif.ARESETN            ),
-    .rgb_m_axis_tready         (d5m_camera_vif.rgb_s_axis_tready  ),//i
-    .rgb_m_axis_tvalid         (d5m_camera_vif.rgb_m_axis_tvalid  ),//o
-    .rgb_m_axis_tlast          (d5m_camera_vif.rgb_m_axis_tlast   ),//o
-    .rgb_m_axis_tuser          (d5m_camera_vif.rgb_m_axis_tuser   ),//o
-    .rgb_m_axis_tdata          (d5m_camera_vif.rgb_m_axis_tdata   ),//o
+    .rgb_m_axis_tready         (d5m_camera_vif.rgb_s_axis_tready  ),
+    .rgb_m_axis_tvalid         (d5m_camera_vif.rgb_m_axis_tvalid  ),
+    .rgb_m_axis_tlast          (d5m_camera_vif.rgb_m_axis_tlast   ),
+    .rgb_m_axis_tuser          (d5m_camera_vif.rgb_m_axis_tuser   ),
+    .rgb_m_axis_tdata          (d5m_camera_vif.rgb_m_axis_tdata   ),
     //rx channel               
     .rgb_s_axis_aclk           (d5m_camera_vif.clkmm              ),
     .rgb_s_axis_aresetn        (d5m_camera_vif.ARESETN            ),
-    .rgb_s_axis_tready         (d5m_camera_vif.rgb_s_axis_tready  ),//o
-    .rgb_s_axis_tvalid         (d5m_camera_vif.rgb_m_axis_tvalid  ),//i
-    .rgb_s_axis_tlast          (d5m_camera_vif.rgb_m_axis_tlast   ),//i
-    .rgb_s_axis_tuser          (d5m_camera_vif.rgb_m_axis_tuser   ),//i
-    .rgb_s_axis_tdata          (d5m_camera_vif.rgb_m_axis_tdata   ),//i
+    .rgb_s_axis_tready         (d5m_camera_vif.rgb_s_axis_tready  ),
+    .rgb_s_axis_tvalid         (d5m_camera_vif.rgb_m_axis_tvalid  ),
+    .rgb_s_axis_tlast          (d5m_camera_vif.rgb_m_axis_tlast   ),
+    .rgb_s_axis_tuser          (d5m_camera_vif.rgb_m_axis_tuser   ),
+    .rgb_s_axis_tdata          (d5m_camera_vif.rgb_m_axis_tdata   ),
     //destination channel                                    
     .m_axis_mm2s_aclk          (d5m_camera_vif.clkmm              ),
     .m_axis_mm2s_aresetn       (d5m_camera_vif.ARESETN            ),
-    .m_axis_mm2s_tready        (d5m_camera_vif.m_axis_mm2s_tready ),//i
-    .m_axis_mm2s_tvalid        (d5m_camera_vif.m_axis_mm2s_tvalid ),//o
-    .m_axis_mm2s_tuser         (d5m_camera_vif.m_axis_mm2s_tuser  ),//o
-    .m_axis_mm2s_tlast         (d5m_camera_vif.m_axis_mm2s_tlast  ),//o
-    .m_axis_mm2s_tdata         (d5m_camera_vif.m_axis_mm2s_tdata  ),//o
-    .m_axis_mm2s_tkeep         (d5m_camera_vif.m_axis_mm2s_tkeep  ),//o
-    .m_axis_mm2s_tstrb         (d5m_camera_vif.m_axis_mm2s_tstrb  ),//o
-    .m_axis_mm2s_tid           (d5m_camera_vif.m_axis_mm2s_tid    ),//o
-    .m_axis_mm2s_tdest         (d5m_camera_vif.m_axis_mm2s_tdest  ),//o
+    .m_axis_mm2s_tready        (d5m_camera_vif.m_axis_mm2s_tready ),
+    .m_axis_mm2s_tvalid        (d5m_camera_vif.m_axis_mm2s_tvalid ),
+    .m_axis_mm2s_tuser         (d5m_camera_vif.m_axis_mm2s_tuser  ),
+    .m_axis_mm2s_tlast         (d5m_camera_vif.m_axis_mm2s_tlast  ),
+    .m_axis_mm2s_tdata         (d5m_camera_vif.m_axis_mm2s_tdata  ),
+    .m_axis_mm2s_tkeep         (d5m_camera_vif.m_axis_mm2s_tkeep  ),
+    .m_axis_mm2s_tstrb         (d5m_camera_vif.m_axis_mm2s_tstrb  ),
+    .m_axis_mm2s_tid           (d5m_camera_vif.m_axis_mm2s_tid    ),
+    .m_axis_mm2s_tdest         (d5m_camera_vif.m_axis_mm2s_tdest  ),
     //video configuration      
     .vfpconfig_aclk            (d5m_camera_vif.clkmm              ),
     .vfpconfig_aresetn         (d5m_camera_vif.ARESETN            ),
@@ -122,4 +125,5 @@ dutVFP_v1Inst                  (
     .vfpconfig_rresp           (d5m_camera_vif.axi4.RRESP         ),
     .vfpconfig_rvalid          (d5m_camera_vif.axi4.RVALID        ),
     .vfpconfig_rready          (d5m_camera_vif.axi4.RREADY        ));
+    
 endmodule: vfpConfigd5mCameraDut

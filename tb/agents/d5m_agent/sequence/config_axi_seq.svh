@@ -24,19 +24,14 @@ class config_axi4_seq extends uvm_sequence #(d5m_trans);
     int lum_th              = reg_56_lum_th;
     int hsv_per_ch          = reg_57_hsv_per_ch;
     int ycc_per_ch          = reg_58_ycc_per_ch;
-	
+    
     // Function: new
    function new(string name="config_axi4_seq");
        super.new(name);
    endfunction: new
-   
-    // Function: SetStatus
-   function void SetStatus(input int Y);
-      en_ycbcr_or_rgb = Y;
-   endfunction: SetStatus
-   
+
     // Method:  body
-   virtual task body();
+   virtual    task body();
        d5m_trans item;
        axi_write_channel(oRgbOsharp,rgb_sharp);
        axi_write_channel(oEdgeType,edge_type);
@@ -63,7 +58,7 @@ class config_axi4_seq extends uvm_sequence #(d5m_trans);
 
    endtask: body
 
-	// Method:  axi_write_channel
+    // Method:  axi_write_channel
     virtual task axi_write_channel (bit[7:0] addr,bit[31:0] data);
         d5m_trans item;
         `uvm_create(item)
@@ -71,11 +66,11 @@ class config_axi4_seq extends uvm_sequence #(d5m_trans);
         item.axi4_lite.data           = data;
         item.d5m_txn                  = AXI4_WRITE;
         `uvm_send(item);
-		axi_read_back_channel(addr);
-	endtask: axi_write_channel
-	
-	// Method:  axi_read_back_channel
-	virtual task axi_read_back_channel(bit[7:0] addr);
+        axi_read_back_channel(addr);
+    endtask: axi_write_channel
+    
+    // Method:  axi_read_back_channel
+    virtual task axi_read_back_channel(bit[7:0] addr);
         d5m_trans item;
         `uvm_create(item)
         item.axi4_lite.addr           = addr;
