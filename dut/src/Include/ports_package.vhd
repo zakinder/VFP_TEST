@@ -982,4 +982,28 @@ port (
     iRgb                        : in channel;
     oRgb                        : out channel);
 end component text_gen;
+component sign_fixed_resize is
+port (
+    clk              : in std_logic;
+    kCoeffProd       : in kCoeffFloat;
+    oRgb             : out rgbToSnSumTrRecord);
+end component sign_fixed_resize;
+component rgb_kernal_prod is
+port (
+    clk              : in std_logic;
+    rst_l            : in std_logic;
+    iRgb             : in channel;
+    iCoeff           : in kernelCoeDWord;
+    iTaps            : in TapsRecord;
+    oRgbFloat        : out rgbFloat;
+    oRgbSnFix        : out rgbToSnSumTrRecord);
+end component rgb_kernal_prod;
+component d_valid is
+generic (
+    pixelDelay     : integer := 8);
+port (
+    clk            : in std_logic;
+    iRgb           : in channel;
+    oRgb           : out channel);
+end component d_valid;
 end package;
