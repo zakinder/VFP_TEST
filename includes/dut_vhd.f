@@ -2,26 +2,25 @@
 ../../dut/src/float_and_fixed_pkg/fixed_pkg_c.vhd
 ../../dut/src/float_and_fixed_pkg/float_pkg_c.vhd
 
-../../dut/src/Include/constantspackage.vhd
-../../dut/src/Include/vpfRecords.vhd
-../../dut/src/Include/portspackage.vhd
+../../dut/src/Include/constants_package.vhd
+../../dut/src/Include/vpf_records.vhd
+../../dut/src/Include/ports_package.vhd
 
-../../dut/src/Filters/blurMac.vhd
-../../dut/src/Filters/blurFilter.vhd
-../../dut/src/Filters/colorCorrection.vhd
-../../dut/src/Filters/sharpMac.vhd
-../../dut/src/Filters/sharpFilter.vhd
-
-../../dut/src/Filters/Filters.vhd
-../../dut/src/Filters/KernelCore.vhd
-../../dut/src/Filters/Kernel.vhd
+../../dut/src/Filters/blur_mac.vhd
+../../dut/src/Filters/blur_filter.vhd
+../../dut/src/Filters/ccm.vhd
+../../dut/src/Filters/color_correction.vhd
+../../dut/src/Filters/sharp_mac.vhd
+../../dut/src/Filters/sharp_filter.vhd
 ../../dut/src/Filters/hsv.vhd
 ../../dut/src/Filters/hsl.vhd
-../../dut/src/Filters/CoefMult.vhd
+../../dut/src/Filters/coef_mult.vhd
 ../../dut/src/Filters/rgb_ycbcr.vhd
-../../dut/src/Filters/DitherFilter.vhd
-../../dut/src/Filters/rgbInverted.vhd
-
+../../dut/src/Filters/dither_filter.vhd
+../../dut/src/Filters/rgb_inverted.vhd
+../../dut/src/Filters/kernel_core.vhd
+../../dut/src/Filters/Kernel.vhd
+../../dut/src/Filters/Filters.vhd
 
 ../../dut/src/Control/buffer_controller.vhd
 ../../dut/src/Control/TapsController.vhd

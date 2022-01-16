@@ -1,9 +1,9 @@
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
-use work.constantspackage.all;
-use work.vpfRecords.all;
-use work.portspackage.all;
+use work.constants_package.all;
+use work.vpf_records.all;
+use work.ports_package.all;
 entity frameProcess is
 generic (
     i_data_width              : integer := 8;
@@ -180,7 +180,7 @@ end process pipCoordP;
     iKcoeff.k9   <= iKls.k9(15 downto 0); 
     iKcoeff.kSet <= iKls.config;
     -------------------------------------------------
-colorCorrectionInst: colorCorrection
+color_correctionInst: color_correction
 generic map(
     i_data_width        => i_data_width)
 port map(           
@@ -189,7 +189,7 @@ port map(
     iRgb                => rgbIn,
     als                 => iAls,    
     oRgb                => cgainIoOut);
-rgbInvertedInst: rgbInverted
+rgbInvertedInst: rgb_inverted
 generic map(
     i_data_width        => i_data_width)
 port map(

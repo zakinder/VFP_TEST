@@ -3,8 +3,8 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 use ieee.std_logic_unsigned.all;
-use work.constantspackage.all;
-use work.vpfRecords.all;
+use work.constants_package.all;
+use work.vpf_records.all;
 --source clock 142.857132 instead 150 = half p 71428566 else if 75= 37500000*2
 --source clock 100Mhz = half p 50000000 but to sec in per ms 50000
 entity digiClk is

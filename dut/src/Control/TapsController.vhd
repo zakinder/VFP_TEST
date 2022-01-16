@@ -1,9 +1,9 @@
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
-use work.constantspackage.all;
-use work.vpfRecords.all;
-use work.portspackage.all;
+use work.constants_package.all;
+use work.vpf_records.all;
+use work.ports_package.all;
 entity TapsController is
 generic (
     img_width     : integer := 4096;
@@ -88,8 +88,8 @@ end architecture;
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
-use work.constantspackage.all;
-use work.vpfRecords.all;
+use work.constants_package.all;
+use work.vpf_records.all;
 entity tapLine is
 generic (
     img_width    : integer := 4095;

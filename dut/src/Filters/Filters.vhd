@@ -3,9 +3,9 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 use work.fixed_pkg.all;
 --use work.float_pkg.all;
-use work.constantspackage.all;
-use work.vpfrecords.all;
-use work.portspackage.all;
+use work.constants_package.all;
+use work.vpf_records.all;
+use work.ports_package.all;
 entity Filters is
 generic (
     F_TES                    : boolean := false;
@@ -81,7 +81,7 @@ begin
     oRgb                    <= fRgb;
     vChannelSelect          <= to_integer(unsigned(iVideoChannel));
     lThSelect               <= to_integer(unsigned(lumThreshold));
-ditherFilterInst: ditherFilter
+dither_filterInst: dither_filter
 generic map (
     img_width         => img_width,  
     img_height        => img_height, 
@@ -92,7 +92,7 @@ port map (
     iCord_x           => txCord.x,
     iRgb              => iRgb,
     oRgb              => ditRgb);
-blurFilter1xInst: blurFilter
+blur_filter1xInst: blur_filter
 generic map(
     iMSB                => blurMsb,
     iLSB                => blurLsb,
@@ -105,7 +105,7 @@ port map(
     rst_l               => rst_l,
     iRgb                => ditRgb,
     oRgb                => blur1vx);
-blurFilter2xInst: blurFilter
+blur_filter2xInst: blur_filter
 generic map(
     iMSB                => blurMsb - 1,
     iLSB                => blurLsb - 1,
@@ -118,7 +118,7 @@ port map(
     rst_l               => rst_l,
     iRgb                => blur1vx,
     oRgb                => blur2vx);
-blurFilter3xInst: blurFilter
+blur_filter3xInst: blur_filter
 generic map(
     iMSB                => blurMsb - 1,
     iLSB                => blurLsb - 1,
@@ -170,7 +170,7 @@ port map(
     iKcoeff             => iKcoeff,
     oEdgeValid          => sEdgeValid,
     oRgb                => rgbImageKernel);
-blurFilter0xInst: blurFilter
+blur_filter0xInst: blur_filter
 generic map(
     iMSB                => blurMsb,
     iLSB                => blurLsb,
@@ -278,7 +278,7 @@ end process YcbcrIoP;
     fRgb.shpToHsv       <= fRgb2.hsv;  --SharpToHsv  ,HsvToSharp
     fRgb.bluToHsl       <= fRgb3.hsl;  --BlurToHsl   ,HslToBlur
     fRgb.bluToHsv       <= fRgb3.hsv;  --BlurToHsv   ,HsvToBlur
-colorCorrectionInst: colorCorrection
+color_correctionInst: color_correction
 generic map(
     i_data_width        => i_data_width)
 port map(           
@@ -287,7 +287,7 @@ port map(
     iRgb                => cgainIoIn,
     als                 => iAls,    
     oRgb                => cgainIoOut);
-sharpFilterInst: sharpFilter
+sharp_filterInst: sharp_filter
 generic map(
     i_data_width        => i_data_width,
     img_width           => img_width,
@@ -299,7 +299,7 @@ port map(
     iRgb                => sharpIoIn,
     kls                 => iAls,
     oRgb                => sharpIoOut);
-blurFilterInst: blurFilter
+blur_filterInst: blur_filter
 generic map(
     iMSB                => blurMsb,
     iLSB                => blurLsb,

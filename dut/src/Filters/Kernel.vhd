@@ -1,9 +1,9 @@
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
-use work.constantspackage.all;
-use work.vpfrecords.all;
-use work.portspackage.all;
+use work.constants_package.all;
+use work.vpf_records.all;
+use work.ports_package.all;
 entity Kernel is
 generic (
     INRGB_FRAME        : boolean := false;
@@ -45,10 +45,10 @@ architecture Behavioral of Kernel is
 begin
 -----------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------
---CoefMult
+--coef_mult
 -----------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------
-CoefMultInst: CoefMult
+CoefMultInst: coef_mult
 port map (
     clk            => clk,
     rst_l          => rst_l,
@@ -209,7 +209,7 @@ process (clk) begin
         end if;
     end if; 
 end process;
-Kernel_Ycbcr_Inst: KernelCore
+Kernel_Ycbcr_Inst: kernel_core
 generic map(
     SHARP_FRAME   => false,
     BLURE_FRAME   => false,
@@ -259,7 +259,7 @@ kCoeffCgainP:process (clk) begin
         end if;
     end if; 
 end process kCoeffCgainP;
-Kernel1CgainInst: KernelCore
+Kernel1CgainInst: kernel_core
 generic map(
     SHARP_FRAME   => false,
     BLURE_FRAME   => false,
@@ -296,7 +296,7 @@ kCoeffCcgainP:process (clk) begin
         end if;
     end if;
 end process kCoeffCcgainP;
-Kernel2CgainInst: KernelCore
+Kernel2CgainInst: kernel_core
 generic map(
     SHARP_FRAME   => false,
     BLURE_FRAME   => false,
@@ -344,7 +344,7 @@ process (clk) begin
         end if;
     end if; 
 end process;
-Kernel_Sharp_Red_Inst: KernelCore
+Kernel_Sharp_Red_Inst: kernel_core
 generic map(
     SHARP_FRAME   => SHARP_FRAME,
     BLURE_FRAME   => false,
@@ -360,7 +360,7 @@ port map(
     iRgb           => rgbMac1,
     kCoeff         => kCoeffSharp,
     oRgb           => oRed);
-Kernel_Sharp_Green_Inst: KernelCore
+Kernel_Sharp_Green_Inst: kernel_core
 generic map(
     SHARP_FRAME   => SHARP_FRAME,
     BLURE_FRAME   => false,
@@ -376,7 +376,7 @@ port map(
     iRgb           => rgbMac2,
     kCoeff         => kCoeffSharp,
     oRgb           => oGreen);
-Kernel_Sharp_Blue_Inst: KernelCore
+Kernel_Sharp_Blue_Inst: kernel_core
 generic map(
     SHARP_FRAME   => SHARP_FRAME,
     BLURE_FRAME   => false,
@@ -415,7 +415,7 @@ process (clk) begin
         end if;
     end if; 
 end process;
-Kernel_Blur_Red_Inst: KernelCore
+Kernel_Blur_Red_Inst: kernel_core
 generic map(
     SHARP_FRAME   => false,
     BLURE_FRAME   => BLURE_FRAME,
@@ -431,7 +431,7 @@ port map(
     iRgb           => rgbMac1,
     kCoeff         => kCoeffBlure,
     oRgb           => oRed);
-Kernel_Blur_Green_Inst: KernelCore
+Kernel_Blur_Green_Inst: kernel_core
 generic map(
     SHARP_FRAME   => false,
     BLURE_FRAME   => BLURE_FRAME,
@@ -447,7 +447,7 @@ port map(
     iRgb           => rgbMac2,
     kCoeff         => kCoeffBlure,
     oRgb           => oGreen);
-Kernel_Blur_Blue_Inst: KernelCore
+Kernel_Blur_Blue_Inst: kernel_core
 generic map(
     SHARP_FRAME   => false,
     BLURE_FRAME   => BLURE_FRAME,
@@ -486,7 +486,7 @@ process (clk) begin
         end if;
     end if; 
 end process;
-Kernel_Blur_Red_Inst: KernelCore
+Kernel_Blur_Red_Inst: kernel_core
 generic map(
     SHARP_FRAME   => false,
     BLURE_FRAME   => false,
@@ -502,7 +502,7 @@ port map(
     iRgb           => rgbMac1,
     kCoeff         => kCoeffEmbos,
     oRgb           => oRed);
-Kernel_Blur_Green_Inst: KernelCore
+Kernel_Blur_Green_Inst: kernel_core
 generic map(
     SHARP_FRAME   => false,
     BLURE_FRAME   => false,
@@ -518,7 +518,7 @@ port map(
     iRgb           => rgbMac2,
     kCoeff         => kCoeffEmbos,
     oRgb           => oGreen);
-Kernel_Blur_Blue_Inst: KernelCore
+Kernel_Blur_Blue_Inst: kernel_core
 generic map(
     SHARP_FRAME   => false,
     BLURE_FRAME   => false,
@@ -603,7 +603,7 @@ process (clk) begin
         end if;
     end if; 
 end process;
-KernelSobelXInst: KernelCore
+KernelSobelXInst: kernel_core
 generic map(
     SHARP_FRAME   => false,
     BLURE_FRAME   => false,
@@ -619,7 +619,7 @@ port map(
     iRgb           => sobel,
     kCoeff         => kCoefXSobel,
     oRgb           => osobelX);
-KernelSobelYInst: KernelCore
+KernelSobelYInst: kernel_core
 generic map(
     SHARP_FRAME   => false,
     BLURE_FRAME   => false,
