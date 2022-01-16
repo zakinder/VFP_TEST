@@ -4,7 +4,7 @@ use ieee.numeric_std.all;
 use work.constants_package.all;
 use work.vpf_records.all;
 use work.ports_package.all;
-entity TextGen is
+entity text_gen is
 generic(
     img_width_bmp    : integer := 1920;
     img_height_bmp   : integer := 1080;
@@ -17,14 +17,14 @@ port (
     location         : in cord;
     iRgb             : in channel;
     oRgb             : out channel);
-end TextGen;
-architecture Behavioral of TextGen is
+end text_gen;
+architecture Behavioral of text_gen is
     signal grid  :  cord;
     signal pixOn : std_logic := '0';
 begin
 grid.x <= to_integer(unsigned(txCord.x(11 downto 0)));
 grid.y <= (img_height_bmp-1) - (to_integer(unsigned(txCord.y(11 downto 0))));
-textElement2: PixelOnDisplay
+textElement2: pixel_on_display
 generic map (
     img_width_bmp  => img_width_bmp,
     img_height_bmp => img_height_bmp,

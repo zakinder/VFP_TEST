@@ -4,7 +4,7 @@ use ieee.numeric_std.all;
 use work.constants_package.all;
 use work.vpf_records.all;
 use work.ports_package.all;
-entity PixelOnDisplay is
+entity pixel_on_display is
 generic(
     img_width_bmp    : integer := 1920;
     img_height_bmp   : integer := 1080;
@@ -16,9 +16,9 @@ port (
     grid         : in cord;
     videoChannel : in std_logic_vector(b_data_width-1 downto 0);
     pixel        : out std_logic);
-end PixelOnDisplay;
+end pixel_on_display;
 
-architecture Behavioral of PixelOnDisplay is
+architecture Behavioral of pixel_on_display is
     constant NU_MRGB_TYPES       : natural := 50;
     signal displayText           : string(1 to 5):= "INRGB";
     signal vChannelSelect        : natural range 0 to NU_MRGB_TYPES := 0;
@@ -114,7 +114,7 @@ end process dSyncP;
 --end process;
 
 
-FontRomInst: FontRom
+FontRomInst: font_rom
 port map(
     clk     => clk,
     addr    => fontAddress,

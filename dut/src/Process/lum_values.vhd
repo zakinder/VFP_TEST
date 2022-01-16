@@ -39,7 +39,7 @@ architecture behavioral of LumValues is
     signal rgbBright        : float32  :=(others => '0');
     signal rgb2xBright      : float32  :=(others => '0');
     signal rgbBrightDark    : float32  :=(others => '0');
-    signal LumValue         : float32  :=(others => '0');
+    signal lum_values         : float32  :=(others => '0');
     signal rgbLum           : float32  :=(others => '0');
 begin
 -- RGB.DELTA.SUM = [MAX + MIN]
@@ -128,7 +128,7 @@ LGT_FRAME_ENABLE: if (F_LGT = true) and (F_DRK = false) generate
 -----------------------------------------------------------------------------------------------
 process (clk) begin
     if rising_edge(clk) then
-        LumValue     <= (rgbxDeltaValue * rgbBright);
+        lum_values     <= (rgbxDeltaValue * rgbBright);
     end if;
 end process;
 end generate LGT_FRAME_ENABLE;
@@ -139,11 +139,11 @@ DRK_FRAME_ENABLE: if (F_DRK = true) and (F_LGT = false) generate
 -- RGB.DELTA     = [MAX - MIN]
 -- RGB.AVG       = [R+G+B/3]
 -- RGB.DARK      = [RGB.DELTA.SUM]/[RGB.AVG]
--- LumValue      = [RGB.DELTA] * [RGB.DARK]
+-- lum_values      = [RGB.DELTA] * [RGB.DARK]
 -----------------------------------------------------------------------------------------------
 process (clk) begin
     if rising_edge(clk) then
-        LumValue     <= (rgbxDeltaValue * rgbDark);
+        lum_values     <= (rgbxDeltaValue * rgbDark);
     end if;
 end process;
 end generate DRK_FRAME_ENABLE;
@@ -153,13 +153,13 @@ end generate DRK_FRAME_ENABLE;
 -- RGB.DELTA     = [MAX - MIN]
 -- RGB.AVG       = [R+G+B/3]
 -- RGB.DARK      = [RGB.DELTA.SUM]/[RGB.AVG]
--- LumValue      = [RGB.DELTA] * [RGB.DARK]
--- rgbLum        = [RGB.AVG] / [LumValue]
+-- lum_values      = [RGB.DELTA] * [RGB.DARK]
+-- rgbLum        = [RGB.AVG] / [lum_values]
 -----------------------------------------------------------------------------------------------
 process (clk) begin
     if rising_edge(clk) then
-        if(LumValue > 0) and  (rgbAvg4s > 0) then
-            rgbLum             <= rgbAvg4s / LumValue;
+        if(lum_values > 0) and  (rgbAvg4s > 0) then
+            rgbLum             <= rgbAvg4s / lum_values;
         end if;
     end if;
 end process;

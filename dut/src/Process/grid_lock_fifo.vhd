@@ -5,7 +5,7 @@ use ieee.numeric_std.all;
 use work.constants_package.all;
 use work.vpf_records.all;
 use work.ports_package.all;
-entity gridLockFifo is
+entity grid_lock_fifo is
 generic (
     FIFO_DEPTH       : integer := 24;
     FIFO_DATA_WIDTH  : integer := 24;
@@ -27,7 +27,7 @@ port (
     emptyO           : out std_logic;
     fullO            : out std_logic);
 end entity;
-architecture rtl of gridLockFifo is
+architecture rtl of grid_lock_fifo is
     type RAM is array (integer range <>)of std_logic_vector (FIFO_DATA_WIDTH-1 downto 0);
     signal Mem : RAM (0 to FIFO_DEPTH-1);
     signal eqlLocations  : std_logic;

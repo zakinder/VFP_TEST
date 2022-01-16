@@ -4,7 +4,7 @@ use ieee.numeric_std.all;
 use work.constants_package.all;
 use work.vpf_records.all;
 use work.ports_package.all;
-entity frameProcess is
+entity frame_process is
 generic (
     i_data_width              : integer := 8;
     s_data_width              : integer := 16;
@@ -49,7 +49,7 @@ port (
     oFifoStatus               : out std_logic_vector(b_data_width-1 downto 0);
     oGridLockData             : out std_logic_vector(b_data_width-1 downto 0));
 end entity;
-architecture arch of frameProcess is
+architecture arch of frame_process is
     signal txCord             : coord;
     signal rgbV1Correct       : channel;
     signal rgbV2Correct       : channel;
@@ -273,7 +273,7 @@ port map(
     iCord               => cord,
     pDetect             => rgbDetectLock,
     oRgb                => rgbDetect);
-pointOfInterestInst: pointOfInterest
+pointOfInterestInst: point_of_interest
 generic map(
     i_data_width        => i_data_width,
     s_data_width        => s_data_width,

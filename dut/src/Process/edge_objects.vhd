@@ -7,7 +7,7 @@ use work.float_pkg.all;
 use work.constants_package.all;
 use work.vpf_records.all;
 use work.ports_package.all;
-entity edgeObjects is
+entity edge_objects is
 generic (
     i_data_width   : integer := 8);
 port (
@@ -16,7 +16,7 @@ port (
     iRgb           : in channel;
     oRgbRemix      : out channel);
 end entity;
-architecture arch of edgeObjects is
+architecture arch of edge_objects is
 signal rMax             : std_logic_vector(i_data_width-1 downto 0);
 signal rMin             : std_logic_vector(i_data_width-1 downto 0);
 signal gMax             : std_logic_vector(i_data_width-1 downto 0);

@@ -4,15 +4,15 @@ use ieee.numeric_std.all;
 use work.constants_package.all;
 use work.vpf_records.all;
 use work.ports_package.all;
-entity SegmentColors is
+entity segment_colors is
 port (
     clk            : in  std_logic;
     reset          : in  std_logic;
     lumThreshold   : in  std_logic_vector(7 downto 0);
     iRgb           : in channel;
     oRgb           : out channel);
-end SegmentColors;
-architecture behavioral of SegmentColors is
+end segment_colors;
+architecture behavioral of segment_colors is
     signal rgbLgt     : channel;
     signal rgbDrk     : channel;
     signal rgbLum     : channel;

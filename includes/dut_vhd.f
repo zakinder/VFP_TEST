@@ -8,10 +8,10 @@
 
 ../../dut/src/Filters/blur_mac.vhd
 ../../dut/src/Filters/blur_filter.vhd
-../../dut/src/Filters/ccm.vhd
-../../dut/src/Filters/color_correction.vhd
 ../../dut/src/Filters/sharp_mac.vhd
 ../../dut/src/Filters/sharp_filter.vhd
+../../dut/src/Filters/ccm.vhd
+../../dut/src/Filters/color_correction.vhd
 ../../dut/src/Filters/hsv.vhd
 ../../dut/src/Filters/hsl.vhd
 ../../dut/src/Filters/coef_mult.vhd
@@ -22,43 +22,43 @@
 ../../dut/src/Filters/Kernel.vhd
 ../../dut/src/Filters/Filters.vhd
 
+
+../../dut/src/Control/axis_external.vhd
 ../../dut/src/Control/buffer_controller.vhd
-../../dut/src/Control/TapsController.vhd
-../../dut/src/Control/AxisExternal.vhd
-../../dut/src/Control/CameraRawToRgb.vhd
-../../dut/src/Control/CameraRawData.vhd
-../../dut/src/Control/dataTaps.vhd
+../../dut/src/Control/taps_controller.vhd
+../../dut/src/Control/camera_raw_to_rgb.vhd
+../../dut/src/Control/camera_raw_data.vhd
+../../dut/src/Control/data_taps.vhd
 ../../dut/src/Control/tap_buffer.vhd
-../../dut/src/Control/videoSelect.vhd
+../../dut/src/Control/video_select.vhd
 ../../dut/src/Control/mWrRd.vhd
-../../dut/src/Control/frameProcess.vhd
-../../dut/src/Control/VideoStream.vhd
+../../dut/src/Control/frame_process.vhd
+../../dut/src/Control/video_stream.vhd
 
-../../dut/src/Process/AvgValues.vhd
-../../dut/src/Process/ColorTrim.vhd
+../../dut/src/Process/avg_values.vhd
+../../dut/src/Process/color_trim.vhd
 ../../dut/src/Process/detect.vhd
-../../dut/src/Process/digiClk.vhd
+../../dut/src/Process/digital_clock.vhd
 ../../dut/src/Process/dither.vhd
-../../dut/src/Process/edgeObjects.vhd
-../../dut/src/Process/FontRom.vhd
-../../dut/src/Process/TextGen.vhd
-../../dut/src/Process/PixelOnDisplay.vhd
-../../dut/src/Process/FrameMask.vhd
-
-../../dut/src/Process/gridLockFifo.vhd
-../../dut/src/Process/LumValue.vhd
-../../dut/src/Process/pixelCord.vhd
-../../dut/src/Process/pointOfInterest.vhd
-../../dut/src/Process/raw2rgb.vhd
-../../dut/src/Process/SegmentColors.vhd
-../../dut/src/Process/SyncFrames.vhd
+../../dut/src/Process/edge_objects.vhd
+../../dut/src/Process/font_rom.vhd
+../../dut/src/Process/text_gen.vhd
+../../dut/src/Process/pixel_on_display.vhd
+../../dut/src/Process/frame_mask.vhd
+../../dut/src/Process/grid_lock_fifo.vhd
+../../dut/src/Process/lum_values.vhd
+../../dut/src/Process/pixel_cord.vhd
+../../dut/src/Process/point_of_interest.vhd
+../../dut/src/Process/raw_to_rgb.vhd
+../../dut/src/Process/segment_colors.vhd
+../../dut/src/Process/sync_frames.vhd
+../../dut/src/Process/frame_testpattern.vhd
 ../../dut/src/Process/TestPattern.vhd
-../../dut/src/Process/frameTestPattern.vhd
 
 ../../dut/hdl/vfpTop.vhd
-../../dut/hdl/vfpConfig.vhd
-../../dut/hdl/vfpMaxisMM2s.vhd
-../../dut/hdl/vfpMSaxisRGB.vhd
+../../dut/hdl/vfp_config.vhd
+../../dut/hdl/vfp_m_axis.vhd
+../../dut/hdl/vfp_s_axis.vhd
 
 
 ../../dut/tb/ImagesReadWrite/imageReadInterface.vhd

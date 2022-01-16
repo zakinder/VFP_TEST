@@ -5,7 +5,7 @@ use ieee.numeric_std.all;
 use work.constants_package.all;
 use work.vpf_records.all;
 use work.ports_package.all;
-entity videoSelect is
+entity video_select is
 generic (
     img_width_bmp     : integer := 1920;
     img_height_bmp    : integer := 1080;
@@ -24,8 +24,8 @@ port (
     oSof              : out std_logic;
     oCord             : out coord;
     oRgb              : out channel);
-end videoSelect;
-architecture Behavioral of videoSelect is
+end video_select;
+architecture Behavioral of video_select is
     constant NU_MRGB_TYPES    : natural := 50;
     signal vChannelSelect     : natural range 0 to NU_MRGB_TYPES := 0;
     signal eChannelSelect     : integer;
@@ -166,7 +166,7 @@ process (clk) begin
         oCord <= iFrameData.cod;
     end if;
 end process;
-TextGenYcbcrInst: TextGen
+TextGenYcbcrInst: text_gen
 generic map (
     img_width_bmp   => img_width_bmp,
     img_height_bmp  => img_height_bmp,

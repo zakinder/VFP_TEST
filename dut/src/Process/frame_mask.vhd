@@ -4,7 +4,7 @@ use ieee.numeric_std.all;
 use work.constants_package.all;
 use work.vpf_records.all;
 use work.ports_package.all;
-entity FrameMask is
+entity frame_mask is
 generic (
     eBlack         : boolean := false);
 port (
@@ -14,11 +14,11 @@ port (
     i1Rgb          : in channel;
     i2Rgb          : in channel;
     oRgb           : out channel);
-end FrameMask;
-architecture behavioral of FrameMask is
+end frame_mask;
+architecture behavioral of frame_mask is
     signal d1Rgb     : channel;
 begin
-SyncFrames32Inst: SyncFrames
+SyncFrames32Inst: sync_frames
 generic map(
     pixelDelay => 31) --LATENCY 32
 port map(

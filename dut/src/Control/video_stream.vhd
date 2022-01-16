@@ -4,7 +4,7 @@ use ieee.numeric_std.all;
 use work.constants_package.all;
 use work.vpf_records.all;
 use work.ports_package.all;
-entity VideoStream is
+entity video_stream is
 generic (
     revision_number           : std_logic_vector(31 downto 0) := x"00000000";
     i_data_width              : integer := 8;
@@ -35,8 +35,8 @@ port (
     iRgbSet              : in rRgb;
     oStreamData          : out vStreamData;
     oBusSelect           : out std_logic_vector(b_data_width-1 downto 0));
-end VideoStream;
-architecture arch_imp of VideoStream is
+end video_stream;
+architecture arch_imp of video_stream is
     signal seconds       : std_logic_vector(i_data_width-3 downto 0);
     signal minutes       : std_logic_vector(i_data_width-3 downto 0);
     signal hours         : std_logic_vector(i_data_width/2 downto 0);
@@ -61,7 +61,7 @@ architecture arch_imp of VideoStream is
     signal oHsvPerCh     : integer;
     signal oYccPerCh     : integer;
 begin
-frameProcessInst: frameProcess
+frameProcessInst: frame_process
 generic map(
     i_data_width         => i_data_width,
     s_data_width         => s_data_width,
@@ -102,7 +102,7 @@ port map(
     oFifoStatus          => fifoStatus,
     oGridLockData        => gridLockDatao,
     oFrameData           => frameData);
-digiClkInst: digiClk
+digiClkInst: digital_clock
 port map(
     clk1                 => m_axis_mm2s_aclk,
     seconds              => seconds,
@@ -137,7 +137,7 @@ port map(
     gridLockDatao        => gridLockDatao,
     wrRegsIn             => iWrRegs,
     rdRegsOut            => oRdRegs);
-videoSelectInst: videoSelect
+videoSelectInst: video_select
 generic map (
     img_width_bmp        => img_width_bmp,
     img_height_bmp       => img_height_bmp,

@@ -9,13 +9,13 @@ use ieee.numeric_std.all;
 use work.constants_package.all;
 use work.vpf_records.all;
 use work.ports_package.all;
-entity FontRom is
+entity font_rom is
 port(
     clk     : in std_logic;
     addr    : in integer;
     fontRow : out std_logic_vector(FONT_WIDTH-1 downto 0));
-end FontRom;
-architecture Behavioral of FontRom is
+end font_rom;
+architecture Behavioral of font_rom is
     -- 2^7 charactors
     -- + 2^4 row per charactor 
     -- therefore the total array size is 2^11 = 2048

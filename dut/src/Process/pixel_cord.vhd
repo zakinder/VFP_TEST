@@ -5,7 +5,7 @@ use ieee.numeric_std.all;
 use work.constants_package.all;
 use work.vpf_records.all;
 use work.ports_package.all;
-entity pixelCord is
+entity pixel_cord is
 port (
     clk            : in std_logic;
     iRgb           : in channel;
@@ -14,7 +14,7 @@ port (
     iCord          : in cord;
     oRgb           : out channel);
 end entity;
-architecture rtl of pixelCord is
+architecture rtl of pixel_cord is
     signal frameSize       : intersectPoint;
     signal initCord        : intersectPoint;
     signal newCord         : intersectPoint;

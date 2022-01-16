@@ -104,7 +104,7 @@ architecture arch_imp of VFP_v1_0 is
     signal rdRegs             : mRegs;
     signal streamData         : vStreamData;
 begin
-CameraRawToRgbInst: CameraRawToRgb
+CameraRawToRgbInst: camera_raw_to_rgb
 generic map(
     img_width                 => img_width,
     dataWidth                 => dataWidth,
@@ -117,7 +117,7 @@ port map(
     ilval                     => ilval,
     idata                     => idata,
     oRgbSet                   => rgbSet);
-VideoStreamInst: VideoStream
+VideoStreamInst: video_stream
 generic map(
     revision_number      => revision_number,
     i_data_width         => i_data_width,
@@ -148,7 +148,7 @@ port map(
     iRgbSet                   => rgbSet,
     oStreamData               => streamData,
     oBusSelect                => aBusSelect);
-AxisExternalInst: AxisExternal
+AxisExternalInst: axis_external
 generic map(
     revision_number           => revision_number,
     C_rgb_m_axis_TDATA_WIDTH  => C_rgb_m_axis_TDATA_WIDTH,

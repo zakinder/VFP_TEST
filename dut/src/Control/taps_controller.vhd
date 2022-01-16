@@ -4,7 +4,7 @@ use ieee.numeric_std.all;
 use work.constants_package.all;
 use work.vpf_records.all;
 use work.ports_package.all;
-entity TapsController is
+entity taps_controller is
 generic (
     img_width     : integer := 4096;
     tpDataWidth   : integer := 8);
@@ -17,7 +17,7 @@ port (
     tp1         : out std_logic_vector(tpDataWidth - 1 downto 0);
     tp2         : out std_logic_vector(tpDataWidth - 1 downto 0));
 end entity;
-architecture arch of TapsController is
+architecture arch of taps_controller is
     signal tap0_data   : std_logic_vector(tpDataWidth - 1 downto 0) := (others => '0');
     signal tap1_data   : std_logic_vector(tpDataWidth - 1 downto 0) := (others => '0');
     signal d2RGB       : std_logic_vector(tpDataWidth - 1 downto 0) := (others => '0');

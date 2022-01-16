@@ -5,7 +5,7 @@ use ieee.numeric_std.all;
 use work.constants_package.all;
 use work.vpf_records.all;
 use work.ports_package.all;
-entity FrameTestPattern is
+entity frame_testpattern is
 generic (
     s_data_width	       : integer := 16);
 port (
@@ -13,8 +13,8 @@ port (
     iValid                : in std_logic;
     iCord                 : in coord;
     oRgb                  : out blurchannel);
-end FrameTestPattern;
-architecture arch_imp of FrameTestPattern is
+end frame_testpattern;
+architecture arch_imp of frame_testpattern is
     signal xCounter           : integer;
     signal yCounter           : integer;
     signal rowdist            : integer;

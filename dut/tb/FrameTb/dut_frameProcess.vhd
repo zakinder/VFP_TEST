@@ -60,7 +60,7 @@ architecture arch_imp of dut_frameProcess is
 begin
 
 
-frameProcessInst: frameProcess
+frameProcessInst: frame_process
 generic map(
     i_data_width         => i_data_width,
     s_data_width         => s_data_width,

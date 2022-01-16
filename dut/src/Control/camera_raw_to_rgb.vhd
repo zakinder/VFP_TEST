@@ -5,7 +5,7 @@ use ieee.numeric_std.all;
 use work.constants_package.all;
 use work.vpf_records.all;
 use work.ports_package.all;
-entity CameraRawToRgb is
+entity camera_raw_to_rgb is
 generic (
     img_width           : integer := 2751;
     dataWidth           : integer := 12;
@@ -18,14 +18,14 @@ port (
     ilval               : in std_logic;
     idata               : in std_logic_vector(dataWidth-1 downto 0);
     oRgbSet             : out rRgb);
-end CameraRawToRgb;
-architecture arch_imp of CameraRawToRgb is
+end camera_raw_to_rgb;
+architecture arch_imp of camera_raw_to_rgb is
     signal rawTp            : rTp;
     signal raw1xData        : rData;
     signal raw2xData        : r2xData;
     signal rgbSet           : rRgb;
 begin
-CameraRawDataInst: CameraRawData
+CameraRawDataInst: camera_raw_data
 generic map(
     dataWidth            => dataWidth,
     img_width            => img_width)
@@ -42,7 +42,7 @@ port map(
     raw1xData.pSof       <= raw2xData.pSof;
     raw1xData.cord       <= raw2xData.cord;
     raw1xData.data       <= raw2xData.data;
-dataTapsInst: dataTaps
+dataTapsInst: data_taps
 generic map(
     img_width            => img_width,
     dataWidth            => 12,

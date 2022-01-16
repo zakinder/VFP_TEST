@@ -21,7 +21,7 @@ signal rgbRed              : channel;
 signal rgbGre              : channel;
 signal rgbBlu              : channel;
 begin
-FrameTestPatternInst: FrameTestPattern
+FrameTestPatternInst: frame_testpattern
 generic map(
     s_data_width => 16)
 port map(   

@@ -4,7 +4,7 @@ use ieee.numeric_std.all;
 use work.constants_package.all;
 use work.vpf_records.all;
 use work.ports_package.all;
-entity SyncFrames is
+entity sync_frames is
 generic (
     pixelDelay     : integer := 8);
 port (
@@ -12,8 +12,8 @@ port (
     reset          : in  std_logic;
     iRgb           : in channel;
     oRgb           : out channel);
-end SyncFrames;
-architecture behavioral of SyncFrames is
+end sync_frames;
+architecture behavioral of sync_frames is
     signal rgbDelays      : rgbArray(0 to 31);
 begin
 oRgb <= rgbDelays(pixelDelay).rgb;

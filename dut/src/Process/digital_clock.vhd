@@ -7,14 +7,14 @@ use work.constants_package.all;
 use work.vpf_records.all;
 --source clock 142.857132 instead 150 = half p 71428566 else if 75= 37500000*2
 --source clock 100Mhz = half p 50000000 but to sec in per ms 50000
-entity digiClk is
+entity digital_clock is
     port (
     clk1    : in std_logic;
     seconds : out std_logic_vector(5 downto 0);
     minutes : out std_logic_vector(5 downto 0);
     hours   : out std_logic_vector(4 downto 0));
-end digiClk;
-architecture Behavioral of digiClk is
+end digital_clock;
+architecture Behavioral of digital_clock is
 constant HALFPERIOD     : integer   := 71428566;--@142.8MHz= 1/2sec for HARDWARE
 constant TESTHALFPERIOD : integer   := 50000;--@100MHz= 1/2ms
 signal sec,min,hour     : integer range 0 to 60 :=0;

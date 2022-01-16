@@ -5,7 +5,7 @@ use ieee.numeric_std.all;
 use work.constants_package.all;
 use work.vpf_records.all;
 use work.ports_package.all;
-entity pointOfInterest is
+entity point_of_interest is
 generic (
     i_data_width   : integer := 8;
     s_data_width   : integer := 16;
@@ -22,7 +22,7 @@ port (
     fifoStatus     : out std_logic_vector(b_data_width-1 downto 0);
     oGridLocation  : out std_logic);
 end entity;
-architecture arch of pointOfInterest is
+architecture arch of point_of_interest is
     constant FIFO_ADDR_WIDTH :integer := 14;
     constant FIFO_DATA_WIDTH :integer := 24;
     constant FIFO_DEPTH :integer := 2**(FIFO_ADDR_WIDTH);--8192
@@ -136,7 +136,7 @@ enablePointerP: process (clk)begin
         end if;
     end if;
 end process enablePointerP;
-gridLockFifoInt : gridLockFifo
+gridLockFifoInt : grid_lock_fifo
 generic map(
     FIFO_DEPTH      => FIFO_DEPTH,
     FIFO_DATA_WIDTH => FIFO_DATA_WIDTH,
@@ -160,7 +160,7 @@ pipCordP: process (clk)begin
         pCont.y      <= to_integer((unsigned(iCord.y)));
     end if;
 end process pipCordP;
-pixelCordInt : pixelCord
+pixelCordInt : pixel_cord
 port map(
     clk      => clk,
     iRgb     => iRgb,

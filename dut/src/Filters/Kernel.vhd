@@ -131,7 +131,7 @@ process (clk) begin
 end process;
 -----------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------
---TapsController
+--taps_controller
 -----------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------
 TPDATAWIDTH3_ENABLED: if ((SHARP_FRAME = TRUE) or (BLURE_FRAME = TRUE) or (EMBOS_FRAME = TRUE)) generate
@@ -140,7 +140,7 @@ TPDATAWIDTH3_ENABLED: if ((SHARP_FRAME = TRUE) or (BLURE_FRAME = TRUE) or (EMBOS
     signal tp2        : std_logic_vector(23 downto 0) := (others => '0');
     signal tpValid    : std_logic  := lo;
 begin
-TapsControllerInst: TapsController
+TapsControllerInst: taps_controller
 generic map(
     img_width    => img_width,
     tpDataWidth  => 24)
@@ -229,7 +229,7 @@ port map(
     ycbcrSyn.blue    <=  ycbcr.blue;
     ycbcrSyn.green   <=  ycbcr.green;
     ycbcrSyn.valid   <=  rgbSyncValid(9);
-SyncFramesInst: SyncFrames
+SyncFramesInst: sync_frames
 generic map (
     pixelDelay   => 6)
 port map(            
@@ -279,7 +279,7 @@ port map(
     cgain1Syn.blue  <=  c1gain.blue;
     cgain1Syn.green <=  c1gain.green;
     cgain1Syn.valid <=  rgbSyncValid(28);--rgbSyncValid(9);
-SyncFramesInst: SyncFrames
+SyncFramesInst: sync_frames
 generic map (
     pixelDelay   => 6)
 port map(            
@@ -316,7 +316,7 @@ port map(
     cgain2Syn.blue  <=  c2gain.blue;
     cgain2Syn.green <=  c2gain.green;
     cgain2Syn.valid <=  rgbSyncValid(9);
-SyncFramesInst: SyncFrames
+SyncFramesInst: sync_frames
 generic map (
     pixelDelay   => 6)
 port map(            
@@ -565,9 +565,9 @@ signal tpValid        : std_logic := lo;
 signal ovalid         : std_logic := lo;
 begin
 -----------------------------------------------------------------------------------------------
--- TapsController
+-- taps_controller
 -----------------------------------------------------------------------------------------------
-TapsControllerInst: TapsController
+TapsControllerInst: taps_controller
 generic map(
     img_width    => img_width,
     tpDataWidth  => 8)
@@ -735,7 +735,7 @@ end generate HSL_FRAME_ENABLE;
 -----------------------------------------------------------------------------------------------
 RGBTRIM_FRAME_ENABLE: if (RGBTR_FRAME = true) generate
 begin
-ColorTrimInst: ColorTrim
+ColorTrimInst: color_trim
 generic map(
     i_data_width       => i_data_width)
 port map(   
@@ -751,7 +751,7 @@ end generate RGBTRIM_FRAME_ENABLE;
 -----------------------------------------------------------------------------------------------
 RGBLUMP_FRAME_ENABLE: if (RGBLP_FRAME = true) generate
 begin
-SegmentColorsInst: SegmentColors
+SegmentColorsInst: segment_colors
 port map(   
     clk                => clk,
     reset              => rst_l,

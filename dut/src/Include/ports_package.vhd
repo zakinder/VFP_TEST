@@ -74,7 +74,7 @@ port (
     iRgb                        : in channel;
     rgbColors                   : out type_RgbArray(0 to i_data_width-1));
 end component ColorSpaceLimits;
-component SyncFrames is
+component sync_frames is
 generic (
     pixelDelay                  : integer := 8);
 port (  
@@ -82,7 +82,7 @@ port (
     reset                       : in  std_logic;
     iRgb                        : in channel;
     oRgb                        : out channel);
-end component SyncFrames;
+end component sync_frames;
 component rgbAssertion is
 port (  
     clk                         : in  std_logic;
@@ -124,7 +124,7 @@ port (
     oRgb                        : out colors);
 end component Kernel; 
 
-component ColorTrim is
+component color_trim is
 generic (
     i_data_width                : integer := 8);
 port (  
@@ -132,7 +132,7 @@ port (
     reset                       : in  std_logic;
     iRgb                        : in channel;
     oRgb                        : out channel);
-end component ColorTrim;
+end component color_trim;
 component ColorAvg is
 generic (
     i_data_width                : integer := 8);
@@ -142,7 +142,7 @@ port (
     iRgb                        : in channel;
     oRgb                        : out channel);
 end component ColorAvg;
-component videoSelect is
+component video_select is
 generic (
     img_width_bmp               : integer := 1920;
     img_height_bmp              : integer := 1080;
@@ -161,7 +161,7 @@ port (
     oSof                        : out std_logic;
     oCord                       : out coord;
     oRgb                        : out channel);
-end component videoSelect;
+end component video_select;
 component videoProcess_v1_0_rgb_m_axis is
 generic (
     i_data_width                : integer := 8;
@@ -209,7 +209,7 @@ port (
     m_axis_mm2s_tlast           : out std_logic;
     m_axis_mm2s_tdata           : out std_logic_vector(s_data_width-1 downto 0));
 end component videoProcess_v1_0_m_axis_mm2s;
-component CameraRawData is
+component camera_raw_data is
 generic (
     dataWidth                   : integer := 24;
     img_width                   : integer := 2751);
@@ -221,8 +221,8 @@ port (
     ilval                       : in std_logic;
     idata                       : in std_logic_vector(dataWidth-1 downto 0);
     oRawData                    : out r2xData);
-end component CameraRawData;
-component CameraRawToRgb is
+end component camera_raw_data;
+component camera_raw_to_rgb is
 generic (
     img_width                   : integer := 2751;
     dataWidth                   : integer := 12;
@@ -235,8 +235,8 @@ port (
     ilval                       : in std_logic;
     idata                       : in std_logic_vector(dataWidth-1 downto 0);
     oRgbSet                     : out rRgb);
-end component CameraRawToRgb;
-component VideoStream is
+end component camera_raw_to_rgb;
+component video_stream is
 generic (
     revision_number             : std_logic_vector(31 downto 0) := x"00000000";
     i_data_width                : integer := 8;
@@ -267,7 +267,7 @@ port (
     iRgbSet                     : in rRgb;
     oStreamData                 : out vStreamData;
     oBusSelect                  : out std_logic_vector(b_data_width-1 downto 0));
-end component VideoStream;
+end component video_stream;
 component videoProcess_v1_0_Config is
 generic (
     revision_number             : std_logic_vector(31 downto 0) := x"02052019";
@@ -315,7 +315,7 @@ port (
     taps1x                      : out std_logic_vector(dataWidth - 1 downto 0);
     taps2x                      : out std_logic_vector(dataWidth - 1 downto 0));
 end component buffer_controller;
-component TapsController is
+component taps_controller is
 generic (
     img_width                   : integer := 2751;
     tpDataWidth                 : integer := 8);
@@ -327,7 +327,7 @@ port (
     tp0                         : out std_logic_vector(tpDataWidth - 1 downto 0);
     tp1                         : out std_logic_vector(tpDataWidth - 1 downto 0);
     tp2                         : out std_logic_vector(tpDataWidth - 1 downto 0));
-end component TapsController;
+end component taps_controller;
 component tapLine is
 generic (
     img_width                   : integer := 2751;
@@ -349,7 +349,7 @@ port (
     kls                         : in coefficient;  
     DataO                       : out std_logic_vector(7 downto 0));
 end component sharp_mac;
-component dataTaps is
+component data_taps is
 generic (
     img_width                   : integer := 2751;
     dataWidth                   : integer := 11;
@@ -358,7 +358,7 @@ port (
     aclk                        : in std_logic;
     iRawData                    : in rData;
     oTpData                     : out rTp);
-end component dataTaps;
+end component data_taps;
 component RawToRgb is 
 port (                          
     clk                         : in std_logic;
@@ -366,14 +366,14 @@ port (
     iTpData                     : in rTp;
     oRgbSet                     : out rRgb);
 end component RawToRgb;
-component digiClk is
+component digital_clock is
 port (
     clk1                        : in std_logic;
     seconds                     : out std_logic_vector(5 downto 0);
     minutes                     : out std_logic_vector(5 downto 0);
     hours                       : out std_logic_vector(4 downto 0));
-end component digiClk;
-component frameProcess is
+end component digital_clock;
+component frame_process is
 generic (
     i_data_width                : integer := 8;
     s_data_width                : integer := 16;
@@ -414,8 +414,8 @@ port (
     oFrameData                  : out fcolors;
     oFifoStatus                 : out std_logic_vector(b_data_width-1 downto 0);
     oGridLockData               : out std_logic_vector(b_data_width-1 downto 0));
-end component frameProcess;
-component frameTestPattern is
+end component frame_process;
+component frame_testpattern is
 generic (
     s_data_width                : integer := 16);
 port (             
@@ -423,7 +423,7 @@ port (
     iValid                      : in std_logic;
     iCord                       : in coord;
     oRgb                        : out blurchannel);
-end component frameTestPattern;
+end component frame_testpattern;
 component ResoTestPattern is
 generic (
     s_data_width                : integer := 16);
@@ -449,7 +449,7 @@ port (
     kls                         : in coefficient; 
     oRgb                        : out channel);
 end component sharp_filter;
-component FrameMask is
+component frame_mask is
 generic (
     eBlack                      : boolean := false);
 port (                
@@ -459,7 +459,7 @@ port (
     i1Rgb                       : in channel;
     i2Rgb                       : in channel;
     oRgb                        : out channel);
-end component FrameMask;
+end component frame_mask;
 component dither_filter is
 generic (
     img_width         : integer := 512;
@@ -503,7 +503,7 @@ port (
     tpSelect              : in integer;
     oRgb                  : out channel);
 end component TestPattern;
-component edgeObjects is
+component edge_objects is
 generic (
     i_data_width                : integer := 8);
 port (                
@@ -511,7 +511,7 @@ port (
     rst_l                       : in std_logic;
     iRgb                        : in channel;
     oRgbRemix                   : out channel);
-end component edgeObjects;
+end component edge_objects;
 component sobelFilter is
 generic (
     i_data_width                : integer := 8;
@@ -543,7 +543,7 @@ port (
     iCord                       : in coord;
     pDetect                     : out std_logic);
 end component detect;
-component pointOfInterest is
+component point_of_interest is
 generic (
     i_data_width                : integer := 8;
     s_data_width                : integer := 16;
@@ -559,8 +559,8 @@ port (
     gridLockDatao               : out std_logic_vector(b_data_width-1 downto 0);
     fifoStatus                  : out std_logic_vector(b_data_width-1 downto 0);
     oGridLocation               : out std_logic);
-end component pointOfInterest;
-component gridLockFifo is
+end component point_of_interest;
+component grid_lock_fifo is
 generic (
     FIFO_DEPTH                  : integer := 24;
     FIFO_DATA_WIDTH             : integer := 24;
@@ -600,15 +600,15 @@ port (
     iRgb                        : in channel;
     oRgb                        : out channel);
 end component LumValues;
-component SegmentColors is
+component segment_colors is
 port (  
     clk                         : in  std_logic;
     reset                       : in  std_logic;
     lumThreshold                : in  std_logic_vector(7 downto 0);
     iRgb                        : in channel;
     oRgb                        : out channel);
-end component SegmentColors;
-component AvgValues is
+end component segment_colors;
+component avg_values is
 generic (
     i_data_width                : integer := 8);
 port (  
@@ -618,7 +618,7 @@ port (
     bRgb                        : in channel;
     cRgb                        : in channel;
     oRgb                        : out channel);
-end component AvgValues;
+end component avg_values;
 component hsl_c is
 generic (
     i_data_width                : integer := 8);
@@ -731,7 +731,7 @@ port (
     wrRegsIn                    : in mRegs;
     rdRegsOut                   : out mRegs);
 end component;
-component pixelCord is
+component pixel_cord is
 port (                          
     clk                         : in std_logic;
     iRgb                        : in channel;
@@ -739,8 +739,8 @@ port (
     iEof                        : in std_logic;
     iCord                       : in cord;
     oRgb                        : out channel);
-end component pixelCord; 
-component AxisExternal
+end component pixel_cord; 
+component axis_external
 generic (
     revision_number             : std_logic_vector(31 downto 0) := x"05022019";
     C_rgb_m_axis_TDATA_WIDTH    : integer := 16;
@@ -949,13 +949,13 @@ port (
     oCord                       : out coord;
     iRgb                        : in  channel);
 end component imageWrite;
-component FontRom is
+component font_rom is
 port (  
     clk                         : in std_logic;
     addr                        : in integer;
     fontRow                     : out std_logic_vector(FONT_WIDTH-1 downto 0));
-end component FontRom;
-component PixelOnDisplay is
+end component font_rom;
+component pixel_on_display is
 generic (
     img_width_bmp               : integer := 1920;
     img_height_bmp              : integer := 1080;
@@ -967,8 +967,8 @@ port (
     grid                        : in cord;
     videoChannel                : in std_logic_vector(b_data_width-1 downto 0);
     pixel                       : out std_logic);
-end component PixelOnDisplay;
-component TextGen is
+end component pixel_on_display;
+component text_gen is
 generic (
     img_width_bmp               : integer := 1920;
     img_height_bmp              : integer := 1080;
@@ -981,5 +981,5 @@ port (
     location                    : in cord;
     iRgb                        : in channel;
     oRgb                        : out channel);
-end component TextGen;
+end component text_gen;
 end package;

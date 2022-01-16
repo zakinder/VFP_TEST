@@ -5,7 +5,7 @@ use ieee.numeric_std.all;
 use work.constants_package.all;
 use work.vpf_records.all;
 use work.ports_package.all;
-entity dataTaps is
+entity data_taps is
 generic (
     img_width     : integer := 2751;
     dataWidth     : integer := 12;
@@ -15,7 +15,7 @@ port (
     iRawData      : in rData;
     oTpData       : out rTp);
 end entity;
-architecture arch of dataTaps is
+architecture arch of data_taps is
     signal d1RawData    :  rData;
     signal d2RawData    :  rData;
 	signal wChx0Valid   : std_logic_vector(3 downto 0) := (others => lo);

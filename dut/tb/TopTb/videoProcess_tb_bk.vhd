@@ -143,7 +143,7 @@ port map(
     reset              => resetn,
     iRgb               => rgbRead,
     oRgb               => rgbLum);
-AvgValuesInst: AvgValues
+AvgValuesInst: avg_values
 generic map(
     i_data_width       => i_data_width)
 port map(   
@@ -186,7 +186,7 @@ port map(
     reset              => resetn,
     iRgb               => rgbAg,
     oRgb               => rgbLumv);
-AvgValuesvInst: AvgValues
+AvgValuesvInst: avg_values
 generic map(
     i_data_width       => i_data_width)
 port map(   
@@ -318,7 +318,7 @@ port map (
     oCord                 => txCord,
     endOfFrame            => endOfFrame,
     olm                   => olm);
--- ColorTrim1Inst: ColorTrim
+-- ColorTrim1Inst: color_trim
 -- generic map(
     -- i_data_width       => i_data_width)
 -- port map(   
@@ -381,7 +381,7 @@ port map (
     -- enableWrite           => enableWrite,
     -- iRgb                  => rgbImageFilters.cgain);
 -- end generate F_CGA_TEST_ENABLED;
-ColorTrim1Inst: ColorTrim
+ColorTrim1Inst: color_trim
 generic map(
     i_data_width       => i_data_width)
 port map(   
@@ -397,7 +397,7 @@ port map(
     reset              => resetn,
     iRgb               => o1Rgb,
     oRgb               => o2Rgb);
-ColorTrim3Inst: ColorTrim
+ColorTrim3Inst: color_trim
 generic map(
     i_data_width       => i_data_width)
 port map(   
@@ -405,7 +405,7 @@ port map(
     reset              => resetn,
     iRgb               => o2Rgb,
     oRgb               => o3Rgb);
-ColorTrim3XXInst: ColorTrim
+ColorTrim3XXInst: color_trim
 generic map(
     i_data_width       => i_data_width)
 port map(   
@@ -425,7 +425,7 @@ port map (
     pixclk             => clk,
     enableWrite        => enableWrite,
     iRgb               => o4Rgb);
-ColorTrim3XDInst: ColorTrim
+ColorTrim3XDInst: color_trim
 generic map(
     i_data_width       => i_data_width)
 port map(   
@@ -1363,7 +1363,7 @@ port map (
     pixclk             => clk,
     enableWrite        => enableWrite,
     iRgb               => rgb8Read);
--- edgeObjectsInst: edgeObjects
+-- edgeObjectsInst: edge_objects
 -- generic map(
     -- i_data_width        => i_data_width)
 -- port map(   
@@ -2316,7 +2316,7 @@ port map (
     enableWrite        => enableWrite,
     iRgb               => ycbcr);
 -- enableWrite <= not(oFifoStatus(1));
--- pointOfInterest_inst: pointOfInterest
+-- pointOfInterest_inst: point_of_interest
 -- generic map(
     -- i_data_width       => i_data_width,
     -- s_data_width       => s_data_width,

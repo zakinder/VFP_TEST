@@ -7,7 +7,7 @@ use work.float_pkg.all;
 use work.constants_package.all;
 use work.vpf_records.all;
 use work.ports_package.all;
-entity AvgValues is
+entity avg_values is
 generic (
     i_data_width   : integer := 8);
 port (
@@ -17,8 +17,8 @@ port (
     bRgb           : in channel;
     cRgb           : in channel;
     oRgb           : out channel);
-end AvgValues;
-architecture behavioral of AvgValues is
+end avg_values;
+architecture behavioral of avg_values is
     signal uFl1Rgb  : tpToFloatRecord;
     signal uFl2Rgb  : tpToFloatRecord;
     signal uFl3Rgb  : tpToFloatRecord;

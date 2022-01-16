@@ -343,7 +343,7 @@ MASK_SOB_CGA_FRAME_ENABLE: if (M_SOB_CGA = true) generate
     alias tp2Blue     : std_logic_vector(7 downto 0) is tp2(7 downto 0);
     signal tpValid    : std_logic  := lo;
 begin
-TapsControllerSobCgaInst: TapsController
+TapsControllerSobCgaInst: taps_controller
 generic map(
     img_width    => img_width,
     tpDataWidth  => 24)
@@ -368,7 +368,7 @@ process (clk,rst_l) begin
         tp2cgain.valid <= tpValid;
     end if; 
 end process;
-FrameMaskInst: FrameMask
+FrameMaskInst: frame_mask
 generic map (
     eBlack       => true)
 port map(            
@@ -381,7 +381,7 @@ port map(
 end generate MASK_SOB_CGA_FRAME_ENABLE;
 MASK_SOB_TRM_FRAME_ENABLE: if (M_SOB_TRM = true) generate
 begin
-FrameMaskInst: FrameMask
+FrameMaskInst: frame_mask
 generic map (
     eBlack       => true)
 port map(            
@@ -396,7 +396,7 @@ MASK_SOB_HSL_FRAME_ENABLE: if (M_SOB_HSL = true) generate
     signal dSobHsl           : channel;
     constant sobHslPiDelay   : integer := 18;
 begin
-dSobHsvPiDelayInst: SyncFrames
+dSobHsvPiDelayInst: sync_frames
 generic map(
     pixelDelay => sobHslPiDelay)
 port map(
@@ -404,7 +404,7 @@ port map(
     reset      => rst_l,
     iRgb       => rgbImageKernel.hsl,
     oRgb       => dSobHsl);
-FrameMaskInst: FrameMask
+FrameMaskInst: frame_mask
 generic map (
     eBlack       => true)
 port map(            
@@ -419,7 +419,7 @@ MASK_SOB_HSV_FRAME_ENABLE: if (M_SOB_HSV = true) generate
     signal dSobHsv           : channel;
     constant sobHsvPiDelay   : integer := 18;
 begin
-dSobHsvPiDelayInst: SyncFrames
+dSobHsvPiDelayInst: sync_frames
 generic map(
     pixelDelay => sobHsvPiDelay)
 port map(
@@ -427,7 +427,7 @@ port map(
     reset      => rst_l,
     iRgb       => rgbImageKernel.hsv,
     oRgb       => dSobHsv);
-FrameMaskInst: FrameMask
+FrameMaskInst: frame_mask
 generic map (
     eBlack       => true)
 port map(            
@@ -440,7 +440,7 @@ port map(
 end generate MASK_SOB_HSV_FRAME_ENABLE; 
 MASK_SOB_YCC_FRAME_ENABLE: if (M_SOB_YCC = true) generate
 begin
-FrameMaskInst: FrameMask
+FrameMaskInst: frame_mask
 generic map (
     eBlack       => true)
 port map(            
@@ -453,7 +453,7 @@ port map(
 end generate MASK_SOB_YCC_FRAME_ENABLE;   
 MASK_SOB_SHP_FRAME_ENABLE: if (M_SOB_SHP = true) generate
 begin
-FrameMaskInst: FrameMask
+FrameMaskInst: frame_mask
 generic map (
     eBlack       => true)
 port map(            
@@ -474,7 +474,7 @@ MASK_SOB_RGB_FRAME_ENABLE: if (M_SOB_RGB = true) generate
     signal tpValid         : std_logic  := lo;
     signal d1Rgb           : channel;
 begin
-TapsControllerSobCgaInst: TapsController
+TapsControllerSobCgaInst: taps_controller
 generic map(
     img_width    => img_width,
     tpDataWidth  => 24)
@@ -499,7 +499,7 @@ process (clk,rst_l) begin
         tp2inrgb.valid <= tpValid;
     end if; 
 end process;
-sobRgbPiDelayInst: SyncFrames
+sobRgbPiDelayInst: sync_frames
 generic map(
     pixelDelay => sobRgbPiDelay)
 port map(
@@ -507,7 +507,7 @@ port map(
     reset      => rst_l,
     iRgb       => tp2inrgb,
     oRgb       => d1Rgb);
-FrameMaskInst: FrameMask
+FrameMaskInst: frame_mask
 generic map (
     eBlack       => true)
 port map(            
@@ -520,7 +520,7 @@ port map(
 end generate MASK_SOB_RGB_FRAME_ENABLE;
 MASK_SOB_LUM_FRAME_ENABLE: if (M_SOB_LUM = true) generate
 begin
-FrameMaskInst: FrameMask
+FrameMaskInst: frame_mask
 generic map (
     eBlack       => true)
 port map(            
@@ -533,7 +533,7 @@ port map(
 end generate MASK_SOB_LUM_FRAME_ENABLE;
 MASK_SOB_BLU_FRAME_ENABLE: if (M_SOB_BLU = true) generate
 begin
-FrameMaskInst: FrameMask
+FrameMaskInst: frame_mask
 generic map (
     eBlack       => true)
 port map(            

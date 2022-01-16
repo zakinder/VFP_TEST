@@ -1,10 +1,10 @@
 ----------------------------------------------------------------
 --Last Modfied  : 01062019 [01-06-2019]
---Module        : CameraRawData
+--Module        : camera_raw_data
 ----------------------------------------------------------------
---The CameraRawData component takes a stream of camera data in 
+--The camera_raw_data component takes a stream of camera data in 
 --pixel format. This stream must be presented to the inputs of 
---CameraRawData module idata(raw input data), ilval(line valid), 
+--camera_raw_data module idata(raw input data), ilval(line valid), 
 --ifval(frame valid) and pixclk(source clock).
 ----------------------------------------------------------------
 library ieee;
@@ -13,7 +13,7 @@ use ieee.numeric_std.all;
 use work.constants_package.all;
 use work.vpf_records.all;
 use work.ports_package.all;
-entity CameraRawData is
+entity camera_raw_data is
 generic (
     dataWidth         : integer := 12;
     img_width         : integer := 2751);
@@ -25,8 +25,8 @@ port (
     ilval             : in std_logic;
     idata             : in std_logic_vector(dataWidth-1 downto 0);
     oRawData          : out r2xData);
-end CameraRawData;
-architecture arch_imp of CameraRawData is
+end camera_raw_data;
+architecture arch_imp of camera_raw_data is
     --PIXCLK SIDE
     signal pData          : std_logic_vector(dataWidth-1 downto 0):= (others => lo);
     signal pLine          : std_logic :=lo;

@@ -7,7 +7,7 @@ use work.float_pkg.all;
 use work.constants_package.all;
 use work.vpf_records.all;
 use work.ports_package.all;
-entity ColorTrim is
+entity color_trim is
 generic (
     i_data_width   : integer := 8);
 port (
@@ -15,8 +15,8 @@ port (
     reset          : in  std_logic;
     iRgb           : in channel;
     oRgb           : out channel);
-end ColorTrim;
-architecture behavioral of ColorTrim is
+end color_trim;
+architecture behavioral of color_trim is
     signal uF1Rgb           : tpToFloatRecord;
     signal uF2Rgb           : tpToFloatRecord;
     signal uF3Rgb           : tpToFloatRecord;

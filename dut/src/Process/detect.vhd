@@ -38,7 +38,7 @@ pipCordP: process (clk)begin
         pCont.y      <= to_integer((unsigned(iCord.y)));
     end if;
 end process pipCordP;
-pixelCordInt : pixelCord
+pixelCordInt : pixel_cord
 port map(
     clk      => clk,
     iRgb     => iRgb,
