@@ -713,7 +713,7 @@ end generate HSV_FRAME_ENABLE;
 -----------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------
 HSL_FRAME_ENABLE: if (HSL_FRAME = true) generate
-signal hslColor    : hslChannel;
+signal hslColor    : channel;
 begin
 hslInst: hsl_c
 generic map(
@@ -723,10 +723,7 @@ port map(
     reset              => rst_l,
     iRgb               => iRgb,
     oHsl               => hslColor);
-    oRgb.hsl.red       <= hslColor.h;
-    oRgb.hsl.green     <= hslColor.s;
-    oRgb.hsl.blue      <= hslColor.l;
-    oRgb.hsl.valid     <= hslColor.valid;
+    oRgb.hsl            <= hslColor;
 end generate HSL_FRAME_ENABLE;
 -----------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------

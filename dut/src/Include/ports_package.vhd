@@ -622,11 +622,11 @@ end component avg_values;
 component hsl_c is
 generic (
     i_data_width                : integer := 8);
-port (  
+port (
     clk                         : in  std_logic;
     reset                       : in  std_logic;
     iRgb                        : in channel;
-    oHsl                        : out hslChannel);
+    oHsl                        : out channel);
 end component hsl_c;
 component rgb_ycbcr is
 generic (
@@ -644,14 +644,14 @@ port (
 end component rgb_ycbcr;
 component color_correction is
 generic (
-    i_data_width                : integer := 8);
-port (                          
+    i_k_config_number           : integer := 8);
+port (
     clk                         : in std_logic;
     rst_l                       : in std_logic;
     iRgb                        : in channel;
     als                         : in coefficient;
     oRgb                        : out channel);
-end component color_correction; 
+end component color_correction;
 component ImageKernel is
 generic (
     SHARP_FRAME                 : boolean := false;
@@ -1006,4 +1006,86 @@ port (
     iRgb           : in channel;
     oRgb           : out channel);
 end component d_valid;
+component tap4Line is
+generic (
+    img_width    : integer := 4095;
+    tpDataWidth  : integer := 12);
+port (
+    clk          : in std_logic;
+    rst_l        : in std_logic;
+    write_en     : in std_logic;
+    idata        : in std_logic_vector(tpDataWidth - 1 downto 0);
+    read_en      : in std_logic;
+    odata        : out std_logic_vector(tpDataWidth - 1 downto 0));
+end component tap4Line;
+component write_image is
+generic (
+    enImageText                 : boolean := false;
+    enImageIndex                : boolean := false;
+    i_data_width                : integer := 8;
+    test                        : string  := "folder";
+    input_file                  : string  := "input_image";
+    output_file                 : string  := "output_image");
+port (                
+    pixclk        : in  std_logic;
+    iRgb          : in channel);
+end component write_image;
+component write_valid_image is
+generic (
+    enImageText                 : boolean := false;
+    enImageIndex                : boolean := false;
+    i_data_width                : integer := 8;
+    test                        : string  := "folder";
+    input_file                  : string  := "input_image";
+    output_file                 : string  := "output_image");
+port (                
+    pixclk        : in  std_logic;
+    iRgb          : in channel);
+end component write_valid_image;
+component write_image_filter_logs is
+generic (
+    F_TES                       : boolean := false;
+    F_LUM                       : boolean := false;
+    F_TRM                       : boolean := false;
+    F_RGB                       : boolean := false;
+    F_SHP                       : boolean := false;
+    F_BLU                       : boolean := false;
+    F_EMB                       : boolean := false;
+    F_YCC                       : boolean := false;
+    F_SOB                       : boolean := false;
+    F_CGA                       : boolean := false;
+    F_HSV                       : boolean := false;
+    F_HSL                       : boolean := false;
+    L_BLU                       : boolean := false;
+    L_AVG                       : boolean := false;
+    L_OBJ                       : boolean := false;
+    L_CGA                       : boolean := false;
+    L_YCC                       : boolean := false;
+    L_SHP                       : boolean := false;
+    L_D1T                       : boolean := false;
+    L_B1T                       : boolean := false;
+    enImageText                 : boolean := false;
+    enImageIndex                : boolean := false;
+    i_data_width                : integer := 8;
+    test                        : string  := "folder";
+    input_file                  : string  := "input_image";
+    output_file                 : string  := "output_image");
+port (                
+    pixclk                      : in  std_logic;
+    iRgb                        : in frameColors);
+end component write_image_filter_logs;
+component rgb_4taps is
+generic (
+    img_width     : integer := 4096;
+    tpDataWidth   : integer := 8);
+port (
+    clk         : in std_logic;
+    iRgb        : in channel;
+    rst_l       : in std_logic;
+    tpValid     : out std_logic;
+    tp0         : out std_logic_vector(tpDataWidth - 1 downto 0);
+    tp1         : out std_logic_vector(tpDataWidth - 1 downto 0);
+    tp2         : out std_logic_vector(tpDataWidth - 1 downto 0);
+    tp3         : out std_logic_vector(tpDataWidth - 1 downto 0));
+end component rgb_4taps;
 end package;

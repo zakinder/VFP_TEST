@@ -280,7 +280,7 @@ end process YcbcrIoP;
     fRgb.bluToHsv       <= fRgb3.hsv;  --BlurToHsv   ,HsvToBlur
 color_correctionInst: color_correction
 generic map(
-    i_data_width        => i_data_width)
+    i_k_config_number   => i_data_width)
 port map(           
     clk                 => clk,
     rst_l               => rst_l,

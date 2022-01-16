@@ -1080,17 +1080,17 @@ type kCoeffFloat    is record
     k9               : std_logic_vector(27 downto 0);
     kSet             : integer;
 end record;
-type coeffData is record
-    k1               : real;
-    k2               : real;
-    k3               : real;
-    k4               : real;
-    k5               : real;
-    k6               : real;
-    k7               : real;
-    k8               : real;
-    k9               : real;
-end record;
+--type coeffData is record
+--    k1               : real;
+--    k2               : real;
+--    k3               : real;
+--    k4               : real;
+--    k5               : real;
+--    k6               : real;
+--    k7               : real;
+--    k8               : real;
+--    k9               : real;
+--end record;
 type coeffIntegerData is record
     k1               : integer;
     k2               : integer;
