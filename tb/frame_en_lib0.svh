@@ -1,3 +1,3 @@
 package frame_en_lib;
-    `define rgb_v1                      1
+    `define hsl_v0                      1
 endpackage

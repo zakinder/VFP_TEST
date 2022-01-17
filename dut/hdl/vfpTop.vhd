@@ -99,6 +99,7 @@ architecture arch_imp of VFP_v1_0 is
     constant adwrWidth        : integer := 16;
     constant addrWidth        : integer := 12;
     signal aBusSelect         : std_logic_vector(vfpconfig_wdata'range):= (others => '0');
+    signal sMmAxi             : integer := 0;
     signal rgbSet             : rRgb;
     signal wrRegs             : mRegs;
     signal rdRegs             : mRegs;
@@ -126,8 +127,8 @@ generic map(
     img_width            => img_width,
     adwrWidth            => adwrWidth,
     addrWidth            => addrWidth,
-    img_width_bmp        => img_width_bmp,
-    img_height_bmp       => img_height_bmp,
+    bmp_width            => img_width_bmp,
+    bmp_height           => img_height_bmp,
     F_TES                => F_TES,
     F_LUM                => F_LUM,
     F_TRM                => F_TRM,
@@ -141,13 +142,13 @@ generic map(
     F_HSV                => F_HSV,
     F_HSL                => F_HSL)
 port map(
-    m_axis_mm2s_aclk          => m_axis_mm2s_aclk,
-    m_axis_mm2s_aresetn       => m_axis_mm2s_aresetn,
-    iWrRegs                   => wrRegs,
-    oRdRegs                   => rdRegs,
-    iRgbSet                   => rgbSet,
-    oStreamData               => streamData,
-    oBusSelect                => aBusSelect);
+    clk                  => m_axis_mm2s_aclk,
+    rst_l                => m_axis_mm2s_aresetn,
+    iWrRegs              => wrRegs,
+    oRdRegs              => rdRegs,
+    iRgbSet              => rgbSet,
+    oVideoData           => streamData,
+    oMmAxi               => sMmAxi);
 AxisExternalInst: axis_external
 generic map(
     revision_number           => revision_number,

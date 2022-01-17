@@ -188,14 +188,14 @@ begin
 
 
 --================================================================================================
-hsvInst: hsl_c
-generic map(
-    i_data_width       => i_data_width)
-port map(
-    clk                => clk,
-    reset              => reset,
-    iRgb               => iRgb,
-    oHsl               => hsvSyncr);
+--hsvInst: hsl_c
+--generic map(
+--    i_data_width       => i_data_width)
+--port map(
+--    clk                => clk,
+--    reset              => reset,
+--    iRgb               => iRgb,
+--    oHsl               => hsvSyncr);
 rgb_ool1_inst: sync_frames
 generic map(
     pixelDelay => 7)

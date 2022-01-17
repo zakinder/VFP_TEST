@@ -45,7 +45,7 @@ architecture arch of rgb_4taps is
     signal dS_2RGB        : channel;
     signal dS_3RGB        : channel;
     signal rgbPixel     : std_logic_vector(tpDataWidth - 1 downto 0) := (others => '0');
-    signal readCnt      : natural range 0 to 3 := zero;
+    signal readCnt      : natural range 0 to 4 := zero;
     signal read_en      : std_logic := lo;
     signal write_s      : std_logic;
     signal writess      : std_logic;

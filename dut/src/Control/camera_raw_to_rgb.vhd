@@ -1,13 +1,25 @@
---05022019 [05-02-2019]
+-------------------------------------------------------------------------------
+--
+-- Filename    : camera_raw_to_rgb.vhd
+-- Create Date : 05022019 [05-02-2019]
+-- Author      : Zakinder
+--
+-- Description:
+-- This file instantiation axi4 components.
+--
+-------------------------------------------------------------------------------
+
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
+
 use work.constants_package.all;
 use work.vpf_records.all;
 use work.ports_package.all;
+
 entity camera_raw_to_rgb is
 generic (
-    img_width           : integer := 2751;
+    img_width           : integer := 8;
     dataWidth           : integer := 12;
     addrWidth           : integer := 12);
 port (
@@ -19,12 +31,16 @@ port (
     idata               : in std_logic_vector(dataWidth-1 downto 0);
     oRgbSet             : out rRgb);
 end camera_raw_to_rgb;
+
 architecture arch_imp of camera_raw_to_rgb is
+
     signal rawTp            : rTp;
-    signal raw1xData        : rData;
-    signal raw2xData        : r2xData;
+    signal rawData          : rData;
     signal rgbSet           : rRgb;
+    signal raw2xData        : r2xData;
+    signal raw1xData        : rData;
 begin
+
 CameraRawDataInst: camera_raw_data
 generic map(
     dataWidth            => dataWidth,
@@ -51,7 +67,8 @@ port map(
     aclk                 => m_axis_mm2s_aclk,
     iRawData             => raw1xData,
     oTpData              => rawTp);
-RawToRgbInst: RawToRgb
+
+RawToRgbInst: raw_to_rgb
 port map(
     clk                  => m_axis_mm2s_aclk,
     rst_l                => m_axis_mm2s_aresetn,

@@ -1,15 +1,13 @@
+--05062019 [05-06-2019]
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
-
 use work.fixed_pkg.all;
 use work.float_pkg.all;
-
-use work.constants_package.all;
-use work.vpf_records.all;
-use work.ports_package.all;
-
-entity rgb_inverted is
+use work.constantspackage.all;
+use work.vpfRecords.all;
+use work.portspackage.all;
+entity rgbInverted is
 generic (
     i_data_width   : integer := 8);
 port (
@@ -19,8 +17,8 @@ port (
     oRgb           : out channel;
     oRgbInverted   : out channel;
     oRgbFiltered   : out channel);
-end rgb_inverted;
-architecture behavioral of rgb_inverted is
+end rgbInverted;
+architecture behavioral of rgbInverted is
     signal s1Rgb          : channel;
     signal s2Rgb          : channel;
     signal s3Rgb          : channel;
