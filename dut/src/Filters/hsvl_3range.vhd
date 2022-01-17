@@ -29,10 +29,10 @@ architecture behavioral of hsvl_3range is
     signal uFs1Rgb       : intChannel;
     signal uFs2Rgb       : intChannel;
     signal uFs3Rgb       : intChannel;
-    signal rgbMax        : natural;
-    signal rgbMin        : natural;
-    signal maxValue      : natural;
-    signal rgbDelta      : natural;
+    signal rgbMax        : integer;
+    signal rgbMin        : integer;
+    signal maxValue      : integer;
+    signal rgbDelta      : integer;
     --H
     signal hue_quot      : ufixed(17 downto 0)  :=(others => '0');
     signal uuFiXhueQuot  : ufixed(17 downto -9) :=(others => '0');

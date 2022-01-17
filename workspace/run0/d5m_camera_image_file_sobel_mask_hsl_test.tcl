@@ -1,3 +1,4 @@
+vlog -f ../../includes/dut_vlg.f
 
 vopt top -o top_optimized  +acc +cover=sbfec+top(rtl).
 vsim top_optimized -coverage +UVM_TESTNAME=img_sobel_mask_hsl_test

@@ -318,7 +318,7 @@ port map (
 end generate L_HIS_ENABLE;
 L_SPC_ENABLE: if (L_SPC = true) generate
 begin
-color_space_limits_inst: color_space_limits
+csl_inst        : color_space_limits
 generic map (
     i_data_width       => 8)
 port map (                  
@@ -868,7 +868,7 @@ MASK_SOB_CGA_FRAME_ENABLE : if (M_SOB_CGA = true) generate
     alias tp2Blue     : std_logic_vector(7 downto 0) is tp2(7 downto 0);
     signal tpValid    : std_logic  := lo;
 begin
-TapsControllerSobCgaInst: taps_controller
+tapscontroller_inst : taps_controller
 generic map(
     img_width    => img_width,
     tpDataWidth  => 24)

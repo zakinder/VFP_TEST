@@ -4,5 +4,4 @@ rd work /s /q
 rd ..\coverage_reports\questa_html_coverage_reports\d5m_camera_test /s /q
 
 
-vsim  -c -do d5m_camera_image_file.tcl
 vsim  -c -do d5m_camera_test.tcl

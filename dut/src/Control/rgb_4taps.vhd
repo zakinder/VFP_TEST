@@ -69,7 +69,7 @@ begin
     tap_d3_valid <= '1' when (readCnt =3 and iRgb.valid = hi) or (writess = hi)  else '0';
 
     
-    read_en      <= '1' when (readCnt =0 and iRgb.valid = hi)  else '0';
+    read_en      <= '1' when (iRgb.valid = hi)  else '0';
 
     
 process (clk) begin

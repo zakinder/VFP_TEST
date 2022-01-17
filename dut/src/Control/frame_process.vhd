@@ -59,14 +59,14 @@ port (
     oGridLockData           : out std_logic_vector(b_data_width-1 downto 0));
 end entity;
 architecture arch of frame_process is
-    constant L_BLU          : boolean := false;  -- 8
-    constant L_SHP          : boolean := false;  -- 9
-    constant L_CGA          : boolean := false;  -- 9
-    constant L_YCC          : boolean := false;  -- 5
-    constant L_D1T          : boolean := false;  -- 1
-    constant L_B1T          : boolean := false;  -- 9
-    constant L_AVG          : boolean := false;  -- 7
-    constant L_OBJ          : boolean := false;  -- 4
+    constant L_BLU          : boolean := true;  -- 8
+    constant L_SHP          : boolean := true;  -- 9
+    constant L_CGA          : boolean := true;  -- 9
+    constant L_YCC          : boolean := true;  -- 5
+    constant L_D1T          : boolean := true;  -- 1
+    constant L_B1T          : boolean := true;  -- 9
+    constant L_AVG          : boolean := true;  -- 7
+    constant L_OBJ          : boolean := true;  -- 4
     constant F_OHS          : boolean := true;
     constant F_RE1          : boolean := true;
     constant F_RE2          : boolean := true;
