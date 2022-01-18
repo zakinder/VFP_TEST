@@ -6,6 +6,9 @@
 ../../dut/src/Include/vpf_records.vhd
 ../../dut/src/Include/ports_package.vhd
 
+../../dut/tb/Include/dutPortsPackage.vhd
+../../dut/tb/Include/tbPackage.vhd
+
 ../../dut/src/Filters/blur_filter.vhd
 ../../dut/src/Filters/blur_mac.vhd
 ../../dut/src/Filters/sharp_filter.vhd
@@ -95,6 +98,16 @@
 ../../dut/tb/ImagesReadWrite/imageRead.vhd
 ../../dut/tb/ImagesReadWrite/imageWrite.vhd
 ../../dut/tb/ImagesReadWrite/imageReadInterface.vhd
+
+../../dut/tb/ImagesReadWrite/read_image.vhd
+../../dut/tb/ImagesReadWrite/write_image.vhd
+../../dut/tb/ImagesReadWrite/write_image_filter_logs.vhd
+../../dut/tb/ImagesReadWrite/write_valid_image.vhd
+
+
+../../dut/tb/TopTb/videoProcess_tb.vhd
+
+
 
 ../../dut/src/Xip/ByteToFloat/sim/ByteToFloat.vhd
 ../../dut/src/Xip/ByteToFloat/ByteToFloatTop.vhd

@@ -1277,62 +1277,30 @@ port (
     iRgb           : in channel;
     oRgb           : out channel);
 end component rgb_histogram;
-component write_image is
+component rgb_select is
+    port (
+        clk            : in std_logic;
+        iPerCh         : in integer;
+        iRgb           : in channel;
+        oRgb           : out channel);
+end component rgb_select;
+component frame_remake is
+port (
+    clk            : in std_logic;
+    reset          : in std_logic;
+    iEdgeValid     : in std_logic;
+    iRgb           : in frameColors);
+end component frame_remake;
+component read_kernel2_coefs is
 generic (
-    enImageText                 : boolean := false;
-    enImageIndex                : boolean := false;
-    i_data_width                : integer := 8;
-    test                        : string  := "folder";
-    input_file                  : string  := "input_image";
-    output_file                 : string  := "output_image");
-port (                
-    pixclk        : in  std_logic;
-    iRgb          : in channel);
-end component write_image;
-component write_valid_image is
-generic (
-    enImageText                 : boolean := false;
-    enImageIndex                : boolean := false;
-    i_data_width                : integer := 8;
-    test                        : string  := "folder";
-    input_file                  : string  := "input_image";
-    output_file                 : string  := "output_image");
-port (                
-    pixclk        : in  std_logic;
-    iRgb          : in channel);
-end component write_valid_image;
-component write_image_filter_logs is
-generic (
-    F_TES                       : boolean := false;
-    F_LUM                       : boolean := false;
-    F_TRM                       : boolean := false;
-    F_RGB                       : boolean := false;
-    F_SHP                       : boolean := false;
-    F_BLU                       : boolean := false;
-    F_EMB                       : boolean := false;
-    F_YCC                       : boolean := false;
-    F_SOB                       : boolean := false;
-    F_CGA                       : boolean := false;
-    F_HSV                       : boolean := false;
-    F_HSL                       : boolean := false;
-    L_BLU                       : boolean := false;
-    L_AVG                       : boolean := false;
-    L_OBJ                       : boolean := false;
-    L_CGA                       : boolean := false;
-    L_YCC                       : boolean := false;
-    L_SHP                       : boolean := false;
-    L_D1T                       : boolean := false;
-    L_B1T                       : boolean := false;
-    enImageText                 : boolean := false;
-    enImageIndex                : boolean := false;
-    i_data_width                : integer := 8;
-    test                        : string  := "folder";
-    input_file                  : string  := "input_image";
-    output_file                 : string  := "output_image");
-port (                
-    pixclk                      : in  std_logic;
-    iRgb                        : in frameColors);
-end component write_image_filter_logs;
+    s_data_width  : integer := 16;
+    input_file    : string  := "read_kernel2_coefs");
+port (
+    clk             : in std_logic;
+    reset           : in std_logic;
+    iCord           : in coord;
+    kSet1out        : out  kernelCoeff);
+end component read_kernel2_coefs;
 component rgb_4taps is
 generic (
     img_width     : integer := 4096;
@@ -1347,4 +1315,17 @@ port (
     tp2         : out std_logic_vector(tpDataWidth - 1 downto 0);
     tp3         : out std_logic_vector(tpDataWidth - 1 downto 0));
 end component rgb_4taps;
+component read_image is
+generic (
+    enImageText                 : boolean := false;
+    enImageIndex                : boolean := false;
+    i_data_width                : integer := 8;
+    test                        : string  := "folder";
+    input_file                  : string  := "input_image";
+    output_file                 : string  := "output_image");
+port (                
+    pixclk                      : in  std_logic;
+    oCord                       : out coord;
+    oRgb                        : out channel);
+end component read_image;
 end package;

@@ -14,7 +14,7 @@ use ieee.numeric_std.all;
 use work.constants_package.all;
 use work.vpf_records.all;
 use work.ports_package.all;
-
+use work.dutPortsPackage.all;
 
 
 

@@ -117,7 +117,9 @@ process (clk,rst_l) begin
         ramWaddr     <= zero;
     elsif rising_edge(clk) then 
         if (valid = hi) then
-            rAddressCnt  <= rAddressCnt + 1;
+            if(rAddressCnt < img_width-1)then
+                rAddressCnt  <= rAddressCnt + 1;
+            end if;
         else
             rAddressCnt  <= zero;
         end if;
