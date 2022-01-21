@@ -1,6 +1,6 @@
 import cv2
 
-image = cv2.imread('C:/Images/REPOS/GitHub/VIDEO_STREAM/ZEDBOARD/uvm_tb/VFP_TEST/dut/tb/uvm_images/write/hsv_v2.bmp')
+image = cv2.imread('K:/ZEDBOARD/uvm_tb/VFP_TEST/dut/tb/uvm_images/write/ckeck_12/sharp_v0.bmp')
 
 
 
