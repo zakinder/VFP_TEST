@@ -25,7 +25,7 @@ class img_pattern_seq extends img_base_seq;
         cell_set choices;
         set_cell_red  = 1;
         set_increment = 2;
-        choices       = blu_per_select;
+        choices       = wed;
         frame_pkts_h.re_gen_cell_box(12,6,set_cell_red_value,set_cell_gre_value,set_cell_blu_value,10,choices);
         `uvm_create(item)
         item.d5p.rgb           = 0;

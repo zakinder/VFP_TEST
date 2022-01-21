@@ -21,26 +21,20 @@
 module top;
     import uvm_pkg::*;
     import d5m_camera_pkg::*;
-
-
+    
+    bit pixclk;
+    bit ACLK;
     bit reset;
     bit ARESETN;
     
     // module: d5m_camera_vif
-    d5m_camera_if                d5m_camera_vif(reset,ARESETN);
-    
-    // module: vfpConfigd5mCameraDut
-    // This module is design under test module.
+    d5m_camera_if                d5m_camera_vif(ACLK,pixclk,reset,ARESETN);
+    // module: vfp_dut
     vfpConfigd5mCameraDut        vfp_dut(d5m_camera_vif);
-    
-    // module: imageReadInterfaceDut
-    // This module read and write image bmp file.
-    imageReadInterfaceDut        image_read_dut(d5m_camera_vif);
-    
-    video_process_dut            filters_dut(d5m_camera_vif);
-    
-    // module: rgbAssertionDut
-    rgbAssertionDut              rgb_assertion_dut(d5m_camera_vif);
+    // module: imageRead_dut
+    imageReadInterfaceDut        imageRead_dut(d5m_camera_vif);
+    // module: rgbAssertion_dut
+    rgbAssertionDut              rgbAssertion_dut(d5m_camera_vif);
     
     initial begin
         reset = 0;

@@ -24,7 +24,7 @@ architecture behavioral of rgbInverted is
     signal s3Rgb          : channel;
     signal s4Rgb          : channel;
     signal uFs1Rgb        : rgbToUfRecord;
-    signal uFs2Rgb        : rgbToUfRecord;
+    signal uFs2Rgb        : rgbToU1MSBfRecord;
     signal uFs3Rgb        : rgbToUfRecord;
     signal uFs4Rgb        : rgbToUfRecord;
     signal rgbMaxVal      : ufixed(7 downto 0) :=(others => '0');

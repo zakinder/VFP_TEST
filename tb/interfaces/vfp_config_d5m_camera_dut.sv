@@ -31,19 +31,12 @@ imageReadInterfaceInst         (
     .xCord                     (d5m_camera_vif.d5m.x              ),
     .yCord                     (d5m_camera_vif.d5m.y              ),
     .endOfFrame                (d5m_camera_vif.d5m.eof            ));
-    
-
-
 endmodule: imageReadInterfaceDut
 
 
-module video_process_dut(d5m_camera_if.ConfigMaster d5m_camera_vif);
-    video_process_tb rtl_tb();
-endmodule: video_process_dut
-
 // MODULE : VFP_v1_0
 module vfpConfigd5mCameraDut(d5m_camera_if.ConfigMaster d5m_camera_vif);
-
+ 
 VFP_v1_0                      #(
     .revision_number           ( revision_number                  ),
     .C_rgb_m_axis_TDATA_WIDTH  ( C_rgb_m_axis_TDATA_WIDTH         ),

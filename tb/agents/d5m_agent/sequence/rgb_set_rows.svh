@@ -15,8 +15,8 @@ class rgb_set_rows extends uvm_object;
     // Function: new
     function new(string name = "rgb_set_rows");
         super.new(name);
-        obj_name     = name;
-        c_block      = new[1];
+        obj_name = name;
+        c_block    = new[1];
         c_block_size = c_block.size;
     endfunction: new
     

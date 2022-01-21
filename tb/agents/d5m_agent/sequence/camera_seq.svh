@@ -24,11 +24,11 @@ class camera_seq extends img_base_seq;
         type_idata  data_type;
 
         `uvm_create(item)
-        item.d5p.rgb                    = 0;
-        item.d5p.lvalid                 = 1'b0;
-        item.d5p.fvalid                 = 1'b0;
-        item.d5p.iImageTypeTest         = 1'b0;
-        item.d5m_txn                    = D5M_WRITE;
+        item.d5p.rgb            = 0;
+        item.d5p.lvalid         = 1'b0;
+        item.d5p.fvalid         = 1'b0;
+        item.d5p.iImageTypeTest = 1'b0;
+        item.d5m_txn            = D5M_WRITE;
         `uvm_send(item);
 
         axi_write_config_reg();

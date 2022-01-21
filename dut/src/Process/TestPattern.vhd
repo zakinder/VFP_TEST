@@ -2,9 +2,9 @@
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
-use work.constants_package.all;
-use work.vpf_records.all;
-use work.ports_package.all;
+use work.constantspackage.all;
+use work.vpfRecords.all;
+use work.portspackage.all;
 entity TestPattern is
 port (
     clk                   : in std_logic;
@@ -21,7 +21,7 @@ signal rgbRed              : channel;
 signal rgbGre              : channel;
 signal rgbBlu              : channel;
 begin
-FrameTestPatternInst: frame_testpattern
+FrameTestPatternInst: FrameTestPattern
 generic map(
     s_data_width => 16)
 port map(   

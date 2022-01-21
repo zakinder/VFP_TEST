@@ -1,7 +1,7 @@
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
-use work.ports_package.all;
+use work.portspackage.all;
 entity FloatToFixedv1Top is
 port (
     aclk           : in std_logic;

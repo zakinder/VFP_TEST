@@ -2,9 +2,9 @@
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
-use work.constants_package.all;
-use work.vpf_records.all;
-use work.ports_package.all;
+use work.constantspackage.all;
+use work.vpfRecords.all;
+use work.portspackage.all;
 entity VFP_v1_0 is
 generic (
     revision_number           : std_logic_vector(31 downto 0) := x"09072019";
@@ -96,32 +96,15 @@ port (
     vfpconfig_rready          : in std_logic);
 end VFP_v1_0;
 architecture arch_imp of VFP_v1_0 is
-    constant adwrWidth                 : integer := 16;
-    constant addrWidth                 : integer := 12;
-    -- D5m Camera Raw Data Settings
-    constant d5m_data_width            : integer := dataWidth;
-    constant d5m_frame_width           : integer := img_width;
-    -- HD Video
-    constant bmp_width                 : integer := img_width_bmp;
-    constant bmp_height                : integer := img_height_bmp;
-    constant bmp_precision             : integer := i_precision;
-    -- Set filters
-    constant F_CGA_FULL_RANGE          : boolean := i_full_range;
-    signal aBusSelect                  : std_logic_vector(vfpconfig_wdata'range):= (others => '0');
-    signal sMmAxi                      : integer := 0;
-    signal rgbSet                      : rRgb;
-    signal wrRegs                      : mRegs;
-    signal rdRegs                      : mRegs;
-    signal streamData                  : vStreamData;
-    signal rgb_set                     : rRgb;
-    signal wr_regs                     : mRegs;
-    signal rd_regs                     : mRegs;
-    signal video_data                  : vStreamData;
+    constant adwrWidth        : integer := 16;
+    constant addrWidth        : integer := 12;
+    signal aBusSelect         : std_logic_vector(vfpconfig_wdata'range):= (others => '0');
+    signal rgbSet             : rRgb;
+    signal wrRegs             : mRegs;
+    signal rdRegs             : mRegs;
+    signal streamData         : vStreamData;
 begin
-
-aBusSelect   <= std_logic_vector(to_unsigned(sMmAxi,C_vfpConfig_DATA_WIDTH));
-
-camera_raw_to_rgb_inst: camera_raw_to_rgb
+CameraRawToRgbInst: CameraRawToRgb
 generic map(
     img_width                 => img_width,
     dataWidth                 => dataWidth,
@@ -133,55 +116,38 @@ port map(
     ifval                     => ifval,
     ilval                     => ilval,
     idata                     => idata,
-    oRgbSet                   => rgb_set);
-
---CameraRawToRgbInst: camera_raw_to_rgb
---generic map(
---    img_width                 => img_width,
---    dataWidth                 => dataWidth,
---    addrWidth                 => addrWidth)
---port map(
---    m_axis_mm2s_aclk          => m_axis_mm2s_aclk,
---    m_axis_mm2s_aresetn       => m_axis_mm2s_aresetn,
---    pixclk                    => pixclk,
---    ifval                     => ifval,
---    ilval                     => ilval,
---    idata                     => idata,
---    oRgbSet                   => rgbSet);
---    
--- Filter rgb data module
-video_stream_inst: video_stream
+    oRgbSet                   => rgbSet);
+VideoStreamInst: VideoStream
 generic map(
-    revision_number           => revision_number,
-    i_data_width              => i_data_width,
-    s_data_width              => s_data_width,
-    b_data_width              => b_data_width,
-    img_width                 => d5m_frame_width,
-    adwrWidth                 => adwrWidth,
-    addrWidth                 => addrWidth,
-    bmp_width                 => img_width_bmp,
-    bmp_height                => img_height_bmp,
-    F_TES                     => F_TES,
-    F_LUM                     => F_LUM,
-    F_TRM                     => F_TRM,
-    F_RGB                     => F_RGB,
-    F_SHP                     => F_SHP,
-    F_BLU                     => F_BLU,
-    F_EMB                     => F_EMB,
-    F_YCC                     => F_YCC,
-    F_SOB                     => F_SOB,
-    F_CGA                     => F_CGA,
-    F_HSV                     => F_HSV,
-    F_HSL                     => F_HSL)
+    revision_number      => revision_number,
+    i_data_width         => i_data_width,
+    s_data_width         => s_data_width,
+    b_data_width         => b_data_width,
+    img_width            => img_width,
+    adwrWidth            => adwrWidth,
+    addrWidth            => addrWidth,
+    img_width_bmp        => img_width_bmp,
+    img_height_bmp       => img_height_bmp,
+    F_TES                => F_TES,
+    F_LUM                => F_LUM,
+    F_TRM                => F_TRM,
+    F_RGB                => F_RGB,
+    F_SHP                => F_SHP,
+    F_BLU                => F_BLU,
+    F_EMB                => F_EMB,
+    F_YCC                => F_YCC,
+    F_SOB                => F_SOB,
+    F_CGA                => F_CGA,
+    F_HSV                => F_HSV,
+    F_HSL                => F_HSL)
 port map(
-    clk                       => m_axis_mm2s_aclk,
-    rst_l                     => m_axis_mm2s_aresetn,
-    iWrRegs                   => wr_regs,
-    oRdRegs                   => rd_regs,
-    iRgbSet                   => rgb_set,
-    oVideoData                => video_data,
-    oMmAxi                    => sMmAxi);
-
+    m_axis_mm2s_aclk          => m_axis_mm2s_aclk,
+    m_axis_mm2s_aresetn       => m_axis_mm2s_aresetn,
+    iWrRegs                   => wrRegs,
+    oRdRegs                   => rdRegs,
+    iRgbSet                   => rgbSet,
+    oStreamData               => streamData,
+    oBusSelect                => aBusSelect);
 AxisExternalInst: AxisExternal
 generic map(
     revision_number           => revision_number,
@@ -197,9 +163,9 @@ generic map(
     b_data_width              => b_data_width)
 port map(
     iBusSelect                => aBusSelect,
-    iStreamData               => video_data,
-    oWrRegs                   => wr_regs,
-    iRdRegs                   => rd_regs,
+    iStreamData               => streamData,
+    oWrRegs                   => wrRegs,
+    iRdRegs                   => rdRegs,
     --tx channel
     rgb_m_axis_aclk           => rgb_m_axis_aclk,
     rgb_m_axis_aresetn        => rgb_m_axis_aresetn,

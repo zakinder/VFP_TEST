@@ -1,17 +1,14 @@
 // Class: rgb_cell_unit
 class rgb_cell_unit extends uvm_object;
   `uvm_object_utils(rgb_cell_unit)
-  
     cell_set selected_box;
 
     rand int red;
     rand int gre;
     rand int blu;
-    
     bit[7:0] rgb_red_data;
     bit[7:0] rgb_gre_data;
     bit[7:0] rgb_blu_data;
-    
     int red_test = 0;
     int gre_test = 0;
     int blu_test = 0;
@@ -20,7 +17,6 @@ class rgb_cell_unit extends uvm_object;
     bit[7:0] set_cell_gre;
     bit[7:0] set_cell_blu;
     
-    // constraint rgb data item red
     constraint c_red_stim {
     if (red_test==0) {
         red == 100;
@@ -45,7 +41,7 @@ class rgb_cell_unit extends uvm_object;
                             }else
                                 red == set_cell_red;
     }
-    // constraint rgb data item green
+    
     constraint c_gre_stim {
     if (gre_test==0) {
         gre == 100;
@@ -70,7 +66,7 @@ class rgb_cell_unit extends uvm_object;
                             }else
                                 gre == set_cell_gre;
     }
-    // constraint rgb data item blue
+    
     constraint c_blu_stim {
     if (blu_test==0) {
         blu == 100;
@@ -108,11 +104,11 @@ class rgb_cell_unit extends uvm_object;
     set_cell_gre = set_cell_g + incre + offset_g;
     set_cell_blu = set_cell_b + incre + offset_b;
     
-    if(selected_box == gre_rand_select) begin
+    if(selected_box == sun) begin
         red_test = 0;
         gre_test = $urandom_range(0,6);
         blu_test = 0;
-    end else if (selected_box == gre_per_select) begin
+    end else if (selected_box == mon) begin
         red_test = 0;
         gre_test = 7;
         blu_test = 0;
@@ -120,17 +116,17 @@ class rgb_cell_unit extends uvm_object;
         red_test = 7;
         gre_test = 7;
         blu_test = 7;
-    end else if (selected_box == all_select) begin
+    end else if (selected_box == thu) begin
         red_test = 0;
         gre_test = 0;
         blu_test = 0;
-    end else if (selected_box == red_per_select) begin
-        red_test = 4;
-        gre_test = 0;
-        blu_test = 0;
-    end else if (selected_box == red_rand_select) begin
+    end else if (selected_box == fri) begin
         red_test = 0;
-        gre_test = $urandom_range(0,6);
+        gre_test = 4;
+        blu_test = 0;
+    end else if (selected_box == red1) begin
+        red_test = 0;
+        gre_test = 3;
         blu_test = 0;
     end else if (selected_box == rgb_000_000_black) begin
         red_test = 1;

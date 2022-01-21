@@ -1,0 +1,1 @@
+reduced_width 4,3,2

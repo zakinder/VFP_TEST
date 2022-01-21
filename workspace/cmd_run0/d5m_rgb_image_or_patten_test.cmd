@@ -181,12 +181,10 @@ cd ../workspace/run0
 if "%standalone%" EQU "1" (
 @echo running standalone
 @echo off
-vsim  -c -do compile_rtl.tcl
 vsim -c -do d5m_camera_image_file_cgain_test.tcl
 @GOTO pause_done
 ) else (
 @echo running not standalone
-vsim  -c -do compile_rtl.tcl
 vsim -c -do d5m_camera_image_file_cgain_test.tcl
 cd ../../tb
 @set "replace_to=sharp"
@@ -200,12 +198,10 @@ cd ../workspace/run0
 @echo current type:  %replace_to%
 if "%standalone%" EQU "1" (
 @echo running standalone
-vsim  -c -do compile_rtl.tcl
 vsim -c -do d5m_camera_image_file_sharp_test.tcl
 @GOTO pause_done
 ) else (
 @echo running not standalone
-vsim  -c -do compile_rtl.tcl
 vsim -c -do d5m_camera_image_file_sharp_test.tcl
 cd ../../tb
 @set "replace_to=blur"
@@ -218,12 +214,10 @@ cd ../workspace/run0
 @echo current type:  %replace_to%
 if "%standalone%" EQU "1" (
 @echo running standalone
-vsim  -c -do compile_rtl.tcl
 vsim -c -do d5m_camera_image_file_blur_test.tcl
 @GOTO pause_done
 ) else (
 @echo running not standalone
-vsim  -c -do compile_rtl.tcl
 vsim -c -do d5m_camera_image_file_blur_test.tcl
 cd ../../tb
 @set "replace_to=hsl"
@@ -238,12 +232,10 @@ cd ../workspace/run0
 if "%standalone%" EQU "1" (
 @echo running standalone
 @echo off
-vsim  -c -do compile_rtl.tcl
 vsim -c -do d5m_camera_image_file_hsl_test.tcl
 @GOTO pause_done
 ) else (
 @echo running not standalone
-vsim  -c -do compile_rtl.tcl
 vsim -c -do d5m_camera_image_file_hsl_test.tcl
 cd ../../tb
 @set "replace_to=hsv"
@@ -257,12 +249,10 @@ cd ../workspace/run0
 if "%standalone%" EQU "1" (
 @echo running standalone
 @echo off
-vsim  -c -do compile_rtl.tcl
 vsim -do d5m_camera_image_file_hsv_test.tcl
 @GOTO pause_done
 ) else (
 @echo running not standalone
-vsim  -c -do compile_rtl.tcl
 vsim -c -do d5m_camera_image_file_hsv_test.tcl
 cd ../../tb
 @set "replace_to=rgb"
@@ -276,12 +266,10 @@ cd ../workspace/run0
 @echo current type:  %replace_to%
 if "%standalone%" EQU "1" (
 @echo running standalone
-vsim  -c -do compile_rtl.tcl
 vsim -c -do d5m_camera_image_file_rgb_test.tcl
 @GOTO pause_done
 ) else (
 @echo running not standalone
-vsim  -c -do compile_rtl.tcl
 vsim -c -do d5m_rgb_patten_test.tcl
 @GOTO pause_done
 )
@@ -294,12 +282,10 @@ cd ../workspace/run0
 @echo current type:  %replace_to%
 if "%standalone%" EQU "1" (
 @echo running standalone
-vsim  -c -do compile_rtl.tcl
 vsim -c -do d5m_camera_image_file_sobel_test.tcl
 @GOTO pause_done
 ) else (
 @echo running not standalone
-vsim  -c -do compile_rtl.tcl
 vsim -c -do d5m_camera_image_file_sobel_test.tcl
 cd ../../tb
 @set "replace_to=emboss"
@@ -314,12 +300,10 @@ cd ../workspace/run0
 @echo current type:  %replace_to%
 if "%standalone%" EQU "1" (
 @echo running standalone
-vsim  -c -do compile_rtl.tcl
 vsim -c -do d5m_camera_image_file_emboss_test.tcl
 @GOTO pause_done
 ) else (
 @echo running not standalone
-vsim  -c -do compile_rtl.tcl
 vsim -c -do d5m_camera_image_file_emboss_test.tcl
 cd ../../tb
 @set "replace_to=cgtocg"
@@ -333,12 +317,10 @@ cd ../workspace/run0
 @echo current type:  %replace_to%
 if "%standalone%" EQU "1" (
 @echo running standalone
-vsim  -c -do compile_rtl.tcl
 vsim -c -do d5m_camera_image_file_cgain_cgain_test.tcl
 @GOTO pause_done
 ) else (
 @echo running not standalone
-vsim  -c -do compile_rtl.tcl
 vsim -c -do d5m_camera_image_file_cgain_cgain_test.tcl
 cd ../../tb
 @set "replace_to=shtocg"
@@ -354,12 +336,10 @@ cd ../workspace/run0
 @echo current type:  %replace_to%
 if "%standalone%" EQU "1" (
 @echo running standalone
-vsim  -c -do compile_rtl.tcl
 vsim -c -do d5m_camera_image_file_sharp_cgain_test.tcl
 @GOTO pause_done
 ) else (
 @echo running not standalone
-vsim  -c -do compile_rtl.tcl
 vsim -c -do d5m_camera_image_file_sharp_cgain_test.tcl
 cd ../../tb
 @set "replace_to=cgtosh"
@@ -376,12 +356,10 @@ cd ../workspace/run0
 @echo current type:  %replace_to%
 if "%standalone%" EQU "1" (
 @echo running standalone
-vsim  -c -do compile_rtl.tcl
 vsim -c -do d5m_camera_image_file_cgain_sharp_test.tcl
 @GOTO pause_done
 ) else (
 @echo running not standalone
-vsim  -c -do compile_rtl.tcl
 vsim -c -do d5m_camera_image_file_cgain_sharp_test.tcl
 cd ../../tb
 @set "replace_to=sbmscg"
@@ -394,12 +372,10 @@ cd ../workspace/run0
 @echo current type:  %replace_to%
 if "%standalone%" EQU "1" (
 @echo running standalone
-vsim  -c -do compile_rtl.tcl
 vsim -c -do d5m_camera_image_file_sobel_mask_cga_test.tcl
 @GOTO pause_done
 ) else (
 @echo running not standalone
-vsim  -c -do compile_rtl.tcl
 vsim -c -do d5m_camera_image_file_sobel_mask_cga_test.tcl
 cd ../../tb
 @set "replace_to=sbmssh"
@@ -412,12 +388,10 @@ cd ../workspace/run0
 @echo current type:  %replace_to%
 if "%standalone%" EQU "1" (
 @echo running standalone
-vsim  -c -do compile_rtl.tcl
 vsim -c -do d5m_camera_image_file_sobel_mask_shp_test.tcl
 @GOTO pause_done
 ) else (
 @echo running not standalone
-vsim  -c -do compile_rtl.tcl
 vsim -c -do d5m_camera_image_file_sobel_mask_shp_test.tcl
 cd ../../tb
 @set "replace_to=sbmsbl"
@@ -430,12 +404,10 @@ cd ../workspace/run0
 @echo current type:  %replace_to%
 if "%standalone%" EQU "1" (
 @echo running standalone
-vsim  -c -do compile_rtl.tcl
 vsim -c -do d5m_camera_image_file_sobel_mask_blu_test.tcl
 @GOTO pause_done
 ) else (
 @echo running not standalone
-vsim  -c -do compile_rtl.tcl
 vsim -c -do d5m_camera_image_file_sobel_mask_blu_test.tcl
 cd ../../tb
 @set "replace_to=sbmshl"
@@ -448,12 +420,10 @@ cd ../workspace/run0
 @echo current type:  %replace_to%
 if "%standalone%" EQU "1" (
 @echo running standalone
-vsim  -c -do compile_rtl.tcl
 vsim -c -do d5m_camera_image_file_sobel_mask_hsl_test.tcl
 @GOTO pause_done
 ) else (
 @echo running not standalone
-vsim  -c -do compile_rtl.tcl
 vsim -c -do d5m_camera_image_file_sobel_mask_hsl_test.tcl
 cd ../../tb
 @set "replace_to=sbmshv"
@@ -467,12 +437,10 @@ cd ../workspace/run0
 @echo current type:  %replace_to%
 if "%standalone%" EQU "1" (
 @echo running standalone
-vsim  -c -do compile_rtl.tcl
 vsim -c -do d5m_camera_image_file_sobel_mask_hsv_test.tcl
 @GOTO pause_done
 ) else (
 @echo running not standalone
-vsim  -c -do compile_rtl.tcl
 vsim -c -do d5m_camera_image_file_sobel_mask_hsv_test.tcl
 cd ../../tb
 @set "replace_to=sbmsrb"
@@ -485,12 +453,10 @@ cd ../workspace/run0
 @echo current type:  %replace_to%
 if "%standalone%" EQU "1" (
 @echo running standalone
-vsim  -c -do compile_rtl.tcl
 vsim -c -do d5m_camera_image_file_sobel_mask_rgb_test.tcl
 @GOTO pause_done
 ) else (
 @echo running not standalone
-vsim  -c -do compile_rtl.tcl
 vsim -c -do d5m_camera_image_file_sobel_mask_rgb_test.tcl
 cd ../../tb
 @set "replace_to=cgtohl"
@@ -507,13 +473,11 @@ cd ../workspace/run0
 if "%standalone%" EQU "1" (
 @echo running standalone
 @echo off
-vsim  -c -do compile_rtl.tcl
 vsim -c -do d5m_camera_image_file_cgain_hsl_test.tcl
 @GOTO pause_done
 ) else (
 @echo running not standalone
 @echo last type
-vsim  -c -do compile_rtl.tcl
 vsim -c -do d5m_camera_image_file_cgain_hsl_test.tcl
 cd ../workspace/cmd_run0
 @echo last type

@@ -134,7 +134,6 @@ for /f "delims=" %%i in ('type "%textFile%" ^& break ^> "%textFile%" ') do (
 :vsim_run_cgain
 cd ../workspace/run0
 @echo current type:  %replace_to%
-vsim -c -do compile_rtl.tcl
 vsim -c -do d5m_camera_image_file_cgain_test.tcl
 cd ../../tb
 @set "replace_to=sharp"
@@ -146,7 +145,6 @@ cd ../../tb
 
 cd ../workspace/run0
 @echo current type:  %replace_to%
-vsim -c -do compile_rtl.tcl
 vsim -c -do d5m_camera_image_file_sharp_test.tcl
 cd ../../tb
 @set "replace_to=blur"
@@ -156,7 +154,6 @@ cd ../../tb
 
 cd ../workspace/run0
 @echo current type:  %replace_to%
-vsim -c -do compile_rtl.tcl
 vsim -c -do d5m_camera_image_file_blur_test.tcl
 cd ../../tb
 @set "replace_to=hsl"
@@ -168,7 +165,6 @@ cd ../../tb
 
 cd ../workspace/run0
 @echo current type:  %replace_to%
-vsim -c -do compile_rtl.tcl
 vsim -c -do d5m_camera_image_file_hsl_test.tcl
 cd ../../tb
 @set "replace_to=hsv"
@@ -178,7 +174,6 @@ cd ../../tb
 
 cd ../workspace/run0
 @echo current type:  %replace_to%
-vsim -c -do compile_rtl.tcl
 vsim -c -do d5m_camera_image_file_hsv_test.tcl
 cd ../../tb
 @set "replace_to=rgb"
@@ -188,7 +183,6 @@ cd ../../tb
 
 cd ../workspace/run0
 @echo current type:  %replace_to%
-vsim -c -do compile_rtl.tcl
 vsim -c -do d5m_camera_image_file_rgb_test.tcl
 cd ../../tb
 @set "replace_to=sobel"
@@ -200,7 +194,6 @@ cd ../../tb
 
 cd ../workspace/run0
 @echo current type:  %replace_to%
-vsim -c -do compile_rtl.tcl
 vsim -c -do d5m_camera_image_file_sobel_test.tcl
 cd ../../tb
 @set "replace_to=emboss"
@@ -212,7 +205,6 @@ cd ../../tb
 
 cd ../workspace/run0
 @echo current type:  %replace_to%
-vsim -c -do compile_rtl.tcl
 vsim -c -do d5m_camera_image_file_emboss_test.tcl
 cd ../../tb
 @set "replace_to=shtocg"
@@ -227,11 +219,9 @@ cd ../workspace/run0
 @echo current type:  %replace_to%
 if "%standalone%" EQU "1" (
 @echo running standalone
-vsim -c -do compile_rtl.tcl
 vsim -c -do d5m_camera_image_file_sharp_cgain_test.tcl
 @GOTO pause_done
 ) else (
-vsim -c -do compile_rtl.tcl
 vsim -c -do d5m_camera_image_file_sharp_cgain_test.tcl
 cd ../../tb
 @set "replace_to=cgtosh"
@@ -246,7 +236,6 @@ cd ../../tb
 
 cd ../workspace/run0
 @echo current type:  %replace_to%
-vsim -c -do compile_rtl.tcl
 vsim -c -do d5m_camera_image_file_cgain_sharp_test.tcl
 cd ../../tb
 @set "replace_to=cgtohl"
@@ -257,7 +246,6 @@ cd ../../tb
 
 cd ../workspace/run0
 @echo current type:  %replace_to%
-vsim -c -do compile_rtl.tcl
 vsim -c -do d5m_camera_image_file_cgain_hsl_test.tcl
 cd ../workspace/cmd_run0
 @GOTO abort_done

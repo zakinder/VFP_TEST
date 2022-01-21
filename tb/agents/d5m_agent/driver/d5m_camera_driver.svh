@@ -91,7 +91,7 @@ class d5m_drv extends uvm_driver #(d5m_trans);
     // Function: axi4_address
     // In this method, write/read axi4 address channel.
     // 
-    //- axi4_write_address  : On selected AXI4_WRITE case write address to axi4 bus.
+    //- axi4_write_address : On selected AXI4_WRITE case write address to axi4 bus.
     //- axi4_wread_address  : On selected AXI4_READ case write read address to axi4 bus.
     virtual protected task axi4_address (d5m_trans d5m_tx);
         case (d5m_tx.d5m_txn)
@@ -167,7 +167,7 @@ class d5m_drv extends uvm_driver #(d5m_trans);
         d5m_camera_vif.axi4.AWADDR  <= d5m_tx.axi4_lite.addr;
         d5m_camera_vif.axi4.AWPROT  <= 3'h0;
         d5m_camera_vif.axi4.AWVALID <= 1'b1;
-        d5m_camera_vif.read_bmp     <= "hsl_v0";
+        
         
         for(axi_lite_ctr = 0; axi_lite_ctr <= time_out; axi_lite_ctr ++) begin
             @(posedge d5m_camera_vif.clkmm);
