@@ -5,7 +5,7 @@ use ieee.numeric_std.all;
 use work.constants_package.all;
 use work.vpf_records.all;
 use work.ports_package.all;
-entity axis_external is
+entity AxisExternal is
 generic (
     revision_number             : std_logic_vector(31 downto 0) := x"05022019";
     C_rgb_m_axis_TDATA_WIDTH    : integer := 16;
@@ -73,8 +73,8 @@ port (
     vfpconfig_rresp             : out std_logic_vector(1 downto 0);
     vfpconfig_rvalid            : out std_logic;
     vfpconfig_rready            : in std_logic);
-end axis_external;
-architecture arch_imp of axis_external is
+end AxisExternal;
+architecture arch_imp of AxisExternal is
     signal rx_axis_tready       : std_logic;
     signal rx_axis_tvalid       : std_logic;
     signal rx_axis_tuser        : std_logic;

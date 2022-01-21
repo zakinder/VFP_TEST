@@ -22,7 +22,7 @@ architecture behavioral of hsl_c is
     signal uFs1Rgb       : rgbToUfRecord;
     signal uFs2Rgb       : rgbToUfRecord;
     signal uFs3Rgb       : rgbToUfRecord;
-    signal uF1Rgb        : rgbToU1MSBfRecord;
+    signal uF1Rgb        : rgbToUfRecord;
     signal uF2Rgb        : rgbToUfRecord;
     signal uF3Rgb        : rgbToUfRecord;
     signal uFs8Rgb       : rgbToUfRecord;

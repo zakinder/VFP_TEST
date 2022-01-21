@@ -613,7 +613,7 @@ type rgb_sum_prod is record
   sumprod_An        : k16natrual;
   sumprod_Bn        : k16natrual;
   sumprod_Cn        : k16natrual;
-  result            : std_logic_vector(12 downto 0);
+  result            : std_logic_vector(13 downto 0);
 end record;
 type rgb_add_range is record
   add_256            : natural;
@@ -627,6 +627,9 @@ type rgb_add_range is record
   add_s1316          : natural;
   add_141316         : natural;
   add_s141316        : natural;
+  add_12345678       : natural;
+  add_9ABCDEFF       : natural;
+  add_123456789ABCDEFF : natural;
   add_12             : natural;
   add_34             : natural;
   add_56             : natural;

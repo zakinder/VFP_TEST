@@ -14,6 +14,7 @@ use ieee.numeric_std.all;
 use work.fixed_pkg.all;
 use work.float_pkg.all;
 use work.constants_package.all;
+use work.vfp_pkg.all;
 use work.vpf_records.all;
 use work.ports_package.all;
 entity hsl_1range is
@@ -83,25 +84,13 @@ end process rgbToUfP;
 -- RGB.max = max(R, G, B)
 rgbMaxP: process (clk) begin
     if rising_edge(clk) then
-        if ((uFs1Rgb.red >= uFs1Rgb.green) and (uFs1Rgb.red >= uFs1Rgb.blue)) then
-            rgbMax <= uFs1Rgb.red;
-        elsif((uFs1Rgb.green >= uFs1Rgb.red) and (uFs1Rgb.green >= uFs1Rgb.blue))then
-            rgbMax <= uFs1Rgb.green;
-        else
-            rgbMax <= uFs1Rgb.blue;
-        end if;
+        rgbMax <= int_max_val(uFs1Rgb.red,uFs1Rgb.green,uFs1Rgb.blue);
     end if;
 end process rgbMaxP;
 --RGB.min = min(R, G, B)
 rgbMinP: process (clk) begin
     if rising_edge(clk) then
-        if ((uFs1Rgb.red <= uFs1Rgb.green) and (uFs1Rgb.red <= uFs1Rgb.blue)) then
-            rgbMin <= uFs1Rgb.red;
-        elsif((uFs1Rgb.green <= uFs1Rgb.red) and (uFs1Rgb.green <= uFs1Rgb.blue)) then
-            rgbMin <= uFs1Rgb.green;
-        else
-            rgbMin <= uFs1Rgb.blue;
-        end if;
+        rgbMin <= int_min_val(uFs1Rgb.red,uFs1Rgb.green,uFs1Rgb.blue);
     end if;
 end process rgbMinP;
 -- RGB.∆ = RGB.max − RGB.min
@@ -113,7 +102,7 @@ end process pipRgbMaxUfD1P;
 -- RGB.∆ = RGB.max − RGB.min
 rgbDeltaP: process (clk) begin
     if rising_edge(clk) then
-        rgbDelta      <= rgbMax - rgbMin;
+        rgbDelta      <= int_delta(rgbMax,rgbMin);
     end if;
 end process rgbDeltaP;
 pipRgbD2P: process (clk) begin
@@ -134,23 +123,23 @@ hueP: process (clk) begin
     if (uFs3Rgb.red  = maxValue) then
             hueDeg <= 0;
         if (uFs3Rgb.green >= uFs3Rgb.blue) then
-            uFiXhueTop        <= (uFs3Rgb.green - uFs3Rgb.blue) * 140;
+            uFiXhueTop        <= int_delta(uFs3Rgb.green,uFs3Rgb.blue) * 140;
         else
-            uFiXhueTop        <= (uFs3Rgb.blue - uFs3Rgb.green) * 140;
+            uFiXhueTop        <= int_delta(uFs3Rgb.blue,uFs3Rgb.green) * 140;
         end if;
     elsif(uFs3Rgb.green = maxValue)  then
             hueDeg <= 60;
         if (uFs3Rgb.blue >= uFs3Rgb.red ) then
-            uFiXhueTop       <= (uFs3Rgb.blue - uFs3Rgb.red ) * 140;
+            uFiXhueTop       <= int_delta(uFs3Rgb.blue,uFs3Rgb.red ) * 140;
         else
-            uFiXhueTop       <= (uFs3Rgb.red  - uFs3Rgb.blue) * 140;
+            uFiXhueTop       <= int_delta(uFs3Rgb.red,uFs3Rgb.blue) * 140;
         end if;
     elsif(uFs3Rgb.blue = maxValue)  then
             hueDeg <= 120;
         if (uFs3Rgb.red  >= uFs3Rgb.green) then
-            uFiXhueTop       <= (uFs3Rgb.red  - uFs3Rgb.green) * 140;
+            uFiXhueTop       <= int_delta(uFs3Rgb.red,uFs3Rgb.green) * 140;
         else
-            uFiXhueTop       <= (uFs3Rgb.green - uFs3Rgb.red ) * 140;
+            uFiXhueTop       <= int_delta(uFs3Rgb.green,uFs3Rgb.red) * 140;
         end if;
     end if;
   end if;
@@ -238,7 +227,6 @@ port map(
     cb                   => ycbcr.green,
     cr                   => ycbcr.blue,
     oValid               => ycbcr.valid);
-        
 rgb_ool1_inst: sync_frames
 generic map(
     pixelDelay => 2)

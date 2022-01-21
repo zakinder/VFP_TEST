@@ -3,6 +3,7 @@ use IEEE.STD_LOGIC_1164.all;
 use IEEE.NUMERIC_STD.all;
 use std.textio.all;
 use ieee.std_logic_textio.all;
+use work.vfp_pkg.all;
 use work.tbPackage.all;
 entity image_wr_interface is
   generic (
