@@ -4,11 +4,11 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 use ieee.std_logic_textio.all;
 use std.textio.all;
-use work.constantspackage.all;
-use work.vpfRecords.all;
-use work.portspackage.all;
+use work.constants_package.all;
+use work.vpf_records.all;
+use work.ports_package.all;
 use work.tbPackage.all;
-use work.dutPortsPackage.all;
+use work.dutports_package.all;
 entity videoProcess_tb is
 end videoProcess_tb;
 architecture behavioral of videoProcess_tb is
@@ -143,7 +143,7 @@ port map(
     reset              => resetn,
     iRgb               => rgbRead,
     oRgb               => rgbLum);
-AvgValuesInst: AvgValues
+AvgValuesInst: avg_values
 generic map(
     i_data_width       => i_data_width)
 port map(   
@@ -186,7 +186,7 @@ port map(
     reset              => resetn,
     iRgb               => rgbAg,
     oRgb               => rgbLumv);
-AvgValuesvInst: AvgValues
+AvgValuesvInst: avg_values
 generic map(
     i_data_width       => i_data_width)
 port map(   
@@ -318,7 +318,7 @@ port map (
     oCord                 => txCord,
     endOfFrame            => endOfFrame,
     olm                   => olm);
--- ColorTrim1Inst: ColorTrim
+-- ColorTrim1Inst: color_trim
 -- generic map(
     -- i_data_width       => i_data_width)
 -- port map(   
@@ -381,7 +381,7 @@ port map (
     -- enableWrite           => enableWrite,
     -- iRgb                  => rgbImageFilters.cgain);
 -- end generate F_CGA_TEST_ENABLED;
-ColorTrim1Inst: ColorTrim
+ColorTrim1Inst: color_trim
 generic map(
     i_data_width       => i_data_width)
 port map(   
@@ -397,7 +397,7 @@ port map(
     reset              => resetn,
     iRgb               => o1Rgb,
     oRgb               => o2Rgb);
-ColorTrim3Inst: ColorTrim
+ColorTrim3Inst: color_trim
 generic map(
     i_data_width       => i_data_width)
 port map(   
@@ -405,7 +405,7 @@ port map(
     reset              => resetn,
     iRgb               => o2Rgb,
     oRgb               => o3Rgb);
-ColorTrim3XXInst: ColorTrim
+ColorTrim3XXInst: color_trim
 generic map(
     i_data_width       => i_data_width)
 port map(   
@@ -425,7 +425,7 @@ port map (
     pixclk             => clk,
     enableWrite        => enableWrite,
     iRgb               => o4Rgb);
-ColorTrim3XDInst: ColorTrim
+ColorTrim3XDInst: color_trim
 generic map(
     i_data_width       => i_data_width)
 port map(   
@@ -1363,7 +1363,7 @@ port map (
     pixclk             => clk,
     enableWrite        => enableWrite,
     iRgb               => rgb8Read);
--- edgeObjectsInst: edgeObjects
+-- edgeObjectsInst: edge_objects
 -- generic map(
     -- i_data_width        => i_data_width)
 -- port map(   
@@ -1539,7 +1539,7 @@ port map (
     endOfFrame         => endOfFrame,
     olm                   => olm);
     --------------------------------------------------------------------------
--- sharpFilterInst: sharpFilter
+-- sharp_filterInst: sharp_filter
 -- generic map(
     -- i_data_width        => i_data_width,
     -- img_width           => img_width,
@@ -1565,7 +1565,7 @@ port map (
     -- enableWrite        => enableWrite,
     -- iRgb               => sharp);
     --------------------------------------------------------------------------
--- blurFilter1xInst: blurFilter
+-- blur_filter1xInst: blur_filter
 -- generic map(
     -- iMSB                => blurMsb,
     -- iLSB                => blurLsb,
@@ -1604,7 +1604,7 @@ port map (
     -- rgbMac3.blue     <= vTapRGB2x(7 downto 0);
     -- rgbMac3.valid    <= enable;
     --------------------------------------------------------------------------
--- MACrInst: colorCorrection
+-- MACrInst: color_correction
 -- generic map(
     -- i_data_width        => i_data_width)
 -- port map(           
@@ -1613,7 +1613,7 @@ port map (
     -- iRgb                => rgbMac1,
     -- als                 => als,    
     -- oRgb                => rgbRed);
--- MACgInst: colorCorrection
+-- MACgInst: color_correction
 -- generic map(
     -- img_width           => img_width,
     -- i_data_width        => i_data_width)
@@ -1623,7 +1623,7 @@ port map (
     -- iRgb                => rgb,
     -- als                 => als,    
     -- oRgb                => rgbOut);
--- MACbInst: colorCorrection
+-- MACbInst: color_correction
 -- generic map(
     -- i_data_width        => i_data_width)
 -- port map(           
@@ -1684,7 +1684,7 @@ port map (
     oCord              => txCord,
     endOfFrame         => endOfFrame,
     olm                   => olm);
--- colorCorrection1Inst: colorCorrection
+-- color_correction1Inst: color_correction
 -- generic map(
     -- img_width           => img_width,
     -- i_data_width        => i_data_width)
@@ -1694,7 +1694,7 @@ port map (
     -- iRgb                => rgbIn,
     -- als                 => als,    
     -- oRgb                => rgbCorrect);
--- colorCorrection2Inst: colorCorrection
+-- color_correction2Inst: color_correction
 -- generic map(
     -- img_width           => img_width,
     -- i_data_width        => i_data_width)
@@ -1956,7 +1956,7 @@ port map (
     oCord              => txCord,
     endOfFrame         => endOfFrame,
     olm                   => olm);
-sharpFilterInst: sharpFilter
+sharp_filterInst: sharp_filter
 generic map(
     i_data_width        => i_data_width,
     img_width           => img_width,
@@ -2152,7 +2152,7 @@ port map (
     oCord              => txCord,
     endOfFrame         => endOfFrame,
     olm                   => olm);
--- sharpFilterInst: sharpFilter
+-- sharp_filterInst: sharp_filter
 -- generic map(
     -- i_data_width        => i_data_width,
     -- img_width           => img_width,
@@ -2165,7 +2165,7 @@ port map (
     -- endOfFrame          => endOfFrame,
     -- kls                 => kls,
     -- oRgb                => sharp);
--- blurFilter1xInst: blurFilter
+-- blur_filter1xInst: blur_filter
 -- generic map(
     -- iMSB                => blurMsb,
     -- iLSB                => blurLsb,
@@ -2178,7 +2178,7 @@ port map (
     -- rst_l               => resetn,
     -- iRgb                => sharp,
     -- oRgb                => blur1vx);
--- blurFilter2xInst: blurFilter
+-- blur_filter2xInst: blur_filter
 -- generic map(
     -- iMSB                => blurMsb - 1,
     -- iLSB                => blurLsb - 1,
@@ -2191,7 +2191,7 @@ port map (
     -- rst_l               => resetn,
     -- iRgb                => blur1vx,
     -- oRgb                => blur2vx);
--- blurFilter3xInst: blurFilter
+-- blur_filter3xInst: blur_filter
 -- generic map(
     -- iMSB                => blurMsb - 1,
     -- iLSB                => blurLsb - 1,
@@ -2204,7 +2204,7 @@ port map (
     -- rst_l               => resetn,
     -- iRgb                => blur2vx,
     -- oRgb                => blur3vx);
--- blurFilter4xInst: blurFilter
+-- blur_filter4xInst: blur_filter
 -- generic map(
     -- iMSB                => blurMsb - 1,
     -- iLSB                => blurLsb - 1,
@@ -2217,7 +2217,7 @@ port map (
     -- rst_l               => resetn,
     -- iRgb                => blur3vx,
     -- oRgb                => blur4vx);
--- colorCorrection1Inst: colorCorrection
+-- color_correction1Inst: color_correction
 -- generic map(
     -- img_width           => img_width,
     -- i_data_width        => i_data_width)
@@ -2227,7 +2227,7 @@ port map (
     -- iRgb                => rgbIn,
     -- als                 => als,    
     -- oRgb                => rgbCorrect1);
--- colorCorrection2Inst: colorCorrection
+-- color_correction2Inst: color_correction
 -- generic map(
     -- i_data_width        => i_data_width)
 -- port map(           
@@ -2269,7 +2269,7 @@ port map(
     -- rgbPoi.blue           <= hsv.v;
     -- rgbPoi.valid          <= hsv.valid;
     --------------------------------
--- blurFilter5xInst: blurFilter
+-- blur_filter5xInst: blur_filter
 -- generic map(
     -- iMSB                => blurMsb,
     -- iLSB                => blurLsb,
@@ -2282,7 +2282,7 @@ port map(
     -- rst_l               => resetn,
     -- iRgb                => rgbPoi,
     -- oRgb                => blur5vx); 
--- colorCorrection2Inst: colorCorrection
+-- color_correction2Inst: color_correction
 -- generic map(
     -- i_data_width        => i_data_width)
 -- port map(           
@@ -2316,7 +2316,7 @@ port map (
     enableWrite        => enableWrite,
     iRgb               => ycbcr);
 -- enableWrite <= not(oFifoStatus(1));
--- pointOfInterest_inst: pointOfInterest
+-- pointOfInterest_inst: point_of_interest
 -- generic map(
     -- i_data_width       => i_data_width,
     -- s_data_width       => s_data_width,

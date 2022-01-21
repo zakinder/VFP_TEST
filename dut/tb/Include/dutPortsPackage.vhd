@@ -3,8 +3,8 @@ library ieee;
 library work;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
-use work.constantspackage.all;
-use work.vpfRecords.all;
+use work.constants_package.all;
+use work.vpf_records.all;
 package dutPortsPackage is
 component VFP_v1_0 is
 generic (
@@ -94,7 +94,7 @@ port (
     ilval                       : out std_logic;
     idata                       : out std_logic_vector(dataWidth - 1 downto 0));
 end component dut_d5m;
-component dut_configAxis is
+component dut_config_axis is
 generic (
     aclk_freq                   : real    := 75.00e6;
     C_vfpConfig_DATA_WIDTH      : integer := 32;
@@ -121,13 +121,13 @@ port (
     vfpconfig_rresp             : in std_logic_vector(1 downto 0);
     vfpconfig_rvalid            : in std_logic;
     vfpconfig_rready            : out std_logic);
-end component dut_configAxis;
-component dut_frameProcess is
+end component dut_config_axis;
+component dut_frame_process is
 port (
     clk                         : in std_logic;
     resetn                      : in std_logic);
-end component dut_frameProcess;
-component imageRead is
+end component dut_frame_process;
+component image_read is
 generic (
     i_data_width                : integer := 8;
     input_file                  : string  := "input_image");
@@ -138,27 +138,94 @@ port (
     oCord         : out coord;
     olm           : out rgbConstraint;
     endOfFrame    : out std_logic);
-end component imageRead;
---component imageWrite is
---generic (
---    enImageText                 : boolean := false;
---    enImageIndex                : boolean := false;
---    i_data_width                : integer := 8;
---    test                        : string  := "folder";
---    input_file                  : string  := "input_image";
---    output_file                 : string  := "output_image");
---port (                
---    pixclk                      : in  std_logic;
---    enableWrite                 : in  std_logic;
---    iRgb                        : in channel);
---end component imageWrite;
-component kernel1Read is
+end component image_read;
+component image_write is
 generic (
-    s_data_width    : integer := 16;
-    input_file      : string  := "input_image");
+    enImageText                 : boolean := false;
+    enImageIndex                : boolean := false;
+    i_data_width                : integer := 8;
+    test                        : string  := "folder";
+    input_file                  : string  := "input_image";
+    output_file                 : string  := "output_image");
+port (                
+    pixclk                      : in  std_logic;
+    enableWrite                 : in  std_logic;
+    iRgb                        : in channel);
+end component image_write;
+
+component write_image is
+generic (
+    enImageText                 : boolean := false;
+    enImageIndex                : boolean := false;
+    i_data_width                : integer := 8;
+    test                        : string  := "folder";
+    input_file                  : string  := "input_image";
+    output_file                 : string  := "output_image");
+port (                
+    pixclk        : in  std_logic;
+    iRgb          : in channel);
+end component write_image;
+component write_valid_image is
+generic (
+    enImageText                 : boolean := false;
+    enImageIndex                : boolean := false;
+    i_data_width                : integer := 8;
+    test                        : string  := "folder";
+    input_file                  : string  := "input_image";
+    output_file                 : string  := "output_image");
+port (                
+    pixclk        : in  std_logic;
+    iRgb          : in channel);
+end component write_valid_image;
+component write_image_filter_logs is
+generic (
+    F_TES                       : boolean := false;
+    F_LUM                       : boolean := false;
+    F_TRM                       : boolean := false;
+    F_RGB                       : boolean := false;
+    F_SHP                       : boolean := false;
+    F_BLU                       : boolean := false;
+    F_EMB                       : boolean := false;
+    F_YCC                       : boolean := false;
+    F_SOB                       : boolean := false;
+    F_CGA                       : boolean := false;
+    F_HSV                       : boolean := false;
+    F_HSL                       : boolean := false;
+    L_BLU                       : boolean := false;
+    L_AVG                       : boolean := false;
+    L_OBJ                       : boolean := false;
+    L_CGA                       : boolean := false;
+    L_YCC                       : boolean := false;
+    L_SHP                       : boolean := false;
+    L_D1T                       : boolean := false;
+    L_B1T                       : boolean := false;
+    enImageText                 : boolean := false;
+    enImageIndex                : boolean := false;
+    i_data_width                : integer := 8;
+    test                        : string  := "folder";
+    input_file                  : string  := "input_image";
+    output_file                 : string  := "output_image");
+port (                
+    pixclk                      : in  std_logic;
+    iRgb                        : in frameColors);
+end component write_image_filter_logs;
+
+--component read_kernel1_coefs is
+--generic (
+--    s_data_width    : integer := 16;
+--    input_file      : string  := "input_image");
+--port (                
+--    clk             : in std_logic;
+--    reset           : in std_logic;
+--    kSet1Out        : out  coeffData);
+--end component read_kernel1_coefs;
+component sync_cord is
+generic (
+    cordDelay       : integer := 16);
 port (                
     clk             : in std_logic;
     reset           : in std_logic;
-    kSet1Out        : out  coeffData);
-end component kernel1Read;
+    iCord           : in cord;
+    oCord           : out  cord);
+end component sync_cord;
 end package;

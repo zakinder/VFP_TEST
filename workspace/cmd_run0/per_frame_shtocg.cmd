@@ -134,6 +134,7 @@ for /f "delims=" %%i in ('type "%textFile%" ^& break ^> "%textFile%" ') do (
 :vsim_run_cgain
 cd ../workspace/run0
 @echo current type:  %replace_to%
+vsim  -c -do compile_rtl.tcl
 vsim -c -do d5m_camera_image_file_cgain_test.tcl
 cd ../../tb
 @set "replace_to=sharp"
@@ -145,6 +146,7 @@ cd ../../tb
 
 cd ../workspace/run0
 @echo current type:  %replace_to%
+vsim  -c -do compile_rtl.tcl
 vsim -c -do d5m_camera_image_file_sharp_test.tcl
 cd ../../tb
 @set "replace_to=blur"
@@ -154,6 +156,7 @@ cd ../../tb
 
 cd ../workspace/run0
 @echo current type:  %replace_to%
+vsim  -c -do compile_rtl.tcl
 vsim -c -do d5m_camera_image_file_blur_test.tcl
 cd ../../tb
 @set "replace_to=hsl"
@@ -165,6 +168,7 @@ cd ../../tb
 
 cd ../workspace/run0
 @echo current type:  %replace_to%
+vsim  -c -do compile_rtl.tcl
 vsim -c -do d5m_camera_image_file_hsl_test.tcl
 cd ../../tb
 @set "replace_to=hsv"
@@ -174,6 +178,7 @@ cd ../../tb
 
 cd ../workspace/run0
 @echo current type:  %replace_to%
+vsim  -c -do compile_rtl.tcl
 vsim -c -do d5m_camera_image_file_hsv_test.tcl
 cd ../../tb
 @set "replace_to=rgb"

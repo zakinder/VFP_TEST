@@ -5,7 +5,7 @@ class rgb_per_cell extends rgb_set_cell;
     // Function: new
     function new(string name = "rgb_per_cell");
         super.new(name);
-        selected_box = sun;
+        selected_box = gre_rand_select;
     endfunction: new
     
     // Function: pre_randomize_call

@@ -1,18 +1,18 @@
-Coverage Report Totals BY FILES: Number of Files 41
+Coverage Report Totals BY FILES: Number of Files 37
 
     Enabled Coverage            Active      Hits    Misses    Weight % Covered
     ----------------            ------      ----    ------    ------ ---------
-    Stmts                         2508      1903       605         1      75.8
-    Branches                      1070       683       387         1      63.8
+    Stmts                         2394      1803       591         1      75.3
+    Branches                      1040       665       375         1      63.9
     Conditions                                                     1      81.7
         UDP Condition Rows           0         0         0         1     100.0
         FEC Condition Terms        239       152        87         1      63.5
-    Expressions                                                    1      69.8
+    Expressions                                                    1      73.5
         UDP Expression Rows          0         0         0         1     100.0
-        FEC Expression Terms        53        21        32         1      39.6
-    FSMs                                                           1      76.8
+        FEC Expression Terms        51        24        27         1      47.0
+    FSMs                                                           1      71.7
         States                      26        24         2         1      92.3
-        Transitions                 57        35        22         1      61.4
+        Transitions                 45        23        22         1      51.1
 
-Total coverage (Code Coverage Only, filtered view): 63.9%
+Total coverage (Code Coverage Only, filtered view): 64.3%
 

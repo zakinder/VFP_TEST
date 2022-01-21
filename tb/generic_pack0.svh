@@ -19,7 +19,7 @@ package generic_pack;
     parameter select_rgb                       =5;
     parameter select_sobel                     =6;
     parameter select_emboss                    =7;
-    parameter select_cgainToCgain              =21;
+    parameter select_cgainToCgain              =51;
     parameter select_SharpToCgain              =27;
     parameter select_cgainToSharp              =25;
     parameter select_sobel_mask_cga            =17;

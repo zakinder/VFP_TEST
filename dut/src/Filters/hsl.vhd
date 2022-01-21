@@ -4,9 +4,9 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 use work.fixed_pkg.all;
 use work.float_pkg.all;
-use work.constantspackage.all;
-use work.vpfRecords.all;
-use work.portspackage.all;
+use work.constants_package.all;
+use work.vpf_records.all;
+use work.ports_package.all;
 entity hsl_c is
 generic (
     i_data_width   : integer := 8);
@@ -14,7 +14,7 @@ port (
     clk            : in  std_logic;
     reset          : in  std_logic;
     iRgb           : in channel;
-    oHsl           : out hslChannel);
+    oHsl           : out channel);
 end hsl_c;
 architecture behavioral of hsl_c is
     --RGB Floating
@@ -387,10 +387,10 @@ end process pipValidP;
 -- end process;
 hsvOut: process (clk) begin
     if rising_edge(clk) then 
-        oHsl.h      <= std_logic_vector(hueValue(i_data_width-1 downto 0));
-        oHsl.s      <= satValue1xD;
-        oHsl.l      <= lumValue2xD;
-        oHsl.valid  <= valid4xD;
+        oHsl.red      <= std_logic_vector(hueValue(i_data_width-1 downto 0));
+        oHsl.green    <= satValue1xD;
+        oHsl.blue     <= lumValue2xD;
+        oHsl.valid    <= valid4xD;
     end if;
 end process hsvOut;
 -- hsvOut: process (clk) begin

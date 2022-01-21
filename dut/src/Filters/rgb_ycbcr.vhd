@@ -81,9 +81,9 @@
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
-use work.constantspackage.all;
-use work.vpfRecords.all;
-use work.portspackage.all;
+use work.constants_package.all;
+use work.vpf_records.all;
+use work.ports_package.all;
 entity rgb_ycbcr is
   generic (
     i_data_width    : integer := 8;      -- Should be < 18 for best results
@@ -158,7 +158,7 @@ begin
     C_I32_Y_G  <= x"9645a1cb";
     C_I32_Y_B  <= x"1d2f1aa0";
     C_I32_CB_R <= x"2c2e989a";
-    C_I32_CB_G <= x"56bd6e8b"; 
+    C_I32_CB_G <= x"56bd6e8b";
     C_I32_CB_B <= x"82ec0725";
     C_I32_CR_R <= x"82ec0725";
     C_I32_CR_G <= x"6da187a5";

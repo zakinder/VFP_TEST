@@ -9,7 +9,7 @@ class d5m_trans extends uvm_sequence_item;
     // vfp is a handle to packed structure rgb_channel, which consist of rgb_image frame bit fields.
     rand rgb_channel         vfp;
 
-
+    string   read_bmp;
 
     // handle: d5m
     // d5m is a handle to packed structure rgb_channel, which consist of rgb_image frame bit fields.

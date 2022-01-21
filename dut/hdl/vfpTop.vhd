@@ -2,9 +2,9 @@
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
-use work.constantspackage.all;
-use work.vpfRecords.all;
-use work.portspackage.all;
+use work.constants_package.all;
+use work.vpf_records.all;
+use work.ports_package.all;
 entity VFP_v1_0 is
 generic (
     revision_number           : std_logic_vector(31 downto 0) := x"09072019";
@@ -99,12 +99,13 @@ architecture arch_imp of VFP_v1_0 is
     constant adwrWidth        : integer := 16;
     constant addrWidth        : integer := 12;
     signal aBusSelect         : std_logic_vector(vfpconfig_wdata'range):= (others => '0');
+    signal sMmAxi             : integer := 0;
     signal rgbSet             : rRgb;
     signal wrRegs             : mRegs;
     signal rdRegs             : mRegs;
     signal streamData         : vStreamData;
 begin
-CameraRawToRgbInst: CameraRawToRgb
+CameraRawToRgbInst: camera_raw_to_rgb
 generic map(
     img_width                 => img_width,
     dataWidth                 => dataWidth,
@@ -117,7 +118,7 @@ port map(
     ilval                     => ilval,
     idata                     => idata,
     oRgbSet                   => rgbSet);
-VideoStreamInst: VideoStream
+VideoStreamInst: video_stream
 generic map(
     revision_number      => revision_number,
     i_data_width         => i_data_width,
@@ -126,8 +127,8 @@ generic map(
     img_width            => img_width,
     adwrWidth            => adwrWidth,
     addrWidth            => addrWidth,
-    img_width_bmp        => img_width_bmp,
-    img_height_bmp       => img_height_bmp,
+    bmp_width            => img_width_bmp,
+    bmp_height           => img_height_bmp,
     F_TES                => F_TES,
     F_LUM                => F_LUM,
     F_TRM                => F_TRM,
@@ -141,14 +142,14 @@ generic map(
     F_HSV                => F_HSV,
     F_HSL                => F_HSL)
 port map(
-    m_axis_mm2s_aclk          => m_axis_mm2s_aclk,
-    m_axis_mm2s_aresetn       => m_axis_mm2s_aresetn,
-    iWrRegs                   => wrRegs,
-    oRdRegs                   => rdRegs,
-    iRgbSet                   => rgbSet,
-    oStreamData               => streamData,
-    oBusSelect                => aBusSelect);
-AxisExternalInst: AxisExternal
+    clk                  => m_axis_mm2s_aclk,
+    rst_l                => m_axis_mm2s_aresetn,
+    iWrRegs              => wrRegs,
+    oRdRegs              => rdRegs,
+    iRgbSet              => rgbSet,
+    oVideoData           => streamData,
+    oMmAxi               => sMmAxi);
+AxisExternalInst: axis_external
 generic map(
     revision_number           => revision_number,
     C_rgb_m_axis_TDATA_WIDTH  => C_rgb_m_axis_TDATA_WIDTH,

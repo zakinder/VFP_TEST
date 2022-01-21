@@ -176,6 +176,7 @@ for /f "delims=" %%i in ('type "%textFile%" ^& break ^> "%textFile%" ') do (
 :vsim_run_cgain
 cd ../workspace/run0
 @echo current type:  %replace_to%
+vsim  -c -do d5m_camera_image_file.tcl
 vsim -c -do d5m_camera_image_file_cgain_test.tcl
 cd ../../tb
 @set "replace_to=sharp"
@@ -187,6 +188,7 @@ cd ../../tb
 
 cd ../workspace/run0
 @echo current type:  %replace_to%
+@pause
 vsim -c -do d5m_camera_image_file_sharp_test.tcl
 cd ../../tb
 @set "replace_to=blur"
