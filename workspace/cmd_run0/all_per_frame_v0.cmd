@@ -176,7 +176,7 @@ for /f "delims=" %%i in ('type "%textFile%" ^& break ^> "%textFile%" ') do (
 :vsim_run_cgain
 cd ../workspace/run0
 @echo current type:  %replace_to%
-vsim  -c -do d5m_camera_image_file.tcl
+vsim -c -do compile_rtl.tcl
 vsim -c -do d5m_camera_image_file_cgain_test.tcl
 cd ../../tb
 @set "replace_to=sharp"
@@ -188,7 +188,7 @@ cd ../../tb
 
 cd ../workspace/run0
 @echo current type:  %replace_to%
-@pause
+vsim -c -do compile_rtl.tcl
 vsim -c -do d5m_camera_image_file_sharp_test.tcl
 cd ../../tb
 @set "replace_to=blur"
@@ -198,6 +198,7 @@ cd ../../tb
 
 cd ../workspace/run0
 @echo current type:  %replace_to%
+vsim -c -do compile_rtl.tcl
 vsim -c -do d5m_camera_image_file_blur_test.tcl
 cd ../../tb
 @set "replace_to=hsl"
@@ -209,6 +210,7 @@ cd ../../tb
 
 cd ../workspace/run0
 @echo current type:  %replace_to%
+vsim -c -do compile_rtl.tcl
 vsim -c -do d5m_camera_image_file_hsl_test.tcl
 cd ../../tb
 @set "replace_to=hsv"
@@ -218,6 +220,7 @@ cd ../../tb
 
 cd ../workspace/run0
 @echo current type:  %replace_to%
+vsim -c -do compile_rtl.tcl
 vsim -c -do d5m_camera_image_file_hsv_test.tcl
 cd ../../tb
 @set "replace_to=rgb"
@@ -227,6 +230,7 @@ cd ../../tb
 
 cd ../workspace/run0
 @echo current type:  %replace_to%
+vsim -c -do compile_rtl.tcl
 vsim -c -do d5m_camera_image_file_rgb_test.tcl
 cd ../../tb
 @set "replace_to=sobel"
@@ -238,6 +242,7 @@ cd ../../tb
 
 cd ../workspace/run0
 @echo current type:  %replace_to%
+vsim -c -do compile_rtl.tcl
 vsim -c -do d5m_camera_image_file_sobel_test.tcl
 cd ../../tb
 @set "replace_to=emboss"
@@ -249,6 +254,7 @@ cd ../../tb
 
 cd ../workspace/run0
 @echo current type:  %replace_to%
+vsim -c -do compile_rtl.tcl
 vsim -c -do d5m_camera_image_file_emboss_test.tcl
 cd ../../tb
 @set "replace_to=cgtocg"
@@ -261,6 +267,7 @@ cd ../../tb
 
 cd ../workspace/run0
 @echo current type:  %replace_to%
+vsim -c -do compile_rtl.tcl
 vsim -c -do d5m_camera_image_file_cgain_cgain_test.tcl
 cd ../../tb
 @set "replace_to=shtocg"
@@ -272,6 +279,7 @@ cd ../../tb
 
 cd ../workspace/run0
 @echo current type:  %replace_to%
+vsim -c -do compile_rtl.tcl
 vsim -c -do d5m_camera_image_file_sharp_cgain_test.tcl
 cd ../../tb
 @set "replace_to=cgtosh"
@@ -283,6 +291,7 @@ cd ../../tb
 
 cd ../workspace/run0
 @echo current type:  %replace_to%
+vsim -c -do compile_rtl.tcl
 vsim -c -do d5m_camera_image_file_cgain_sharp_test.tcl
 cd ../../tb
 @set "replace_to=sbmscg"
@@ -292,6 +301,7 @@ cd ../../tb
 
 cd ../workspace/run0
 @echo current type:  %replace_to%
+vsim -c -do compile_rtl.tcl
 vsim -c -do d5m_camera_image_file_sobel_mask_cga_test.tcl
 cd ../../tb
 @set "replace_to=sbmssh"
@@ -301,6 +311,7 @@ cd ../../tb
 
 cd ../workspace/run0
 @echo current type:  %replace_to%
+vsim -c -do compile_rtl.tcl
 vsim -c -do d5m_camera_image_file_sobel_mask_shp_test.tcl
 cd ../../tb
 @set "replace_to=sbmsbl"
@@ -310,6 +321,7 @@ cd ../../tb
 
 cd ../workspace/run0
 @echo current type:  %replace_to%
+vsim -c -do compile_rtl.tcl
 vsim -c -do d5m_camera_image_file_sobel_mask_blu_test.tcl
 cd ../../tb
 @set "replace_to=sbmshl"
@@ -320,6 +332,7 @@ cd ../../tb
 
 cd ../workspace/run0
 @echo current type:  %replace_to%
+vsim -c -do compile_rtl.tcl
 vsim -c -do d5m_camera_image_file_sobel_mask_hsl_test.tcl
 cd ../../tb
 @set "replace_to=sbmshv"
@@ -329,6 +342,7 @@ cd ../../tb
 
 cd ../workspace/run0
 @echo current type:  %replace_to%
+vsim -c -do compile_rtl.tcl
 vsim -c -do d5m_camera_image_file_sobel_mask_hsl_test.tcl
 cd ../../tb
 @set "replace_to=sbmsrb"
@@ -338,6 +352,7 @@ cd ../../tb
 
 cd ../workspace/run0
 @echo current type:  %replace_to%
+vsim -c -do compile_rtl.tcl
 vsim -c -do d5m_camera_image_file_sobel_mask_hsl_test.tcl
 cd ../../tb
 @set "replace_to=cgtohl"
@@ -347,6 +362,7 @@ cd ../../tb
 
 cd ../workspace/run0
 @echo current type:  %replace_to%
+vsim -c -do compile_rtl.tcl
 vsim -c -do d5m_camera_image_file_cgain_hsl_test.tcl
 cd ../workspace/cmd_run0
 @GOTO abort_done

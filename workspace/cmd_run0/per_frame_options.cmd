@@ -181,10 +181,12 @@ cd ../workspace/run0
 if "%standalone%" EQU "1" (
 @echo running standalone
 @echo off
+vsim -c -do compile_rtl.tcl
 vsim -c -do d5m_camera_image_file_cgain_test.tcl
 @GOTO pause_done
 ) else (
 @echo running not standalone
+vsim -c -do compile_rtl.tcl
 vsim -c -do d5m_camera_image_file_cgain_test.tcl
 cd ../../tb
 @set "replace_to=sharp"
@@ -199,6 +201,7 @@ cd ../workspace/run0
 if "%standalone%" EQU "1" (
 @echo running standalone
 vsim  -c -do compile_rtl.tcl
+
 vsim -c -do d5m_camera_image_file_sharp_test.tcl
 @GOTO pause_done
 ) else (
@@ -289,7 +292,7 @@ cd ../../tb
 
 
 :vsim_run_sobel
-
+call clean_run_folder.cmd
 cd ../workspace/run0
 @echo current type:  %replace_to%
 if "%standalone%" EQU "1" (
