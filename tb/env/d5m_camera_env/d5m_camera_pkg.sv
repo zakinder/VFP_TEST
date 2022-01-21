@@ -1,3 +1,4 @@
+  `include "../../frame_en_lib0.svh"
   `include "../../generic_pack0.svh"
   `include "../../vfp_structs.svh"
   `include "../../image_kernal_coefs.svh"
@@ -6,6 +7,7 @@
 package d5m_camera_pkg;
   import d5m_camera_agent_pkg::*;
   import uvm_pkg::*;
+  import frame_en_lib::*;
   import generic_pack::*;
   `include "uvm_macros.svh"
   `include "../../defin_lib.svh"

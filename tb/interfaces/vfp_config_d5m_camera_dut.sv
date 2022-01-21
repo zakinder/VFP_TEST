@@ -37,9 +37,9 @@ imageReadInterfaceInst         (
 endmodule: imageReadInterfaceDut
 
 
-module imageReadInterface_Dut(d5m_camera_if.ConfigMaster d5m_camera_vif);
-video_process_tb rtl_tb();
-endmodule: imageReadInterface_Dut
+module video_process_dut(d5m_camera_if.ConfigMaster d5m_camera_vif);
+    video_process_tb rtl_tb();
+endmodule: video_process_dut
 
 // MODULE : VFP_v1_0
 module vfpConfigd5mCameraDut(d5m_camera_if.ConfigMaster d5m_camera_vif);

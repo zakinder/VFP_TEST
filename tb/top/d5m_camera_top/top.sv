@@ -37,7 +37,7 @@ module top;
     // This module read and write image bmp file.
     imageReadInterfaceDut        image_read_dut(d5m_camera_vif);
     
-    imageReadInterface_Dut        image_readdut(d5m_camera_vif);
+    video_process_dut            filters_dut(d5m_camera_vif);
     
     // module: rgbAssertionDut
     rgbAssertionDut              rgb_assertion_dut(d5m_camera_vif);
