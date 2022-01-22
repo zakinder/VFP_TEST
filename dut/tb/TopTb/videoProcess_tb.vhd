@@ -52,61 +52,61 @@ architecture behavioral of video_process_tb is
     -------------------------------------------------
     constant vChannelSelect              : integer := FILTER_K_CGA;
     -------------------------------------------------
-    constant F_HSV                       : boolean := false;
-    constant F_HSL                       : boolean := false;
-    constant HSV_L                       : boolean := false;
-    constant HSV_1                       : boolean := false;
-    constant HSV_2                       : boolean := false;
-    constant HSV_3                       : boolean := false;
-    constant HSV_4                       : boolean := false;
-    constant HSVL1                       : boolean := false;
-    constant HSVL2                       : boolean := false;
-    constant HSVL3                       : boolean := false;
-    constant HSVL4                       : boolean := false;
+    constant F_HSV                       : boolean := true;
+    constant F_HSL                       : boolean := true;
+    constant HSV_L                       : boolean := true;
+    constant HSV_1                       : boolean := true;
+    constant HSV_2                       : boolean := true;
+    constant HSV_3                       : boolean := true;
+    constant HSV_4                       : boolean := true;
+    constant HSVL1                       : boolean := true;
+    constant HSVL2                       : boolean := true;
+    constant HSVL3                       : boolean := true;
+    constant HSVL4                       : boolean := true;
     -------------------------------------------------
-    constant F_RE1                       : boolean := false;
-    constant F_RE2                       : boolean := false;
-    constant F_RE3                       : boolean := false;
-    constant F_RE4                       : boolean := false;
-    constant F_RE5                       : boolean := false;
-    constant F_RE6                       : boolean := false;
-    constant F_RE7                       : boolean := false;
-    constant F_RE8                       : boolean := false;
+    constant F_RE1                       : boolean := true;
+    constant F_RE2                       : boolean := true;
+    constant F_RE3                       : boolean := true;
+    constant F_RE4                       : boolean := true;
+    constant F_RE5                       : boolean := true;
+    constant F_RE6                       : boolean := true;
+    constant F_RE7                       : boolean := true;
+    constant F_RE8                       : boolean := true;
     -------------------------------------------------
     constant F_TES                       : boolean := false;
-    constant F_LUM                       : boolean := false;
-    constant F_TRM                       : boolean := false;
-    constant F_OHS                       : boolean := false;--colorhsl
-    constant L_AVG                       : boolean := false;
-    constant L_OBJ                       : boolean := false;
-    constant L_HIS                       : boolean := false;
-    constant L_SPC                       : boolean := false;
+    constant F_LUM                       : boolean := true;
+    constant F_TRM                       : boolean := true;
+    constant F_OHS                       : boolean := true;--colorhsl
+    constant L_AVG                       : boolean := true;
+    constant L_OBJ                       : boolean := true;
+    constant L_HIS                       : boolean := true;
+    constant L_SPC                       : boolean := true;
     -------------------------------------------------
-    constant F_RGB                       : boolean := false;
-    constant F_SHP                       : boolean := false;
-    constant F_BLU                       : boolean := false;
-    constant F_EMB                       : boolean := false;
-    constant F_YCC                       : boolean := false;
-    constant F_SOB                       : boolean := false;
+    constant F_RGB                       : boolean := true;
+    constant F_SHP                       : boolean := true;
+    constant F_BLU                       : boolean := true;
+    constant F_EMB                       : boolean := true;
+    constant F_YCC                       : boolean := true;
+    constant F_SOB                       : boolean := true;
     constant F_CGA                       : boolean := true;
-    constant L_BLU                       : boolean := false;-- synBlur
-    constant L_SHP                       : boolean := false;-- synSharp
-    constant L_CGA                       : boolean := false;-- synCgain
-    constant L_YCC                       : boolean := false; 
-    constant L_D1T                       : boolean := false; 
+    constant L_BLU                       : boolean := true;-- synBlur
+    constant L_SHP                       : boolean := true;-- synSharp
+    constant L_CGA                       : boolean := true;-- synCgain
+    constant L_YCC                       : boolean := true; 
+    constant L_D1T                       : boolean := true; 
     constant L_B1T                       : boolean := false; 
     -------------------------------------------------
     constant MASK_TRUE                   : boolean := true;
     constant MASK_FLSE                   : boolean := false;
     constant M_SOB_LUM                   : boolean := selframe(F_SOB,F_TRM,MASK_FLSE);
     constant M_SOB_TRM                   : boolean := selframe(F_SOB,F_TRM,MASK_FLSE);
-    constant M_SOB_RGB                   : boolean := selframe(F_SOB,F_RGB,MASK_TRUE);
+    constant M_SOB_RGB                   : boolean := selframe(F_SOB,F_RGB,MASK_FLSE);
     constant M_SOB_SHP                   : boolean := selframe(F_SOB,F_SHP,MASK_FLSE);
     constant M_SOB_BLU                   : boolean := selframe(F_SOB,F_TRM,MASK_FLSE);
     constant M_SOB_YCC                   : boolean := selframe(F_SOB,F_YCC,MASK_FLSE);
     constant M_SOB_CGA                   : boolean := selframe(F_SOB,F_CGA,MASK_FLSE);
     constant M_SOB_HSV                   : boolean := selframe(F_SOB,F_HSV,MASK_FLSE);
-    constant M_SOB_HSL                   : boolean := selframe(F_SOB,F_HSL,MASK_FLSE);
+    constant M_SOB_HSL                   : boolean := selframe(F_SOB,F_HSL,MASK_TRUE);
     -------------------------------------------------
     constant PER_FRE_TRUE                : boolean := PerFrame(Per_Frame(vChannelSelect,FILTER_K_CGA),F_CGA,F_SHP);
     constant F_CGA_TO_CGA                : boolean := PER_FRE_TRUE;--IF:FILTER_K_CGA = F_KCGA_TO_LCGA
@@ -130,9 +130,9 @@ architecture behavioral of video_process_tb is
     constant F_BLU_TO_CGA                : boolean := PER_FRE_TRUE;--IF:FILTER_K_CGA = F_KCGA
     constant F_BLU_TO_SHP                : boolean := false;
     -------------------------------------------------
-    constant F_BLUR_CHANNELS             : boolean := false;
-    constant F_DITH_CHANNELS             : boolean := false;
-    constant RGB_FRAME_MIX               : boolean := false;
+    constant F_BLUR_CHANNELS             : boolean := true;
+    constant F_DITH_CHANNELS             : boolean := true;
+    constant RGB_FRAME_MIX               : boolean := true;
     -------------------------------------------------
     -- FILTER_K_CGA = F_SHP_TO_YCC F_SHP_TO_SHP F_BLU_TO_CGA F_CGA_TO_CGA
     -------------------------------------------------
@@ -145,7 +145,7 @@ architecture behavioral of video_process_tb is
     signal cYccR                         : std_logic := lo;
     signal cYcc                          : std_logic_vector(2 downto 0);
     signal iLumTh                        : integer := 5;
-    signal iSobelTh                      : integer := 50;
+    signal iSobelTh                      : integer := 30;
     signal iHsvPerCh                     : integer := 0;--[0-cHsv,1-cHsvH,2-cHsvS,3-cHsvV]
     signal iYccPerCh                     : integer := 0;--[0-cYcc,1-cYccY,2-cYccB,3-cYccR]
     signal iFilterId                     : integer := 2;--[0-cYcc,1-cYccY,2-cYccB,3-cYccR]
@@ -567,11 +567,8 @@ port map (
     enableWrite           => enableWrite,
     iRgb                  => rgbImageFilters.maskSobelTrm);
 end generate M_SOB_TRM_TEST_ENABLED;  
-M_SOB_HSL_TEST_ENABLED : if (M_SOB_HSL = true) generate 
-signal enableWrite                : std_logic;
-begin
-enableWrite <= hi when (rgbImageFilters.maskSobelHsl.valid = hi);
-ImageWriteMaskSobelHslInst: image_write
+M_SOB_HSL_TEST_ENABLED : if (M_SOB_HSL = true) generate begin
+ImageWriteMaskSobelHslInst: write_image
 generic map (
     enImageText           => true,
     enImageIndex          => true,
@@ -581,14 +578,10 @@ generic map (
     output_file           => "maskSobelHsl")
 port map (                  
     pixclk                => clk,
-    enableWrite           => enableWrite,
     iRgb                  => rgbImageFilters.maskSobelHsl);
 end generate M_SOB_HSL_TEST_ENABLED;  
-M_SOB_HSV_TEST_ENABLED : if (M_SOB_HSV = true) generate 
-signal enableWrite                : std_logic;
-begin
-enableWrite <= hi when (rgbImageFilters.maskSobelHsv.valid = hi);
-ImageWriteMaskSobelHsvInst: image_write
+M_SOB_HSV_TEST_ENABLED : if (M_SOB_HSV = true) generate begin
+ImageWritemaskSobelHsvInst: write_image
 generic map (
     enImageText           => true,
     enImageIndex          => true,
@@ -598,14 +591,10 @@ generic map (
     output_file           => "maskSobelHsv")
 port map (                  
     pixclk                => clk,
-    enableWrite           => enableWrite,
     iRgb                  => rgbImageFilters.maskSobelHsv);
 end generate M_SOB_HSV_TEST_ENABLED;
-M_SOB_YCC_TEST_ENABLED : if (M_SOB_YCC = true) generate 
-signal enableWrite                : std_logic;
-begin
-enableWrite <= hi when (rgbImageFilters.maskSobelYcc.valid = hi);
-ImageWriteMaskSobelYccInst: image_write
+M_SOB_YCC_TEST_ENABLED : if (M_SOB_YCC = true) generate begin
+ImageWriteMaskSobelYccInst: write_image
 generic map (
     enImageText           => true,
     enImageIndex          => true,
@@ -615,7 +604,6 @@ generic map (
     output_file           => "maskSobelYcc")
 port map (                  
     pixclk                => clk,
-    enableWrite           => enableWrite,
     iRgb                  => rgbImageFilters.maskSobelYcc);
 end generate M_SOB_YCC_TEST_ENABLED;
 M_SOB_SHP_TEST_ENABLED : if (M_SOB_SHP = true) generate 

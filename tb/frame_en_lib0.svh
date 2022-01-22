@@ -1,3 +1,3 @@
 package frame_en_lib;
-    `define hsv_v0                      1
+    `define sharp_v2                      1
 endpackage
