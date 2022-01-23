@@ -141,22 +141,6 @@ process (uF3Rgb) begin
             aRedGreenVal <= to_ufixed (0.0,aRedGreenVal);
     end if;
 end process;
--- process (clk) begin
-    -- if rising_edge(clk) then 
-         -- if(aRedGreenVal < 150.0) then
-            -- uFsP4RgbSel      <= hi;
-            -- uFs1Rgb.red      <= uF3Rgb.red;
-            -- uFs1Rgb.green    <= uF3Rgb.green;
-            -- uFs1Rgb.blue     <= uF3Rgb.blue;
-         -- else
-            -- uFsP4RgbSel      <= lo;
-            -- uFs1Rgb.red      <= x"ff";
-            -- uFs1Rgb.green    <= x"ff";
-            -- uFs1Rgb.blue     <= x"ff";
-         -- end if;
-            -- uFs1Rgb.valid  <= uF2Rgb.valid;
-    -- end if;
--- end process;
 
 
 process (clk) begin

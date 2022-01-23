@@ -12,6 +12,7 @@ package tbPackage is
     --       [272_416  = 239 us]
     --       [272_832  = 239 us]
     --       [300_300  = 110 us]
+    --       [368_393  = 110 us]
     --       [400_300  = 123 us]
     --       [500_26   = 104 us]
     --       [500_200  = 104 us]
@@ -30,7 +31,7 @@ package tbPackage is
     constant line_hight          : integer := 5;  
     constant adwrWidth           : integer := 16;
     constant addrWidth           : integer := 12;
-    constant SLOT_NUM            : integer := 105;
+    constant SLOT_NUM            : integer := 110;
     constant wImgFolder          : string := "K:/ZEDBOARD/simulations/images/write";
     constant rImgFolder          : string := "K:/ZEDBOARD/simulations/images/read";
     constant bSlash              : string := "\";

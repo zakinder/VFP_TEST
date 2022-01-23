@@ -1,7 +1,9 @@
 // MODULE : imageReadInterfaceInst
 
+
 module imageReadInterfaceDut(d5m_camera_if.ConfigMaster d5m_camera_vif);
 
+// This module wrapper is for image read and write transection which is instanited at top tb testbench.
 imageReadInterface            #(
     .i_data_width              (i_data_width                      ),
     .img_frames_cnt_bmp        (img_frames_cnt_bmp                ),
@@ -36,14 +38,18 @@ imageReadInterfaceInst         (
 
 endmodule: imageReadInterfaceDut
 
+// This module wrapper is dut submodule testbench which is instantiated at top tb testbench.
 
 module video_process_dut(d5m_camera_if.ConfigMaster d5m_camera_vif);
     video_process_tb rtl_tb();
 endmodule: video_process_dut
 
+
+
+// This module wrapper is top dut module which is instanited at top tb testbench.
+
 // MODULE : VFP_v1_0
 module vfpConfigd5mCameraDut(d5m_camera_if.ConfigMaster d5m_camera_vif);
-
 VFP_v1_0                      #(
     .revision_number           ( revision_number                  ),
     .C_rgb_m_axis_TDATA_WIDTH  ( C_rgb_m_axis_TDATA_WIDTH         ),

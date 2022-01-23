@@ -1,5 +1,5 @@
 // Class: d5m_camera_env
-// This Class contain verfication components
+// This Class instantiates and configures the d5m agent and its scoreboard.
 
 class d5m_camera_env extends uvm_env;
     `uvm_component_utils(d5m_camera_env)

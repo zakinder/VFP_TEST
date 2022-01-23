@@ -19,7 +19,8 @@ class rgb_cell_unit extends uvm_object;
     bit[7:0] set_cell_red;
     bit[7:0] set_cell_gre;
     bit[7:0] set_cell_blu;
-    
+
+    // Constraint rgb values to reach coverage goal by shaping the random stimulus for interesting corner cases.
     // constraint rgb data item red
     constraint c_red_stim {
     if (red_test==0) {
@@ -104,9 +105,9 @@ class rgb_cell_unit extends uvm_object;
     // Function: pre_call
     function void pre_call(input cell_set selected_box,int incre,set_cell_r,set_cell_g,set_cell_b);
 
-    set_cell_red = set_cell_r + incre + offset_r;
-    set_cell_gre = set_cell_g + incre + offset_g;
-    set_cell_blu = set_cell_b + incre + offset_b;
+    set_cell_red = (set_cell_r + incre + offset_r);
+    set_cell_gre = (incre + offset_g);
+    set_cell_blu = (incre + offset_b);
     
     if(selected_box == gre_rand_select) begin
         red_test = 0;

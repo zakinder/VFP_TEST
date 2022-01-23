@@ -28,7 +28,9 @@ class rgb_set_cols extends uvm_object;
     function void per_cols_call(input cell_set choices,int set_increment,set_cell_per_r_red,set_cell_per_r_gre,set_cell_per_r_blu,ar_size);
         $display("set choices:%s\n ", choices);
         for(int i = 0; i < c_rows_size; i++) begin
+
             c_rows[i].per_rows_call(choices,set_increment,set_cell_per_r_red,set_cell_per_r_gre,set_cell_per_r_blu,ar_size);
+            
             set_cell_per_r_red = c_rows[i].set_r_red;
             set_cell_per_r_gre = c_rows[i].set_r_gre;
             set_cell_per_r_blu = c_rows[i].set_r_blu;

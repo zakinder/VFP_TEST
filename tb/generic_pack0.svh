@@ -1144,9 +1144,9 @@ package generic_pack;
     parameter set_cell_red_value               =45; 
     parameter set_cell_gre_value               =30;
     parameter set_cell_blu_value               =20;
-    parameter offset_r                         =30;
-    parameter offset_g                         =5;
-    parameter offset_b                         =3;
+    parameter offset_r                         =0;
+    parameter offset_g                         =150;
+    parameter offset_b                         =100;
     
 
 endpackage                

@@ -2,12 +2,12 @@
 class vfp_config extends uvm_object; 
 `uvm_object_utils(vfp_config)
 
-  rand      e_bool          vfp_bool;
+  rand e_bool vfp_bool;
   rand byte vfp_mode;
-  string    vfp_name;
-  int       valid_status;
-  rand      vfp_reg         vfp_pkt;
-  string   read_bmp;
+  string vfp_name;
+  int valid_status;
+  rand vfp_reg vfp_pkt;
+
   vfp_regs  validate_reg_pkts;
   vfp_regs  reg_vpkts;
   

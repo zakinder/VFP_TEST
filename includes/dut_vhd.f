@@ -16,6 +16,7 @@
 ../../../../ip_lib/VFP/src/Filters/sharp_filter.vhd
 ../../../../ip_lib/VFP/src/Filters/sharp_mac.vhd
 ../../../../ip_lib/VFP/src/Filters/ccm.vhd
+../../../../ip_lib/VFP/src/Filters/rgb_inverted.vhd
 ../../../../ip_lib/VFP/src/Filters/coef_mult.vhd
 ../../../../ip_lib/VFP/src/Filters/color_correction.vhd
 ../../../../ip_lib/VFP/src/Filters/dither_filter.vhd

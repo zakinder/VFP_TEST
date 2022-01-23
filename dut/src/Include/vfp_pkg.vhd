@@ -41,7 +41,7 @@ package body vfp_pkg is
     ----------------------------------------------------------------------------------------------------
     function image_size_width(bmp: string) return integer is
     begin
-       if bmp = "64_64"  then
+       if bmp = "64_64"  then 
            return 64;
        elsif bmp = "100_100" then
            return 100;
@@ -57,6 +57,8 @@ package body vfp_pkg is
            return 272;
        elsif bmp = "300_300" then
            return 300;
+       elsif bmp = "368_393" then
+           return 368;
        elsif bmp = "500_26" then
            return 500;
        elsif bmp = "500_200" then
@@ -98,6 +100,8 @@ package body vfp_pkg is
            return 832;
        elsif bmp = "300_300" then
            return 300;
+       elsif bmp = "368_393" then
+           return 393;
        elsif bmp = "500_26" then
            return 26;
        elsif bmp = "500_200" then
