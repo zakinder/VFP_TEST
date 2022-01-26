@@ -45,10 +45,10 @@ module video_process_dut(d5m_camera_if.ConfigMaster d5m_camera_vif);
 endmodule: video_process_dut
 
 
-
-// This module wrapper is top dut module which is instanited at top tb testbench.
-
 // MODULE : VFP_v1_0
+// This module wrapper is top dut module which is instanited at top tb testbench.
+// Dut has D5M camera interface, axi4-stream tx/rx channels and axi4-lite configuration.
+
 module vfpConfigd5mCameraDut(d5m_camera_if.ConfigMaster d5m_camera_vif);
 VFP_v1_0                      #(
     .revision_number           ( revision_number                  ),

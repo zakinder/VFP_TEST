@@ -3,9 +3,7 @@ class vfp_reg extends uvm_object;
   `uvm_object_utils(vfp_reg)
   
   rand vfp_regs reg_field;
-  
   vfp_regs regs_packet;
-  
   static  int write_unused        = reg_02_wr_unused;
   static  int rgb_sharp           = reg_00_rgb_sharp;
   static  int edge_type           = reg_01_edge_type;

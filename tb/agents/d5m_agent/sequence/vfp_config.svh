@@ -7,7 +7,6 @@ class vfp_config extends uvm_object;
   string vfp_name;
   int valid_status;
   rand vfp_reg vfp_pkt;
-
   vfp_regs  validate_reg_pkts;
   vfp_regs  reg_vpkts;
   
