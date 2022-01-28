@@ -1,3 +1,3 @@
 package frame_en_lib;
-    `define hsl_v3                      1
+    `define hsv_v2                      1
 endpackage
