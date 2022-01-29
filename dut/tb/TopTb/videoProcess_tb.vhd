@@ -54,46 +54,46 @@ architecture behavioral of video_process_tb is
     -------------------------------------------------
     constant F_HSV                       : boolean := true;
     constant F_HSL                       : boolean := true;
-    constant HSV_L                       : boolean := true;
-    constant HSV_1                       : boolean := true;
-    constant HSV_2                       : boolean := true;
-    constant HSV_3                       : boolean := true;
-    constant HSV_4                       : boolean := true;
-    constant HSVL1                       : boolean := true;
-    constant HSVL2                       : boolean := true;
-    constant HSVL3                       : boolean := true;
-    constant HSVL4                       : boolean := true;
+    constant HSV_L                       : boolean := false;
+    constant HSV_1                       : boolean := false;
+    constant HSV_2                       : boolean := false;
+    constant HSV_3                       : boolean := false;
+    constant HSV_4                       : boolean := false;
+    constant HSVL1                       : boolean := false;
+    constant HSVL2                       : boolean := false;
+    constant HSVL3                       : boolean := false;
+    constant HSVL4                       : boolean := false;
     -------------------------------------------------
-    constant F_RE1                       : boolean := true;
-    constant F_RE2                       : boolean := true;
-    constant F_RE3                       : boolean := true;
-    constant F_RE4                       : boolean := true;
-    constant F_RE5                       : boolean := true;
-    constant F_RE6                       : boolean := true;
-    constant F_RE7                       : boolean := true;
-    constant F_RE8                       : boolean := true;
+    constant F_RE1                       : boolean := false;
+    constant F_RE2                       : boolean := false;
+    constant F_RE3                       : boolean := false;
+    constant F_RE4                       : boolean := false;
+    constant F_RE5                       : boolean := false;
+    constant F_RE6                       : boolean := false;
+    constant F_RE7                       : boolean := false;
+    constant F_RE8                       : boolean := false;
     -------------------------------------------------
     constant F_TES                       : boolean := false;
-    constant F_LUM                       : boolean := true;
-    constant F_TRM                       : boolean := true;
-    constant F_OHS                       : boolean := true;--colorhsl
-    constant L_AVG                       : boolean := true;
-    constant L_OBJ                       : boolean := true;
-    constant L_HIS                       : boolean := true;
-    constant L_SPC                       : boolean := true;
+    constant F_LUM                       : boolean := false;
+    constant F_TRM                       : boolean := false;
+    constant F_OHS                       : boolean := false;--colorhsl
+    constant L_AVG                       : boolean := false;
+    constant L_OBJ                       : boolean := false;
+    constant L_HIS                       : boolean := false;
+    constant L_SPC                       : boolean := false;
     -------------------------------------------------
-    constant F_RGB                       : boolean := true;
+    constant F_RGB                       : boolean := false;
     constant F_SHP                       : boolean := false;
     constant F_BLU                       : boolean := false;
     constant F_EMB                       : boolean := false;
-    constant F_YCC                       : boolean := true;
+    constant F_YCC                       : boolean := false;
     constant F_SOB                       : boolean := false;
-    constant F_CGA                       : boolean := true;
+    constant F_CGA                       : boolean := false;
     constant L_BLU                       : boolean := false;-- synBlur
     constant L_SHP                       : boolean := false;-- synSharp
-    constant L_CGA                       : boolean := true;-- synCgain
-    constant L_YCC                       : boolean := true; 
-    constant L_D1T                       : boolean := true; 
+    constant L_CGA                       : boolean := false;-- synCgain
+    constant L_YCC                       : boolean := false; 
+    constant L_D1T                       : boolean := false; 
     constant L_B1T                       : boolean := false; 
     -------------------------------------------------
     constant MASK_TRUE                   : boolean := true;
@@ -132,7 +132,7 @@ architecture behavioral of video_process_tb is
     -------------------------------------------------
     constant F_BLUR_CHANNELS             : boolean := false;
     constant F_DITH_CHANNELS             : boolean := false;
-    constant RGB_FRAME_MIX               : boolean := true;
+    constant RGB_FRAME_MIX               : boolean := false;
     -------------------------------------------------
     -- FILTER_K_CGA = F_SHP_TO_YCC F_SHP_TO_SHP F_BLU_TO_CGA F_CGA_TO_CGA
     -------------------------------------------------
