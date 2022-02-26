@@ -8,7 +8,7 @@ class img_base_seq extends uvm_sequence #(d5m_trans);
     cell_set                choices;
     d5m_trans               item;
     vfp_regs                vpkts;
-    config_axi4_seq         axi_cnf_seq_h;
+
     
 
     int set_increment;
@@ -36,38 +36,48 @@ class img_base_seq extends uvm_sequence #(d5m_trans);
     bit [7:0]  aBusSelect;
     bit [7:0]  addr;
     bit [31:0] data;
-    
+    int rgb_sharp           = reg_00_rgb_sharp;
+    int edge_type           = reg_01_edge_type;
+    int config_threshold    = reg_04_config_threshold;
+    int video_channel       = reg_05_video_channel;
+    int c_channel           = reg_07_c_channel;
+    int en_ycbcr_or_rgb     = reg_06_en_ycbcr_or_rgb;
+    int point_interest      = reg_31_point_interest;
+    int delta_config        = reg_32_delta_config;
+    int cpu_ack_go_again    = reg_33_cpu_ack_go_again;
+    int cpu_wgrid_lock      = reg_34_cpu_wgrid_lock;
+    int cpu_ack_off_frame   = reg_35_cpu_ack_off_frame;
+    int fifo_read_address   = reg_36_fifo_read_address;
+    int clear_fifo_data     = reg_37_clear_fifo_data;
+    int rgb_cord_rl         = reg_50_rgb_cord_rl;
+    int rgb_cord_rh         = reg_51_rgb_cord_rh;
+    int rgb_cord_gl         = reg_52_rgb_cord_gl;
+    int rgb_cord_gh         = reg_53_rgb_cord_gh;
+    int rgb_cord_bl         = reg_54_rgb_cord_bl;
+    int rgb_cord_bh         = reg_55_rgb_cord_bh;
+    int lum_th              = reg_56_lum_th;
+    int hsv_per_ch          = reg_57_hsv_per_ch;
+    int ycc_per_ch          = reg_58_ycc_per_ch;
     
     // Function: new
     function new(string name="img_base_seq");
         super.new(name);
-        axi_cnf_seq_h 	= config_axi4_seq::type_id::create("axi_cnf_seq_h");
     endfunction: new
     
     // Method: body 
     virtual task body();
-        axi_cnf_seq_h.rgb_sharp           = reg_00_rgb_sharp;
-        axi_cnf_seq_h.edge_type           = reg_01_edge_type;
-        axi_cnf_seq_h.config_threshold    = reg_04_config_threshold;
-        axi_cnf_seq_h.video_channel       = reg_05_video_channel;
-        axi_cnf_seq_h.c_channel           = reg_07_c_channel;
-        axi_cnf_seq_h.en_ycbcr_or_rgb     = reg_06_en_ycbcr_or_rgb;
-        axi_cnf_seq_h.point_interest      = reg_31_point_interest;
-        axi_cnf_seq_h.delta_config        = reg_32_delta_config;
-        axi_cnf_seq_h.cpu_ack_go_again    = reg_33_cpu_ack_go_again;
-        axi_cnf_seq_h.cpu_wgrid_lock      = reg_34_cpu_wgrid_lock;
-        axi_cnf_seq_h.cpu_ack_off_frame   = reg_35_cpu_ack_off_frame;
-        axi_cnf_seq_h.fifo_read_address   = reg_36_fifo_read_address;
-        axi_cnf_seq_h.clear_fifo_data     = reg_37_clear_fifo_data;
-        axi_cnf_seq_h.rgb_cord_rl         = reg_50_rgb_cord_rl;
-        axi_cnf_seq_h.rgb_cord_rh         = reg_51_rgb_cord_rh;
-        axi_cnf_seq_h.rgb_cord_gl         = reg_52_rgb_cord_gl;
-        axi_cnf_seq_h.rgb_cord_gh         = reg_53_rgb_cord_gh;
-        axi_cnf_seq_h.rgb_cord_bl         = reg_54_rgb_cord_bl;
-        axi_cnf_seq_h.rgb_cord_bh         = reg_55_rgb_cord_bh;
-        axi_cnf_seq_h.lum_th              = reg_56_lum_th;
-        axi_cnf_seq_h.hsv_per_ch          = reg_57_hsv_per_ch;
-        axi_cnf_seq_h.ycc_per_ch          = reg_58_ycc_per_ch;
+        `display_parameter_data_s_d(F_CGA);
+        `display_parameter_data_s_d(F_SHP);
+        `display_parameter_data_s_d(F_BLU);
+        `display_parameter_data_s_d(F_HSL);
+        `display_parameter_data_s_d(F_HSV);
+        `display_parameter_data_s_d(F_RGB);
+        `display_parameter_data_s_d(F_SOB);
+        `display_parameter_data_s_d(F_EMB);
+        `display_parameter_data_s_s(read_bmp);
+        `display_parameter_data_s_d(img_width_bmp);
+        `display_parameter_data_s_d(img_height_bmp);
+        `display_parameter_data_s_d(reg_05_video_channel);
     endtask: body
 
 
@@ -141,6 +151,16 @@ class img_base_seq extends uvm_sequence #(d5m_trans);
         end
     endtask: axi_read_channel
     
+    // Method:  axi_write_read_channel
+    virtual task axi_write_read_channel (bit[7:0] addr,bit[31:0] data);
+        d5m_trans item;
+        `uvm_create(item)
+        item.axi4_lite.addr           = {7'h0,addr};
+        item.axi4_lite.data           = data;
+        item.d5m_txn                  = AXI4_WRITE;
+        `uvm_send(item);
+        axi_read_back_channel(addr);
+    endtask: axi_write_read_channel
     
     // Method:  axi_read_back_channel
     virtual task axi_read_back_channel(bit[7:0] addr);
@@ -332,7 +352,13 @@ class img_base_seq extends uvm_sequence #(d5m_trans);
         item.d5m_txn          = AXI4_WRITE;
         `uvm_send(item);
     endtask: axi_write_aBusSelect_channel
-    
+    virtual protected task d5m_read();
+            d5m_trans item;
+            `uvm_create(item)
+            item.d5p.iImageTypeTest = 1'b0;
+            item.d5m_txn            = IMAGE_READ;
+            `uvm_send(item);
+    endtask: d5m_read
     virtual protected task d5m_write_create_frames(int number_frames,int lval_lines,int lval_offset,int image_width,bit enable_pattern);
         d5m_trans item;
         int y_cord;

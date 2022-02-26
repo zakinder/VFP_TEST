@@ -2,20 +2,14 @@
 class img_pattern_seq extends img_base_seq;
     `uvm_object_utils(img_pattern_seq)
     rgb_set_frame        frame_pkts_h;
-    // Function: new
+
     function new(string name="img_pattern_seq");
         super.new(name);
         frame_pkts_h = rgb_set_frame::type_id::create("frame_pkts_h");
     endfunction: new
-    // Method:  body
 
     virtual task body();
         super.body();
-
-
-
-
-        
         max_num_video_select    = 50;
         fifo_read_enable        = 32'h10000;
         pReg_fifoReadAddress    = 8'h90;

@@ -6,8 +6,8 @@ class img_shp_cga_seq extends img_base_seq;
    img_read_seq            img_seq_h;
    protected img_seqr      d5m_sqr_h;
    uvm_component           uvm_component_h;
+   config_axi4_seq         axi_cnf_seq_h;
 
-    // Function: new
     function new(string name = "img_shp_cga_seq");
         super.new(name);
         uvm_component_h   =  uvm_top.find("*d5m_sqr_h");
@@ -19,7 +19,7 @@ class img_shp_cga_seq extends img_base_seq;
     endfunction : new
  
 
-    // Method:  body
+
     task body();
         super.body();
         //start axi configuration

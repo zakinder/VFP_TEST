@@ -1,6 +1,6 @@
 vlog -f ../../includes/dut_vlg.f
 
-vopt top -o top_optimized  +acc +cover=sbfec+top(rtl).
+vopt top -o top_optimized +cover=sbfec+top(rtl).
 vsim top_optimized -coverage +UVM_TESTNAME=img_cgain_hsl_test
 set NoQuitOnFinish 1
 onbreak {resume}

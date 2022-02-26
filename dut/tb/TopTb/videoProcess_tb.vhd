@@ -51,9 +51,10 @@ architecture behavioral of video_process_tb is
     constant F_CGA_GAIN_BLU              : boolean := false;
     -------------------------------------------------
     constant vChannelSelect              : integer := FILTER_K_CGA;
+    constant F_TES                       : boolean := false;
     -------------------------------------------------
-    constant F_HSV                       : boolean := true;
-    constant F_HSL                       : boolean := true;
+    constant F_HSV                       : boolean := false;
+    constant F_HSL                       : boolean := false;
     constant HSV_L                       : boolean := false;
     constant HSV_1                       : boolean := false;
     constant HSV_2                       : boolean := false;
@@ -63,6 +64,7 @@ architecture behavioral of video_process_tb is
     constant HSVL2                       : boolean := false;
     constant HSVL3                       : boolean := false;
     constant HSVL4                       : boolean := false;
+    constant RGB_FRAME_MIX               : boolean := false;
     -------------------------------------------------
     constant F_RE1                       : boolean := false;
     constant F_RE2                       : boolean := false;
@@ -73,28 +75,60 @@ architecture behavioral of video_process_tb is
     constant F_RE7                       : boolean := false;
     constant F_RE8                       : boolean := false;
     -------------------------------------------------
-    constant F_TES                       : boolean := false;
+    constant F_CC1                       : boolean := false;
+    constant F_CC2                       : boolean := false;
+    constant F_CC3                       : boolean := true;
+    constant F_CC4                       : boolean := false;
+    constant F_CC5                       : boolean := false;
+    constant F_CC6                       : boolean := true;
+    constant F_CC7                       : boolean := false;
+    constant F_CC8                       : boolean := false;
+    -------------------------------------------------
+    constant FCMYK                       : boolean := false;
+    constant F_XYZ                       : boolean := false;
+    constant F_LMS                       : boolean := false;
+    constant YPBPR                       : boolean := false;
+    constant F_YUV                       : boolean := false;
+    constant YC1C2                       : boolean := false;
+    constant YDRDB                       : boolean := false;
+    constant F_IPT                       : boolean := false;
+    constant F_YIQ                       : boolean := false;
+    constant F_HED                       : boolean := false;
+    constant FOHTA                       : boolean := false;
+    constant FMICC                       : boolean := false;
+    -------------------------------------------------
     constant F_LUM                       : boolean := false;
     constant F_TRM                       : boolean := false;
-    constant F_OHS                       : boolean := false;--colorhsl
+    constant F_OHS                       : boolean := false; --colorhsl
     constant L_AVG                       : boolean := false;
     constant L_OBJ                       : boolean := false;
+    constant L_SPC                       : boolean := false; --init_channel
     constant L_HIS                       : boolean := false;
-    constant L_SPC                       : boolean := false;
     -------------------------------------------------
-    constant F_RGB                       : boolean := false;
     constant F_SHP                       : boolean := false;
     constant F_BLU                       : boolean := false;
     constant F_EMB                       : boolean := false;
-    constant F_YCC                       : boolean := false;
     constant F_SOB                       : boolean := false;
-    constant F_CGA                       : boolean := false;
-    constant L_BLU                       : boolean := false;-- synBlur
-    constant L_SHP                       : boolean := false;-- synSharp
-    constant L_CGA                       : boolean := false;-- synCgain
-    constant L_YCC                       : boolean := false; 
+    constant L_BLU                       : boolean := false;
     constant L_D1T                       : boolean := false; 
-    constant L_B1T                       : boolean := false; 
+    constant L_B1T                       : boolean := false;
+    -------------------------------------------------
+    constant F_RGB                       : boolean := false;
+    constant F_YCC                       : boolean := false;
+    constant F_CGA                       : boolean := false;
+    constant L_SHP                       : boolean := false;
+    constant L_YCC                       : boolean := false; 
+    -------------------------------------------------
+    constant L1CGA                       : boolean := true;
+    constant L2CGA                       : boolean := true;
+    constant L3CGA                       : boolean := true;
+    constant L4CGA                       : boolean := true;
+    constant L5CGA                       : boolean := true;
+    constant L6CGA                       : boolean := true;
+    constant L7CGA                       : boolean := true;
+    constant L8CGA                       : boolean := true;
+    -------------------------------------------------
+    constant CONTRAST_BRIGHT             : boolean := false; 
     -------------------------------------------------
     constant MASK_TRUE                   : boolean := true;
     constant MASK_FLSE                   : boolean := false;
@@ -106,7 +140,7 @@ architecture behavioral of video_process_tb is
     constant M_SOB_YCC                   : boolean := selframe(F_SOB,F_YCC,MASK_FLSE);
     constant M_SOB_CGA                   : boolean := selframe(F_SOB,F_CGA,MASK_FLSE);
     constant M_SOB_HSV                   : boolean := selframe(F_SOB,F_HSV,MASK_FLSE);
-    constant M_SOB_HSL                   : boolean := selframe(F_SOB,F_HSL,MASK_FLSE);
+    constant M_SOB_HSL                   : boolean := selframe(F_SOB,(F_HSL or L1CGA),MASK_FLSE);
     -------------------------------------------------
     constant PER_FRE_TRUE                : boolean := PerFrame(Per_Frame(vChannelSelect,FILTER_K_CGA),F_CGA,F_SHP);
     constant F_CGA_TO_CGA                : boolean := PER_FRE_TRUE;--IF:FILTER_K_CGA = F_KCGA_TO_LCGA
@@ -132,7 +166,6 @@ architecture behavioral of video_process_tb is
     -------------------------------------------------
     constant F_BLUR_CHANNELS             : boolean := false;
     constant F_DITH_CHANNELS             : boolean := false;
-    constant RGB_FRAME_MIX               : boolean := false;
     -------------------------------------------------
     -- FILTER_K_CGA = F_SHP_TO_YCC F_SHP_TO_SHP F_BLU_TO_CGA F_CGA_TO_CGA
     -------------------------------------------------
@@ -145,7 +178,7 @@ architecture behavioral of video_process_tb is
     signal cYccR                         : std_logic := lo;
     signal cYcc                          : std_logic_vector(2 downto 0);
     signal iLumTh                        : integer := 5;
-    signal iSobelTh                      : integer := 50;
+    signal iSobelTh                      : integer := 10;
     signal iHsvPerCh                     : integer := 0;--[0-cHsv,1-cHsvH,2-cHsvS,3-cHsvV]
     signal iYccPerCh                     : integer := 0;--[0-cYcc,1-cYccY,2-cYccB,3-cYccR]
     signal iFilterId                     : integer := 2;--[0-cYcc,1-cYccY,2-cYccB,3-cYccR]
@@ -225,6 +258,13 @@ port map (
     oRgb                  => rgb1Read);
 cordValues.x      <= to_integer((unsigned(tx1Cord.x)));
 cordValues.y      <= to_integer((unsigned(tx1Cord.y)));
+
+process(cordValues)begin
+if(cordValues.x = 0)then
+    report "--------------> cordValues.y " & integer'image(cordValues.y);
+end if;
+end process;
+
 sync_cord_inst: sync_cord
 generic map (
     cordDelay            => 34)
@@ -252,6 +292,26 @@ generic map(
     F_RE6                 =>  F_RE6,
     F_RE7                 =>  F_RE7,
     F_RE8                 =>  F_RE8,
+    FCMYK                 =>  FCMYK,
+    F_XYZ                 =>  F_XYZ,
+    F_LMS                 =>  F_LMS,
+    YPBPR                 =>  YPBPR,
+    F_YUV                 =>  F_YUV,
+    YC1C2                 =>  YC1C2,
+    YDRDB                 =>  YDRDB,
+    F_IPT                 =>  F_IPT,
+    F_YIQ                 =>  F_YIQ,
+    F_HED                 =>  F_HED,
+    FOHTA                 =>  FOHTA,
+    FMICC                 =>  FMICC,
+    F_CC1                 =>  F_CC1,
+    F_CC2                 =>  F_CC2,
+    F_CC3                 =>  F_CC3,
+    F_CC4                 =>  F_CC4,
+    F_CC5                 =>  F_CC5,
+    F_CC6                 =>  F_CC6,
+    F_CC7                 =>  F_CC7,
+    F_CC8                 =>  F_CC8,
     F_TES                 =>  F_TES,
     F_LUM                 =>  F_LUM,
     F_TRM                 =>  F_TRM,
@@ -271,7 +331,14 @@ generic map(
     L_OBJ                 =>  L_OBJ,
     L_D1T                 =>  L_D1T,
     L_B1T                 =>  L_B1T,
-    L_CGA                 =>  L_CGA,
+    L1CGA                 =>  L1CGA,
+    L2CGA                 =>  L2CGA,
+    L3CGA                 =>  L3CGA,
+    L4CGA                 =>  L4CGA,
+    L5CGA                 =>  L5CGA,
+    L6CGA                 =>  L6CGA,
+    L7CGA                 =>  L7CGA,
+    L8CGA                 =>  L8CGA,
     L_YCC                 =>  L_YCC,
     L_HIS                 =>  L_HIS,
     L_SPC                 =>  L_SPC,
@@ -433,7 +500,7 @@ generic map (
     L_OBJ                 => L_OBJ,
     L_D1T                 => L_D1T,
     L_B1T                 => L_B1T,
-    L_CGA                 => L_CGA,
+    L_CGA                 => L1CGA,
     L_YCC                 => L_YCC,
     enImageText           => true,
     enImageIndex          => true,
@@ -444,7 +511,7 @@ generic map (
 port map (                  
     pixclk                => clk,
     iRgb                  => rgbImageFilters);
-RGB_FRAME_MIX_ENABLED : if (L_CGA = true) generate 
+RGB_FRAME_MIX_ENABLED : if (RGB_FRAME_MIX = true) generate 
 begin
 rgbimageframes_inst: frame_remake
 port map (
@@ -452,18 +519,149 @@ port map (
     reset                 => resetn,
     iEdgeValid            => edgeValid,
     iRgb                  => rgbImageFilters);
-L_CGA_INST: write_image
+end generate RGB_FRAME_MIX_ENABLED;
+L1CGA_ENABLED : if (L1CGA = true) generate 
+begin
+L1CGA_INST: write_image
 generic map (
     enImageText           => true,
     enImageIndex          => true,
     i_data_width          => i_data_width,
     test                  => testFolder,
     input_file            => readbmp,
-    output_file           => "syncgain")
+    output_file           => "ccc1")
 port map (                  
     pixclk                => clk,
-    iRgb                  => rgbImageFilters.synCgain);
-end generate RGB_FRAME_MIX_ENABLED;
+    iRgb                  => rgbImageFilters.ccc1);
+end generate L1CGA_ENABLED;
+L2CGA_ENABLED : if (L2CGA = true) generate 
+begin
+L2CGA_INST: write_image
+generic map (
+    enImageText           => true,
+    enImageIndex          => true,
+    i_data_width          => i_data_width,
+    test                  => testFolder,
+    input_file            => readbmp,
+    output_file           => "ccc2")
+port map (                  
+    pixclk                => clk,
+    iRgb                  => rgbImageFilters.ccc2);
+end generate L2CGA_ENABLED;
+L3CGA_ENABLED : if (L3CGA = true) generate 
+begin
+L3CGA_INST: write_image
+generic map (
+    enImageText           => true,
+    enImageIndex          => true,
+    i_data_width          => i_data_width,
+    test                  => testFolder,
+    input_file            => readbmp,
+    output_file           => "ccc3")
+port map (                  
+    pixclk                => clk,
+    iRgb                  => rgbImageFilters.ccc3);
+end generate L3CGA_ENABLED;
+L4CGA_ENABLED : if (L4CGA = true) generate 
+begin
+L4CGA_INST: write_image
+generic map (
+    enImageText           => true,
+    enImageIndex          => true,
+    i_data_width          => i_data_width,
+    test                  => testFolder,
+    input_file            => readbmp,
+    output_file           => "ccc4")
+port map (                  
+    pixclk                => clk,
+    iRgb                  => rgbImageFilters.ccc4);
+end generate L4CGA_ENABLED;
+
+
+L5CGA_ENABLED : if (L5CGA = true) generate 
+begin
+L5CGA_INST: write_image
+generic map (
+    enImageText           => true,
+    enImageIndex          => true,
+    i_data_width          => i_data_width,
+    test                  => testFolder,
+    input_file            => readbmp,
+    output_file           => "ccc5")
+port map (                  
+    pixclk                => clk,
+    iRgb                  => rgbImageFilters.ccc5);
+end generate L5CGA_ENABLED;
+L6CGA_ENABLED : if (L6CGA = true) generate 
+begin
+L6CGA_INST: write_image
+generic map (
+    enImageText           => true,
+    enImageIndex          => true,
+    i_data_width          => i_data_width,
+    test                  => testFolder,
+    input_file            => readbmp,
+    output_file           => "ccc6")
+port map (                  
+    pixclk                => clk,
+    iRgb                  => rgbImageFilters.ccc6);
+end generate L6CGA_ENABLED;
+L7CGA_ENABLED : if (L7CGA = true) generate 
+begin
+L7CGA_INST: write_image
+generic map (
+    enImageText           => true,
+    enImageIndex          => true,
+    i_data_width          => i_data_width,
+    test                  => testFolder,
+    input_file            => readbmp,
+    output_file           => "ccc7")
+port map (                  
+    pixclk                => clk,
+    iRgb                  => rgbImageFilters.ccc7);
+end generate L7CGA_ENABLED;
+L8CGA_ENABLED : if (L8CGA = true) generate 
+begin
+L8CGA_INST: write_image
+generic map (
+    enImageText           => true,
+    enImageIndex          => true,
+    i_data_width          => i_data_width,
+    test                  => testFolder,
+    input_file            => readbmp,
+    output_file           => "ccc8")
+port map (                  
+    pixclk                => clk,
+    iRgb                  => rgbImageFilters.ccc8);
+end generate L8CGA_ENABLED;
+
+
+RGB_CONTRAST_BRIGHTNESS_ENABLED : if (CONTRAST_BRIGHT = true) generate 
+signal rgb_contrast_bright : channel;
+begin
+rgb_contrast_brightness_inst: rgb_contrast_brightness
+generic map (
+    exposer_val  => 4)
+port map (                  
+    clk               => clk,
+    rst_l             => resetn,
+    iRgb              => rgb1Read,
+    oRgb              => rgb_contrast_bright);
+contrast_bright_inst: write_image
+generic map (
+    enImageText           => true,
+    enImageIndex          => true,
+    i_data_width          => i_data_width,
+    test                  => testFolder,
+    input_file            => readbmp,
+    output_file           => "rgb_contrast_bright")
+port map (                  
+    pixclk                => clk,
+    iRgb                  => rgb_contrast_bright);
+end generate RGB_CONTRAST_BRIGHTNESS_ENABLED;
+
+
+
 SYN_SHARP_ENABLED : if (L_SHP = true) generate 
 begin
 rgbimageframes_inst: frame_remake
@@ -680,6 +878,267 @@ port map (
     pixclk                => clk,
     iRgb                  => rgbImageFilters.colorTrm);
 end generate F_TRM_TEST_ENABLED;
+FCMYK_ENABLED : if (FCMYK = true) generate  
+cmyk_image_inst: write_image
+generic map (
+    enImageText           => true,
+    enImageIndex          => true,
+    i_data_width          => i_data_width,
+    test                  => testFolder,
+    input_file            => readbmp,
+    output_file           => "cmyk")
+port map (                  
+    pixclk                => clk,
+    iRgb                  => rgbImageFilters.cmyk);
+end generate FCMYK_ENABLED;
+F_XYZ_ENABLED : if (F_XYZ = true) generate  
+xyz_image_inst: write_image
+generic map (
+    enImageText           => true,
+    enImageIndex          => true,
+    i_data_width          => i_data_width,
+    test                  => testFolder,
+    input_file            => readbmp,
+    output_file           => "xyz")
+port map (                  
+    pixclk                => clk,
+    iRgb                  => rgbImageFilters.xyz);
+end generate F_XYZ_ENABLED;
+F_LMS_ENABLED : if (F_LMS = true) generate  
+lms_image_inst: write_image
+generic map (
+    enImageText           => true,
+    enImageIndex          => true,
+    i_data_width          => i_data_width,
+    test                  => testFolder,
+    input_file            => readbmp,
+    output_file           => "lms")
+port map (                  
+    pixclk                => clk,
+    iRgb                  => rgbImageFilters.lms);
+end generate F_LMS_ENABLED;
+YPBPR_ENABLED : if (YPBPR = true) generate  
+ypbpr_image_inst: write_image
+generic map (
+    enImageText           => true,
+    enImageIndex          => true,
+    i_data_width          => i_data_width,
+    test                  => testFolder,
+    input_file            => readbmp,
+    output_file           => "ypbpr")
+port map (                  
+    pixclk                => clk,
+    iRgb                  => rgbImageFilters.ypbpr);
+end generate YPBPR_ENABLED;
+F_YUV_ENABLED : if (F_YUV = true) generate  
+yuv_image_inst: write_image
+generic map (
+    enImageText           => true,
+    enImageIndex          => true,
+    i_data_width          => i_data_width,
+    test                  => testFolder,
+    input_file            => readbmp,
+    output_file           => "yuv")
+port map (                  
+    pixclk                => clk,
+    iRgb                  => rgbImageFilters.yuv);
+end generate F_YUV_ENABLED;
+F_YC1C2_ENABLED : if (YC1C2 = true) generate  
+yc1c2_image_inst: write_image
+generic map (
+    enImageText           => true,
+    enImageIndex          => true,
+    i_data_width          => i_data_width,
+    test                  => testFolder,
+    input_file            => readbmp,
+    output_file           => "yc1c2")
+port map (
+    pixclk                => clk,
+    iRgb                  => rgbImageFilters.yc1c2);
+end generate F_YC1C2_ENABLED;
+
+YDRDB_ENABLED : if (YDRDB = true) generate  
+ydrdb_image_inst: write_image
+generic map (
+    enImageText           => true,
+    enImageIndex          => true,
+    i_data_width          => i_data_width,
+    test                  => testFolder,
+    input_file            => readbmp,
+    output_file           => "ydrdb")
+port map (
+    pixclk                => clk,
+    iRgb                  => rgbImageFilters.ydrdb);
+end generate YDRDB_ENABLED;
+F_IPT_ENABLED : if (F_IPT = true) generate  
+ipt_image_inst: write_image
+generic map (
+    enImageText           => true,
+    enImageIndex          => true,
+    i_data_width          => i_data_width,
+    test                  => testFolder,
+    input_file            => readbmp,
+    output_file           => "ipt")
+port map (                  
+    pixclk                => clk,
+    iRgb                  => rgbImageFilters.ipt);
+end generate F_IPT_ENABLED;
+F_YIQ_ENABLED : if (F_YIQ = true) generate  
+yiq_image_inst: write_image
+generic map (
+    enImageText           => true,
+    enImageIndex          => true,
+    i_data_width          => i_data_width,
+    test                  => testFolder,
+    input_file            => readbmp,
+    output_file           => "yiq")
+port map (                  
+    pixclk                => clk,
+    iRgb                  => rgbImageFilters.yiq);
+end generate F_YIQ_ENABLED;
+F_HED_ENABLED : if (F_HED = true) generate  
+hed_image_inst: write_image
+generic map (
+    enImageText           => true,
+    enImageIndex          => true,
+    i_data_width          => i_data_width,
+    test                  => testFolder,
+    input_file            => readbmp,
+    output_file           => "hed")
+port map (                  
+    pixclk                => clk,
+    iRgb                  => rgbImageFilters.hed);
+end generate F_HED_ENABLED;
+FOHTA_ENABLED : if (FOHTA = true) generate  
+ohta_image_inst: write_image
+generic map (
+    enImageText           => true,
+    enImageIndex          => true,
+    i_data_width          => i_data_width,
+    test                  => testFolder,
+    input_file            => readbmp,
+    output_file           => "ohta")
+port map (                  
+    pixclk                => clk,
+    iRgb                  => rgbImageFilters.ohta);
+end generate FOHTA_ENABLED;
+FMICC_ENABLED : if (FMICC = true) generate  
+micc_image_inst: write_image
+generic map (
+    enImageText           => true,
+    enImageIndex          => true,
+    i_data_width          => i_data_width,
+    test                  => testFolder,
+    input_file            => readbmp,
+    output_file           => "micc")
+port map (                  
+    pixclk                => clk,
+    iRgb                  => rgbImageFilters.micc);
+end generate FMICC_ENABLED;
+F_CC1_ENABLED : if (F_CC1 = true) generate  
+cc1_image_inst: write_image
+generic map (
+    enImageText           => true,
+    enImageIndex          => true,
+    i_data_width          => i_data_width,
+    test                  => testFolder,
+    input_file            => readbmp,
+    output_file           => "cc1")
+port map (                  
+    pixclk                => clk,
+    iRgb                  => rgbImageFilters.cc1);
+end generate F_CC1_ENABLED;
+F_CC2_ENABLED : if (F_CC2 = true) generate  
+cc2_image_inst: write_image
+generic map (
+    enImageText           => true,
+    enImageIndex          => true,
+    i_data_width          => i_data_width,
+    test                  => testFolder,
+    input_file            => readbmp,
+    output_file           => "cc2")
+port map (                  
+    pixclk                => clk,
+    iRgb                  => rgbImageFilters.cc2);
+end generate F_CC2_ENABLED;
+F_CC3_ENABLED : if (F_CC3 = true) generate  
+cc3_image_inst: write_image
+generic map (
+    enImageText           => true,
+    enImageIndex          => true,
+    i_data_width          => i_data_width,
+    test                  => testFolder,
+    input_file            => readbmp,
+    output_file           => "cc3")
+port map (                  
+    pixclk                => clk,
+    iRgb                  => rgbImageFilters.cc3);
+end generate F_CC3_ENABLED;
+F_CC4_ENABLED : if (F_CC4 = true) generate  
+cc4_image_inst: write_image
+generic map (
+    enImageText           => true,
+    enImageIndex          => true,
+    i_data_width          => i_data_width,
+    test                  => testFolder,
+    input_file            => readbmp,
+    output_file           => "cc4")
+port map (                  
+    pixclk                => clk,
+    iRgb                  => rgbImageFilters.cc4);
+end generate F_CC4_ENABLED;
+F_CC5_ENABLED : if (F_CC5 = true) generate  
+cc5_image_inst: write_image
+generic map (
+    enImageText           => true,
+    enImageIndex          => true,
+    i_data_width          => i_data_width,
+    test                  => testFolder,
+    input_file            => readbmp,
+    output_file           => "cc5")
+port map (                  
+    pixclk                => clk,
+    iRgb                  => rgbImageFilters.cc5);
+end generate F_CC5_ENABLED;
+F_CC6_ENABLED : if (F_CC6 = true) generate  
+cc6_image_inst: write_image
+generic map (
+    enImageText           => true,
+    enImageIndex          => true,
+    i_data_width          => i_data_width,
+    test                  => testFolder,
+    input_file            => readbmp,
+    output_file           => "cc6")
+port map (                  
+    pixclk                => clk,
+    iRgb                  => rgbImageFilters.cc6);
+end generate F_CC6_ENABLED;
+F_CC7_ENABLED : if (F_CC7 = true) generate  
+cc7_image_inst: write_image
+generic map (
+    enImageText           => true,
+    enImageIndex          => true,
+    i_data_width          => i_data_width,
+    test                  => testFolder,
+    input_file            => readbmp,
+    output_file           => "cc7")
+port map (                  
+    pixclk                => clk,
+    iRgb                  => rgbImageFilters.cc7);
+end generate F_CC7_ENABLED;
+F_CC8_ENABLED : if (F_CC8 = true) generate  
+cc8_image_inst: write_image
+generic map (
+    enImageText           => true,
+    enImageIndex          => true,
+    i_data_width          => i_data_width,
+    test                  => testFolder,
+    input_file            => readbmp,
+    output_file           => "cc8")
+port map (                  
+    pixclk                => clk,
+    iRgb                  => rgbImageFilters.cc8);
+end generate F_CC8_ENABLED;
 COLORHSL_TEST_ENABLED : if (F_OHS = true) generate  
 re1color_image_inst: write_image
 generic map (
@@ -718,6 +1177,8 @@ generic map (
 port map (                  
     pixclk                => clk,
     iRgb                  => rgbImageFilters.re2color);
+end generate F_RE2_TEST_ENABLED;
+F_RE3_TEST_ENABLED : if (F_RE3 = true) generate
 re3color_image_inst: write_image
 generic map (
     enImageText           => true,
@@ -729,6 +1190,8 @@ generic map (
 port map (                  
     pixclk                => clk,
     iRgb                  => rgbImageFilters.re3color);
+end generate F_RE3_TEST_ENABLED;
+F_RE4_TEST_ENABLED : if (F_RE4 = true) generate
 re4color_image_inst: write_image
 generic map (
     enImageText           => true,
@@ -740,6 +1203,8 @@ generic map (
 port map (                  
     pixclk                => clk,
     iRgb                  => rgbImageFilters.re4color);
+end generate F_RE4_TEST_ENABLED;
+F_RE5_TEST_ENABLED : if (F_RE5 = true) generate
 re5color_image_inst: write_image
 generic map (
     enImageText           => true,
@@ -751,6 +1216,8 @@ generic map (
 port map (                  
     pixclk                => clk,
     iRgb                  => rgbImageFilters.re5color);
+end generate F_RE5_TEST_ENABLED;
+F_RE6_TEST_ENABLED : if (F_RE6 = true) generate
 re6color_image_inst: write_image
 generic map (
     enImageText           => true,
@@ -762,6 +1229,8 @@ generic map (
 port map (                  
     pixclk                => clk,
     iRgb                  => rgbImageFilters.re6color);
+end generate F_RE6_TEST_ENABLED;
+F_RE7_TEST_ENABLED : if (F_RE7 = true) generate
 re7color_image_inst: write_image
 generic map (
     enImageText           => true,
@@ -773,6 +1242,8 @@ generic map (
 port map (                  
     pixclk                => clk,
     iRgb                  => rgbImageFilters.re7color);
+end generate F_RE7_TEST_ENABLED;
+F_RE8_TEST_ENABLED : if (F_RE8 = true) generate
 re8color_image_inst: write_image
 generic map (
     enImageText           => true,
@@ -784,7 +1255,8 @@ generic map (
 port map (                  
     pixclk                => clk,
     iRgb                  => rgbImageFilters.re8color);
-end generate F_RE2_TEST_ENABLED;   
+end generate F_RE8_TEST_ENABLED;  
+
 F_CGA_TO_BLU_TEST_ENABLED : if (F_CGA_TO_BLU = true) generate 
 signal enableWrite                : std_logic;
 begin
@@ -838,40 +1310,8 @@ port map (
 end generate F_CGA_TO_HSV_TEST_ENABLED;
 F_CGA_TO_HSL_TEST_ENABLED : if (F_CGA_TO_HSL = true) generate 
 signal enableWrite                : std_logic;
-signal HslR                  : channel;
-signal HslG                  : channel;
-signal HslB                  : channel;
-signal HslBB                 : channel;
 begin
 enableWrite <= hi when (rgbImageFilters.cgainToHsl.valid = hi);  
-hsl_r_select_Inst: rgb_select
-port map(
-    clk      => clk,
-    iPerCh   => 1,
-    iRgb     => rgbImageFilters.cgainToHsl,
-    oRgb     => HslR);
-hsl_g_select_Inst: rgb_select
-port map(
-    clk      => clk,
-    iPerCh   => 2,
-    iRgb     => rgbImageFilters.cgainToHsl,
-    oRgb     => HslG);
-hsl_b_select_Inst: rgb_select
-port map(
-    clk      => clk,
-    iPerCh   => 3,
-    iRgb     => rgbImageFilters.cgainToHsl,
-    oRgb     => HslB);
-process(HslR,HslB) begin
-    if (HslR.red = x"00" and HslR.valid = hi) then
-        HslBB <= HslB;
-    else
-        HslBB.red       <= x"00";
-        HslBB.green     <= x"00";
-        HslBB.blue      <= x"00";
-        HslBB.valid     <= HslB.valid;
-    end if;
-end process;
 ImageWriteCgainToHslInst: image_write
 generic map (
     enImageText           => true,
@@ -884,42 +1324,6 @@ port map (
     pixclk                => clk,
     enableWrite           => enableWrite,
     iRgb                  => rgbImageFilters.cgainToHsl);
-ImageWriteCgainTo_Hsl_H_Inst: image_write
-generic map (
-    enImageText           => true,
-    enImageIndex          => true,
-    i_data_width          => i_data_width,
-    test                  => testFolder,
-    input_file            => readbmp,
-    output_file           => "CgainToHsl_H")
-port map (                  
-    pixclk                => clk,
-    enableWrite           => enableWrite,
-    iRgb                  => HslR);
-ImageWriteCgainTo_Hsl_S_Inst: image_write
-generic map (
-    enImageText           => true,
-    enImageIndex          => true,
-    i_data_width          => i_data_width,
-    test                  => testFolder,
-    input_file            => readbmp,
-    output_file           => "CgainToHsl_S")
-port map (                  
-    pixclk                => clk,
-    enableWrite           => enableWrite,
-    iRgb                  => HslG);
-ImageWriteCgainTo_Hsl_L_Inst: image_write
-generic map (
-    enImageText           => true,
-    enImageIndex          => true,
-    i_data_width          => i_data_width,
-    test                  => testFolder,
-    input_file            => readbmp,
-    output_file           => "CgainToHsl_L")
-port map (                  
-    pixclk                => clk,
-    enableWrite           => enableWrite,
-    iRgb                  => HslBB);
 end generate F_CGA_TO_HSL_TEST_ENABLED;
 F_CGA_TO_CGA_TEST_ENABLED : if (F_CGA_TO_CGA = true) generate 
 begin

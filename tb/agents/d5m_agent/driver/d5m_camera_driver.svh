@@ -20,6 +20,7 @@ class d5m_drv extends uvm_driver #(d5m_trans);
 
     // Function: build_phase
     // In this phase, config the dut interface handle through get method.
+	// Get the interface handle using get config_db.
     function void build_phase (uvm_phase phase);
         super.build_phase(phase);
         if (!uvm_config_db#(virtual d5m_camera_if)::get(this, "", "d5m_camera_vif", d5m_camera_vif))

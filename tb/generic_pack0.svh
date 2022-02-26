@@ -8,7 +8,7 @@ package generic_pack;
     `define axi_data1x_witdh                   15
     `define d5m_data2x_witdh                   24
     `define axi_data2x_witdh                   24
-  
+
     parameter low                              =0;
     parameter high                             =1;
     parameter select_cgain                     =0;
@@ -35,7 +35,7 @@ package generic_pack;
     parameter select_rgbDetect                 =47;
     parameter select_rgbPoi                    =48;
     parameter select_y_cb_cr                   =49;
-  
+
   `ifdef cgain_v0
     parameter F_CGA                            =high;
     parameter F_SHP                            =low;
@@ -987,11 +987,12 @@ package generic_pack;
     parameter img_height_bmp                   =64;
     parameter selected_video_channel           =select_cgain;
   `endif
-  
+
     parameter en_ycbcr                         =low;
     parameter en_rgb                           =high;
-    
-   //Vfp Config Registers data values
+    //--------------------------------------------------------------------
+    // Vfp Config Registers data values
+    //--------------------------------------------------------------------
     parameter reg_00_rgb_sharp                 =10;
     parameter reg_01_edge_type                 =11;
     parameter reg_02_wr_unused                 =low;
@@ -1056,17 +1057,21 @@ package generic_pack;
     parameter reg_61_wr_unused                 =low;
     parameter reg_62_wr_unused                 =low;
     parameter reg_63_wr_unused                 =low;
+    //--------------------------------------------------------------------
     
-   //Vfp Config Registers addresses
-    parameter initAddr                         =8'h00;//0   [15]  
-    parameter oRgbOsharp                       =8'h00;//0   [15]         
-    parameter oEdgeType                        =8'h04;//4   [15]    
-    parameter filter_id                        =8'h08;//4   [15]   
-    parameter aBusSelect                       =8'h0C;//12  [15]           
-    parameter threshold                        =8'h10;//16  [15]          
-    parameter videoChannel                     =8'h14;//20  [15]         
-    parameter dChannel                         =8'h18;//24  [15]        
-    parameter cChannel                         =8'h1C;//28  [15]          
+    
+    //--------------------------------------------------------------------
+    // Vfp Config Registers offset addresses
+    //--------------------------------------------------------------------
+    parameter initAddr                         =8'h00;//0   [15]
+    parameter oRgbOsharp                       =8'h00;//0   [15]
+    parameter oEdgeType                        =8'h04;//4   [15]
+    parameter filter_id                        =8'h08;//4   [15]
+    parameter aBusSelect                       =8'h0C;//12  [15]
+    parameter threshold                        =8'h10;//16  [15]
+    parameter videoChannel                     =8'h14;//20  [15]
+    parameter dChannel                         =8'h18;//24  [15]
+    parameter cChannel                         =8'h1C;//28  [15]
     parameter kls_k1                           =8'h20;//32  [15]
     parameter kls_k2                           =8'h24;//36  [15]
     parameter kls_k3                           =8'h28;//40  [15]
@@ -1103,8 +1108,12 @@ package generic_pack;
     parameter oLumTh                           =8'hE0;//224 [56]
     parameter oHsvPerCh                        =8'hE4;//228 [57]
     parameter oYccPerCh                        =8'hE8;//232 [58]
-
-   //Vfp Config Generics
+    //--------------------------------------------------------------------
+    
+    
+    //--------------------------------------------------------------------
+    // Vfp Config Generics
+    //--------------------------------------------------------------------
     parameter revision_number                  =32'h09072019;
     parameter C_rgb_m_axis_TDATA_WIDTH         =24;//16;
     parameter C_rgb_m_axis_START_COUNT         =32;
@@ -1126,6 +1135,12 @@ package generic_pack;
     parameter F_LUM                            =`false;
     parameter F_TRM                            =`false;
     parameter F_YCC                            =`false;
+    //--------------------------------------------------------------------
+    
+    
+    //--------------------------------------------------------------------
+    // 
+    //--------------------------------------------------------------------
     parameter img_frames_cnt_bmp               =1;
     parameter frame_width                      =100;
     parameter lvalid_offset                    =10;
@@ -1139,14 +1154,19 @@ package generic_pack;
     parameter ImTyTest_en_patten               =1'b1;//1 internal pattern , 0 from image file
     parameter rImage_disable                   =1'b0;//if ImTyTest set 1 then set this variable 0 otherwise used for when to read image file when write image module is ready upon clear.
     parameter time_out                         =62;
+    //--------------------------------------------------------------------
     
+    
+    //--------------------------------------------------------------------
+    // 
+    //--------------------------------------------------------------------
     parameter set_increment_value              =87;
-    parameter set_cell_red_value               =45; 
+    parameter set_cell_red_value               =45;
     parameter set_cell_gre_value               =30;
     parameter set_cell_blu_value               =20;
     parameter offset_r                         =0;
     parameter offset_g                         =150;
     parameter offset_b                         =100;
-    
+    //--------------------------------------------------------------------
 
-endpackage                
+endpackage

@@ -44,6 +44,8 @@ architecture arch of sharp_filter is
     signal d3en             : std_logic;
     signal d4en             : std_logic;
     signal d5en             : std_logic;
+    signal d6en             : std_logic;
+    signal d7en             : std_logic;
     signal rCountAddress    : integer;
     signal rAddress         : std_logic_vector(15 downto 0);
     signal rgb1x            : channel;
@@ -114,16 +116,12 @@ tapSignedP : process (clk) begin
         d3en       <= d2en;
         d4en       <= d3en;
         d5en       <= d4en;
-        oRgb.valid <= d5en;
-        if(enable = '1') then
-            vTapRGB0x <=v1TapRGB0x;
-            vTapRGB1x <=v1TapRGB1x;
-            vTapRGB2x <=v1TapRGB2x;
-        else
-            vTapRGB0x <=(others => '0');
-            vTapRGB1x <=(others => '0');
-            vTapRGB2x <=(others => '0');
-        end if;
+        d6en       <= d5en;
+        d7en       <= d6en;
+        oRgb.valid <= d7en;
+        vTapRGB0x  <=v1TapRGB0x;
+        vTapRGB1x  <=v1TapRGB1x;
+        vTapRGB2x  <=v1TapRGB2x;
   end if;
 end process tapSignedP;
 end arch;

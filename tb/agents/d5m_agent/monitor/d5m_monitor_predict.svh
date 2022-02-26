@@ -17,6 +17,7 @@ class d5m_mon_pred extends uvm_monitor;
     bit[7:0] rgb_red_data;
     bit[7:0] rgb_gre_data;
     bit[7:0] rgb_blu_data;
+    
     int number_frames  = 1;
     int lval_offset    = 5;
     int lval_lines     = img_height_bmp;
@@ -129,21 +130,21 @@ class d5m_mon_pred extends uvm_monitor;
         `uvm_fatal("NOVIF",{"virtual interface must be set for: ",get_full_name(), ".d5m_camera_vif"});
     endfunction: build_phase
     
-    // Method:  run_phase
+
     virtual task run_phase (uvm_phase phase);
         fork
             collect_transactions();
         join
     endtask: run_phase
     
-    // Method:  collect_transactions
+
     virtual protected task collect_transactions();
     
-        // Placeholder to capture transaction information.
+
         d5m_trans pred_d5m_h;
         pred_d5m_h        = d5m_trans::type_id::create("pred_d5m_h"); 
         img_pred_h.re_gen_cell_box(lval_lines,image_width,set_cell_red_value,set_cell_gre_value,set_cell_blu_value,set_increment_value,choices);
-        
+
         forever begin
         @(posedge d5m_camera_vif.clkmm)
             pred_d5m_h.vfp.red   = img_pred_h.c_blocker.c_rows[d5m_camera_vif.d5m.y].c_block[d5m_camera_vif.d5m.x].red;

@@ -1,37 +1,18 @@
 // Class: img_file_seq
 class img_file_seq extends img_base_seq;
     `uvm_object_utils(img_file_seq)
-    // Function: new
+
     function new(string name="img_file_seq");
         super.new(name);
     endfunction
-    // Method:  body
-    virtual    task body();
-        d5m_trans item;
-        int number_frames;
-        int lval_lines;
-        int lval_offset;
-        int image_width;
-        bit [31:0] fifo_read_enable      = 32'h10000;//180
-        bit [7:0] pReg_fifoReadAddress   = 8'h90;//116 // pReg_fifoReadEnable --fifo read enable
-        bit [31:0] max_fifo_read_address = 32'h400f;//180
-        bit [7:0] aBusSelect             = 8'h0C;//12 
-        bit enable_pattern  = 1'b0;
-        typedef enum { pattern, random } type_idata;
-        type_idata  data_type;
-        //----------------------------------------------------
-        `uvm_create(item)
-        item.d5p.rgb            = 0;
-        item.d5p.lvalid         = 1'b0;
-        item.d5p.fvalid         = 1'b0;
-        item.d5p.iImageTypeTest = 1'b0;
-        item.d5m_txn            = D5M_WRITE;
-        `uvm_send(item);
-        //----------------------------------------------------
+
+    virtual task body();
+        super.body();
+        init_axi_write_channel(item);
         axi_write_config_reg();
         d5m_read();
     endtask: body
-    // -------------------------------------------------------
+
     virtual protected task axi_write_config_reg ();
         bit [7:0] initAddr               = 8'h00;//0   [15]  
         bit [7:0] oRgbOsharp             = 8'h00;//0   [15]         
@@ -123,19 +104,5 @@ class img_file_seq extends img_base_seq;
         axi_write_channel(oHsvPerCh,0);
         axi_write_channel(oYccPerCh,0);
     endtask: axi_write_config_reg
-    virtual protected task axi_write_channel (bit[7:0] addr,bit[31:0] data);
-            d5m_trans item;
-            `uvm_create(item)
-            item.axi4_lite.addr           = {7'h0,addr};
-            item.axi4_lite.data           = data;
-            item.d5m_txn        = AXI4_WRITE;
-            `uvm_send(item);
-    endtask: axi_write_channel
-    virtual protected task d5m_read ();
-            d5m_trans item;
-            `uvm_create(item)
-            item.d5p.iImageTypeTest = 1'b0;
-            item.d5m_txn        = IMAGE_READ;
-            `uvm_send(item);
-    endtask: d5m_read
+
 endclass: img_file_seq

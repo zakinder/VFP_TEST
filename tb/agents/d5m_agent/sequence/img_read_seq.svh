@@ -1,19 +1,14 @@
 // Class: img_read_seq
-class img_read_seq extends uvm_sequence #(d5m_trans);
+class img_read_seq extends img_base_seq;
     `uvm_object_utils(img_read_seq) 
     
-    // Function: new
     function new(string name="img_read_seq");
         super.new(name);
     endfunction: new
-    
-    // Method:  body
-    virtual    task body();
-        d5m_trans item;
-        `uvm_create(item)
-        item.d5p.iImageTypeTest = 1'b0;
-        item.d5m_txn            = IMAGE_READ;
-        `uvm_send(item);
+
+    virtual task body();
+        super.body();
+        d5m_read();
     endtask: body
-    
+
 endclass: img_read_seq

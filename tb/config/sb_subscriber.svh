@@ -80,16 +80,12 @@ class sb_subscriber extends uvm_subscriber#(d5m_trans);
       super.new( name, parent );
       rgb_cg       = new;
    endfunction: new
-   
+
     // Function: write
     function void write(d5m_trans t);
-        
-        
         rgb_scoreboard  rgb_sc;
         $cast(rgb_sc,m_parent);
-        
         rgb_sc.compare(t);
-        
         d5m_txn = t;
         rgb_cg.sample();
     endfunction: write

@@ -1,3 +1,3 @@
 package frame_en_lib;
-    `define rgb_v0                      1
+    `define sobel_v2                      1
 endpackage

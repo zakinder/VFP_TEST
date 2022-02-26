@@ -7,6 +7,7 @@ class d5m_trans extends uvm_sequence_item;
 
     // handle: vfp
     // vfp is a handle to packed structure rgb_channel, which consist of rgb_image frame bit fields.
+	// To generate the random stimulus, declare the fields as rand
     rand rgb_channel         vfp;
 
     string   read_bmp;
@@ -38,6 +39,7 @@ class d5m_trans extends uvm_sequence_item;
     
     // handle: d5m_txn
     // d5m_txn is a handle to packed structure d5m_txn_e, which consist of rgb_image frame bit fields.
+	// Either write or read operation will be performed by d5m_txn.
     rand d5m_txn_e          d5m_txn;
 
     

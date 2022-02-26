@@ -3,11 +3,11 @@ class img_blur_test extends uvm_test;
     `uvm_component_utils(img_blur_test)
     
     d5m_camera_env d5m_env_h;
-    // Function: new
+
     function new(string name, uvm_component parent);
         super.new(name, parent);
     endfunction: new
-    // Function: build_phase
+
     function void build_phase(uvm_phase phase);
         super.build_phase(phase);
         begin
@@ -18,13 +18,13 @@ class img_blur_test extends uvm_test;
             d5m_env_h = d5m_camera_env::type_id::create(.name("d5m_env_h"),.parent(this));
         end
     endfunction: build_phase
-    // Function: end_of_elaboration_phase
+
     function void end_of_elaboration_phase(uvm_phase phase);
         super.end_of_elaboration_phase(phase);
         this.print();
         factory.print();
     endfunction: end_of_elaboration_phase
-    // Function: run_phase
+
     task run_phase(uvm_phase phase);
         img_blu_seq    seq_h;
         phase.raise_objection(.obj(this));
