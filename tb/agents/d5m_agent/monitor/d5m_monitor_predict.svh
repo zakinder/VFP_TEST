@@ -153,7 +153,7 @@ class d5m_mon_pred extends uvm_monitor;
             pred_d5m_h.vfp.x     = d5m_camera_vif.d5m.x;
             pred_d5m_h.vfp.y     = d5m_camera_vif.d5m.y;
             pred_d5m_h.vfp.valid = d5m_camera_vif.d5m.valid;
-            pred_h       = pred_d5m_h;
+            pred_h               = pred_d5m_h;
             d5m_predict_cg.sample();
             //Send the transaction to the analysis port
             d5m_mon_prd.write(pred_d5m_h);

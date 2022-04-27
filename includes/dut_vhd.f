@@ -40,6 +40,8 @@
 ../../../../ip_lib/VFP/src/Filters/rgb_to_I1I2I3_micc.vhd
 ../../../../ip_lib/VFP/src/Filters/rgb_to_I1I2I3_ohta.vhd
 ../../../../ip_lib/VFP/src/Filters/rgb_contrast_brightness.vhd
+../../../../ip_lib/VFP/src/Filters/rgb_contrast_brightness_level_1.vhd
+../../../../ip_lib/VFP/src/Filters/rgb_contrast_brightness_level_2.vhd
 ../../../../ip_lib/VFP/src/Filters/kernel_core.vhd
 ../../../../ip_lib/VFP/src/Filters/Kernel.vhd
 ../../../../ip_lib/VFP/src/Filters/Filters.vhd
@@ -51,7 +53,10 @@
 ../../../../ip_lib/VFP/src/Control/data_taps.vhd
 ../../../../ip_lib/VFP/src/Control/frame_process.vhd
 ../../../../ip_lib/VFP/src/Control/mWrRd.vhd
+../../../../ip_lib/VFP/src/Control/rgb_3_taps.vhd
+../../../../ip_lib/VFP/src/Control/rgb_4_taps.vhd
 ../../../../ip_lib/VFP/src/Control/rgb_4taps.vhd
+../../../../ip_lib/VFP/src/Control/rgb_8taps.vhd
 ../../../../ip_lib/VFP/src/Control/sign_fixed_resize.vhd
 ../../../../ip_lib/VFP/src/Control/tap4Line.vhd
 ../../../../ip_lib/VFP/src/Control/tapLine.vhd
@@ -82,6 +87,8 @@
 ../../../../ip_lib/VFP/src/Process/point_of_interest.vhd
 ../../../../ip_lib/VFP/src/Process/raw_to_rgb.vhd
 ../../../../ip_lib/VFP/src/Process/recolor_space.vhd
+../../../../ip_lib/VFP/src/Filters/pixel_localization.vhd
+../../../../ip_lib/VFP/src/Process/recolor_space_cluster.vhd
 ../../../../ip_lib/VFP/src/Process/recolor_space_hsl.vhd
 ../../../../ip_lib/VFP/src/Process/rgb_histogram.vhd
 ../../../../ip_lib/VFP/src/Process/rgb_range.vhd

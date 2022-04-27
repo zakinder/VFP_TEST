@@ -1,3 +1,3 @@
 package frame_en_lib;
-    `define sobel_v2                      1
+    `define hsl_v3                      1
 endpackage
